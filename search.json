@@ -1,0 +1,269 @@
+[
+  {
+    "objectID": "calendar.html",
+    "href": "calendar.html",
+    "title": "Calendar",
+    "section": "",
+    "text": "This is an example of embedding a widget with multiple calendars. This might be useful if you want to have different calendars for assignments, exams, instructor office hours, GSI office hours, etc.",
+    "crumbs": [
+      "Calendar"
+    ]
+  },
+  {
+    "objectID": "calendar.html#course-calendar",
+    "href": "calendar.html#course-calendar",
+    "title": "Calendar",
+    "section": "",
+    "text": "This is an example of embedding a widget with multiple calendars. This might be useful if you want to have different calendars for assignments, exams, instructor office hours, GSI office hours, etc.",
+    "crumbs": [
+      "Calendar"
+    ]
+  },
+  {
+    "objectID": "calendar.html#instructions",
+    "href": "calendar.html#instructions",
+    "title": "Calendar",
+    "section": "Instructions",
+    "text": "Instructions\nWe suggest that you delete these instructions before publishing your website.\n\nCreate the Calendars:\n\nGo to Google Calendar.\nOn the left sidebar, click the + sign next to “Other calendars” and select “Create new calendar”.\nCreate your calendars and name them appropriately.\n\nObtain the Embed Code for Each Calendar:\n\nFor each calendar, go to its settings by clicking on the three dots next to the calendar name and selecting “Settings and sharing”.\nIn the calendar settings, scroll down to “Integrate calendar” and copy the embed code provided under “Embed code”.\n\nCombine the Embed Codes:\n\nInstead of copying the entire embed code, you need the calendar’s ID, which is part of the embed URL. It will look something like calendarID@group.calendar.google.com.\nFor example, in the embed URL https://calendar.google.com/calendar/embed?src=calendarID@group.calendar.google.com, calendarID@group.calendar.google.com is the part you need.\n\nCreate a Single Embed Link:\n\nUse the base URL for embedding multiple calendars: https://calendar.google.com/calendar/embed?\nAppend each calendar ID to the base URL using the format &src=calendarID@group.calendar.google.com for each calendar you want to include.\nOptionally, you can customize the appearance by adding parameters (e.g., &color=%23F6BF26 for the color, &ctz=America%2FLos_Angeles for the time zone).\n\nFor example, if you have two calendars with IDs calendar1ID@group.calendar.google.com and calendar2ID@group.calendar.google.com, your combined embed link would look like this:\n\nhttps://calendar.google.com/calendar/embed?src=calendar1ID@group.calendar.google.com&src=calendar2ID@group.calendar.google.com\n\nSubstitute this URL into the src attribute of the calendar’s iframe at the top of this page.",
+    "crumbs": [
+      "Calendar"
+    ]
+  },
+  {
+    "objectID": "staff.html",
+    "href": "staff.html",
+    "title": "Course Staff",
+    "section": "",
+    "text": "[UNDER CONSTRUCTION]\nOffice hours are subject to change.\n\n\n\nInstructor: Shobhana Murali Stoyanov   shobhana@berkeley.edu Office hours:  - Mondays 10 am - 12 pm, Evans 333  pronouns: she/her\n\n\nGSI: Chuao Dong chuaodong@berkeley.edu   Office hours: TBD  pronouns: she/her\n\n\nGSI: [Thomas Lee])(#tl) tholee@berkeley.edu   Office hours: TBD  pronouns: he/him\n\n\nGSI: Tobias Roemer tobias_roemer@berkeley.edu   Office hours: TBD  pronouns: he/him\n\n\nTutor: Neha Suresh neha_suresh@berkeley.edu   pronouns: she/her\n\n\n\n\n\nReader: Jenny Gao    pronouns: she/her\n\n\nReader: Aurora Shi    pronouns: she/her",
+    "crumbs": [
+      "Staff"
+    ]
+  },
+  {
+    "objectID": "license.html",
+    "href": "license.html",
+    "title": "License",
+    "section": "",
+    "text": "This work is licensed under a Creative Commons Attribution 4.0 International License.",
+    "crumbs": [
+      "License"
+    ]
+  },
+  {
+    "objectID": "data.html",
+    "href": "data.html",
+    "title": "Data",
+    "section": "",
+    "text": "[UNDER CONSTRUCTION]",
+    "crumbs": [
+      "Datasets"
+    ]
+  },
+  {
+    "objectID": "data.html#data-1",
+    "href": "data.html#data-1",
+    "title": "Data",
+    "section": "Data 1",
+    "text": "Data 1",
+    "crumbs": [
+      "Datasets"
+    ]
+  },
+  {
+    "objectID": "data.html#data-2",
+    "href": "data.html#data-2",
+    "title": "Data",
+    "section": "Data 2",
+    "text": "Data 2",
+    "crumbs": [
+      "Datasets"
+    ]
+  },
+  {
+    "objectID": "lectures/lecture-3.html",
+    "href": "lectures/lecture-3.html",
+    "title": "Unit 3: More",
+    "section": "",
+    "text": "[UNDER CONSTRUCTION]\nThis is an example of using qmd as the source document with pdf as one target. I’ve taken out the qmd stuff that doesn’t seem to render to pdf."
+  },
+  {
+    "objectID": "lectures/lecture-3.html#evaluated-python-code-chunk-with-a-plot",
+    "href": "lectures/lecture-3.html#evaluated-python-code-chunk-with-a-plot",
+    "title": "Unit 3: More",
+    "section": "Evaluated Python code chunk, with a plot",
+    "text": "Evaluated Python code chunk, with a plot\n\n\nCode\nimport numpy as np\nx = np.random.normal(size=100)\nimport matplotlib.pyplot as plt\nplt.hist(x)\nplt.show()\nnp.mean(x)\n\n\n\n\n\n\n\n\n\nnp.float64(-0.18027451600461286)"
+  },
+  {
+    "objectID": "lectures/lecture-3.html#latex",
+    "href": "lectures/lecture-3.html#latex",
+    "title": "Unit 3: More",
+    "section": "LaTeX",
+    "text": "LaTeX\n\\[\n\\theta = \\int_0^\\infty f(x,\\theta)d\\theta\n\\]"
+  },
+  {
+    "objectID": "lectures/lecture-3.html#latex-macro",
+    "href": "lectures/lecture-3.html#latex-macro",
+    "title": "Unit 3: More",
+    "section": "LaTeX macro",
+    "text": "LaTeX macro\n\nWarning: having include-before-body in the yaml header of this file, as seemingly needed to enable macros, causes extra space at top of page.\n\n\\[\nA = X \\trans Y\n\\]"
+  },
+  {
+    "objectID": "lectures/macros.html",
+    "href": "lectures/macros.html",
+    "title": "",
+    "section": "",
+    "text": "\\[\n\\newcommand{\\trans}{^\\mathsf{T}}\n\\newcommand{\\eps}{\\epsilon}\n\\]"
+  },
+  {
+    "objectID": "lectures/lecture-2.html",
+    "href": "lectures/lecture-2.html",
+    "title": "Lecture 2: Survey Sampling",
+    "section": "",
+    "text": "[UNDER CONSTRUCTION]",
+    "crumbs": [
+      "Lectures",
+      "Lecture 2: Survey Sampling"
+    ]
+  },
+  {
+    "objectID": "lectures/lecture-1.html",
+    "href": "lectures/lecture-1.html",
+    "title": "Lecture 1: Syllabus and Diagnostic Test",
+    "section": "",
+    "text": "The plan for today is to review the syllabus, and then work on the diagnostic test. Please give yourself 15-25 minutes to complete it. Of course, if you take longer we will not know, but you should think about why it is taking you longer, and review those topics that you think you might have forgotten.\nOnce you are done with the test, please upload it to Gradescope. Since this does not count towards your course grade, it is due on Thursday night and there is no extension possible. If you turn it in, you get \\(0.25\\%\\) extra credit towards your final course average. If you don’t turn it in, it’s okay, these things happen. Don’t stress.",
+    "crumbs": [
+      "Lectures",
+      "Lecture 1: Syllabus and Diagnostic Test"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Stat 135: Concepts of Statistics",
+    "section": "",
+    "text": "Ed\n\n  DataHub\n\n  Gradescope\n\n  bCourses\n\n\nNo matching items",
+    "crumbs": [
+      "Home / Schedule"
+    ]
+  },
+  {
+    "objectID": "index.html#schedule",
+    "href": "index.html#schedule",
+    "title": "Stat 135: Concepts of Statistics",
+    "section": "Schedule",
+    "text": "Schedule\n\n\n\n\n   Week 1\n\n   \n   \n   \n   \n   \n   \n\n        \n\n           \n           \n           \n           \n           \n           Jan 19:\n           \n           \n              Lecture 1 Syllabus\n           \n           \n                \n                \n                  \n                    Diagnostic Test\n                  \n                  \n                \n           \n                \n           \n        \n   \n   \n   \n  \n\n   Week 2\n\n   \n   \n   \n   \n   \n   \n\n        \n\n           \n           \n           \n           \n           \n           Aug 29:\n           \n           \n              Lecture 2 Survey Sampling\n           \n           \n                \n           \n                \n           \n        \n\n           \n           \n           \n           \n           \n           \n              Assignment 1 Mystery Assigment\n           \n           \n                \n                \n                  \n                    Note 3\n                  \n                  \n                \n           \n                \n           \n        \n   \n   \n   \n  \n\n\nNo matching items",
+    "crumbs": [
+      "Home / Schedule"
+    ]
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Description",
+    "section": "",
+    "text": "This is one of the three foundational courses of the Statistics Major, the other two being Stat 134 (Concepts of Probability) and Stat 133 (Concepts of Computing). While Stat 134, which is a serious prerequisite for Stat 135, is a course in probability, Stat 135 is a course in statistical inference. It is a comprehensive survey course in statistical theory and methodology. Topics include parameter estimation, hypothesis testing, statistical tests (parametric and non parametric) and linear regression (single and an example of multiple). We will cover most of the content of chapters 7 through 14 in the text Mathematical Statistics and Data Analysis by John Rice (3rd Edition), with a brief look at the content in chapters 5 and 6.\n\n\nBy the end of the semester, you should be able to:\n\nClearly interpret point estimates, confidence intervals, and hypothesis tests for an audience without statistical training.\nConstruct common estimators, statistical tests and confidence interval procedures using probability theory.\nEvaluate the relative strengths and limitations of several estimation or inference procedures for the same problem using mathematical concepts including unbiasedness, efficiency, and power.\nRecommend an approach and carry out estimation and inference for canonical statistics problems including tests of association between two variables and fitting probability distributions to univariate data.\n\n\n\n\n\nSTAT 134 or an equivalent course in probability theory. Do NOT take 134 and 135 concurrently!!\nMultivariable calculus, especially Lagrange multipliers.\nFamiliarity with moment-generating functions.\nFamiliarity with basic R concepts equivalent to the first ~6 weeks of Stat 133. Note that assignments involving computing must be completed in R.\nFamiliarity with linear algebra (matrix operations, inverses, and eigenvalues) for chapter 14.",
+    "crumbs": [
+      "About Stat 135"
+    ]
+  },
+  {
+    "objectID": "about.html#about-stat-135-concepts-of-statistics",
+    "href": "about.html#about-stat-135-concepts-of-statistics",
+    "title": "Description",
+    "section": "",
+    "text": "This is one of the three foundational courses of the Statistics Major, the other two being Stat 134 (Concepts of Probability) and Stat 133 (Concepts of Computing). While Stat 134, which is a serious prerequisite for Stat 135, is a course in probability, Stat 135 is a course in statistical inference. It is a comprehensive survey course in statistical theory and methodology. Topics include parameter estimation, hypothesis testing, statistical tests (parametric and non parametric) and linear regression (single and an example of multiple). We will cover most of the content of chapters 7 through 14 in the text Mathematical Statistics and Data Analysis by John Rice (3rd Edition), with a brief look at the content in chapters 5 and 6.\n\n\nBy the end of the semester, you should be able to:\n\nClearly interpret point estimates, confidence intervals, and hypothesis tests for an audience without statistical training.\nConstruct common estimators, statistical tests and confidence interval procedures using probability theory.\nEvaluate the relative strengths and limitations of several estimation or inference procedures for the same problem using mathematical concepts including unbiasedness, efficiency, and power.\nRecommend an approach and carry out estimation and inference for canonical statistics problems including tests of association between two variables and fitting probability distributions to univariate data.\n\n\n\n\n\nSTAT 134 or an equivalent course in probability theory. Do NOT take 134 and 135 concurrently!!\nMultivariable calculus, especially Lagrange multipliers.\nFamiliarity with moment-generating functions.\nFamiliarity with basic R concepts equivalent to the first ~6 weeks of Stat 133. Note that assignments involving computing must be completed in R.\nFamiliarity with linear algebra (matrix operations, inverses, and eigenvalues) for chapter 14.",
+    "crumbs": [
+      "About Stat 135"
+    ]
+  },
+  {
+    "objectID": "syllabus.html",
+    "href": "syllabus.html",
+    "title": "Syllabus",
+    "section": "",
+    "text": "Lectures will meet on MWF from 2 - 3 pm in Evans 10. Your instructor is Shobhana Murali Stoyanov.\nLectures will cover core theory and concepts, with supporting data analysis examples. To get the full benefit of lecture, it is best to read the supporting material ahead of time. When slides or R code are shown in class, they will be posted online after class. However, lectures will not always have associated slides. I will not be posting recordings of the lectures, but if you have to miss class due to an emergency or unavoidable circumstance, the class notes and text should suffice. Please do come and see me so we can review what you have missed.\nLecture attendance will be measured using occasional quizzes. There will be roughly 8-10 of these handed out in lecture throughout the semester. You need to complete five of them to get the full attendance credit.\n\n\n\nThe sections meet once a week, on Tuesdays, for two hours. The individual section times will be listed in the course calendar. Section time will be spent working on practice problems. Since some problems will involve computing you should plan to always bring your laptop. You may attend a lab for which you are not enrolled (physical space permitting). Labs will not be recorded so attendance is strongly recommended.\nYour GSIs are Chuao Dong, Thomas Lee, and Toby Roemer.\n\n\n\nProf. Stoyanov and one of the GSIs will hold individual office hours each week. In addition, there will be group office hours in one of the 3rd floor classrooms in Evans, the room and hours TBA. You can go to these to get questions answered about homework or any concepts discussed in class, or help with your coding assignments.",
+    "crumbs": [
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#logistics",
+    "href": "syllabus.html#logistics",
+    "title": "Syllabus",
+    "section": "",
+    "text": "Lectures will meet on MWF from 2 - 3 pm in Evans 10. Your instructor is Shobhana Murali Stoyanov.\nLectures will cover core theory and concepts, with supporting data analysis examples. To get the full benefit of lecture, it is best to read the supporting material ahead of time. When slides or R code are shown in class, they will be posted online after class. However, lectures will not always have associated slides. I will not be posting recordings of the lectures, but if you have to miss class due to an emergency or unavoidable circumstance, the class notes and text should suffice. Please do come and see me so we can review what you have missed.\nLecture attendance will be measured using occasional quizzes. There will be roughly 8-10 of these handed out in lecture throughout the semester. You need to complete five of them to get the full attendance credit.\n\n\n\nThe sections meet once a week, on Tuesdays, for two hours. The individual section times will be listed in the course calendar. Section time will be spent working on practice problems. Since some problems will involve computing you should plan to always bring your laptop. You may attend a lab for which you are not enrolled (physical space permitting). Labs will not be recorded so attendance is strongly recommended.\nYour GSIs are Chuao Dong, Thomas Lee, and Toby Roemer.\n\n\n\nProf. Stoyanov and one of the GSIs will hold individual office hours each week. In addition, there will be group office hours in one of the 3rd floor classrooms in Evans, the room and hours TBA. You can go to these to get questions answered about homework or any concepts discussed in class, or help with your coding assignments.",
+    "crumbs": [
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#stat-scholars-program",
+    "href": "syllabus.html#stat-scholars-program",
+    "title": "Syllabus",
+    "section": "Stat Scholars Program",
+    "text": "Stat Scholars Program\nThe new Stat Scholars Program will be available to Stat 135 students to provide community, academic support, and more such as answers to your questions about the stat major, new directions in statistics, research being done in the stat department etc. Applications will be sent out soon, begin checking your mail next week.",
+    "crumbs": [
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#assessments",
+    "href": "syllabus.html#assessments",
+    "title": "Syllabus",
+    "section": "Assessments",
+    "text": "Assessments\n\nHomework Assignments\nHomework assignments will be due roughly every week or so during the semester, starting in the second week. Homework will be posted to Gradescope usually by Friday, and will generally be due the following Friday at 11:59 pm. Homework will be a combination of analytical and computational exercises done “by hand” and data analysis using R. If you turn in your homework late, you will get half credit for homework that is up to 24 hours late (if you have not requested an extension), and no credit after that.\n\n\nQuizzes\nThere will be four 50-minute quizzes to test your understanding of homework and lecture. You will take the quizzes in the CBTF (Computer-Based Testing Facility) in 200 Sutardja Dai Hall. The dates of the quizzes are: Feb 12/13, Feb 26/27, Apr 9/10, and Apr 30/May 1. You will have to schedule your quiz during the given dates at the CBTF. We do not schedule your quiz for you. Note that DSP students will also take it in the CBTF and will get their extended time. We will drop your lowest quiz score, and you may retake one quiz, also in the CBTF, during the week following the original quiz dates. Dates for each retake will be announced later. Note that if you retake more than 1 quiz, we will count only the first time you retake a quiz, and you will be penalized for trying to circumvent course policy.\n\n\nExams\nThere will be one midterm exam and the final exam. The midterm exam will be a two hour exam which will be held in the evening from 8 - 10 pm  during the week before spring break. I will announce the exact details as soon as I can. The final exam time and day are Tuesday, May 12, 11:30 am - 2:30 pm (group 6). If you do not take the final exam, you will not pass the class.\n\n\nExtra Credit Opportunities\nExtra credit is assigned at the end of the semester after the grade bins have been determined. Ways to get extra credit (it will be added to your overall course percentage):\n\nDiagnostic test: 0.25% for submission with some clear attempt at solving the questions.\nEdStem: The top 5 student answerers will get up to 0.5% extra credit.\n\n\n\nAttendance Quizzes\nAs stated above, there will be 8-10 attendance quizzes handed out in lecture throughout the semester. These will be graded on completion, and you will need to complete five of them to get all the attendance points.\n\n\nOverall Score\nYour letter grade for the course will be based a weighted average of your assessments, as follows:\n\nHomework (each assignment weighted equally, drop two lowest): 15%\nQuizzes: 15% (equally weighted, drop lowest)\nMidterm: 25% (can be clobbered by the final)\nFinal exam: 40% or 65% (if higher than the midterm)\nAttendance quizzes: 5%\n\nRough grade bins: Students earning a course average of at least 88% are guaranteed to receive an A- or better, students earning a course average of at least 75% are guaranteed a B- or better, and students earning at least 60% on their course average are guaranteed at least a C-. These bins might move down, depending on how the class does.",
+    "crumbs": [
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#important-sites-to-bookmark",
+    "href": "syllabus.html#important-sites-to-bookmark",
+    "title": "Syllabus",
+    "section": "Important sites to bookmark",
+    "text": "Important sites to bookmark\n\nR Datahub\nAll coding in this class will be done in R. You may download the desktop version of RStudio if you wish, but it might be easier to use the datahub. It is up to you. Just make sure you have the latest version of R and RStudio, if you would like to download it to your laptop.\n\n\nBcourses\nImportant coursewide announcements will be sent out on bcourses.\n\n\nEd Discussion\nI have created a Ed discussion page for this course, which you can access through the link in bCourses (so you will be logged in). This is an online forum to ask questions to fellow students and answer other students’ questions. The GSIs and I will have access to the forum and may endorse or occasionally answer questions but this is primarily a forum for students to help each other – if you need an instructor or GSI’s assistance please attend office hours. Extra credit of up to 0.5% on the final course score will be awarded to the five students who have responded to the most questions on Ed by the end of the semester (with reasonable attempts at answering the questions).\n\n\nCBTF\nThis semester, you will be taking your quizzes in the Computer-Based Testing Facility in Sutardja Dai Hall. In order to take the test, you will have to log into the course site using your Calnet ID. I will post a practice quiz so that you can get the hang of how to do the scheduling etc. Meanwhile, take a look at the page “CBTF Getting Started for Students”.\n\n\nGradescope\nHomework assignments, take-home exams, and regrade requests (see Policies section below) will be submitted through Gradescope, which you can also access through the link in bCourses (you should not add yourself to Gradescope, as the roster has already been uploaded). You can view your grades here, as I will not be creating assignments on bCourses.\n\n\nFlextensions\nYou can request extensions of up to two days for up to two homework assignments, using this page, once assignments have been posted on Gradescope. You must make the request before the due date. If you have DSP accommodations, please send us a private message on Ed.",
+    "crumbs": [
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#academic-honesty-policy",
+    "href": "syllabus.html#academic-honesty-policy",
+    "title": "Syllabus",
+    "section": "Academic Honesty Policy",
+    "text": "Academic Honesty Policy\nThe student community at UC Berkeley has adopted the following Honor Code: “As a member of the UC Berkeley community, I act with honesty, integrity, and respect for others.”.\nMy expectation is that you will adhere to this code. Beyond the importance of respecting your fellow students, acting with integrity in completing course assignments helps ensure that they achieve their purpose, which is to help you learn and develop valuable statistical understanding and skills. Homework must be done independently. If you get stuck or want to explore alternative approaches, feel free to discuss issues with students or course staff at the homework parties or on Ed. You may ask an AI tool for help understanding a concept, or figuring out a coding error (but note that the answers are not always correct), but putting assignment questions into an AI tool and then copying and pasting/paraphrasing the answers will be considered plagiarism. It is also completely negates the purpose of the homework, which is to cement and internalize concepts from the course. It will not serve you for the exam either, when you have to tackle the problems on your own. I leave it to you to decide how much you would like to use genAI tools, but please use them with caution.",
+    "crumbs": [
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#emailed-policy",
+    "href": "syllabus.html#emailed-policy",
+    "title": "Syllabus",
+    "section": "Email/Ed policy",
+    "text": "Email/Ed policy\nIf you have a question for us, the fastest way to get a response is to post the question on Ed. If it deals with private matters, please make it a private post. If you are not comfortable writing a private post, come and see me. You can drop into office hours or make an appointment, either is fine.",
+    "crumbs": [
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#inclusivity-and-accommodation",
+    "href": "syllabus.html#inclusivity-and-accommodation",
+    "title": "Syllabus",
+    "section": "Inclusivity and Accommodation",
+    "text": "Inclusivity and Accommodation\nMy hope is to establish a learning environment in this course that welcomes diversity of thought, perspective, and experience, and to be respectful of your individual identity as a student. I am happy to use your preferred name and/or personal pronoun. If you feel uncomfortable as a result of anything that is said in class, or if you feel that your performance in the course is being impacted by experiences outside of class, please do not hesitate to reach out to me about your concerns. If you are uncomfortable being called on during class, just let me know.\nIn addition, if you need accommodations for any physical, psychological, or learning disability, please speak to me after class or during office hours. Please note that you must make arrangements in a timely manner through DSP so that I can make the appropriate accommodations.",
+    "crumbs": [
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#possibility-of-revisions-to-course-policies",
+    "href": "syllabus.html#possibility-of-revisions-to-course-policies",
+    "title": "Syllabus",
+    "section": "Possibility of revisions to course policies",
+    "text": "Possibility of revisions to course policies\nAll course policies, including assessment, are subject to change during the course of the semester in response to unforeseen events including, but not limited to, campus shutdowns due to various reasons, power outages, forest fires, and medical emergencies among members of the course staff.",
+    "crumbs": [
+      "Syllabus"
+    ]
+  }
+]
