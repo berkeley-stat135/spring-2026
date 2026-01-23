@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -102,6 +68,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <script async="" src="”https://siteimproveanalytics.com/js/siteanalyze_6294756.js”"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -216,15 +211,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#warm-up-problem" id="toc-warm-up-problem" class="nav-link" data-scroll-target="#warm-up-problem">Warm up problem</a></li>
+  </ul></li>
+  <li><a href="#definitions-and-vocabulary" id="toc-definitions-and-vocabulary" class="nav-link" data-scroll-target="#definitions-and-vocabulary">Definitions and vocabulary</a></li>
+  <li><a href="#inference-in-sampling" id="toc-inference-in-sampling" class="nav-link" data-scroll-target="#inference-in-sampling">Inference in Sampling</a>
+  <ul class="collapse">
+  <li><a href="#mean-squared-error" id="toc-mean-squared-error" class="nav-link" data-scroll-target="#mean-squared-error">Mean Squared Error</a></li>
+  <li><a href="#finite-population-correction" id="toc-finite-population-correction" class="nav-link" data-scroll-target="#finite-population-correction">Finite population correction</a></li>
+  <li><a href="#estimating-the-population-variance" id="toc-estimating-the-population-variance" class="nav-link" data-scroll-target="#estimating-the-population-variance">Estimating the Population Variance</a></li>
+  <li><a href="#the-sampling-distribution-of-the-sample-mean" id="toc-the-sampling-distribution-of-the-sample-mean" class="nav-link" data-scroll-target="#the-sampling-distribution-of-the-sample-mean">The Sampling Distribution of the Sample Mean</a></li>
+  <li><a href="#confidence-intervals-for-the-population-mean" id="toc-confidence-intervals-for-the-population-mean" class="nav-link" data-scroll-target="#confidence-intervals-for-the-population-mean">Confidence intervals for the Population Mean</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-1.html">Lectures</a></li><li class="breadcrumb-item"><a href="../lectures/lecture-2.html">Lecture 2: Survey Sampling</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Lecture 2: Survey Sampling</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">Lecture 2: Survey Sampling</h1>
 </div>
 
 
@@ -241,7 +254,184 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>[UNDER CONSTRUCTION]</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In this chapter, we look at the topic of <em>survey sampling</em>, which involves a particular type of <em>inference</em>, saying something about a population, given an observed subset of the population. By now, we are all very used to sample surveys, such as presidential approval polls, and polls on various issues such as: <em>What percentage of Republicans support vaccine requirements for children to attend public schools</em>. Pew Research investigated this question a couple of years ago, which they attempted to answer by taking a <strong>sample</strong> of Republican voters, and then drawing a conclusion about the <strong>population</strong> of Republican voters.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lec-2-images/pew-vaccine.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:45.0%"></p>
+</figure>
+</div>
+<p>News outlets are constantly publishing polls, which are certainly not all the same quality. The famous FiveThirtyEight site, started by Nate Silver, is defunct now, but it was famous for its <em>pollster ratings</em>. You can read about their <a href="https://abcnews.go.com/538/best-pollsters-america/story?id=105563951">methodology</a> and here are their rankings from a couple of years ago.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lec-2-images/pollster-ratings-538-2024.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>FiveThirtyEight pollster ratings from January 2024</figcaption>
+</figure>
+</div>
+<p>In our course, we learn a little bit about survey sampling, and if you like it, you might think about taking Stat 152 the next time it is offered in our department. Chapter 7 in our text discusses the probabilistic sampling techniques, in that each population <em>unit</em> has a <em>specified</em> probability of being included in the sample, which consists of randomly selected units from the population. Note that we make no distributional assumptions in this chapter. We will restrict our study to <strong>Simple Random Samples</strong>: every population unit has the same probability of being selected, and each particular sample of size <span class="math inline">\(n\)</span> has the same probability. That is, if the size of our population is <span class="math inline">\(N\)</span>, then each of the <span class="math inline">\(\displaystyle \binom{N}{n}\)</span> possible samples of size <span class="math inline">\(n\)</span> taken without replacement has the <em>same</em> probability.</p>
+<section id="warm-up-problem" class="level3">
+<h3 class="anchored" data-anchor-id="warm-up-problem">Warm up problem</h3>
+<p>Consider the following problem:</p>
+<p>You have a box containing 5 cards. Four of the cards are labeled with the number <span class="math inline">\(0\)</span> and one of them is labeled with the number <span class="math inline">\(1\)</span>.You pick <em>two</em> cards at random <strong>with</strong> replacment. Let <span class="math inline">\(Y\)</span> represent the <em>average</em> of the two cards.</p>
+<ol type="1">
+<li>What is the distribution of the random variable <span class="math inline">\(Y\)</span>? (<em>Hint</em>: Define <span class="math inline">\(X\)</span> to be the <em>sum</em> of the two cards. What is the distribution of <span class="math inline">\(X\)</span>?)</li>
+</ol>
+<details>
+<summary>
+Check your answer
+</summary>
+<p><span class="math inline">\(X \sim Bin(2, \dfrac{1}{5})\)</span>, and <span class="math inline">\(Y = X/2\)</span>.</p>
+<p><span class="math inline">\(P(Y = 0) = P(X = 0) = \dfrac{16}{25}\)</span></p>
+<p><span class="math inline">\(P(Y = \dfrac{1}{2}) = P(X = 1) = \dfrac{8}{25}\)</span></p>
+<p><span class="math inline">\(P(Y = 1) = P(X = 2) = \dfrac{1}{25}\)</span></p>
+</details>
+<ol start="2" type="1">
+<li>Compute <span class="math inline">\(E(Y)\)</span> and <span class="math inline">\(\mathrm{Var}(Y)\)</span>.</li>
+</ol>
+<details>
+<summary>
+Check your answer
+</summary>
+<p><span class="math inline">\(E(Y) = \dfrac{1}{5}\)</span> and <span class="math inline">\(\mathrm{Var}(Y) = \dfrac{2}{25}\)</span>.</p>
+</details>
+<p>Now what if I sample <em>without</em> replacement? Let <span class="math inline">\(Z\)</span> be the average of the two tickets in this case. What is the distribution of <span class="math inline">\(Z\)</span>?</p>
+<details>
+<summary>
+Check your answer
+</summary>
+<p>Now the sum is <em>Hypergeometric</em>. (What are the parameters of the distribution?)</p>
+<p>You can work out that <span class="math inline">\(P(Z = 0) = \dfrac{3}{5}, P(Z = \dfrac{1}{2}) = \dfrac{2}{5}\)</span>.</p>
+<p>Why can’t <span class="math inline">\(Z\)</span> be <span class="math inline">\(1\)</span>?</p>
+</details>
+</section>
+</section>
+<section id="definitions-and-vocabulary" class="level2">
+<h2 class="anchored" data-anchor-id="definitions-and-vocabulary">Definitions and vocabulary</h2>
+<p>The figure below, adapted from Lohr’s book on sampling, shows that we have to be careful regarding the <em>scope</em> of our conclusions. We can only generalize from results from our sample to the <strong>sampled population</strong>, even if the <strong>target population</strong> (the population we are interested in) is something different!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lec-2-images/sampling-schematic.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%" alt="A schematic drawing target populations, sampling frame, sampled populations, etc."></p>
+</figure>
+</div>
+<div class="def">
+<p><strong>Population</strong>: the complete set of individuals or entities that we are interested in. We usually only have data on a subset of them (a <strong>sample</strong>). We will assume that our population is of (finite) size <span class="math inline">\(N\)</span>, and that associated with each member or <em>unit</em> of the population is some numerical value. We will denote these numbers by <span class="math inline">\(x_1, x_2, \ldots, x_N\)</span>. If the values of the <span class="math inline">\(x_i\)</span> are <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span> then we are usually investigating the presence or absence of some characteristic, such as a particular party affiliation. In this case, our population is <em>dichotomous</em> or binary.</p>
+</div>
+<div class="def">
+<p><strong>Parameter</strong>: any <em>quantifiable</em> feature of a population. For now, we will assume that the parameter is <strong>fixed but unknown</strong>.</p>
+<p>For example: The mean age of all undergraduate students at UC Berkeley.</p>
+</div>
+<p>The most common population parameters that we are interested in are:</p>
+<div class="def">
+<p><strong>Population mean or average</strong>: this is denoted by <span class="math inline">\(\mu\)</span> and defined to be: <span class="math display">\[
+\mu = \dfrac{1}{N}\sum_{i = 1}^N x_i
+\]</span></p>
+</div>
+<div class="def">
+<p><strong>Population proportion</strong>: This is just the population mean in the binary case, and we represent this special mean by <span class="math inline">\(p\)</span> rather than <span class="math inline">\(\mu\)</span>.</p>
+</div>
+<p>Other parameters that we will consider:</p>
+<div class="def">
+<p><strong>Population total</strong>: this is denoted by <span class="math inline">\(\tau\)</span> and defined to be: <span class="math display">\[
+\tau = \sum_{i = 1}^N x_i = N\mu
+\]</span> Note that for a binary population, <span class="math inline">\(\tau\)</span> represents how many population units possess the characteristic of interest.</p>
+</div>
+<div class="def">
+<p><strong>Population variance</strong>: this is denoted by <span class="math inline">\(\sigma^2\)</span> and defined to be: <span class="math display">\[
+\sigma^2 = \dfrac{1}{N}\sum_{i = 1}^N (x_i-\mu)^2
+\]</span> The <strong>population standard deviation</strong> is the square root of the population variance.</p>
+</div>
+<p><strong>Exercise</strong>: Show that <span class="math inline">\(\sigma^2\)</span> reduces to <span class="math inline">\(\displaystyle \dfrac{1}{N}\sum_{i = 1}^N x_i^2 -\mu^2\)</span>, and if the <span class="math inline">\(x_i\)</span> are <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span> only, then <span class="math inline">\(\sigma^2 = p(1-p)\)</span>.</p>
+<strong>Exercise</strong> Going back to the results of the Pew Research survey shown at the beginning of these notes. What is the population and the parameter of interest?
+<details>
+<summary>
+Check your answer
+</summary>
+<p>Population: US adults</p>
+<p>Parameter: Percentage of US adults that think healthy children should be required to be vaccinated in order to attend public schools.</p>
+</details>
+<p><strong>Exercise</strong> Consider a population of size 4: <span class="math inline">\(\{x_1, x_2, x_3, x_4\}\)</span>.</p>
+<ol type="a">
+<li><p>If we use simple random sampling, how many samples of size 2 will we have? What would be the expected value of the sample mean? Is it equal to the population mean?</p></li>
+<li><p>If, rather than a simple random sample, when <em>all</em> samples of size 2 are equally likely, we use a different probabilistic scheme for getting our samples of size 2: the following <strong>four</strong> samples are equally likely, and <em>only</em> these samples are possible: <span class="math inline">\(\{x_1, x_2\}, \{x_2, x_3\}, \{x_3, x_4\}, \{x_1, x_4\}\)</span>. What would be the expected value of the sample mean? Is it equal to the population mean?</p></li>
+</ol>
+</section>
+<section id="inference-in-sampling" class="level2">
+<h2 class="anchored" data-anchor-id="inference-in-sampling">Inference in Sampling</h2>
+<p><strong>Inference</strong> involves using a <strong>sample</strong> to compute an <strong>estimate</strong> of a <strong>population parameter</strong>, and the population should always be defined in the context in which the results will be applied.</p>
+<div class="def">
+<p><strong>Estimator</strong>: The <strong>function</strong> (or algorithm) that maps sample data to a number.</p>
+</div>
+<div class="def">
+<p><strong>Estimate</strong>: The <em>actual</em> observed value after applying the estimator on the sample (observed) data.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lec-2-images/inference-sampling.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<p>Then of course the question we would have is how <em>good</em> is our estimator and therefore our estimate? We want <span class="math inline">\(\mu\)</span>, and we have the estimate <span class="math inline">\(\hat{\mu}\)</span>. How close is this estimate to the true value <span class="math inline">\(\mu\)</span>? We need a measure of <em>goodness</em> of our estimator. Note that our estimator is <strong>random</strong>. Each time we take a random sample, we will get a different value of the estimate. We want to know on <strong>average</strong>, what is the error of our estimator? To compute this, we need to consider the <strong>sampling distribution</strong> of our estimator. This is just a special name for the probability distribution of the estimator, which is a random variable. The randomness of the estimator is rooted in the randomness of the sampling. The spread of the probability distribution, measured by its <em>standard deviation</em> is one of the determinants of the accuracy of our estimator.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lec-2-images/sampling-dsn-estimator.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<p>If we would hit our target (the population parameter) on average (that means that the expected value of our estimator is the population parameter), then we only need to consider how much our estimator’s sampling distribution spreads about the mean. The tighter the spread (the smaller the standard deviation), the more accurate the estimator. Now, because we are measuring the <strong>error</strong> of our estimator, we call the square root of its variance the <strong>standard error</strong> rather than the standard deviation.</p>
+<p>What if, though, the expected value of our estimator is <em>not</em> the target parameter? In this case the difference between the expected value of the estimator and the <em>true</em> value of the population parameter will also contribute to the error. Because of this, we use a measure of <em>goodness</em> of our estimate that incorporates both the spread (standard error) <em>and</em> the average distance from the parameter (we call this <strong>bias</strong>). This measure is called the <strong>Mean Squared Error</strong>.</p>
+<section id="mean-squared-error" class="level3">
+<h3 class="anchored" data-anchor-id="mean-squared-error">Mean Squared Error</h3>
+<div class="def">
+<p><strong>Mean Squared Error</strong>: The mean squared error is the expected value of the squared difference between the estimator <span class="math inline">\(\hat{\theta}\)</span> and the true value of the population parameter <span class="math inline">\(\theta\)</span>. We denoted it by <span class="math inline">\(MSE\)</span>: <span class="math display">\[
+MSE = E\left[\left(\hat{\theta} - \theta \right)^2\right]
+\]</span></p>
+</div>
+<div class="def">
+<p><strong>Bias</strong>: The bias of an estimator is its distance, on average, from the true value of the population parameter: <span class="math display">\[
+\operatorname{Bias}(\hat{\theta}) = E(\hat{\theta}) - \theta
+\]</span> We call an estimator <strong>unbiased</strong> if the bias is 0, that is if <span class="math inline">\(E(\hat{\theta}) = \theta\)</span>.</p>
+</div>
+<p><strong>Exercise</strong> Show that <span class="math inline">\(MSE =  \text{Variance} + \text{Bias}^2\)</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math display">\[
+\begin{align*}
+\mathrm{MSE}(\hat\theta)
+&amp;= E\big[(\hat\theta - \theta)^2\big] \\
+&amp;= E\big(\hat\theta ^2\big) -2 \theta E\big(\hat\theta\big) + \theta^2\\
+&amp;= \mathrm{Var}\big(\hat\theta\big) +  \big[E\big(\hat\theta\big)\big]^2 -2 \theta E\big(\hat\theta\big) + \theta^2\\
+&amp;= \mathrm{Var}\big(\hat\theta\big) + \big[E\big(\hat\theta\big) - \theta\big]^2\\
+&amp;= \mathrm{Var}(\hat\theta) + \big[\mathrm{Bias}(\hat\theta)\big]^2.
+\end{align*}
+\]</span>
+</details>
+<p>Here is a figure from Lohr’s text that shows the difference between low bias, low variance, and low MSE:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lec-2-images/lohr-precise-accurate.png" class="img-fluid figure-img" style="width:70.0%" alt="A figure from a text by Lohr showing the difference between accuracy, unbiasedness, and precision"></p>
+<figcaption>Unbiased archers, precise archers, and accurate archers</figcaption>
+</figure>
+</div>
+<p>This diagram shows that an estimator <span class="math inline">\(\hat{\theta}\)</span> is <strong>unbiased</strong> if <span class="math inline">\(E\big(\hat{\theta}\big) = \theta\)</span>, it is <strong>precise</strong> if <span class="math inline">\(\mathrm{Var}(\hat{\theta})\)</span> is small, but for the estimator to be <strong>accurate</strong>, <em>both</em> these quantities must be small, and therefore the Mean Squared Error (the sum of the squared bias and the variance) must be small, where <span class="math inline">\(MSE = E\big[\big(\hat{\theta} - \theta\big)^2\big]\)</span>.</p>
+</section>
+<section id="finite-population-correction" class="level3">
+<h3 class="anchored" data-anchor-id="finite-population-correction">Finite population correction</h3>
+<p>Recall that if we let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> are independent and identically distributed random variables (IID), with common expected value <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>; and <span class="math inline">\(\overline{X}\)</span> is the sample mean of this sample <span class="math inline">\(\big(\displaystyle \overline{X} = \dfrac{1}{n} \sum_{i=1}^n X_i\big)\)</span>, then <span class="math inline">\(E(\overline{X}) = \mu\)</span> and <span class="math inline">\(\mathrm{Var}(\overline{X}) = \sigma^2/n\)</span>. (<em>Note</em>: You should be able to show this.)</p>
+<p>Now suppose we have a finite population of size <span class="math inline">\(N\)</span>, and we take a simple random sample of size <span class="math inline">\(n\)</span> from this population: <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span>. Now the <span class="math inline">\(X_i\)</span> cannot be IID as we are sampling <em>without</em> replacement. It is easily shown (<em>Theorem A</em> on page 206) that the expected value of the sample mean is still <span class="math inline">\(\mu\)</span>, where <span class="math inline">\(\mu\)</span> is the population mean. What about <span class="math inline">\(\mathrm{Var}(\overline{X})\)</span>?</p>
+<p>It turns out that (see <em>Theorem B</em> on page 208): <span class="math display">\[
+\mathrm{Var}(\overline{X}) = \dfrac{\sigma^2}{n}\left( \dfrac{N-n}{N-1}\right).
+\]</span> The quantity <span class="math inline">\(\displaystyle \left( \dfrac{N-n}{N-1}\right)\)</span> is called the <strong>finite population correction</strong>. Note that <span class="math inline">\(\displaystyle \left( \dfrac{N-n}{N-1}\right) =\left(1- \dfrac{n-1}{N-1}\right)\)</span>. Note that <span class="math inline">\(\displaystyle \dfrac{n-1}{N-1} \approx \dfrac{n}{N}\)</span>, which is called the <strong>sampling fraction</strong>. The larger the sampling fraction, the larger the sample relative to the population, which means we have more information about the population. This should reduce the variability. The extreme case is when <span class="math inline">\(n=N\)</span>, and the sample mean has <em>no</em> variability. In practice, the sampling fraction is very small, and so the finite population correction is approximately 1. This means that the precision of the estimator (determined by the variance) depends only on the sample size, and not on the population size.</p>
+<p>[Coming soon!]</p>
+</section>
+<section id="estimating-the-population-variance" class="level3">
+<h3 class="anchored" data-anchor-id="estimating-the-population-variance">Estimating the Population Variance</h3>
+</section>
+<section id="the-sampling-distribution-of-the-sample-mean" class="level3">
+<h3 class="anchored" data-anchor-id="the-sampling-distribution-of-the-sample-mean">The Sampling Distribution of the Sample Mean</h3>
+</section>
+<section id="confidence-intervals-for-the-population-mean" class="level3">
+<h3 class="anchored" data-anchor-id="confidence-intervals-for-the-population-mean">Confidence intervals for the Population Mean</h3>
 <!--
 
 ## A basic Markdown table
@@ -255,8 +445,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 -->
 
 
-<!-- -->
-
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -346,57 +536,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
     clipboardModal.on('success', onCopySuccess);
-  }
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
@@ -726,29 +865,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Lecture 2: Survey Sampling"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: show</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">UNDER CONSTRUCTION</span><span class="co">]</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">## A basic Markdown table</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">| Default | Left | Right | Center |</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">|----|:--|---:|-----------------------:|</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">| 12      | 12   |    12 |   12   |</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">| 123     | 123  |   123 |  123   |</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">| 1       | 1    |     1 |   1    |</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">--&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</script>
 </div> <!-- /content -->
 
 

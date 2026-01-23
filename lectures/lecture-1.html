@@ -21,7 +21,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -225,6 +245,7 @@ window.Quarto = {
   <li><a href="#linear-models" id="toc-linear-models" class="nav-link" data-scroll-target="#linear-models">Linear Models</a></li>
   <li><a href="#the-bayesian-paradigm" id="toc-the-bayesian-paradigm" class="nav-link" data-scroll-target="#the-bayesian-paradigm">The Bayesian Paradigm</a></li>
   </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -264,7 +285,7 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="probability-vs-statistics">Probability vs Statistics</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="prob-vs-stat.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%" alt="A schematic drawing showing the directions of probability and statistics."></p>
+<p><img src="lec-1-images/prob-vs-stat.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%" alt="A schematic drawing showing the directions of probability and statistics."></p>
 </figure>
 </div>
 <p>When we study probability, we have some data generating process (perhaps we are sampling from a known distribution, or we are sampling at random from a box with <span class="math inline">\(N\)</span> items etc), and we want to know something about the random sample that we generate, and its properties.</p>
@@ -330,13 +351,33 @@ where <span class="math display">\[
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="nieves-bayes-medium.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<p><img src="lec-1-images/nieves-bayes-medium.png" class="img-fluid figure-img" style="width:60.0%"></p>
 <figcaption>Image from Nieves “An Actual Introduction to Bayesian Statistics (2021)”, cantorsparadise.com</figcaption>
 </figure>
 </div>
-
-
+<div style="display:none">
+<p><span class="citation" data-cites="rice2006 wasserman2004 samslides135 blitzstein2019">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-wasserman2004" role="doc-biblioref">Wasserman 2004</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>; <a href="#ref-blitzstein2019" role="doc-biblioref">Blitzstein and Hwang 2019</a>)</span></p>
+</div>
 </section>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-blitzstein2019" class="csl-entry" role="listitem">
+Blitzstein, Joseph K., and Jessica Hwang. 2019. <em>Introduction to Probability</em>. CRC Press.
+</div>
+<div id="ref-samslides135" class="csl-entry" role="listitem">
+Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).
+</div>
+<div id="ref-rice2006" class="csl-entry" role="listitem">
+Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. Duxbury Press.
+</div>
+<div id="ref-wasserman2004" class="csl-entry" role="listitem">
+Wasserman, Larry. 2004. <em>All of Statistics: A Concise Course in Statistical Inference</em>. New York: Springer.
+</div>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->
