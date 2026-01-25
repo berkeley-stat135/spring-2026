@@ -246,7 +246,7 @@ window.Quarto = {
   <li><a href="#mean-squared-error" id="toc-mean-squared-error" class="nav-link" data-scroll-target="#mean-squared-error">Mean Squared Error</a></li>
   <li><a href="#mathrmvaroverlinex-and-the-finite-population-correction" id="toc-mathrmvaroverlinex-and-the-finite-population-correction" class="nav-link" data-scroll-target="#mathrmvaroverlinex-and-the-finite-population-correction"><span class="math inline">\(\mathrm{Var}(\overline{X})\)</span> and the finite population correction</a></li>
   <li><a href="#estimating-the-population-variance" id="toc-estimating-the-population-variance" class="nav-link" data-scroll-target="#estimating-the-population-variance">Estimating the Population Variance</a></li>
-  <li><a href="#the-sampling-distribution-of-the-sample-mean" id="toc-the-sampling-distribution-of-the-sample-mean" class="nav-link" data-scroll-target="#the-sampling-distribution-of-the-sample-mean">The Sampling Distribution of the Sample Mean</a></li>
+  <li><a href="#the-asymptotic-sampling-distribution-of-the-sample-mean" id="toc-the-asymptotic-sampling-distribution-of-the-sample-mean" class="nav-link" data-scroll-target="#the-asymptotic-sampling-distribution-of-the-sample-mean">The (Asymptotic) Sampling Distribution of the Sample Mean</a></li>
   <li><a href="#confidence-intervals-for-the-population-mean" id="toc-confidence-intervals-for-the-population-mean" class="nav-link" data-scroll-target="#confidence-intervals-for-the-population-mean">Confidence intervals for the Population Mean</a></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
@@ -500,8 +500,10 @@ Now we can put it all together: <span class="math display">\[
 \end{align*}
 \]</span>
 </details>
+<section id="finite-population-correction" class="level4">
+<h4 class="anchored" data-anchor-id="finite-population-correction">Finite population correction</h4>
 <p>The quantity <span class="math inline">\(\displaystyle \left( \dfrac{N-n}{N-1}\right)=\left(1- \dfrac{n-1}{N-1}\right)\)</span> is called the <strong>finite population correction</strong>. Note that <span class="math inline">\(\displaystyle \dfrac{n-1}{N-1} \approx \dfrac{n}{N}\)</span>, which is called the <strong>sampling fraction</strong>. The larger the sampling fraction, the larger the sample relative to the population, which means we have more information about the population. This should reduce the variability. The extreme case is when <span class="math inline">\(n=N\)</span>, and the sample mean has <em>no</em> variability. In practice, the sampling fraction is very small, and so the finite population correction is approximately 1. This means that the precision of the estimator (determined by the variance) depends only on the sample size, and not on the population size.</p>
-<p>[Coming soon!]</p>
+</section>
 </section>
 <section id="estimating-the-population-variance" class="level3">
 <h3 class="anchored" data-anchor-id="estimating-the-population-variance">Estimating the Population Variance</h3>
@@ -541,21 +543,117 @@ E\left[\left(\frac{n}{n-1}\right) \left(\dfrac{N-1}{N} \right)\hat{\sigma}^2\rig
 <p>If the population is dichotomous, then the estimator becomes: <span class="math display">\[
 \mathrm{Var}(\hat{p}) = s_{\hat{p}}^2 = \frac{s^2}{n} = \frac{\hat{p}(1-\hat{p})}{n-1}.
 \]</span></p>
+<p>Putting all this together gives us the table on page 214 of the text, reproduced here:</p>
+<section id="summary-of-estimators" class="level4">
+<h4 class="anchored" data-anchor-id="summary-of-estimators">Summary of estimators</h4>
+<div class="widecols">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 8%">
+<col style="width: 11%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Population Parameter</th>
+<th style="text-align: left;">Estimator</th>
+<th style="text-align: left;">Variance of Estimator (Square of Standard Error)</th>
+<th style="text-align: left;">Estimated Variance of the Estimator <br> (Square of Estimated SE)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\mu\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\overline{X}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\sigma_{\overline{X}}^2 = \displaystyle \dfrac{\sigma^2}{n}\left(\dfrac{N-n}{N-1}\right)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(s_{\overline{X}}^2  = \displaystyle \dfrac{s^2}{n}\left(1-\dfrac{n}{N}\right)\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(p\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\hat{p}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\sigma_{\hat{p}}^2 = \displaystyle \dfrac{p(1-p)}{n}\left(\dfrac{N-n}{N-1}\right)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(s_{\hat{p}}^2  = \displaystyle \dfrac{\hat{p}(1-\hat{p})}{n-1}\left(1-\dfrac{n}{N}\right)\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\tau\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(T = N\overline{X}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\sigma_{\tau}^2 = N^2\sigma_{\overline{X}}^2\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(s_{\tau}^2 = N^2s_{\overline{X}}^2\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\sigma^2\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\left(1-\dfrac{1}{N}\right)s^2\)</span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
-<section id="the-sampling-distribution-of-the-sample-mean" class="level3">
-<h3 class="anchored" data-anchor-id="the-sampling-distribution-of-the-sample-mean">The Sampling Distribution of the Sample Mean</h3>
+</section>
+<section id="the-asymptotic-sampling-distribution-of-the-sample-mean" class="level3">
+<h3 class="anchored" data-anchor-id="the-asymptotic-sampling-distribution-of-the-sample-mean">The (Asymptotic) Sampling Distribution of the Sample Mean</h3>
+<section id="the-central-limit-theorem" class="level4">
+<h4 class="anchored" data-anchor-id="the-central-limit-theorem">The Central Limit Theorem</h4>
+<p>The CLT states that for large <span class="math inline">\(n\)</span>, the sample mean, suitably standardized, will have a CDF that approaches the CDF of the standard Normal. That is, the standardized sample mean <strong>converges in distribution</strong> to the standard Normal.</p>
+<p>If <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> is an independent and identically distributed sample from a population with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, then:</p>
+<p><span class="math display">\[
+\left(\frac{\overline{X}-\mu}{\frac{\sigma}{\sqrt{n}}}\right) = \sqrt{n}\left(\frac{\overline{X}-\mu}{\sigma}\right) \overset{dsn}{\longrightarrow}\mathcal{N}(0,1)  \text{ as } n\longrightarrow \infty
+\]</span> The CDF converges to <span class="math inline">\(\Phi\)</span>, which means that: <span class="math display">\[
+P\left(\frac{\overline{X}-\mu}{\dfrac{\sigma}{\sqrt{n}}} \le z \right) = F_{\frac{\overline{X}-\mu}{\sigma/\sqrt{n}}}(z)\longrightarrow \Phi(z)
+\]</span></p>
+<p>The CLT is an incredibly important theorem, because it guarantees that for a large enough sample, <em>no matter what the distribution of the random variables <span class="math inline">\(X_i\)</span></em>, the sample mean behaves as though it is from an approximately <span class="math inline">\(\mathcal{N}(\mu, \dfrac{\sigma^2}{n})\)</span> distribution.</p>
+<p>Note that the CLT is a <strong>limit</strong> theorem, so it fully characterizes the <em>asymptotic</em> distribution of the sample mean. It provides a good approximation for large enough samples, so we can compute probabilities such as the <span class="math inline">\(P\)</span>-value, and construct confidence intervals. We also assume that the sample size is very large (and that the sampling fraction is small) and we apply the CLT even when sampling without replacement.</p>
+</section>
+<section id="example-a-page-201" class="level4">
+<h4 class="anchored" data-anchor-id="example-a-page-201">Example A, page 201</h4>
+<p>This is an example from the text that is used to illustrate many of the ideas from this chapter. Herkson (<em>JASA</em> 1976) presented data on the number of patients discharged from each of a population of <span class="math inline">\(N=393\)</span> hospitals during January 1986. The mean number of discharges across the population is about 815, and the population standard deviation is about 590.</p>
+<ol type="a">
+<li><p>If a random sample of <span class="math inline">\(n=100\)</span> is taken from this population <strong>with</strong> replacement, what is the <strong>standard error</strong> of the associated estimator of the population mean <span class="math inline">\(\overline{X}\)</span>?</p></li>
+<li><p>What is the standard error of <span class="math inline">\(\overline{X}\)</span> if instead we take a <em>simple random sample</em> of size <span class="math inline">\(n=100\)</span>?</p></li>
+<li><p>If we are sampling with replacement, what is the (approximate) probability that our sample average exceeds 850?</p></li>
+</ol>
+<details>
+<summary>
+Check your answer
+</summary>
+<ol type="a">
+<li><p>Since we are sampling <em>with</em> replacement, the random variables form an IID sample, and so the standard error of the sample mean is <span class="math inline">\(\dfrac{\sigma}{\sqrt{n}} = \dfrac{590}{\sqrt{100}} = 59\)</span>.</p></li>
+<li><p>In the case of an SRS, the standard error of the sample mean is given by <span class="math inline">\(\dfrac{\sigma}{\sqrt{n}}\left(\dfrac{N-n}{N-1}\right) = \dfrac{590}{\sqrt{100}}\sqrt{\left(\dfrac{393-100}{393-1}\right)} \approx 51\)</span>.</p></li>
+<li><p>We want to approximate <span class="math inline">\(P(\overline{X} &gt; 850)\)</span>. By the CLT, <span class="math display">\[
+P(\overline{X} &gt; 850) = P\left(\dfrac{\overline{X}-815}{59} &gt; \dfrac{850-815}{59}\right) = 1-\Phi\left(\dfrac{850-815}{59}\right) \approx 0.2765.
+\]</span> We used <code>1-pnorm((850-815)/59)</code> to compute the answer.</p></li>
+</ol>
+</details>
+</section>
 </section>
 <section id="confidence-intervals-for-the-population-mean" class="level3">
 <h3 class="anchored" data-anchor-id="confidence-intervals-for-the-population-mean">Confidence intervals for the Population Mean</h3>
+<p>Another way we could use the central limit theorem with estimated standard error is to build a range of plausible values for the population mean from the sample. This range is called the confidence interval. A <strong>confidence interval </strong> for some population parameter <span class="math inline">\(\theta\)</span> is a <strong>random</strong> interval, whose endpoints are constructed using the sample, such that the interval contains <span class="math inline">\(\theta\)</span> with some specified probability.</p>
+<p>It is very important to note the assumption that the population parameter is <strong>fixed</strong>, and it is the <em>interval</em> that is random, and so the probability of coverage is associated with the <strong>random interval</strong>.</p>
+<p>Since we compute the endpoints using the random sample, the endpoints are random variables. This means that each time we take a sample of size <span class="math inline">\(n\)</span>, and then plug in our observed data, we will get a different <em>realization</em> of this random interval. But because we can use the CLT to approximate probabilities, we can construct intervals that have a probability of <span class="math inline">\(1-\alpha\)</span> of containing the true value. For example if <span class="math inline">\(\alpha = 0.05\)</span>, we construct an interval that contains the true mean 95% of the times (on average).</p>
+<p>For <span class="math inline">\(0 \le \alpha \le 1\)</span>, let <span class="math inline">\(z(\alpha)\)</span> denote that value on the <span class="math inline">\(x\)</span>-axis such that the area under the standard normal density curve to the <strong>right</strong> of <span class="math inline">\(z(\alpha)\)</span> is <span class="math inline">\(\alpha\)</span>. When we have a <em>particular</em> confidence interval, it is a <em>realization</em> of a random interval, where the random interval has a certain coverage probability of <span class="math inline">\(1-\alpha\)</span>. We call this <em>coverage probability</em> the confidence level.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lecture-2_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Let’s derive the confidence interval for the population mean <span class="math inline">\(\mu\)</span>. By the central limit theorem, we know that <span class="math inline">\(\overline{X}\)</span> is approximately normal, that is, <span class="math inline">\(\dfrac{\overline{X}-\mu}{\sigma_{\overline{X}}} \approx \mathcal{N}(0,1)\)</span>.</p>
+<p>If <span class="math inline">\(Z\)</span> follows the standard Normal distribution, then by the definition of <span class="math inline">\(z(\alpha)\)</span> above, we see that <span class="math display">\[
+P\big(-z(\alpha/2) \le Z \le z(\alpha/2)\big) = 1-\alpha.
+\]</span> Therefore, if <span class="math inline">\(\dfrac{\overline{X} - \mu}{\sigma/\sqrt{n}}\)</span> is approximately normal, we have that: <span class="math display">\[
+P\left(-z(\alpha/2) \le \dfrac{\overline{X} - \mu}{\sigma/\sqrt{n}} \le z(\alpha/2)\right) \approx 1-\alpha.
+\]</span> Now we multiply by <span class="math inline">\(\sigma/\sqrt{n}\)</span>, subtract <span class="math inline">\(\overline{X}\)</span> and multiply by <span class="math inline">\(-1\)</span>. This gives us the confidence interval that we need: <span class="math display">\[
+P\left(\overline{X} - z(\alpha/2) \le  \mu \le \overline{X} + z(\alpha/2)\right) \approx 1-\alpha.
+\]</span> This statement says that the chance of this random interval capturing the mean is approximately <span class="math inline">\(1-\alpha\)</span>, and so the interval is called a <strong><span class="math inline">\(100(1-\alpha)%\)</span> confidence interval</strong>.</p>
 <!--
 
-## A basic Markdown table
 
-| Default | Left | Right | Center |
-|----|:--|---:|-----------------------:|
-| 12      | 12   |    12 |   12   |
-| 123     | 123  |   123 |  123   |
-| 1       | 1    |     1 |   1    |
 
 -->
 <div style="display:none">
