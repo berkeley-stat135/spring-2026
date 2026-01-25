@@ -244,7 +244,7 @@ window.Quarto = {
   <li><a href="#inference-in-sampling" id="toc-inference-in-sampling" class="nav-link" data-scroll-target="#inference-in-sampling">Inference in Sampling</a>
   <ul class="collapse">
   <li><a href="#mean-squared-error" id="toc-mean-squared-error" class="nav-link" data-scroll-target="#mean-squared-error">Mean Squared Error</a></li>
-  <li><a href="#finite-population-correction" id="toc-finite-population-correction" class="nav-link" data-scroll-target="#finite-population-correction">Finite population correction</a></li>
+  <li><a href="#mathrmvaroverlinex-and-the-finite-population-correction" id="toc-mathrmvaroverlinex-and-the-finite-population-correction" class="nav-link" data-scroll-target="#mathrmvaroverlinex-and-the-finite-population-correction"><span class="math inline">\(\mathrm{Var}(\overline{X})\)</span> and the finite population correction</a></li>
   <li><a href="#estimating-the-population-variance" id="toc-estimating-the-population-variance" class="nav-link" data-scroll-target="#estimating-the-population-variance">Estimating the Population Variance</a></li>
   <li><a href="#the-sampling-distribution-of-the-sample-mean" id="toc-the-sampling-distribution-of-the-sample-mean" class="nav-link" data-scroll-target="#the-sampling-distribution-of-the-sample-mean">The Sampling Distribution of the Sample Mean</a></li>
   <li><a href="#confidence-intervals-for-the-population-mean" id="toc-confidence-intervals-for-the-population-mean" class="nav-link" data-scroll-target="#confidence-intervals-for-the-population-mean">Confidence intervals for the Population Mean</a></li>
@@ -436,17 +436,111 @@ Solution
 </div>
 <p>This diagram shows that an estimator <span class="math inline">\(\hat{\theta}\)</span> is <strong>unbiased</strong> if <span class="math inline">\(E\big(\hat{\theta}\big) = \theta\)</span>, it is <strong>precise</strong> if <span class="math inline">\(\mathrm{Var}(\hat{\theta})\)</span> is small, but for the estimator to be <strong>accurate</strong>, <em>both</em> these quantities must be small, and therefore the Mean Squared Error (the sum of the squared bias and the variance) must be small, where <span class="math inline">\(MSE = E\big[\big(\hat{\theta} - \theta\big)^2\big]\)</span>.</p>
 </section>
-<section id="finite-population-correction" class="level3">
-<h3 class="anchored" data-anchor-id="finite-population-correction">Finite population correction</h3>
+<section id="mathrmvaroverlinex-and-the-finite-population-correction" class="level3">
+<h3 class="anchored" data-anchor-id="mathrmvaroverlinex-and-the-finite-population-correction"><span class="math inline">\(\mathrm{Var}(\overline{X})\)</span> and the finite population correction</h3>
 <p>Recall that if we let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> are independent and identically distributed random variables (IID), with common expected value <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>; and <span class="math inline">\(\overline{X}\)</span> is the sample mean of this sample <span class="math inline">\(\big(\displaystyle \overline{X} = \dfrac{1}{n} \sum_{i=1}^n X_i\big)\)</span>, then <span class="math inline">\(E(\overline{X}) = \mu\)</span> and <span class="math inline">\(\mathrm{Var}(\overline{X}) = \sigma^2/n\)</span>. (<em>Note</em>: You should be able to show this.)</p>
-<p>Now suppose we have a finite population of size <span class="math inline">\(N\)</span>, and we take a simple random sample of size <span class="math inline">\(n\)</span> from this population: <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span>. Now the <span class="math inline">\(X_i\)</span> cannot be IID as we are sampling <em>without</em> replacement. It is easily shown (<em>Theorem A</em> on page 206) that the expected value of the sample mean is still <span class="math inline">\(\mu\)</span>, where <span class="math inline">\(\mu\)</span> is the population mean. What about <span class="math inline">\(\mathrm{Var}(\overline{X})\)</span>?</p>
-<p>It turns out that (see <em>Theorem B</em> on page 208): <span class="math display">\[
+<p>Now suppose we have a finite population of size <span class="math inline">\(N\)</span>, and we take a <strong>simple random sample</strong> of size <span class="math inline">\(n\)</span> from this population: <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span>. Now the <span class="math inline">\(X_i\)</span> cannot be IID as we are sampling <em>without</em> replacement. It is easily shown (<em>Theorem A</em> on page 206) that the expected value of the sample mean is still <span class="math inline">\(\mu\)</span>, where <span class="math inline">\(\mu\)</span> is the population mean. What about <span class="math inline">\(\mathrm{Var}(\overline{X})\)</span>?</p>
+It turns out that ( <em>Theorem B</em> on page 208): <span class="math display">\[
 \mathrm{Var}(\overline{X}) = \dfrac{\sigma^2}{n}\left( \dfrac{N-n}{N-1}\right).
-\]</span> The quantity <span class="math inline">\(\displaystyle \left( \dfrac{N-n}{N-1}\right)\)</span> is called the <strong>finite population correction</strong>. Note that <span class="math inline">\(\displaystyle \left( \dfrac{N-n}{N-1}\right) =\left(1- \dfrac{n-1}{N-1}\right)\)</span>. Note that <span class="math inline">\(\displaystyle \dfrac{n-1}{N-1} \approx \dfrac{n}{N}\)</span>, which is called the <strong>sampling fraction</strong>. The larger the sampling fraction, the larger the sample relative to the population, which means we have more information about the population. This should reduce the variability. The extreme case is when <span class="math inline">\(n=N\)</span>, and the sample mean has <em>no</em> variability. In practice, the sampling fraction is very small, and so the finite population correction is approximately 1. This means that the precision of the estimator (determined by the variance) depends only on the sample size, and not on the population size.</p>
+\]</span>
+<details>
+<summary>
+Click for the proof
+</summary>
+<p><span class="math display">\[
+\begin{align*}
+\mathrm{Var}(\overline{X}) &amp;= \mathrm{Var}\left(\dfrac{1}{n}\sum_{i = 1}^n X_i\right)\\
+  &amp;= \dfrac{1}{n^2} \mathrm{Var}\left(\sum_{i = 1}^n X_i\right), \: \text{because }\mathrm{Var}(aX) = a^2\mathrm{Var}(X)\\
+  &amp;= \dfrac{1}{n^2}\mathrm{Cov}\left(\sum_{i = 1}^n X_i,\sum_{j = 1}^n X_j \right), \: \text{because } \mathrm{Var}(X) = \mathrm{Cov}(X,X)\\
+  &amp;= \dfrac{1}{n^2}\left(\sum_{i = 1}^n \mathrm{Var}(X_i) + \sum_{i = 1}^n \sum_{\substack{j=1 \\ j \ne i}}^n \mathrm{Cov}(X_i,X_j)\right) \\
+  &amp;= \dfrac{1}{n^2} \left( n\sigma^2 + n(n-1) \mathrm{Cov}(X_1, X_2) \right), \: \text{since all } n(n-1) \text{ pairs will have the same covariance.}
+\end{align*}
+\]</span> This computation implies that if we figure out <span class="math inline">\(\mathrm{Cov}(X_1, X_2)\)</span>, we will able to figure out the variance we need. So let’s compute this covariance. Recall that <span class="math inline">\(\mathrm{Cov}(X_1, X_2) = E(X_1 X_2) - E(X_1)E(X_2)\)</span>.</p>
+<p>We know that the possible values of the <span class="math inline">\(X_i\)</span> are the population values: <span class="math inline">\(x_1, x_2, \ldots, x_N\)</span>. But some of these could be repeated, which can mess up the probability computations. To simplify our computations, we will define new values <span class="math inline">\(u_1, u_2, \ldots, u_m\)</span> to be the <em>distinct</em> values in the population, <span class="math inline">\(m\)</span> the <em>number</em> of distinct values, and let <span class="math inline">\(n_i\)</span> be the number of times we see the value <span class="math inline">\(u_i\)</span>.</p>
+<p>For example, suppose <span class="math inline">\(N = 6\)</span> and the population values are <span class="math inline">\(1, 1, 4, 4, 4, 7\)</span>. Then <span class="math inline">\(x_1 = 1 = x_2, x_3 = x_4 = x_5 = 4\)</span>, and <span class="math inline">\(x_6 = 7\)</span>. Using the <span class="math inline">\(u_i's\)</span>, we have <span class="math inline">\(u_1 = 1, u_2 = 4, u_3 = 7\)</span>, and <span class="math inline">\(m=3\)</span>. Further, <span class="math inline">\(n_1 = 2, n_2 = 3, n_3 = 1\)</span>.</p>
+<p>Now, if <span class="math inline">\(X_i\)</span> is the <span class="math inline">\(i\)</span>th sample value drawn, then <span class="math inline">\(X_i\)</span> is a <em>discrete</em> random variable such that <span class="math inline">\(P(X_i = u_i) = \dfrac{n_i}{N}\)</span>. This is because there are <em>still</em> <span class="math inline">\(N\)</span> total units in the population, and we have just grouped them by value.</p>
+<p>For example, using the numbers above, <span class="math inline">\(P(X_i = 4) = \dfrac{3}{6}\)</span>.</p>
+<p>You can check that <span class="math inline">\(E(X_i) = \mu\)</span> and <span class="math inline">\(\mathrm{Var}(X_i) = \sigma^2\)</span>, using the fact that <span class="math inline">\(\displaystyle \sum_{j=1}^m u_j n_j =  \sum_{i=1}^N x_i\)</span>.</p>
+<p>Now let’s compute <span class="math inline">\(\mathrm{Cov}(X_1, X_2) = E(X_1 X_2) - \mu^2\)</span>.</p>
+<p><span class="math display">\[
+\begin{align*}
+E(X_1 X_2) &amp;= \sum_{i=1}^m \sum_{j=1}^m u_i u_j P(X_1 = u_i, X_2 = u_j) \\
+    &amp;= \sum_{i=1}^m \sum_{j=1}^m u_i u_j P(X_1 = u_i) P(X_2 = u_j \vert X_1 = u_i) \\
+    &amp;= \sum_{i=1}^m u_i P(X_1 = u_i) \sum_{j=1}^m u_j P(X_2 = u_j \vert X_1 = u_i)\\
+\end{align*}
+\]</span> Now, as we discussed earlier, <span class="math inline">\(P(X_1 = u_i) = \dfrac{n_i}{N}\)</span>. But the <em>second</em> draw from the population, <span class="math inline">\(X_2\)</span> will depend on the first. <span class="math inline">\(P(X_2 = u_j \vert X_1 = u_i) = \dfrac{n_j}{N-1}\)</span> if <span class="math inline">\(j \ne i\)</span> and <span class="math inline">\(P(X_2 = u_j \vert X_1 = u_i) = \dfrac{n_i-1}{N-1}\)</span> if <span class="math inline">\(j = i\)</span>.</p>
+<p>Thus, we can simplify the interior sum to: <span class="math display">\[
+\begin{align*}
+\sum_{j=1}^m u_j P(X_2 = u_j \vert X_1 = u_i) &amp;= \sum_{\substack{j=1 \\ j \ne i}}^m u_j \cdot \dfrac{n_j}{N-1} + u_i\cdot \dfrac{n_i-1}{N-1}\\
+  &amp;= \sum_{\substack{j=1 \\ j \ne i}}^m u_j \cdot \dfrac{n_j}{N-1} + u_i\cdot \dfrac{n_i}{N-1} - u_i\cdot \dfrac{1}{N-1}\\
+  &amp;= \sum_{j=1}^m  \dfrac{u_j n_j}{N-1} - \dfrac{u_i}{N-1}
+\end{align*}  
+\]</span> Back to <span class="math inline">\(E(X_1 X_2)\)</span>, noting that <span class="math inline">\(\displaystyle \sum_{i=1}^m u_i n_i = \sum_{k=1}^N x_k = \tau = N\mu\)</span>, that is, the sum total of all the population values, and also note that <span class="math inline">\(\displaystyle \sum_{i=1}^m u_i^2 n_i = \sum_{i=1}^m x_i^2 = \sigma^2 + \mu^2\)</span>:</p>
+<p><span class="math display">\[
+\begin{align*}
+E(X_1 X_2) &amp;= \sum_{i=1}^m u_i \dfrac{n_i}{N}\left[ \sum_{j=1}^m  \dfrac{u_j n_j}{N-1} - \dfrac{u_i}{N-1}\right]\\
+   &amp;= \dfrac{1}{N(N-1)}\left[ \left( \sum_{i=1}^m u_i n_i\right)\left( \sum_{j=1}^m u_j n_j\right) - \sum_{i=1}^m u_i^2 n_i\right]\\
+   &amp;= \dfrac{1}{N(N-1)} \left[ \left(N\mu\right)^2 -\sum_{i=1}^m u_i^2 n_i\right]\\
+   &amp;= \dfrac{1}{N(N-1)}\left(N^2 \mu^2 - \sigma^2 - \mu^2 \right)\\
+   &amp;= \mu^2 -\dfrac{\sigma^2}{N-1}
+\end{align*}
+\]</span> This implies that: <span class="math display">\[
+\begin{align*}
+\mathrm{Cov}(X_1, X_2) &amp;= E(X_1X_2) - \mu^2\\
+   &amp;= \mu^2 -\dfrac{\sigma^2}{N-1} - \mu^2\\
+   &amp;= -\dfrac{\sigma^2}{N-1}
+\end{align*}
+\]</span></p>
+Now we can put it all together: <span class="math display">\[
+\begin{align*}
+\mathrm{Var}(\overline{X}) &amp;= \dfrac{1}{n^2} \left( n\sigma^2 + n(n-1) \mathrm{Cov}(X_1, X_2) \right)\\
+   &amp;= \dfrac{1}{n^2} \left( n\sigma^2 - n(n-1)\dfrac{\sigma^2}{N-1}\right)\\
+   &amp;= \dfrac{\sigma^2}{n}\left(1- \dfrac{n-1}{N-1}\right)\\
+   &amp;= \dfrac{\sigma^2}{n}\left(\dfrac{N-n}{N-1}\right)
+\end{align*}
+\]</span>
+</details>
+<p>The quantity <span class="math inline">\(\displaystyle \left( \dfrac{N-n}{N-1}\right)=\left(1- \dfrac{n-1}{N-1}\right)\)</span> is called the <strong>finite population correction</strong>. Note that <span class="math inline">\(\displaystyle \dfrac{n-1}{N-1} \approx \dfrac{n}{N}\)</span>, which is called the <strong>sampling fraction</strong>. The larger the sampling fraction, the larger the sample relative to the population, which means we have more information about the population. This should reduce the variability. The extreme case is when <span class="math inline">\(n=N\)</span>, and the sample mean has <em>no</em> variability. In practice, the sampling fraction is very small, and so the finite population correction is approximately 1. This means that the precision of the estimator (determined by the variance) depends only on the sample size, and not on the population size.</p>
 <p>[Coming soon!]</p>
 </section>
 <section id="estimating-the-population-variance" class="level3">
 <h3 class="anchored" data-anchor-id="estimating-the-population-variance">Estimating the Population Variance</h3>
+<p>We know that the population variance <span class="math inline">\(\sigma^2\)</span> is defined by: <span class="math display">\[
+\sigma^2 = \dfrac{1}{N}\sum_{i=1}^N x_i^2 - \mu^2.
+\]</span> We can define the quantity <span class="math inline">\(\hat{\sigma}^2\)</span>, which is a function of the sample <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span>: <span class="math display">\[
+\begin{align*}
+\hat{\sigma}^2 &amp;= \dfrac{1}{n} \sum_{i=1}^n (X_i -\overline{X})^2 \\
+    &amp;= \dfrac{1}{n} \sum_{i=1}^n X_i^2 -\overline{X}^2 \\
+\end{align*}
+\]</span> and use this to estimate <span class="math inline">\(\sigma^2\)</span>. The question is then if this estimator is <strong>unbiased</strong>. Is <span class="math inline">\(E(\hat{\sigma}^2) = \sigma^2\)</span>?</p>
+<p><span class="math display">\[
+\begin{align*}
+E(\hat{\sigma}^2) &amp;= E\left( \dfrac{1}{n} \sum_{i=1}^n X_i^2 -\overline{X}^2 \right) \\
+   &amp;= \dfrac{1}{n} \sum_{i=1}^n E\left(X_i^2\right) - E\big(\overline{X}^2 \big)\\
+   &amp;= \dfrac{1}{n} (\sigma^2 + \mu^2) - E\big(\overline{X}^2 \big)\\
+\end{align*}
+\]</span> The last line is because <span class="math inline">\(\mathrm{Var}(X_i) = \sigma^2 = E(X_i^2) - \mu^2\)</span>. Doing a similar computation with <span class="math inline">\(E\big(\overline{X}^2 \big)\)</span>, we see that (for a simple random sample): <span class="math display">\[
+E\big(\overline{X}^2 \big) = \mathrm{Var}(\overline{X}) + \mu^2 = \dfrac{\sigma^2}{n}\left(\dfrac{N-n}{N-1} \right) + \mu^2.
+\]</span> Putting these together, and doing some tedious algebra offline, we have <span class="math display">\[
+\begin{align*}
+E(\hat{\sigma}^2) &amp;= \dfrac{1}{n}(\sigma^2 + \mu^2) - \left[\frac{\sigma^2}{n}\left(\dfrac{N-n}{N-1} \right) + \mu^2\right] \\
+   &amp;= \frac{\sigma^2}{n} \left[n - \left(\dfrac{N-n}{N-1} \right)\right] \\
+   &amp;= \sigma^2 \left[\left(\frac{n-1}{n}\right) \left(\dfrac{N}{N-1} \right)\right] \\
+   &amp;= \frac{\sigma^2}{n} \left[\dfrac{nN-N}{nN-1}\right]\\
+\end{align*}
+\]</span> This means that <span class="math inline">\(E(\hat{\sigma}^2) \ne \sigma^2\)</span>, and also that <span class="math inline">\(\hat{\sigma}^2\)</span> <strong>underestimates</strong> <span class="math inline">\(\sigma^2\)</span> on average. Therefore, to get an <strong>unbiased</strong> estimator of the variance of the sample mean, we need to multiply <span class="math inline">\(\hat{\sigma}^2\)</span> by the appropriate factor. Note that: <span class="math display">\[
+E\left[\left(\frac{n}{n-1}\right) \left(\dfrac{N-1}{N} \right)\hat{\sigma}^2\right] = \sigma^2
+\]</span> Our goal, of course, is to get an unbiased estimator for the variance of the sample mean. Recall that, for a simple random sample, <span class="math inline">\(Var(\overline{X}) = \dfrac{\sigma^2}{n}\left(\dfrac{N-n}{N-1}\right)\)</span>. Let’s substiute the unbiased estimator that we just derived above: <span class="math display">\[
+\begin{align*}
+\mathrm{(Estimated)\, Var}(\overline{X}) &amp;= \left(\frac{n}{n-1}\right) \left(\dfrac{N-1}{N} \right)\hat{\sigma}^2 \cdot \frac{1}{n} \left(\dfrac{N-n}{N-1}\right) \\
+&amp;= \frac{\hat{\sigma}^2}{n-1}\left(\frac{N-n}{N}\right)\\
+&amp;= \frac{s^2}{n}\left(1-\frac{n}{N}\right)
+\end{align*}
+\]</span> where <span class="math inline">\(\displaystyle s^2 = \dfrac{1}{n-1} \sum_{i=1}^n \big(X_i - \overline{X}\big)^2\)</span>, so that <span class="math inline">\(\displaystyle \dfrac{s^2}{n} = \dfrac{\hat{\sigma}^2}{n-1}\)</span>.</p>
+<p>Thus we have that <span class="math inline">\(s_{\overline{X}}^2\)</span> is an <strong>unbiased estimator</strong> of <span class="math inline">\(\sigma_{\overline{X}}^2=\mathrm{Var}(\overline{X})\)</span>.</p>
+<p>If the population is dichotomous, then the estimator becomes: <span class="math display">\[
+\mathrm{Var}(\hat{p}) = s_{\hat{p}}^2 = \frac{s^2}{n} = \frac{\hat{p}(1-\hat{p})}{n-1}.
+\]</span></p>
 </section>
 <section id="the-sampling-distribution-of-the-sample-mean" class="level3">
 <h3 class="anchored" data-anchor-id="the-sampling-distribution-of-the-sample-mean">The Sampling Distribution of the Sample Mean</h3>
