@@ -20,27 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -255,7 +235,6 @@ window.Quarto = {
   <li><a href="#the-asymptotic-sampling-distribution-of-the-sample-mean" id="toc-the-asymptotic-sampling-distribution-of-the-sample-mean" class="nav-link" data-scroll-target="#the-asymptotic-sampling-distribution-of-the-sample-mean">The (Asymptotic) Sampling Distribution of the Sample Mean</a></li>
   <li><a href="#confidence-intervals-for-the-population-mean" id="toc-confidence-intervals-for-the-population-mean" class="nav-link" data-scroll-target="#confidence-intervals-for-the-population-mean">Confidence intervals for the Population Mean</a></li>
   </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -611,7 +590,7 @@ E\left[\left(\frac{n}{n-1}\right) \left(\dfrac{N-1}{N} \right)\hat{\sigma}^2\rig
 P\left(\frac{\overline{X}-\mu}{\dfrac{\sigma}{\sqrt{n}}} \le z \right) = F_{\frac{\overline{X}-\mu}{\sigma/\sqrt{n}}}(z)\longrightarrow \Phi(z)
 \]</span></p>
 <p>The CLT is an incredibly important theorem, because it guarantees that for a large enough sample, <em>no matter what the distribution of the random variables <span class="math inline">\(X_i\)</span></em>, the sample mean behaves as though it is from an approximately <span class="math inline">\(\mathcal{N}(\mu, \dfrac{\sigma^2}{n})\)</span> distribution.</p>
-<p>Note that the CLT is a <strong>limit</strong> theorem, so it fully characterizes the <em>asymptotic</em> distribution of the sample mean. It provides a good approximation for large enough samples, so we can compute probabilities such as the <span class="math inline">\(P\)</span>-value, and construct confidence intervals. We also assume that the sample size is very large (and that the sampling fraction is small) and we apply the CLT even when sampling without replacement.</p>
+<p>Note that the CLT is a <strong>limit</strong> theorem, so it fully characterizes the <em>asymptotic</em> distribution of the sample mean. It provides a good approximation for large enough samples, so we can compute probabilities such as the <span class="math inline">\(P\)</span>-value, and construct confidence intervals. We usually have a fixed population size <span class="math inline">\(N\)</span>, so it doesn’t make sense for the sample size <span class="math inline">\(n \rightarrow \infty\)</span>, but as long as <span class="math inline">\(n\)</span> is large, but the sampling fraction <span class="math inline">\(\dfrac{n}{N}\)</span> is small, the normal approximation is pretty good, and how we use it is demonstrated in the following example.</p>
 </section>
 <section id="example-a-page-201" class="level4">
 <h4 class="anchored" data-anchor-id="example-a-page-201">Example A, page 201</h4>
@@ -656,33 +635,51 @@ P\big(-z(\alpha/2) \le Z \le z(\alpha/2)\big) = 1-\alpha.
 \]</span> Therefore, if <span class="math inline">\(\dfrac{\overline{X} - \mu}{\sigma/\sqrt{n}}\)</span> is approximately normal, we have that: <span class="math display">\[
 P\left(-z(\alpha/2) \le \dfrac{\overline{X} - \mu}{\sigma/\sqrt{n}} \le z(\alpha/2)\right) \approx 1-\alpha.
 \]</span> Now we multiply by <span class="math inline">\(\sigma/\sqrt{n}\)</span>, subtract <span class="math inline">\(\overline{X}\)</span> and multiply by <span class="math inline">\(-1\)</span>. This gives us the confidence interval that we need: <span class="math display">\[
-P\left(\overline{X} - z(\alpha/2) \le  \mu \le \overline{X} + z(\alpha/2)\right) \approx 1-\alpha.
-\]</span> This statement says that the chance of this random interval capturing the mean is approximately <span class="math inline">\(1-\alpha\)</span>, and so the interval is called a <strong><span class="math inline">\(100(1-\alpha)%\)</span> confidence interval</strong>.</p>
-<!--
+P\left(\overline{X} - \frac{\sigma}{\sqrt{n}}z(\alpha/2) \le  \mu \le \overline{X} +  \frac{\sigma}{\sqrt{n}}z(\alpha/2)\right) \approx 1-\alpha.
+\]</span> This statement says that the chance of this random interval, <span class="math inline">\(\left(\overline{X} - \dfrac{\sigma}{\sqrt{n}}z(\alpha/2) ,\; \overline{X} +  \dfrac{\sigma}{\sqrt{n}}z(\alpha/2)\right)\)</span> capturing the mean is approximately <span class="math inline">\(1-\alpha\)</span>, and so the interval is called a <strong><span class="math inline">\(100(1-\alpha)%\)</span> confidence interval</strong>.</p>
+<p>We can then plug in our <em>observed</em> value of <span class="math inline">\(\overline{X}\)</span> and will get a <em>realization</em> of the random interval: <span class="math inline">\(\left(\overline{x} - \dfrac{\sigma}{\sqrt{n}}z(\alpha/2) ,\; \overline{x} +  \dfrac{\sigma}{\sqrt{n}}z(\alpha/2)\right).\)</span> Note that <em>this</em> interval is <strong>not</strong> random. It is just an interval on the real line and as <span class="math inline">\(\mu\)</span> is just some fixed constant, it either lies in this interval or does not. Therefore, once we plug in the observed sample mean, and the observed value of the estimator <span class="math inline">\(s_{\overline{X}}\)</span>, we don’t have any randomness. All the randomness is in the <em>sampling procedure</em>.</p>
+<p>We can use the confidence interval to plan our data collection. Since the width of the confidence interval is given by <span class="math inline">\(2\times \dfrac{\sigma}{\sqrt{n}} \times z(\alpha)\)</span>, it is determined by <span class="math inline">\(\sigma\)</span> and by <span class="math inline">\(\sqrt{n}\)</span>. Now <span class="math inline">\(\sigma\)</span> is a constant of the population, so we can’t do much with it, but we can choose <span class="math inline">\(n\)</span> so that our confidence interval is as narrow as we desire. The <em>margin of error</em> of the confidence interval is given by $ z().$</p>
+<p><strong>Exercise</strong> (Problem 8 from section 7.7) A sample of size 100 is taken from a population that has a proportion <span class="math inline">\(p = 1/5\)</span>.</p>
+<ol type="a">
+<li><p>Find <span class="math inline">\(\delta\)</span> such that <span class="math inline">\(P\big(\lvert \hat{p}-p\rvert \ge \delta\big)=0.025\)</span></p></li>
+<li><p>If, in the sample, <span class="math inline">\(\hat{p} = 0.25\)</span>, will the 95% confidence interval for <span class="math inline">\(p\)</span> contain the true value for <span class="math inline">\(p\)</span>?</p></li>
+</ol>
+<details>
+<summary>
+Check your answer
+</summary>
+<ol type="a">
+<li><span class="math inline">\(\delta = 0.0896\)</span>, <span class="math inline">\(p\)</span> is given to be <span class="math inline">\(\dfrac{1}{5}\)</span>. Therefore, <span class="math inline">\(\sigma_{\hat{p}} = \displaystyle \sqrt{\dfrac{\frac{1}{5}\cdot \frac{4}{5}}{100}} = \frac{2}{50}.\)</span></li>
+</ol>
+<p>By the Central Limit Theorem, <span class="math inline">\(\hat{p}\)</span> is approximately <span class="math inline">\(\mathcal{N}(p, \sigma_{\hat{p}}^2)\)</span>.</p>
+<p><span class="math display">\[
+\begin{align*}
+P\big(\lvert \hat{p}-p\rvert \ge \delta\big) &amp;= 0.025 \\
+\Rightarrow P\big(\lvert \hat{p}-p\rvert &lt; \delta\big) &amp;= 0.975 \\
+\Rightarrow P(-\delta &lt; \hat{p}-p &lt; \delta)  &amp;= 0.975 \\
+\Rightarrow P\left(-\frac{\delta}{\sigma_{\hat{p}}} &lt; \frac{\hat{p}-p}{\sigma_{\hat{p}}} &lt; \frac{\delta}{\sigma_{\hat{p}}}\right)  &amp;= 0.975 \\
+\Rightarrow P\left(-\frac{\delta}{\sigma_{\hat{p}}} &lt; Z &lt; \frac{\delta}{\sigma_{\hat{p}}}\right)  &amp;\approx 0.975 \\
+\Rightarrow \Phi\left(\frac{\delta}{\sigma_{\hat{p}}}\right) - \Phi\left(-\frac{\delta}{\sigma_{\hat{p}}}\right) &amp;\approx 0.975 \\
+\Rightarrow 2\Phi\left(\frac{\delta}{\sigma_{\hat{p}}}\right) -1 &amp;\approx 0.975 \\
+\Rightarrow \Phi\left(\frac{\delta}{\sigma_{\hat{p}}}\right) &amp;\approx 0.9875 \\
+\Rightarrow \frac{\delta}{\sigma_{\hat{p}}} &amp;\approx 2.24\\
+\end{align*}
+\]</span> Where we used <code>qnorm(0.9875)</code> to obtain 2.24. Plugging in the value of <span class="math inline">\(\sigma_{\hat{p}} = \dfrac{2}{50}\)</span>, we get that <span class="math inline">\(\delta\)</span> is about <span class="math inline">\(0.0896\)</span>.</p>
+<ol start="2" type="a">
+<li>Yes.</li>
+</ol>
+<p><span class="math inline">\(z(\alpha/2) = 1.96\)</span>, and the 95% confidence interval is given by <span class="math inline">\(\hat{p} \pm 1.96\times \dfrac{2}{50}\)</span>. Since <span class="math inline">\(\hat{p} = 0.25\)</span>, this gives us <span class="math inline">\(0.25 \pm 1.96\times \dfrac{2}{50} = (0.1716, 0.3284)\)</span> which contains <span class="math inline">\(p = \dfrac{1}{5}.\)</span></p>
+</details>
+<p><strong>Exercise</strong> 20 different polling companies have conducted independent surveys to estimate the proportion of US voters who approve of RFK Jr’s stewardship of Health and Human Services. Each company estimates this proportion using a 95% confidence interval. About how many do you think will be successful in covering the true proportion?</p>
+<details>
+<summary>
+Check your answer
+</summary>
+<p>If we let <span class="math inline">\(Y\)</span> be the number of confidence intervals out of 20 that are successful, then since each interval has a 0.95 chance of success, we see that <span class="math inline">\(Y\sim Bin(20, 0.95)\)</span>. Therefore the expected number of successful intervals is <span class="math inline">\(E(Y) = 20\times 0.95 = 19.\)</span></p>
+</details>
 
 
-
--->
-<div style="display:none">
-<p><span class="citation" data-cites="rice2006 samslides135 lohr2010">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>; <a href="#ref-lohr2010" role="doc-biblioref">Lohr 2010</a>)</span></p>
-</div>
 </section>
-</section>
-<section id="references" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-lohr2010" class="csl-entry" role="listitem">
-Lohr, Sharon L. 2010. <em>Sampling: Design and Analysis</em>. 2nd ed. Cengage.
-</div>
-<div id="ref-samslides135" class="csl-entry" role="listitem">
-Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).
-</div>
-<div id="ref-rice2006" class="csl-entry" role="listitem">
-Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. Duxbury Press.
-</div>
-</div>
-
-
 </section>
 
 </main> <!-- /main -->
