@@ -481,13 +481,13 @@ E(X_1 X_2) &amp;= \sum_{i=1}^m \sum_{j=1}^m u_i u_j P(X_1 = u_i, X_2 = u_j) \\
   &amp;= \sum_{\substack{j=1 \\ j \ne i}}^m u_j \cdot \dfrac{n_j}{N-1} + u_i\cdot \dfrac{n_i}{N-1} - u_i\cdot \dfrac{1}{N-1}\\
   &amp;= \sum_{j=1}^m  \dfrac{u_j n_j}{N-1} - \dfrac{u_i}{N-1}
 \end{align*}  
-\]</span> Back to <span class="math inline">\(E(X_1 X_2)\)</span>, noting that <span class="math inline">\(\displaystyle \sum_{i=1}^m u_i n_i = \sum_{k=1}^N x_k = \tau = N\mu\)</span>, that is, the sum total of all the population values, and also note that <span class="math inline">\(\displaystyle \sum_{i=1}^m u_i^2 n_i = \sum_{i=1}^m x_i^2 = \sigma^2 + \mu^2\)</span>:</p>
+\]</span> Back to <span class="math inline">\(E(X_1 X_2)\)</span>, noting that <span class="math inline">\(\displaystyle \sum_{i=1}^m u_i n_i = \sum_{k=1}^N x_k = \tau = N\mu\)</span>, that is, the sum total of all the population values, and also note that <span class="math inline">\(\displaystyle \sum_{i=1}^m u_i^2 n_i = \sum_{i=1}^N x_i^2 = N(\sigma^2 + \mu^2)\)</span>:</p>
 <p><span class="math display">\[
 \begin{align*}
 E(X_1 X_2) &amp;= \sum_{i=1}^m u_i \dfrac{n_i}{N}\left[ \sum_{j=1}^m  \dfrac{u_j n_j}{N-1} - \dfrac{u_i}{N-1}\right]\\
    &amp;= \dfrac{1}{N(N-1)}\left[ \left( \sum_{i=1}^m u_i n_i\right)\left( \sum_{j=1}^m u_j n_j\right) - \sum_{i=1}^m u_i^2 n_i\right]\\
    &amp;= \dfrac{1}{N(N-1)} \left[ \left(N\mu\right)^2 -\sum_{i=1}^m u_i^2 n_i\right]\\
-   &amp;= \dfrac{1}{N(N-1)}\left(N^2 \mu^2 - \sigma^2 - \mu^2 \right)\\
+   &amp;= \dfrac{1}{N(N-1)}\left(N^2 \mu^2 - N(\sigma^2 + \mu^2) \right)\\
    &amp;= \mu^2 -\dfrac{\sigma^2}{N-1}
 \end{align*}
 \]</span> This implies that: <span class="math display">\[
@@ -525,18 +525,19 @@ Now we can put it all together: <span class="math display">\[
 \begin{align*}
 E(\hat{\sigma}^2) &amp;= E\left( \dfrac{1}{n} \sum_{i=1}^n X_i^2 -\overline{X}^2 \right) \\
    &amp;= \dfrac{1}{n} \sum_{i=1}^n E\left(X_i^2\right) - E\big(\overline{X}^2 \big)\\
-   &amp;= \dfrac{1}{n} (\sigma^2 + \mu^2) - E\big(\overline{X}^2 \big)\\
+   &amp;=  (\sigma^2 + \mu^2) - E\big(\overline{X}^2 \big)\\
 \end{align*}
 \]</span> The last line is because <span class="math inline">\(\mathrm{Var}(X_i) = \sigma^2 = E(X_i^2) - \mu^2\)</span>. Doing a similar computation with <span class="math inline">\(E\big(\overline{X}^2 \big)\)</span>, we see that (for a simple random sample): <span class="math display">\[
 E\big(\overline{X}^2 \big) = \mathrm{Var}(\overline{X}) + \mu^2 = \dfrac{\sigma^2}{n}\left(\dfrac{N-n}{N-1} \right) + \mu^2.
 \]</span> Putting these together, and doing some tedious algebra offline, we have <span class="math display">\[
 \begin{align*}
-E(\hat{\sigma}^2) &amp;= \dfrac{1}{n}(\sigma^2 + \mu^2) - \left[\frac{\sigma^2}{n}\left(\dfrac{N-n}{N-1} \right) + \mu^2\right] \\
+E(\hat{\sigma}^2) &amp;= (\sigma^2 + \mu^2) - \left[\frac{\sigma^2}{n}\left(\dfrac{N-n}{N-1} \right) + \mu^2\right] \\
+   &amp;= \dfrac{n\sigma^2}{n} - \frac{\sigma^2}{n}\left(\dfrac{N-n}{N-1} \right) + \mu^2 - \mu^2  \\
    &amp;= \frac{\sigma^2}{n} \left[n - \left(\dfrac{N-n}{N-1} \right)\right] \\
    &amp;= \sigma^2 \left[\left(\frac{n-1}{n}\right) \left(\dfrac{N}{N-1} \right)\right] \\
    &amp;= \frac{\sigma^2}{n} \left[\dfrac{nN-N}{nN-1}\right]\\
 \end{align*}
-\]</span> This means that <span class="math inline">\(E(\hat{\sigma}^2) \ne \sigma^2\)</span>, and also that <span class="math inline">\(\hat{\sigma}^2\)</span> <strong>underestimates</strong> <span class="math inline">\(\sigma^2\)</span> on average. Therefore, to get an <strong>unbiased</strong> estimator of the variance of the sample mean, we need to multiply <span class="math inline">\(\hat{\sigma}^2\)</span> by the appropriate factor. Note that: <span class="math display">\[
+\]</span> This means that <span class="math inline">\(E(\hat{\sigma}^2) \ne \sigma^2\)</span>, and also that <span class="math inline">\(\hat{\sigma}^2\)</span> <strong>underestimates</strong> <span class="math inline">\(\sigma^2\)</span> on average (since <span class="math inline">\(N &gt; 1\)</span>). Therefore, to get an <strong>unbiased</strong> estimator of the variance of the sample mean, we need to multiply <span class="math inline">\(\hat{\sigma}^2\)</span> by the appropriate factor. Note that: <span class="math display">\[
 E\left[\left(\frac{n}{n-1}\right) \left(\dfrac{N-1}{N} \right)\hat{\sigma}^2\right] = \sigma^2
 \]</span> Our goal, of course, is to get an unbiased estimator for the variance of the sample mean. Recall that, for a simple random sample, <span class="math inline">\(Var(\overline{X}) = \dfrac{\sigma^2}{n}\left(\dfrac{N-n}{N-1}\right)\)</span>. Let’s substiute the unbiased estimator that we just derived above: <span class="math display">\[
 \begin{align*}
