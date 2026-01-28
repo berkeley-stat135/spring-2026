@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Parameter Estimation</title>
+<title>Parameter Estimation: Method of Moments</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -68,26 +88,184 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <script async="" src="”https://siteimproveanalytics.com/js/siteanalyze_6294756.js”"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
 
-<body>
+<body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-3.html">Lecture 4: Method of Moments</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/stat_bear.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Stat 135</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/berkeley-stat135/spring-2026" title="" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home / Schedule</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About Stat 135</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../staff.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Staff</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../calendar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Calendar</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Lectures</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 1: Syllabus &amp; Diagnostic Test</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 2: Survey Sampling, Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 3: Survey Sampling, Inference</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-3.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Lecture 4: Method of Moments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 5: Maximum Likelihood Estimation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datasets</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">License</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#example-from-the-text-fitting-the-poisson-distribution-to-emissions-of-alpha-particles" id="toc-example-from-the-text-fitting-the-poisson-distribution-to-emissions-of-alpha-particles" class="nav-link" data-scroll-target="#example-from-the-text-fitting-the-poisson-distribution-to-emissions-of-alpha-particles">Example from the text: Fitting the Poisson distribution to emissions of alpha particles</a></li>
+  </ul></li>
+  <li><a href="#parameter-estimation" id="toc-parameter-estimation" class="nav-link" data-scroll-target="#parameter-estimation">Parameter Estimation</a></li>
+  <li><a href="#method-of-moments" id="toc-method-of-moments" class="nav-link" data-scroll-target="#method-of-moments">Method of Moments</a>
+  <ul class="collapse">
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Parameter Estimation</h1>
+<h1 class="title">Parameter Estimation: Method of Moments</h1>
 </div>
 
 
@@ -104,9 +282,233 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>[UNDER CONSTRUCTION]</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>So far, we have estimated population parameters, mostly the mean and variance, but our analysis has been <em>distribution-free</em>. We haven’t made any assumptions other than our population being <em>finite</em>, and our sample being a simple random sample.</p>
+<p>Now, we are going to think about <strong>parametric models</strong>, that is we are going to assume that our populations are <em>infinite</em>, with <em>parametric</em> probability distributions, but <em>unknown</em> parameters.</p>
+<p>We would use these when we have some reason to believe that our data is being generated with some <em>particular</em> distribution, and we try to figure out the <em>parameters</em> of the distribution, given a sample from this parametric distribution.</p>
+<p>For instance, counts of goals scored in the soccer world cup, or counts of traffic accidents - or counts of cavalry officers in the Prussian army being kicked to death by their horses - these have been shown to follow a Poisson distribution. Later in the course, we will discuss nonparametric models as well, but it is useful to understand parametric models first, as these are widely used.</p>
+<p>When we talk about a <em>family</em> of probability distributions we refer to a class of probability distributions indexed by its parameter values. The shape of the distributions can vary (a lot!) depending on the values of the parameters, but the form of the distribution (given by the pdf or cdf) is determined by the class or the family. Many families of probability distributions, such as Poisson, or Gamma, or Gaussian, are determined by some <em>small</em> number of parameters. For the Poisson, you need the parameter <span class="math inline">\(\lambda\)</span>, which would be the average count, for the Gamma distribution you need two parameters, <span class="math inline">\(\alpha\)</span>, called the <em>shape</em> parameter, and <span class="math inline">\(\lambda\)</span>, called the <em>rate</em> parameter. (Some texts will use <span class="math inline">\(\beta = 1/\lambda\)</span> and call it the <em>scale</em> parameter.) The Gaussian family of distributions depends on two parameters, <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>. This means that when we are estimating the parameters of a probability distribution, given sample data, we might need to estimate a single parameter, or we might need to estimate a vector consisting of two or more parameters.</p>
+<p>For example, here is a figure from Wikipedia’s <a href="https://en.wikipedia.org/wiki/Normal_distribution">page</a> on the Normal distribution showing the probability density functions for various values of the parameters <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lec-3-images/wikipedia-gaussian-family-pdf.png" class="img-fluid figure-img" style="width:45.0%"></p>
+<figcaption>Normal family</figcaption>
+</figure>
+</div>
+<p>The pdf has the same form for all of the density curves:</p>
+<p><span class="math display">\[
+f(x; \mu, \sigma) = \frac{1}{\sigma \sqrt{2\pi}}e^{-\frac{1}{2}(\frac{x-\mu}{\sigma})^2}
+\]</span></p>
+<p>Even when we are interested in only one parameter - the parameter of interest - we may need to estimate the remaining parameters in the model in order to estimate it. In some cases, the parameter of interest itself is a complicated function of the underlying model parameters, as in the following example from <span class="citation" data-cites="wasserman2004">(<a href="#ref-wasserman2004" role="doc-biblioref">Wasserman 2004</a>)</span>:</p>
+<p><strong>Example</strong> Let <span class="math inline">\(X_1, X_2, \ldots, X_n \sim \mathcal{N}(\mu, \sigma^2).\)</span> The parameter is a vector <span class="math inline">\(\mathbf{\theta} = (\mu, \sigma)\)</span> where <span class="math inline">\(\sigma &gt; 0\)</span>. Suppose that <span class="math inline">\(X_i\)</span> is ther outcome of a blood test and we are interested in <span class="math inline">\(\tau\)</span>, the fraction of the population whose test score is greater than 1. If <span class="math inline">\(Z \sim \mathcal{N}(0,1)\)</span>, then <span class="math display">\[
+\begin{align*}
+\tau &amp;= P(X &gt; 1)\\
+&amp;= 1-P(X&lt;1)\\
+&amp;= 1 - P\left(\frac{X-\mu}{\sigma} &gt; \frac{1-\mu}{\sigma}\right)\\
+&amp;= 1 - \Phi\left(\frac{1-\mu}{\sigma}\right)\\
+\end{align*}
+\]</span> Therefore, the <em>parameter of interest</em> is <span class="math inline">\(\tau = T(\mu, \sigma) = \displaystyle 1 - \Phi\left(\frac{1-\mu}{\sigma}\right)\)</span>, where <span class="math inline">\(T\)</span> denotes that <span class="math inline">\(\tau\)</span> is a function of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>.</p>
+<section id="example-from-the-text-fitting-the-poisson-distribution-to-emissions-of-alpha-particles" class="level3">
+<h3 class="anchored" data-anchor-id="example-from-the-text-fitting-the-poisson-distribution-to-emissions-of-alpha-particles">Example from the text: Fitting the Poisson distribution to emissions of alpha particles</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lec-3-images/americium-alpha.jpg" class="img-fluid figure-img" style="width:45.0%"></p>
+<figcaption>Americium 241 emitting alpha particles</figcaption>
+</figure>
+</div>
+<p>“Records of emissions of alpha particles from radioactive sources show that the number of emissions per unit time is not constant but fluctuates in a seemingly random fashion”.</p>
+<p>This is an example of what we will do in this chapter. We will assume some distribution, get a data sample, and then use the data sample to estimate the parameter of the distribution we assumed. Since the underlying rate of emission was assumed to be constant, it was assumed that the emissions followed a Poisson distribution. In fact, for this very reason - that the number of emissions per unit time fluctuate randomly, but there is an underlying constant rate - the Poisson distribution is often used to model radioactive decay. Recall the conditions for using the Poisson distribution to model the number of events in time (or space) are that:</p>
+<ol type="1">
+<li>The underlying rate of events is constant in time (or space),</li>
+<li>The number of events that occur in disjoint intervals are independent, and</li>
+<li>There cannot be multiple events at the same instant.</li>
+</ol>
+<p>Researchers observed the radioactive decay of Americium 241 and the consequent emission of alpha particles, recording the time between successive emissions. They recorded 1,207 intervals of 10 seconds each, and counted the number of emissions in each of these intervals.</p>
+<p>The table below, reproduced from <span class="citation" data-cites="rice2006">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>)</span> shows emission counts <span class="math inline">\(n\)</span> in the first column. In the second column is the number of intervals the researchers observed that had <span class="math inline">\(n\)</span> emissions, for each <span class="math inline">\(n\)</span> listed. For example, there were 28 10-second intervals observed that had 3 emissions each, 56 intervals that had 4 emissions each, etc. To compute the expected count, we need a value for the Poisson rate <span class="math inline">\(\lambda\)</span>. The observed mean emission rate which was the total number of emissions divided by the total amount of time was recorded to be 0.8392 seconds. We use this observed mean emission rate to compute an estimate for <span class="math inline">\(\lambda\)</span> in the probability mass function of the Poisson distribution. Now, the 1,207 counts are the 1,207 realizations of a Poisson random variable with rate <span class="math inline">\(\lambda\)</span>, where <span class="math inline">\(\lambda\)</span> is the expected number of emissions in 10 seconds,making our estimate, <span class="math inline">\(\hat{\lambda} = 0.8392 \times 10 = 8.392\)</span>.</p>
+<p>For example, how many intervals do we expect with exactly 3 emissions? Each interval has 4 emissions or not 4 emissions. So the number of intervals out of 1,207 total intervals with exactly 4 emissions is a Binomial random variable, with parameters <span class="math inline">\(n = 1207\)</span>, and <span class="math inline">\(p = P(\)</span> exactly 4 emissions<span class="math inline">\()\)</span> = <span class="math inline">\(\displaystyle \dfrac{\lambda^k e^{-\lambda}}{k!} \approx \dfrac{\hat{\lambda}^k  e^{-\hat{\lambda}}}{k!}\)</span>. If we plug in <span class="math inline">\(k=4\)</span> and <span class="math inline">\(\hat{\lambda} = 8.392\)</span>, we get that <span class="math inline">\(p \approx 0.0468\)</span>. Therefore, the expected number of intervals with exactly 4 emissions in <span class="math inline">\(np = 1207\times 0.0468 = 56.4876\approx 56.5\)</span>.</p>
+<p>For the first row, since we are combining intervals with exactly 0 or 1 or 2 counts, the Binomial parameter <span class="math inline">\(p\)</span> is given by <span class="math inline">\(P(\)</span> exactly 0 OR exactly 1 OR exactly 2 emissions <span class="math inline">\()\)</span>, so we have to add the probabilities of each of these to get <span class="math inline">\(p\)</span>. We can see that the expected counts are not too far off from the observed counts. In chapter 9 we will discuss how to quantify the notion of “not too far off”.</p>
+<table class="caption-top table">
+<caption>Observed and Expected Interval Counts for <span class="math inline">\(n\)</span> Alpha Particle Emissions</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(n\)</span></th>
+<th style="text-align: center;">Observed Number of Intervals</th>
+<th style="text-align: center;">Expected Number of Intervals</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0-2</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">12.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">28</td>
+<td style="text-align: center;">27.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">56</td>
+<td style="text-align: center;">56.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">105</td>
+<td style="text-align: center;">94.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">126</td>
+<td style="text-align: center;">132.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">146</td>
+<td style="text-align: center;">159.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">164</td>
+<td style="text-align: center;">166.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">161</td>
+<td style="text-align: center;">155.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">123</td>
+<td style="text-align: center;">130.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">101</td>
+<td style="text-align: center;">99.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">74</td>
+<td style="text-align: center;">69.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">53</td>
+<td style="text-align: center;">45.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">23</td>
+<td style="text-align: center;">27.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">15.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">7.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">17+</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">7.1</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="parameter-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="parameter-estimation">Parameter Estimation</h2>
+<ul>
+<li><p>Suppose our population is some parametric distribution with pmf or pdf <span class="math inline">\(f(x \vert \theta)\)</span>, where <span class="math inline">\(\theta\)</span> is the unknown parameter that we want to estimate.</p></li>
+<li><p>We obtain an IID sample <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> from this distribution, so <span class="math inline">\(X_i \sim (x \vert \theta)\)</span>.</p></li>
+<li><p>The joint pmf or pdf of <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> is given by <span class="math inline">\(f(x_1, x_2, \ldots, x_n)\)</span>. Because this probability depends on <span class="math inline">\(\theta\)</span>, we write the pdf (or pmf, as the case may be), as <span class="math inline">\(f(x_1, x_2, \ldots, x_n \vert \theta)\)</span>.</p></li>
+<li><p>For simplicity, let’s assume that we have a <strong>discrete</strong> distribution, so that</p></li>
+</ul>
+<p><span class="math display">\[
+\begin{align*}
+f(x_1, x_2, \ldots, x_n \vert \theta) &amp;= P(X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n)\\
+        &amp;= P(X_1 = x_1)P(X_2 = x_2)\ldots P(X_n = x_n)\\
+        &amp;= f(x_1\vert \theta)f(x_2\vert \theta)\ldots f(x_n\vert \theta)\\
+        &amp;= \prod_{i=1}^n f(x_i\vert \theta)
+\end{align*}
+\]</span> - Any estimator of <span class="math inline">\(\theta\)</span> will be a function of the sample <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span>, which means that the estimator will itself be a random variable. Therefore it will have a probability distribution.</p>
+<ul>
+<li><p>Just like in chapter 7, we call the estimator <span class="math inline">\(\hat{\theta}\)</span>, and its distribution is called the <em>sampling distribution</em> of <span class="math inline">\(\hat{\theta}\)</span>.</p></li>
+<li><p>We will need to approximate this distribution, since we need an idea of the error of our estimator, which is governed by its standard error <span class="math inline">\(SE(\hat{\theta})\)</span>, that is, we denote the square root of <span class="math inline">\(\mathrm{Var}(\hat{\theta})\)</span> by <span class="math inline">\(SE(\hat{\theta})\)</span>.</p></li>
+<li><p>We will study the following two methods:</p></li>
+</ul>
+<ol type="1">
+<li>Method of moments</li>
+<li>Maximum Likelihood Estimation</li>
+</ol>
+<ul>
+<li>We would like to minimize the standard error of our estimator, so we will choose the estimator whose distribution is most <em>concentrated</em> about the true value <span class="math inline">\(\theta\)</span>. That is, we will choose (from among the <strong>unbiased</strong> estimators) the estimator with the <em>smallest</em> standard error.</li>
+</ul>
+</section>
+<section id="method-of-moments" class="level2">
+<h2 class="anchored" data-anchor-id="method-of-moments">Method of Moments</h2>
+<p>Let <span class="math inline">\(\mu_k\)</span> denote the <span class="math inline">\(k\)</span>th moment of the random variable <span class="math inline">\(X\)</span>. That is, <span class="math inline">\(\mu_k = E(X^k)\)</span>. The <em>first</em> moment is the mean:</p>
+<p><span class="math display">\[
+\mu_1 = E(X).
+\]</span></p>
+<p>The <em>second</em> moment isn’t the variance, but we can get the variance from the first and second moments: <span class="math display">\[
+\mu_2 = E(X^2) \Rightarrow \mathrm{Var}(X) = \mu_2 - \mu_1^2
+\]</span></p>
+<p>Now, suppose we have an IID random sample <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span>. Define the <span class="math inline">\(k\)</span>th <strong>sample moment</strong> <span class="math inline">\(\hat{\mu}_k\)</span> by <span class="math display">\[
+\hat{\mu}_k = \frac{1}{n} \sum_{i =1 }^n X_i^k
+\]</span> For example, <span class="math inline">\(\hat{\mu}_1\)</span> is the sample mean <span class="math inline">\(\overline{X}\)</span>. We can use <span class="math inline">\(\hat{\mu}_k\)</span> as an estimate for <span class="math inline">\(\mu_k = E(X^k) = E(X^k \vert \theta)\)</span>. The method of moments estimates parameters by finding expressions for them in terms of the moments of the lowest possible order, and then plugging in the sample moments into the expression. We usually need as many moments as there are unknown parameter values.</p>
+<p>There are 3 steps to this method:</p>
+<ol type="1">
+<li>Find the moments <span class="math inline">\(E(X^k)\)</span>.</li>
+<li>Solve for <span class="math inline">\(\theta\)</span> in terms of the moments, that is get an expression that looks like <span class="math inline">\(\theta = h(\mu_1, \mu_2, \ldots, \mu_k)\)</span>.</li>
+<li>Plug in the sample moments to get <span class="math inline">\(\hat{\theta}\)</span>, so we get <span class="math inline">\(\hat{\theta} = h(\hat{\mu}_1, \hat{\mu}_2, \ldots, \hat{\mu}_k)\)</span></li>
+</ol>
+<section id="examples" class="level3">
+<h3 class="anchored" data-anchor-id="examples">Examples</h3>
+<p><strong>Example 1</strong></p>
+<p><span class="math inline">\(X_1, X_2, \ldots, X_n \sim Bernoulli(p)\)</span></p>
+<p>So here, <span class="math inline">\(\theta = p\)</span></p>
+<details>
+<summary>
+Check your answer!
+</summary>
+<p>Step 1: Find the moments. Note that we have just one parameter, so the first moment should suffice.</p>
+<p><span class="math inline">\(E(X_i) = p = \theta\)</span>.</p>
+<p>Step 2: Therefore <span class="math inline">\(\theta = \mu_1\)</span> and we don’t need any more moments. Now $_1 = = .</p>
+<p>Step 3: $ = _1 = .</p>
+<p>/details&gt;</p>
+<p><strong>Example 2</strong></p>
+<p><span class="math inline">\(X_1, X_2, \ldots, X_n \sim Exponential(\lambda)\)</span>.</p>
+<p>Step 1. <span class="math inline">\(\mu_1 = E(X_i) = \frac{1}{\lambda}\)</span></p>
+<p>Step 2: Solve for <span class="math inline">\(\lambda\)</span></p>
+<p><span class="math inline">\(\lambda = \dfrac{1}{\mu_1} \Rightarrow \hat{\lambda} = \dfrac{1}{\hat{\mu}_1} = \dfrac{1}{\overline{X}}\)</span></p>
+<div style="display:none">
+<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="wasserman2004">Wasserman (<a href="#ref-wasserman2004" role="doc-biblioref">2004</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>;]</p>
+</div>
+</details></section>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-samslides135" class="csl-entry" role="listitem">
+Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).
+</div>
+<div id="ref-rice2006" class="csl-entry" role="listitem">
+Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. Duxbury Press.
+</div>
+<div id="ref-wasserman2004" class="csl-entry" role="listitem">
+Wasserman, Larry. 2004. <em>All of Statistics: A Concise Course in Statistical Inference</em>. New York: Springer.
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

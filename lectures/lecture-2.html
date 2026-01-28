@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -195,13 +215,13 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-4.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/lecture-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 4: Method of Moments</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-5.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/lecture-4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 5: Maximum Likelihood Estimation</span></a>
   </div>
 </li>
@@ -240,6 +260,7 @@ window.Quarto = {
   <li><a href="#the-asymptotic-sampling-distribution-of-the-sample-mean" id="toc-the-asymptotic-sampling-distribution-of-the-sample-mean" class="nav-link" data-scroll-target="#the-asymptotic-sampling-distribution-of-the-sample-mean">The (Asymptotic) Sampling Distribution of the Sample Mean</a></li>
   <li><a href="#confidence-intervals-for-the-population-mean" id="toc-confidence-intervals-for-the-population-mean" class="nav-link" data-scroll-target="#confidence-intervals-for-the-population-mean">Confidence intervals for the Population Mean</a></li>
   </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -682,9 +703,29 @@ Check your answer
 </summary>
 <p>If we let <span class="math inline">\(Y\)</span> be the number of confidence intervals out of 20 that are successful, then since each interval has a 0.95 chance of success, we see that <span class="math inline">\(Y\sim Bin(20, 0.95)\)</span>. Therefore the expected number of successful intervals is <span class="math inline">\(E(Y) = 20\times 0.95 = 19.\)</span></p>
 </details>
-
-
+<div style="display:none">
+<p><span class="citation" data-cites="rice2006 wasserman2004 samslides135 lohr2010">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-wasserman2004" role="doc-biblioref">Wasserman 2004</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>; <a href="#ref-lohr2010" role="doc-biblioref">Lohr 2010</a>)</span></p>
+</div>
 </section>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-lohr2010" class="csl-entry" role="listitem">
+Lohr, Sharon L. 2010. <em>Sampling: Design and Analysis</em>. 2nd ed. Cengage.
+</div>
+<div id="ref-samslides135" class="csl-entry" role="listitem">
+Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).
+</div>
+<div id="ref-rice2006" class="csl-entry" role="listitem">
+Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. Duxbury Press.
+</div>
+<div id="ref-wasserman2004" class="csl-entry" role="listitem">
+Wasserman, Larry. 2004. <em>All of Statistics: A Concise Course in Statistical Inference</em>. New York: Springer.
+</div>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->
