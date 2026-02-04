@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Survey Sampling: An Introduction</title>
+<title>More about Estimators and Mathematical Digressions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-2.html">Lecture 2: Survey Sampling, Introduction</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-6.html">Lecture 6: MoM &amp; Mathematical Digressions</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -203,7 +203,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-2.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lectures/lecture-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 2: Survey Sampling, Introduction</span></a>
   </div>
 </li>
@@ -227,7 +227,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-6.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/lecture-6.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lecture 6: MoM &amp; Mathematical Digressions</span></a>
   </div>
 </li>
@@ -265,11 +265,10 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <li><a href="#properties-of-estimators" id="toc-properties-of-estimators" class="nav-link active" data-scroll-target="#properties-of-estimators">Properties of Estimators</a>
   <ul class="collapse">
-  <li><a href="#warm-up-problem" id="toc-warm-up-problem" class="nav-link" data-scroll-target="#warm-up-problem">Warm up problem</a></li>
+  <li><a href="#consistency" id="toc-consistency" class="nav-link" data-scroll-target="#consistency">Consistency</a></li>
   </ul></li>
-  <li><a href="#definitions-and-vocabulary" id="toc-definitions-and-vocabulary" class="nav-link" data-scroll-target="#definitions-and-vocabulary">Definitions and vocabulary</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -279,7 +278,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Survey Sampling: An Introduction</h1>
+<h1 class="title">More about Estimators and Mathematical Digressions</h1>
 </div>
 
 
@@ -296,116 +295,44 @@ window.Quarto = {
 </header>
 
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>In this chapter, we look at the topic of <em>survey sampling</em>, which involves a particular type of <em>inference</em>, saying something about a population, given an observed subset of the population. By now, we are all very used to sample surveys, such as presidential approval polls, and polls on various issues such as: <em>What percentage of Republicans support vaccine requirements for children to attend public schools</em>. Pew Research investigated this question a couple of years ago, which they attempted to answer by taking a <strong>sample</strong> of Republican voters, and then drawing a conclusion about the <strong>population</strong> of Republican voters.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="lec-2-images/pew-vaccine.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:45.0%"></p>
-</figure>
-</div>
-<p>News outlets are constantly publishing polls, which are certainly not all the same quality. The famous FiveThirtyEight site, started by Nate Silver, is defunct now, but it was famous for its <em>pollster ratings</em>. You can read about their <a href="https://abcnews.go.com/538/best-pollsters-america/story?id=105563951">methodology</a> and here are their rankings from a couple of years ago.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="lec-2-images/pollster-ratings-538-2024.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption>FiveThirtyEight pollster ratings from January 2024</figcaption>
-</figure>
-</div>
-<p>In our course, we learn a little bit about survey sampling, and if you like it, you might think about taking Stat 152 the next time it is offered in our department. Chapter 7 in our text discusses the probabilistic sampling techniques, in that each population <em>unit</em> has a <em>specified</em> probability of being included in the sample, which consists of randomly selected units from the population. Note that we make no distributional assumptions in this chapter. We will restrict our study to <strong>Simple Random Samples</strong>: every population unit has the same probability of being selected, and each particular sample of size <span class="math inline">\(n\)</span> has the same probability. That is, if the size of our population is <span class="math inline">\(N\)</span>, then each of the <span class="math inline">\(\displaystyle \binom{N}{n}\)</span> possible samples of size <span class="math inline">\(n\)</span> taken without replacement has the <em>same</em> probability.</p>
-<section id="warm-up-problem" class="level3">
-<h3 class="anchored" data-anchor-id="warm-up-problem">Warm up problem</h3>
-<p>Consider the following problem:</p>
-<p>You have a box containing 5 cards. Four of the cards are labeled with the number <span class="math inline">\(0\)</span> and one of them is labeled with the number <span class="math inline">\(1\)</span>.You pick <em>two</em> cards at random <strong>with</strong> replacment. Let <span class="math inline">\(Y\)</span> represent the <em>average</em> of the two cards.</p>
+<section id="properties-of-estimators" class="level2">
+<h2 class="anchored" data-anchor-id="properties-of-estimators">Properties of Estimators</h2>
+<p>In this chapter, we discuss what are some desirable properties that an estimator should have. This is just the beginning of the discussion and we will continue it when we study the method of maximum likelihood estimation. So far, we have discussed three criteria of estimators:</p>
 <ol type="1">
-<li>What is the distribution of the random variable <span class="math inline">\(Y\)</span>? (<em>Hint</em>: Define <span class="math inline">\(X\)</span> to be the <em>sum</em> of the two cards. What is the distribution of <span class="math inline">\(X\)</span>?)</li>
+<li>Unbiasedness</li>
+<li>Low variance</li>
+<li>Low MSE (Mean Square Error)</li>
 </ol>
-<details>
-<summary>
-Check your answer
-</summary>
-<p><span class="math inline">\(X \sim Bin(2, \dfrac{1}{5})\)</span>, and <span class="math inline">\(Y = X/2\)</span>.</p>
-<p><span class="math inline">\(P(Y = 0) = P(X = 0) = \dfrac{16}{25}\)</span></p>
-<p><span class="math inline">\(P(Y = \dfrac{1}{2}) = P(X = 1) = \dfrac{8}{25}\)</span></p>
-<p><span class="math inline">\(P(Y = 1) = P(X = 2) = \dfrac{1}{25}\)</span></p>
-</details>
-<ol start="2" type="1">
-<li>Compute <span class="math inline">\(E(Y)\)</span> and <span class="math inline">\(\mathrm{Var}(Y)\)</span>.</li>
-</ol>
-<details>
-<summary>
-Check your answer
-</summary>
-<p><span class="math inline">\(E(Y) = \dfrac{1}{5}\)</span> and <span class="math inline">\(\mathrm{Var}(Y) = \dfrac{2}{25}\)</span>.</p>
-</details>
-<p>Now what if I sample <em>without</em> replacement? Let <span class="math inline">\(Z\)</span> be the average of the two tickets in this case. What is the distribution of <span class="math inline">\(Z\)</span>?</p>
-<details>
-<summary>
-Check your answer
-</summary>
-<p>Now the sum is <em>Hypergeometric</em>. (What are the parameters of the distribution?)</p>
-<p>You can work out that <span class="math inline">\(P(Z = 0) = \dfrac{3}{5}, P(Z = \dfrac{1}{2}) = \dfrac{2}{5}\)</span>.</p>
-<p>Why can’t <span class="math inline">\(Z\)</span> be <span class="math inline">\(1\)</span>?</p>
-</details>
+<section id="unbiasedness" class="level4">
+<h4 class="anchored" data-anchor-id="unbiasedness">Unbiasedness</h4>
+<p>Recall that we call an estimator <span class="math inline">\(\hat{\theta}\)</span> <em>unbiased</em> if on average, the estimator is on target. That means that if we are trying to estimate <span class="math inline">\(\theta\)</span>, then <span class="math inline">\(E(\hat{\theta}) = \theta\)</span>. For example, since <span class="math inline">\(E(\overline{X}) = \mu\)</span>, the population mean, the sample mean <span class="math inline">\(\overline{X}\)</span> is an unbiased estimator of the population mean, and <span class="math inline">\(\hat{p}\)</span>, the sample proportion, is an unbiased estimator of the population proportion.</p>
+<p><strong>Exercise</strong> Let <span class="math inline">\(X_1, \ldots, X_n\)</span> be an IID sample from some distribution with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. Show that <span class="math inline">\(S^2\)</span> is an unbiased estimator of <span class="math inline">\(\sigma^2\)</span>, where <span class="math inline">\(\displaystyle S^2 = \dfrac{1}{n-1}\sum_{i=1}^n \left(X_i - \overline{X}\right)^2\)</span> is the <em>sample variance</em> of <span class="math inline">\(X_1, \ldots, X_n\)</span>.</p>
+<p><strong>Exercise</strong> Consider an IID random sample <span class="math inline">\(X_1, \ldots, X_n\)</span> from a <span class="math inline">\(Unif(0,b)\)</span> distribution. Find <span class="math inline">\(\hat{b}\)</span>, the method of moments estimate of <span class="math inline">\(b\)</span>? Is <span class="math inline">\(\hat{b}\)</span> an unbiased estimator? What about <span class="math inline">\(\hat{b}^2\)</span>? Is it an unbiased estimator of <span class="math inline">\(b^2\)</span>?</p>
+<p>As we saw in the previous chapters, if the expectation of the estimator is the true value times multiplied by a constant, then we can just divide the estimator by the constant and this will make the estimator unbiased. That is, if <span class="math inline">\(E(\hat{\theta}) = c\theta\)</span>, where <span class="math inline">\(c\)</span> is a constant, then since <span class="math inline">\(E(\dfrac{\hat{\theta}}{c}) = \dfrac{c\theta}{c} = \theta\)</span>.</p>
 </section>
+<section id="low-variance" class="level4">
+<h4 class="anchored" data-anchor-id="low-variance">Low Variance</h4>
+<p>This is important since it increases the accuracy of the estimator. The last paragraph shows that we can get rid of a bias, but if an estimator has high variability, there is not much we can do. A low variance implies that the standard error of the estimator is low, which is a desirable property.</p>
 </section>
-<section id="definitions-and-vocabulary" class="level2">
-<h2 class="anchored" data-anchor-id="definitions-and-vocabulary">Definitions and vocabulary</h2>
-<p>The figure below, adapted from Lohr’s book on sampling, shows that we have to be careful regarding the <em>scope</em> of our conclusions. We can only generalize from results from our sample to the <strong>sampled population</strong>, even if the <strong>target population</strong> (the population we are interested in) is something different!</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="lec-2-images/sampling-schematic.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%" alt="A schematic drawing target populations, sampling frame, sampled populations, etc."></p>
-</figure>
-</div>
-<div class="def">
-<p><strong>Population</strong>: the complete set of individuals or entities that we are interested in. We usually only have data on a subset of them (a <strong>sample</strong>). We will assume that our population is of (finite) size <span class="math inline">\(N\)</span>, and that associated with each member or <em>unit</em> of the population is some numerical value. We will denote these numbers by <span class="math inline">\(x_1, x_2, \ldots, x_N\)</span>. If the values of the <span class="math inline">\(x_i\)</span> are <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span> then we are usually investigating the presence or absence of some characteristic, such as a particular party affiliation. In this case, our population is <em>dichotomous</em> or binary.</p>
-</div>
-<div class="def">
-<p><strong>Parameter</strong>: any <em>quantifiable</em> feature of a population. For now, we will assume that the parameter is <strong>fixed but unknown</strong>.</p>
-<p>For example: The mean age of all undergraduate students at UC Berkeley.</p>
-</div>
-<p>The most common population parameters that we are interested in are:</p>
-<div class="def">
-<p><strong>Population mean or average</strong>: this is denoted by <span class="math inline">\(\mu\)</span> and defined to be: <span class="math display">\[
-\mu = \dfrac{1}{N}\sum_{i = 1}^N x_i
-\]</span></p>
-</div>
-<div class="def">
-<p><strong>Population proportion</strong>: This is just the population mean in the binary case, and we represent this special mean by <span class="math inline">\(p\)</span> rather than <span class="math inline">\(\mu\)</span>.</p>
-</div>
-<p>Other parameters that we will consider:</p>
-<div class="def">
-<p><strong>Population total</strong>: this is denoted by <span class="math inline">\(\tau\)</span> and defined to be: <span class="math display">\[
-\tau = \sum_{i = 1}^N x_i = N\mu
-\]</span> Note that for a binary population, <span class="math inline">\(\tau\)</span> represents how many population units possess the characteristic of interest.</p>
-</div>
-<div class="def">
-<p><strong>Population variance</strong>: this is denoted by <span class="math inline">\(\sigma^2\)</span> and defined to be: <span class="math display">\[
-\sigma^2 = \dfrac{1}{N}\sum_{i = 1}^N (x_i-\mu)^2
-\]</span> The <strong>population standard deviation</strong> is the square root of the population variance.</p>
-</div>
-<p><strong>Exercise</strong>: Show that <span class="math inline">\(\sigma^2\)</span> reduces to <span class="math inline">\(\displaystyle \dfrac{1}{N}\sum_{i = 1}^N x_i^2 -\mu^2\)</span>, and if the <span class="math inline">\(x_i\)</span> are <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span> only, then <span class="math inline">\(\sigma^2 = p(1-p)\)</span>.</p>
-<p><strong>Exercise</strong> Going back to the results of the Pew Research survey shown at the beginning of these notes. What is the population and the parameter of interest?</p>
-<details>
-<summary>
-Check your answer
-</summary>
-<p>Population: US adults</p>
-<p>Parameter: Percentage of US adults that think healthy children should be required to be vaccinated in order to attend public schools.</p>
-</details>
-<p><strong>Exercise</strong> Consider a population of size 4: <span class="math inline">\(\{x_1, x_2, x_3, x_4\}\)</span>.</p>
-<ol type="a">
-<li><p>If we use simple random sampling, how many samples of size 2 will we have? What would be the expected value of the sample mean? Is it equal to the population mean?</p></li>
-<li><p>If, rather than a simple random sample, when <em>all</em> samples of size 2 are equally likely, we use a different probabilistic scheme for getting our samples of size 2: the following <strong>four</strong> samples are equally likely, and <em>only</em> these samples are possible: <span class="math inline">\(\{x_1, x_2\}, \{x_2, x_3\}, \{x_3, x_4\}, \{x_1, x_4\}\)</span>. What would be the expected value of the sample mean? Is it equal to the population mean?</p></li>
-</ol>
+<section id="mean-square-error" class="level4">
+<h4 class="anchored" data-anchor-id="mean-square-error">Mean Square Error</h4>
+<p>Recall that <span class="math inline">\(MSE = \mathrm{bias}^2 + \mathrm{Variance}.\)</span> Since the MSE combines both bias and variance, it is very useful for comparing estimators that may be biased.</p>
+<p><strong>Exercise</strong> <span class="citation" data-cites="chi-hest2018">(<a href="#ref-chi-hest2018" role="doc-biblioref">Chihara and Hesterberg 2018</a>)</span> Let <span class="math inline">\(X \sim Bin(n,p)\)</span>, where <span class="math inline">\(n\)</span> is known and <span class="math inline">\(p\)</span> is unknown. Show that the sample proportion <span class="math inline">\(\hat{p}_1 = X/n\)</span> is an unbiased estimator of <span class="math inline">\(p\)</span>, and that <span class="math inline">\(MSE\left(\hat{p}_1\right) = \dfrac{p(1-p)}{n}\)</span>.</p>
+<p>Suppose we define an alternative estimator of <span class="math inline">\(p\)</span>, denoted by <span class="math inline">\(\hat{p}_2\)</span>, where <span class="math inline">\(\hat{p}_2 = \dfrac{X+1}{n+2}\)</span>, that is, we add one artificial success and one artifical failure to the data. What is <span class="math inline">\(E(\hat{p}_2)\)</span>? Is <span class="math inline">\(\hat{p}_2\)</span> unbiased? Compute <span class="math inline">\(\mathrm{Bias}(\hat{p}_2) = E(\hat{p}_2) -p\)</span>, the variance of <span class="math inline">\(\hat{p}_2\)</span>, and the MSE of <span class="math inline">\(\hat{p}_2\)</span>. Which estimator would you use, <span class="math inline">\(\hat{p}_1\)</span> or <span class="math inline">\(\hat{p}_2\)</span>?</p>
+</section>
+<section id="consistency" class="level3">
+<h3 class="anchored" data-anchor-id="consistency">Consistency</h3>
+<p>All these criteria are well and fine, but one thing we would definitely like is that as our sample size gets larger and larger (we get more data), our estimator should become more accurate. In fact, as <span class="math inline">\(n \rightarrow infinity\)</span>, we would like <span class="math inline">\(\hat{\theta} \equiv \hat{\theta}_n\)</span> to <em>converge</em> to <span class="math inline">\(\theta\)</span> (the <span class="math inline">\(n\)</span> denotes the size of the sample that we are using).</p>
 <div style="display:none">
-<p><span class="citation" data-cites="rice2006 wasserman2004 samslides135 lohr2010">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-wasserman2004" role="doc-biblioref">Wasserman 2004</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>; <a href="#ref-lohr2010" role="doc-biblioref">Lohr 2010</a>)</span></p>
+<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="wasserman2004">Wasserman (<a href="#ref-wasserman2004" role="doc-biblioref">2004</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>;]</p>
 </div>
+</section>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-lohr2010" class="csl-entry" role="listitem">
-Lohr, Sharon L. 2010. <em>Sampling: Design and Analysis</em>. 2nd ed. Cengage.
+<div id="ref-chi-hest2018" class="csl-entry" role="listitem">
+Chihara, Laura M., and Tim C. Hesterberg. 2018. <em>Mathematical Statistics with Resampling and r</em>. John Wiley &amp; Sons, Hoboken, NJ.
 </div>
 <div id="ref-samslides135" class="csl-entry" role="listitem">
 Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).

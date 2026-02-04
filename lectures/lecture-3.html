@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Parameter Estimation: Method of Moments</title>
+<title>Survey Sampling: Inference</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-3.html">Lecture 5: Method of Moments</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-3.html">Lecture 3: Survey Sampling, Inference</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -209,38 +209,38 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/lecture-3.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lecture 3: Survey Sampling, Inference</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/lecture-4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 4: Wrapping up Sampling</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-3.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lectures/lecture-5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 5: Method of Moments</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 6: MoM: More about Estimators</span></a>
+  <a href="../lectures/lecture-6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 6: MoM &amp; Mathematical Digressions</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 7: Maximum Likelihood Estimation</span></a>
+  <a href="../lectures/lecture-7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 7: Standard Errors of Estimators</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-6.qmd" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 8: Maximum Likelihood Estimation</span></a>
+  <a href="../lectures/lecture-8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 8: Maximum Likelihood Estimation: Intro + Examples</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -265,14 +265,11 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <li><a href="#inference-in-sampling" id="toc-inference-in-sampling" class="nav-link active" data-scroll-target="#inference-in-sampling">Inference in Sampling</a>
   <ul class="collapse">
-  <li><a href="#example-from-the-text-fitting-the-poisson-distribution-to-emissions-of-alpha-particles" id="toc-example-from-the-text-fitting-the-poisson-distribution-to-emissions-of-alpha-particles" class="nav-link" data-scroll-target="#example-from-the-text-fitting-the-poisson-distribution-to-emissions-of-alpha-particles">Example from the text: Fitting the Poisson distribution to emissions of alpha particles</a></li>
-  </ul></li>
-  <li><a href="#parameter-estimation" id="toc-parameter-estimation" class="nav-link" data-scroll-target="#parameter-estimation">Parameter Estimation</a></li>
-  <li><a href="#method-of-moments" id="toc-method-of-moments" class="nav-link" data-scroll-target="#method-of-moments">Method of Moments</a>
-  <ul class="collapse">
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  <li><a href="#mean-squared-error" id="toc-mean-squared-error" class="nav-link" data-scroll-target="#mean-squared-error">Mean Squared Error</a></li>
+  <li><a href="#mathrmvaroverlinex-and-the-finite-population-correction" id="toc-mathrmvaroverlinex-and-the-finite-population-correction" class="nav-link" data-scroll-target="#mathrmvaroverlinex-and-the-finite-population-correction"><span class="math inline">\(\mathrm{Var}(\overline{X})\)</span> and the finite population correction</a></li>
+  <li><a href="#estimating-the-population-variance" id="toc-estimating-the-population-variance" class="nav-link" data-scroll-target="#estimating-the-population-variance">Estimating the Population Variance</a></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -283,7 +280,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Parameter Estimation: Method of Moments</h1>
+<h1 class="title">Survey Sampling: Inference</h1>
 </div>
 
 
@@ -300,220 +297,232 @@ window.Quarto = {
 </header>
 
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>So far, we have estimated population parameters, mostly the mean and variance, but our analysis has been <em>distribution-free</em>. We haven’t made any assumptions other than our population being <em>finite</em>, and our sample being a simple random sample.</p>
-<p>Now, we are going to think about <strong>parametric models</strong>, that is we are going to assume that our populations are <em>infinite</em>, with <em>parametric</em> probability distributions, but <em>unknown</em> parameters.</p>
-<p>We would use these when we have some reason to believe that our data is being generated with some <em>particular</em> distribution, and we try to figure out the <em>parameters</em> of the distribution, given a sample from this parametric distribution.</p>
-<p>For instance, counts of goals scored in the soccer world cup, or counts of traffic accidents - or counts of cavalry officers in the Prussian army being kicked to death by their horses - these have been shown to follow a Poisson distribution. Later in the course, we will discuss nonparametric models as well, but it is useful to understand parametric models first, as these are widely used.</p>
-<p>When we talk about a <em>family</em> of probability distributions we refer to a class of probability distributions indexed by its parameter values. The shape of the distributions can vary (a lot!) depending on the values of the parameters, but the form of the distribution (given by the pdf or cdf) is determined by the class or the family. Many families of probability distributions, such as Poisson, or Gamma, or Gaussian, are determined by some <em>small</em> number of parameters. For the Poisson, you need the parameter <span class="math inline">\(\lambda\)</span>, which would be the average count, for the Gamma distribution you need two parameters, <span class="math inline">\(\alpha\)</span>, called the <em>shape</em> parameter, and <span class="math inline">\(\lambda\)</span>, called the <em>rate</em> parameter. (Some texts will use <span class="math inline">\(\beta = 1/\lambda\)</span> and call it the <em>scale</em> parameter.) The Gaussian family of distributions depends on two parameters, <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>. This means that when we are estimating the parameters of a probability distribution, given sample data, we might need to estimate a single parameter, or we might need to estimate a vector consisting of two or more parameters.</p>
-<p>For example, here is a figure from Wikipedia’s <a href="https://en.wikipedia.org/wiki/Normal_distribution">page</a> on the Normal distribution showing the probability density functions for various values of the parameters <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>.</p>
+<section id="inference-in-sampling" class="level2">
+<h2 class="anchored" data-anchor-id="inference-in-sampling">Inference in Sampling</h2>
+<p><strong>Inference</strong> involves using a <strong>sample</strong> to compute an <strong>estimate</strong> of a <strong>population parameter</strong>, and the population should always be defined in the context in which the results will be applied.</p>
+<div class="def">
+<p><strong>Estimator</strong>: The <strong>function</strong> (or algorithm) that maps sample data to a number.</p>
+</div>
+<div class="def">
+<p><strong>Estimate</strong>: The <em>actual</em> observed value after applying the estimator on the sample (observed) data.</p>
+</div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="lec-3-images/wikipedia-gaussian-family-pdf.png" class="img-fluid figure-img" style="width:45.0%"></p>
-<figcaption>Normal family</figcaption>
+<p><img src="lec-2-images/inference-sampling.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
 </figure>
 </div>
-<p>The pdf has the same form for all of the density curves:</p>
-<p><span class="math display">\[
-f(x; \mu, \sigma) = \frac{1}{\sigma \sqrt{2\pi}}e^{-\frac{1}{2}(\frac{x-\mu}{\sigma})^2}
+<p>Then of course the question we would have is how <em>good</em> is our estimator and therefore our estimate? We want <span class="math inline">\(\mu\)</span>, and we have the estimate <span class="math inline">\(\hat{\mu}\)</span>. How close is this estimate to the true value <span class="math inline">\(\mu\)</span>? We need a measure of <em>goodness</em> of our estimator. Note that our estimator is <strong>random</strong>. Each time we take a random sample, we will get a different value of the estimate. We want to know on <strong>average</strong>, what is the error of our estimator? To compute this, we need to consider the <strong>sampling distribution</strong> of our estimator. This is just a special name for the probability distribution of the estimator, which is a random variable. The randomness of the estimator is rooted in the randomness of the sampling. The spread of the probability distribution, measured by its <em>standard deviation</em> is one of the determinants of the accuracy of our estimator.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lec-2-images/sampling-dsn-estimator.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<p>If we would hit our target (the population parameter) on average (that means that the expected value of our estimator is the population parameter), then we only need to consider how much our estimator’s sampling distribution spreads about the mean. The tighter the spread (the smaller the standard deviation), the more accurate the estimator. Now, because we are measuring the <strong>error</strong> of our estimator, we call the square root of its variance the <strong>standard error</strong> rather than the standard deviation.</p>
+<p>What if, though, the expected value of our estimator is <em>not</em> the target parameter? In this case the difference between the expected value of the estimator and the <em>true</em> value of the population parameter will also contribute to the error. Because of this, we use a measure of <em>goodness</em> of our estimate that incorporates both the spread (standard error) <em>and</em> the average distance from the parameter (we call this <strong>bias</strong>). This measure is called the <strong>Mean Squared Error</strong>.</p>
+<section id="mean-squared-error" class="level3">
+<h3 class="anchored" data-anchor-id="mean-squared-error">Mean Squared Error</h3>
+<div class="def">
+<p><strong>Mean Squared Error</strong>: The mean squared error is the expected value of the squared difference between the estimator <span class="math inline">\(\hat{\theta}\)</span> and the true value of the population parameter <span class="math inline">\(\theta\)</span>. We denoted it by <span class="math inline">\(MSE\)</span>: <span class="math display">\[
+MSE = E\left[\left(\hat{\theta} - \theta \right)^2\right]
 \]</span></p>
-<p>Even when we are interested in only one parameter - the parameter of interest - we may need to estimate the remaining parameters in the model in order to estimate it. In some cases, the parameter of interest itself is a complicated function of the underlying model parameters, as in the following example from <span class="citation" data-cites="wasserman2004">(<a href="#ref-wasserman2004" role="doc-biblioref">Wasserman 2004</a>)</span>:</p>
-<p><strong>Example</strong> Let <span class="math inline">\(X_1, X_2, \ldots, X_n \sim \mathcal{N}(\mu, \sigma^2).\)</span> The parameter is a vector <span class="math inline">\(\mathbf{\theta} = (\mu, \sigma)\)</span> where <span class="math inline">\(\sigma &gt; 0\)</span>. Suppose that <span class="math inline">\(X_i\)</span> is ther outcome of a blood test and we are interested in <span class="math inline">\(\tau\)</span>, the fraction of the population whose test score is greater than 1. If <span class="math inline">\(Z \sim \mathcal{N}(0,1)\)</span>, then <span class="math display">\[
+</div>
+<div class="def">
+<p><strong>Bias</strong>: The bias of an estimator is its distance, on average, from the true value of the population parameter: <span class="math display">\[
+\operatorname{Bias}(\hat{\theta}) = E(\hat{\theta}) - \theta
+\]</span> We call an estimator <strong>unbiased</strong> if the bias is 0, that is if <span class="math inline">\(E(\hat{\theta}) = \theta\)</span>.</p>
+</div>
+<p><strong>Exercise</strong> Show that <span class="math inline">\(MSE =  \text{Variance} + \text{Bias}^2\)</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math display">\[
 \begin{align*}
-\tau &amp;= P(X &gt; 1)\\
-&amp;= 1-P(X&lt;1)\\
-&amp;= 1 - P\left(\frac{X-\mu}{\sigma} &gt; \frac{1-\mu}{\sigma}\right)\\
-&amp;= 1 - \Phi\left(\frac{1-\mu}{\sigma}\right)\\
+\mathrm{MSE}(\hat\theta)
+&amp;= E\big[(\hat\theta - \theta)^2\big] \\
+&amp;= E\big(\hat\theta ^2\big) -2 \theta E\big(\hat\theta\big) + \theta^2\\
+&amp;= \mathrm{Var}\big(\hat\theta\big) +  \big[E\big(\hat\theta\big)\big]^2 -2 \theta E\big(\hat\theta\big) + \theta^2\\
+&amp;= \mathrm{Var}\big(\hat\theta\big) + \big[E\big(\hat\theta\big) - \theta\big]^2\\
+&amp;= \mathrm{Var}(\hat\theta) + \big[\mathrm{Bias}(\hat\theta)\big]^2.
 \end{align*}
-\]</span> Therefore, the <em>parameter of interest</em> is <span class="math inline">\(\tau = T(\mu, \sigma) = \displaystyle 1 - \Phi\left(\frac{1-\mu}{\sigma}\right)\)</span>, where <span class="math inline">\(T\)</span> denotes that <span class="math inline">\(\tau\)</span> is a function of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>.</p>
-<section id="example-from-the-text-fitting-the-poisson-distribution-to-emissions-of-alpha-particles" class="level3">
-<h3 class="anchored" data-anchor-id="example-from-the-text-fitting-the-poisson-distribution-to-emissions-of-alpha-particles">Example from the text: Fitting the Poisson distribution to emissions of alpha particles</h3>
+\]</span>
+</details>
+<p>Here is a figure from Lohr’s text that shows the difference between low bias, low variance, and low MSE:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="lec-3-images/americium-alpha.jpg" class="img-fluid figure-img" style="width:45.0%"></p>
-<figcaption>Americium 241 emitting alpha particles</figcaption>
+<p><img src="lec-2-images/lohr-precise-accurate.png" class="img-fluid figure-img" style="width:70.0%" alt="A figure from a text by Lohr showing the difference between accuracy, unbiasedness, and precision"></p>
+<figcaption>Unbiased archers, precise archers, and accurate archers</figcaption>
 </figure>
 </div>
-<p>“Records of emissions of alpha particles from radioactive sources show that the number of emissions per unit time is not constant but fluctuates in a seemingly random fashion”.</p>
-<p>This is an example of what we will do in this chapter. We will assume some distribution, get a data sample, and then use the data sample to estimate the parameter of the distribution we assumed. Since the underlying rate of emission was assumed to be constant, it was assumed that the emissions followed a Poisson distribution. In fact, for this very reason - that the number of emissions per unit time fluctuate randomly, but there is an underlying constant rate - the Poisson distribution is often used to model radioactive decay. Recall the conditions for using the Poisson distribution to model the number of events in time (or space) are that:</p>
-<ol type="1">
-<li>The underlying rate of events is constant in time (or space),</li>
-<li>The number of events that occur in disjoint intervals are independent, and</li>
-<li>There cannot be multiple events at the same instant.</li>
-</ol>
-<p>Researchers observed the radioactive decay of Americium 241 and the consequent emission of alpha particles, recording the time between successive emissions. They recorded 1,207 intervals of 10 seconds each, and counted the number of emissions in each of these intervals.</p>
-<p>The table below, reproduced from <span class="citation" data-cites="rice2006">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>)</span> shows emission counts <span class="math inline">\(n\)</span> in the first column. In the second column is the number of intervals the researchers observed that had <span class="math inline">\(n\)</span> emissions, for each <span class="math inline">\(n\)</span> listed. For example, there were 28 10-second intervals observed that had 3 emissions each, 56 intervals that had 4 emissions each, etc. To compute the expected count, we need a value for the Poisson rate <span class="math inline">\(\lambda\)</span>. The observed mean emission rate which was the total number of emissions divided by the total amount of time was recorded to be 0.8392 seconds. We use this observed mean emission rate to compute an estimate for <span class="math inline">\(\lambda\)</span> in the probability mass function of the Poisson distribution. Now, the 1,207 counts are the 1,207 realizations of a Poisson random variable with rate <span class="math inline">\(\lambda\)</span>, where <span class="math inline">\(\lambda\)</span> is the expected number of emissions in 10 seconds,making our estimate, <span class="math inline">\(\hat{\lambda} = 0.8392 \times 10 = 8.392\)</span>.</p>
-<p>For example, how many intervals do we expect with exactly 3 emissions? Each interval has 4 emissions or not 4 emissions. So the number of intervals out of 1,207 total intervals with exactly 4 emissions is a Binomial random variable, with parameters <span class="math inline">\(n = 1207\)</span>, and <span class="math inline">\(p = P(\)</span> exactly 4 emissions<span class="math inline">\()\)</span> = <span class="math inline">\(\displaystyle \dfrac{\lambda^k e^{-\lambda}}{k!} \approx \dfrac{\hat{\lambda}^k  e^{-\hat{\lambda}}}{k!}\)</span>. If we plug in <span class="math inline">\(k=4\)</span> and <span class="math inline">\(\hat{\lambda} = 8.392\)</span>, we get that <span class="math inline">\(p \approx 0.0468\)</span>. Therefore, the expected number of intervals with exactly 4 emissions in <span class="math inline">\(np = 1207\times 0.0468 = 56.4876\approx 56.5\)</span>.</p>
-<p>For the first row, since we are combining intervals with exactly 0 or 1 or 2 counts, the Binomial parameter <span class="math inline">\(p\)</span> is given by <span class="math inline">\(P(\)</span> exactly 0 OR exactly 1 OR exactly 2 emissions <span class="math inline">\()\)</span>, so we have to add the probabilities of each of these to get <span class="math inline">\(p\)</span>. We can see that the expected counts are not too far off from the observed counts. In chapter 9 we will discuss how to quantify the notion of “not too far off”.</p>
+<p>This diagram shows that an estimator <span class="math inline">\(\hat{\theta}\)</span> is <strong>unbiased</strong> if <span class="math inline">\(E\big(\hat{\theta}\big) = \theta\)</span>, it is <strong>precise</strong> if <span class="math inline">\(\mathrm{Var}(\hat{\theta})\)</span> is small, but for the estimator to be <strong>accurate</strong>, <em>both</em> these quantities must be small, and therefore the Mean Squared Error (the sum of the squared bias and the variance) must be small, where <span class="math inline">\(MSE = E\big[\big(\hat{\theta} - \theta\big)^2\big]\)</span>.</p>
+</section>
+<section id="mathrmvaroverlinex-and-the-finite-population-correction" class="level3">
+<h3 class="anchored" data-anchor-id="mathrmvaroverlinex-and-the-finite-population-correction"><span class="math inline">\(\mathrm{Var}(\overline{X})\)</span> and the finite population correction</h3>
+<p>Recall that if we let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> are independent and identically distributed random variables (IID), with common expected value <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>; and <span class="math inline">\(\overline{X}\)</span> is the sample mean of this sample <span class="math inline">\(\big(\displaystyle \overline{X} = \dfrac{1}{n} \sum_{i=1}^n X_i\big)\)</span>, then <span class="math inline">\(E(\overline{X}) = \mu\)</span> and <span class="math inline">\(\mathrm{Var}(\overline{X}) = \sigma^2/n\)</span>. (<em>Note</em>: You should be able to show this.)</p>
+<p>Now suppose we have a finite population of size <span class="math inline">\(N\)</span>, and we take a <strong>simple random sample</strong> of size <span class="math inline">\(n\)</span> from this population: <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span>. Now the <span class="math inline">\(X_i\)</span> cannot be IID as we are sampling <em>without</em> replacement. It is easily shown (<em>Theorem A</em> on page 206) that the expected value of the sample mean is still <span class="math inline">\(\mu\)</span>, where <span class="math inline">\(\mu\)</span> is the population mean. What about <span class="math inline">\(\mathrm{Var}(\overline{X})\)</span>?</p>
+It turns out that ( <em>Theorem B</em> on page 208): <span class="math display">\[
+\mathrm{Var}(\overline{X}) = \dfrac{\sigma^2}{n}\left( \dfrac{N-n}{N-1}\right).
+\]</span>
+<details>
+<summary>
+Click for the proof
+</summary>
+<p><span class="math display">\[
+\begin{align*}
+\mathrm{Var}(\overline{X}) &amp;= \mathrm{Var}\left(\dfrac{1}{n}\sum_{i = 1}^n X_i\right)\\
+  &amp;= \dfrac{1}{n^2} \mathrm{Var}\left(\sum_{i = 1}^n X_i\right), \: \text{because }\mathrm{Var}(aX) = a^2\mathrm{Var}(X)\\
+  &amp;= \dfrac{1}{n^2}\mathrm{Cov}\left(\sum_{i = 1}^n X_i,\sum_{j = 1}^n X_j \right), \: \text{because } \mathrm{Var}(X) = \mathrm{Cov}(X,X)\\
+  &amp;= \dfrac{1}{n^2}\left(\sum_{i = 1}^n \mathrm{Var}(X_i) + \sum_{i = 1}^n \sum_{\substack{j=1 \\ j \ne i}}^n \mathrm{Cov}(X_i,X_j)\right) \\
+  &amp;= \dfrac{1}{n^2} \left( n\sigma^2 + n(n-1) \mathrm{Cov}(X_1, X_2) \right), \: \text{since all } n(n-1) \text{ pairs will have the same covariance.}
+\end{align*}
+\]</span> This computation implies that if we figure out <span class="math inline">\(\mathrm{Cov}(X_1, X_2)\)</span>, we will able to figure out the variance we need. So let’s compute this covariance. Recall that <span class="math inline">\(\mathrm{Cov}(X_1, X_2) = E(X_1 X_2) - E(X_1)E(X_2)\)</span>.</p>
+<p>We know that the possible values of the <span class="math inline">\(X_i\)</span> are the population values: <span class="math inline">\(x_1, x_2, \ldots, x_N\)</span>. But some of these could be repeated, which can mess up the probability computations. To simplify our computations, we will define new values <span class="math inline">\(u_1, u_2, \ldots, u_m\)</span> to be the <em>distinct</em> values in the population, <span class="math inline">\(m\)</span> the <em>number</em> of distinct values, and let <span class="math inline">\(n_i\)</span> be the number of times we see the value <span class="math inline">\(u_i\)</span>.</p>
+<p>For example, suppose <span class="math inline">\(N = 6\)</span> and the population values are <span class="math inline">\(1, 1, 4, 4, 4, 7\)</span>. Then <span class="math inline">\(x_1 = 1 = x_2, x_3 = x_4 = x_5 = 4\)</span>, and <span class="math inline">\(x_6 = 7\)</span>. Using the <span class="math inline">\(u_i's\)</span>, we have <span class="math inline">\(u_1 = 1, u_2 = 4, u_3 = 7\)</span>, and <span class="math inline">\(m=3\)</span>. Further, <span class="math inline">\(n_1 = 2, n_2 = 3, n_3 = 1\)</span>.</p>
+<p>Now, if <span class="math inline">\(X_i\)</span> is the <span class="math inline">\(i\)</span>th sample value drawn, then <span class="math inline">\(X_i\)</span> is a <em>discrete</em> random variable such that <span class="math inline">\(P(X_i = u_i) = \dfrac{n_i}{N}\)</span>. This is because there are <em>still</em> <span class="math inline">\(N\)</span> total units in the population, and we have just grouped them by value.</p>
+<p>For example, using the numbers above, <span class="math inline">\(P(X_i = 4) = \dfrac{3}{6}\)</span>.</p>
+<p>You can check that <span class="math inline">\(E(X_i) = \mu\)</span> and <span class="math inline">\(\mathrm{Var}(X_i) = \sigma^2\)</span>, using the fact that <span class="math inline">\(\displaystyle \sum_{j=1}^m u_j n_j =  \sum_{i=1}^N x_i\)</span>.</p>
+<p>Now let’s compute <span class="math inline">\(\mathrm{Cov}(X_1, X_2) = E(X_1 X_2) - \mu^2\)</span>.</p>
+<p><span class="math display">\[
+\begin{align*}
+E(X_1 X_2) &amp;= \sum_{i=1}^m \sum_{j=1}^m u_i u_j P(X_1 = u_i, X_2 = u_j) \\
+    &amp;= \sum_{i=1}^m \sum_{j=1}^m u_i u_j P(X_1 = u_i) P(X_2 = u_j \vert X_1 = u_i) \\
+    &amp;= \sum_{i=1}^m u_i P(X_1 = u_i) \sum_{j=1}^m u_j P(X_2 = u_j \vert X_1 = u_i)\\
+\end{align*}
+\]</span> Now, as we discussed earlier, <span class="math inline">\(P(X_1 = u_i) = \dfrac{n_i}{N}\)</span>. But the <em>second</em> draw from the population, <span class="math inline">\(X_2\)</span> will depend on the first. <span class="math inline">\(P(X_2 = u_j \vert X_1 = u_i) = \dfrac{n_j}{N-1}\)</span> if <span class="math inline">\(j \ne i\)</span> and <span class="math inline">\(P(X_2 = u_j \vert X_1 = u_i) = \dfrac{n_i-1}{N-1}\)</span> if <span class="math inline">\(j = i\)</span>.</p>
+<p>Thus, we can simplify the interior sum to: <span class="math display">\[
+\begin{align*}
+\sum_{j=1}^m u_j P(X_2 = u_j \vert X_1 = u_i) &amp;= \sum_{\substack{j=1 \\ j \ne i}}^m u_j \cdot \dfrac{n_j}{N-1} + u_i\cdot \dfrac{n_i-1}{N-1}\\
+  &amp;= \sum_{\substack{j=1 \\ j \ne i}}^m u_j \cdot \dfrac{n_j}{N-1} + u_i\cdot \dfrac{n_i}{N-1} - u_i\cdot \dfrac{1}{N-1}\\
+  &amp;= \sum_{j=1}^m  \dfrac{u_j n_j}{N-1} - \dfrac{u_i}{N-1}
+\end{align*}  
+\]</span> Back to <span class="math inline">\(E(X_1 X_2)\)</span>, noting that <span class="math inline">\(\displaystyle \sum_{i=1}^m u_i n_i = \sum_{k=1}^N x_k = \tau = N\mu\)</span>, that is, the sum total of all the population values, and also note that <span class="math inline">\(\displaystyle \sum_{i=1}^m u_i^2 n_i = \sum_{i=1}^N x_i^2 = N(\sigma^2 + \mu^2)\)</span>:</p>
+<p><span class="math display">\[
+\begin{align*}
+E(X_1 X_2) &amp;= \sum_{i=1}^m u_i \dfrac{n_i}{N}\left[ \sum_{j=1}^m  \dfrac{u_j n_j}{N-1} - \dfrac{u_i}{N-1}\right]\\
+   &amp;= \dfrac{1}{N(N-1)}\left[ \left( \sum_{i=1}^m u_i n_i\right)\left( \sum_{j=1}^m u_j n_j\right) - \sum_{i=1}^m u_i^2 n_i\right]\\
+   &amp;= \dfrac{1}{N(N-1)} \left[ \left(N\mu\right)^2 -\sum_{i=1}^m u_i^2 n_i\right]\\
+   &amp;= \dfrac{1}{N(N-1)}\left(N^2 \mu^2 - N(\sigma^2 + \mu^2) \right)\\
+   &amp;= \mu^2 -\dfrac{\sigma^2}{N-1}
+\end{align*}
+\]</span> This implies that: <span class="math display">\[
+\begin{align*}
+\mathrm{Cov}(X_1, X_2) &amp;= E(X_1X_2) - \mu^2\\
+   &amp;= \mu^2 -\dfrac{\sigma^2}{N-1} - \mu^2\\
+   &amp;= -\dfrac{\sigma^2}{N-1}
+\end{align*}
+\]</span></p>
+Now we can put it all together: <span class="math display">\[
+\begin{align*}
+\mathrm{Var}(\overline{X}) &amp;= \dfrac{1}{n^2} \left( n\sigma^2 + n(n-1) \mathrm{Cov}(X_1, X_2) \right)\\
+   &amp;= \dfrac{1}{n^2} \left( n\sigma^2 - n(n-1)\dfrac{\sigma^2}{N-1}\right)\\
+   &amp;= \dfrac{\sigma^2}{n}\left(1- \dfrac{n-1}{N-1}\right)\\
+   &amp;= \dfrac{\sigma^2}{n}\left(\dfrac{N-n}{N-1}\right)
+\end{align*}
+\]</span>
+</details>
+<section id="finite-population-correction" class="level4">
+<h4 class="anchored" data-anchor-id="finite-population-correction">Finite population correction</h4>
+<p>The quantity <span class="math inline">\(\displaystyle \left( \dfrac{N-n}{N-1}\right)=\left(1- \dfrac{n-1}{N-1}\right)\)</span> is called the <strong>finite population correction</strong>. Note that <span class="math inline">\(\displaystyle \dfrac{n-1}{N-1} \approx \dfrac{n}{N}\)</span>, which is called the <strong>sampling fraction</strong>. The larger the sampling fraction, the larger the sample relative to the population, which means we have more information about the population. This should reduce the variability. The extreme case is when <span class="math inline">\(n=N\)</span>, and the sample mean has <em>no</em> variability. In practice, the sampling fraction is very small, and so the finite population correction is approximately 1. This means that the precision of the estimator (determined by the variance) depends only on the sample size, and not on the population size.</p>
+</section>
+</section>
+<section id="estimating-the-population-variance" class="level3">
+<h3 class="anchored" data-anchor-id="estimating-the-population-variance">Estimating the Population Variance</h3>
+<p>We know that the population variance <span class="math inline">\(\sigma^2\)</span> is defined by: <span class="math display">\[
+\sigma^2 = \dfrac{1}{N}\sum_{i=1}^N x_i^2 - \mu^2.
+\]</span> We can define the quantity <span class="math inline">\(\hat{\sigma}^2\)</span>, which is a function of the sample <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span>: <span class="math display">\[
+\begin{align*}
+\hat{\sigma}^2 &amp;= \dfrac{1}{n} \sum_{i=1}^n (X_i -\overline{X})^2 \\
+    &amp;= \dfrac{1}{n} \sum_{i=1}^n X_i^2 -\overline{X}^2 \\
+\end{align*}
+\]</span> and use this to estimate <span class="math inline">\(\sigma^2\)</span>. The question is then if this estimator is <strong>unbiased</strong>. Is <span class="math inline">\(E(\hat{\sigma}^2) = \sigma^2\)</span>?</p>
+<p><span class="math display">\[
+\begin{align*}
+E(\hat{\sigma}^2) &amp;= E\left( \dfrac{1}{n} \sum_{i=1}^n X_i^2 -\overline{X}^2 \right) \\
+   &amp;= \dfrac{1}{n} \sum_{i=1}^n E\left(X_i^2\right) - E\big(\overline{X}^2 \big)\\
+   &amp;=  (\sigma^2 + \mu^2) - E\big(\overline{X}^2 \big)\\
+\end{align*}
+\]</span> The last line is because <span class="math inline">\(\mathrm{Var}(X_i) = \sigma^2 = E(X_i^2) - \mu^2\)</span>. Doing a similar computation with <span class="math inline">\(E\big(\overline{X}^2 \big)\)</span>, we see that (for a simple random sample): <span class="math display">\[
+E\big(\overline{X}^2 \big) = \mathrm{Var}(\overline{X}) + \mu^2 = \dfrac{\sigma^2}{n}\left(\dfrac{N-n}{N-1} \right) + \mu^2.
+\]</span> Putting these together, and doing some tedious algebra offline, we have <span class="math display">\[
+\begin{align*}
+E(\hat{\sigma}^2) &amp;= (\sigma^2 + \mu^2) - \left[\frac{\sigma^2}{n}\left(\dfrac{N-n}{N-1} \right) + \mu^2\right] \\
+   &amp;= \dfrac{n\sigma^2}{n} - \frac{\sigma^2}{n}\left(\dfrac{N-n}{N-1} \right) + \mu^2 - \mu^2  \\
+   &amp;= \frac{\sigma^2}{n} \left[n - \left(\dfrac{N-n}{N-1} \right)\right] \\
+   &amp;= \sigma^2 \left[\left(\frac{n-1}{n}\right) \left(\dfrac{N}{N-1} \right)\right] \\
+   &amp;= \sigma^2 \left[\dfrac{nN-N}{nN-n}\right]\\
+\end{align*}
+\]</span> This means that <span class="math inline">\(E(\hat{\sigma}^2) \ne \sigma^2\)</span>, and also that <span class="math inline">\(\hat{\sigma}^2\)</span> <strong>underestimates</strong> <span class="math inline">\(\sigma^2\)</span> on average (since <span class="math inline">\(N &gt; n\)</span>). Therefore, to get an <strong>unbiased</strong> estimator of the variance of the sample mean, we need to multiply <span class="math inline">\(\hat{\sigma}^2\)</span> by the appropriate factor. Note that: <span class="math display">\[
+E\left[\left(\frac{n}{n-1}\right) \left(\dfrac{N-1}{N} \right)\hat{\sigma}^2\right] = \sigma^2
+\]</span> Our goal, of course, is to get an unbiased estimator for the variance of the sample mean. Recall that, for a simple random sample, <span class="math inline">\(Var(\overline{X}) = \dfrac{\sigma^2}{n}\left(\dfrac{N-n}{N-1}\right)\)</span>. Let’s substiute the unbiased estimator that we just derived above: <span class="math display">\[
+\begin{align*}
+\mathrm{(Estimated)\, Var}(\overline{X}) &amp;= \left(\frac{n}{n-1}\right) \left(\dfrac{N-1}{N} \right)\hat{\sigma}^2 \cdot \frac{1}{n} \left(\dfrac{N-n}{N-1}\right) \\
+&amp;= \frac{\hat{\sigma}^2}{n-1}\left(\frac{N-n}{N}\right)\\
+&amp;= \frac{s^2}{n}\left(1-\frac{n}{N}\right)
+\end{align*}
+\]</span> where <span class="math inline">\(\displaystyle s^2 = \dfrac{1}{n-1} \sum_{i=1}^n \big(X_i - \overline{X}\big)^2\)</span>, so that <span class="math inline">\(\displaystyle \dfrac{s^2}{n} = \dfrac{\hat{\sigma}^2}{n-1}\)</span>.</p>
+<p>Thus we have that <span class="math inline">\(s_{\overline{X}}^2\)</span> is an <strong>unbiased estimator</strong> of <span class="math inline">\(\sigma_{\overline{X}}^2=\mathrm{Var}(\overline{X})\)</span>.</p>
+<p>If the population is dichotomous, then the estimator becomes: <span class="math display">\[
+\mathrm{Var}(\hat{p}) = s_{\hat{p}}^2 = \frac{s^2}{n} = \frac{\hat{p}(1-\hat{p})}{n-1}.
+\]</span></p>
+<p>Putting all this together gives us the table on page 214 of the text, reproduced here:</p>
+<section id="summary-of-estimators" class="level4">
+<h4 class="anchored" data-anchor-id="summary-of-estimators">Summary of estimators</h4>
+<div class="widecols">
 <table class="caption-top table">
-<caption>Observed and Expected Interval Counts for <span class="math inline">\(n\)</span> Alpha Particle Emissions</caption>
+<colgroup>
+<col style="width: 13%">
+<col style="width: 8%">
+<col style="width: 11%">
+<col style="width: 66%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: center;"><span class="math inline">\(n\)</span></th>
-<th style="text-align: center;">Observed Number of Intervals</th>
-<th style="text-align: center;">Expected Number of Intervals</th>
+<th style="text-align: left;">Population Parameter</th>
+<th style="text-align: left;">Estimator</th>
+<th style="text-align: left;">Variance of Estimator (Square of Standard Error)</th>
+<th style="text-align: left;">Estimated Variance of the Estimator <br> (Square of Estimated SE)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;">0-2</td>
-<td style="text-align: center;">18</td>
-<td style="text-align: center;">12.2</td>
+<td style="text-align: left;"><span class="math inline">\(\mu\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\overline{X}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\sigma_{\overline{X}}^2 = \displaystyle \dfrac{\sigma^2}{n}\left(\dfrac{N-n}{N-1}\right)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(s_{\overline{X}}^2  = \displaystyle \dfrac{s^2}{n}\left(1-\dfrac{n}{N}\right)\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">28</td>
-<td style="text-align: center;">27.0</td>
+<td style="text-align: left;"><span class="math inline">\(p\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\hat{p}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\sigma_{\hat{p}}^2 = \displaystyle \dfrac{p(1-p)}{n}\left(\dfrac{N-n}{N-1}\right)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(s_{\hat{p}}^2  = \displaystyle \dfrac{\hat{p}(1-\hat{p})}{n-1}\left(1-\dfrac{n}{N}\right)\)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">4</td>
-<td style="text-align: center;">56</td>
-<td style="text-align: center;">56.5</td>
+<td style="text-align: left;"><span class="math inline">\(\tau\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(T = N\overline{X}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\sigma_{\tau}^2 = N^2\sigma_{\overline{X}}^2\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(s_{\tau}^2 = N^2s_{\overline{X}}^2\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">105</td>
-<td style="text-align: center;">94.9</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">6</td>
-<td style="text-align: center;">126</td>
-<td style="text-align: center;">132.7</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">7</td>
-<td style="text-align: center;">146</td>
-<td style="text-align: center;">159.1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">8</td>
-<td style="text-align: center;">164</td>
-<td style="text-align: center;">166.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">9</td>
-<td style="text-align: center;">161</td>
-<td style="text-align: center;">155.6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">10</td>
-<td style="text-align: center;">123</td>
-<td style="text-align: center;">130.6</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">11</td>
-<td style="text-align: center;">101</td>
-<td style="text-align: center;">99.7</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">12</td>
-<td style="text-align: center;">74</td>
-<td style="text-align: center;">69.7</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">13</td>
-<td style="text-align: center;">53</td>
-<td style="text-align: center;">45.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">14</td>
-<td style="text-align: center;">23</td>
-<td style="text-align: center;">27.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">15</td>
-<td style="text-align: center;">15</td>
-<td style="text-align: center;">15.1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">16</td>
-<td style="text-align: center;">9</td>
-<td style="text-align: center;">7.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">17+</td>
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">7.1</td>
+<td style="text-align: left;"><span class="math inline">\(\sigma^2\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\left(1-\dfrac{1}{N}\right)s^2\)</span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<section id="parameter-estimation" class="level2">
-<h2 class="anchored" data-anchor-id="parameter-estimation">Parameter Estimation</h2>
-<ul>
-<li><p>Suppose our population is some parametric distribution with pmf or pdf <span class="math inline">\(f(x \vert \theta)\)</span>, where <span class="math inline">\(\theta\)</span> is the unknown parameter that we want to estimate.</p></li>
-<li><p>We obtain an IID sample <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> from this distribution, so <span class="math inline">\(X_i \sim (x \vert \theta)\)</span>.</p></li>
-<li><p>The joint pmf or pdf of <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> is given by <span class="math inline">\(f(x_1, x_2, \ldots, x_n)\)</span>. Because this probability depends on <span class="math inline">\(\theta\)</span>, we write the pdf (or pmf, as the case may be), as <span class="math inline">\(f(x_1, x_2, \ldots, x_n \vert \theta)\)</span>.</p></li>
-<li><p>For simplicity, let’s assume that we have a <strong>discrete</strong> distribution, so that</p></li>
-</ul>
-<p><span class="math display">\[
-\begin{align*}
-f(x_1, x_2, \ldots, x_n \vert \theta) &amp;= P(X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n)\\
-        &amp;= P(X_1 = x_1)P(X_2 = x_2)\ldots P(X_n = x_n)\\
-        &amp;= f(x_1\vert \theta)f(x_2\vert \theta)\ldots f(x_n\vert \theta)\\
-        &amp;= \prod_{i=1}^n f(x_i\vert \theta)
-\end{align*}
-\]</span> - Any estimator of <span class="math inline">\(\theta\)</span> will be a function of the sample <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span>, which means that the estimator will itself be a random variable. Therefore it will have a probability distribution.</p>
-<ul>
-<li><p>Just like in chapter 7, we call the estimator <span class="math inline">\(\hat{\theta}\)</span>, and its distribution is called the <em>sampling distribution</em> of <span class="math inline">\(\hat{\theta}\)</span>.</p></li>
-<li><p>We will need to approximate this distribution, since we need an idea of the error of our estimator, which is governed by its standard error <span class="math inline">\(SE(\hat{\theta})\)</span>, that is, we denote the square root of <span class="math inline">\(\mathrm{Var}(\hat{\theta})\)</span> by <span class="math inline">\(SE(\hat{\theta})\)</span>.</p></li>
-<li><p>We will study the following two methods:</p></li>
-</ul>
-<ol type="1">
-<li>Method of moments</li>
-<li>Maximum Likelihood Estimation</li>
-</ol>
-<ul>
-<li>We would like to minimize the standard error of our estimator, so we will choose the estimator whose distribution is most <em>concentrated</em> about the true value <span class="math inline">\(\theta\)</span>. That is, we will choose (from among the <strong>unbiased</strong> estimators) the estimator with the <em>smallest</em> standard error.</li>
-</ul>
-</section>
-<section id="method-of-moments" class="level2">
-<h2 class="anchored" data-anchor-id="method-of-moments">Method of Moments</h2>
-<p>Let <span class="math inline">\(\mu_k\)</span> denote the <span class="math inline">\(k\)</span>th moment of the random variable <span class="math inline">\(X\)</span>. That is, <span class="math inline">\(\mu_k = E(X^k)\)</span>. The <em>first</em> moment is the mean:</p>
-<p><span class="math display">\[
-\mu_1 = E(X).
-\]</span></p>
-<p>The <em>second</em> moment isn’t the variance, but we can get the variance from the first and second moments: <span class="math display">\[
-\mu_2 = E(X^2) \Rightarrow \mathrm{Var}(X) = \mu_2 - \mu_1^2
-\]</span></p>
-<p>Now, suppose we have an IID random sample <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span>. Define the <span class="math inline">\(k\)</span>th <strong>sample moment</strong> <span class="math inline">\(\hat{\mu}_k\)</span> by <span class="math display">\[
-\hat{\mu}_k = \frac{1}{n} \sum_{i =1 }^n X_i^k
-\]</span> For example, <span class="math inline">\(\hat{\mu}_1\)</span> is the sample mean <span class="math inline">\(\overline{X}\)</span>. We can use <span class="math inline">\(\hat{\mu}_k\)</span> as an estimate for <span class="math inline">\(\mu_k = E(X^k) = E(X^k \vert \theta)\)</span>. The method of moments estimates parameters by finding expressions for them in terms of the moments of the lowest possible order, and then plugging in the sample moments into the expression. We usually need as many moments as there are unknown parameter values.</p>
-<p>There are 3 steps to this method:</p>
-<ol type="1">
-<li>Find the moments <span class="math inline">\(E(X^k)\)</span>.</li>
-<li>Solve for <span class="math inline">\(\theta\)</span> in terms of the moments, that is get an expression that looks like <span class="math inline">\(\theta = h(\mu_1, \mu_2, \ldots, \mu_k)\)</span>.</li>
-<li>Plug in the sample moments to get <span class="math inline">\(\hat{\theta}\)</span>, so we get <span class="math inline">\(\hat{\theta} = h(\hat{\mu}_1, \hat{\mu}_2, \ldots, \hat{\mu}_k)\)</span></li>
-</ol>
-<section id="examples" class="level3">
-<h3 class="anchored" data-anchor-id="examples">Examples</h3>
-<p><strong>Example 1</strong></p>
-<p><span class="math inline">\(X_1, X_2, \ldots, X_n \sim Bernoulli(p)\)</span></p>
-<p>So here, <span class="math inline">\(\theta = p\)</span></p>
-<details>
-<summary>
-Check your answer!
-</summary>
-<p>Step 1: Find the moments. Note that we have just one parameter, so the first moment should suffice.</p>
-<p><span class="math inline">\(E(X_i) = p = \theta\)</span>.</p>
-<p>Step 2: Therefore <span class="math inline">\(\theta = \mu_1\)</span> and we don’t need any more moments. Now $_1 = = .</p>
-<p>Step 3: $ = _1 = .</p>
-<p>/details&gt;</p>
-<p><strong>Example 2</strong></p>
-<p><span class="math inline">\(X_1, X_2, \ldots, X_n \sim Exponential(\lambda)\)</span>.</p>
-<p>Step 1. <span class="math inline">\(\mu_1 = E(X_i) = \frac{1}{\lambda}\)</span></p>
-<p>Step 2: Solve for <span class="math inline">\(\lambda\)</span></p>
-<p><span class="math inline">\(\lambda = \dfrac{1}{\mu_1} \Rightarrow \hat{\lambda} = \dfrac{1}{\hat{\mu}_1} = \dfrac{1}{\overline{X}}\)</span></p>
-<div style="display:none">
-<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="wasserman2004">Wasserman (<a href="#ref-wasserman2004" role="doc-biblioref">2004</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>;]</p>
 </div>
-</details></section>
+<div style="display:none">
+<p><span class="citation" data-cites="rice2006 wasserman2004 samslides135 lohr2010">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-wasserman2004" role="doc-biblioref">Wasserman 2004</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>; <a href="#ref-lohr2010" role="doc-biblioref">Lohr 2010</a>)</span></p>
+</div>
+</section>
+</section>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-lohr2010" class="csl-entry" role="listitem">
+Lohr, Sharon L. 2010. <em>Sampling: Design and Analysis</em>. 2nd ed. Cengage.
+</div>
 <div id="ref-samslides135" class="csl-entry" role="listitem">
 Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).
 </div>

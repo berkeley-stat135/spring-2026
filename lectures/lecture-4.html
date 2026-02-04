@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>More about Estimators and Mathematical Digressions</title>
+<title>Survey Sampling: Confidence Intervals</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -68,6 +88,35 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <script async="" src="”https://siteimproveanalytics.com/js/siteanalyze_6294756.js”"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -81,7 +130,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-4.html">Lecture 6: MoM: More about Estimators</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-4.html">Lecture 4: Wrapping up Sampling</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -160,38 +209,38 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/lecture-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 3: Survey Sampling, Inference</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/lecture-4.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lecture 4: Wrapping up Sampling</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-3.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/lecture-5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 5: Method of Moments</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-4.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Lecture 6: MoM: More about Estimators</span></a>
+  <a href="../lectures/lecture-6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 6: MoM &amp; Mathematical Digressions</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 7: Maximum Likelihood Estimation</span></a>
+  <a href="../lectures/lecture-7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 7: Standard Errors of Estimators</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-6.qmd" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 8: Maximum Likelihood Estimation</span></a>
+  <a href="../lectures/lecture-8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 8: Maximum Likelihood Estimation: Intro + Examples</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -211,15 +260,26 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-asymptotic-sampling-distribution-of-the-sample-mean" id="toc-the-asymptotic-sampling-distribution-of-the-sample-mean" class="nav-link active" data-scroll-target="#the-asymptotic-sampling-distribution-of-the-sample-mean">The (Asymptotic) Sampling Distribution of the Sample Mean</a>
+  <ul class="collapse">
+  <li><a href="#the-central-limit-theorem" id="toc-the-central-limit-theorem" class="nav-link" data-scroll-target="#the-central-limit-theorem">The Central Limit Theorem</a></li>
+  <li><a href="#confidence-intervals-for-the-population-mean" id="toc-confidence-intervals-for-the-population-mean" class="nav-link" data-scroll-target="#confidence-intervals-for-the-population-mean">Confidence intervals for the Population Mean</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">More about Estimators and Mathematical Digressions</h1>
+<h1 class="title">Survey Sampling: Confidence Intervals</h1>
 </div>
 
 
@@ -236,9 +296,128 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>[UNDER CONSTRUCTION]</p>
+<section id="the-asymptotic-sampling-distribution-of-the-sample-mean" class="level2">
+<h2 class="anchored" data-anchor-id="the-asymptotic-sampling-distribution-of-the-sample-mean">The (Asymptotic) Sampling Distribution of the Sample Mean</h2>
+<section id="the-central-limit-theorem" class="level3">
+<h3 class="anchored" data-anchor-id="the-central-limit-theorem">The Central Limit Theorem</h3>
+<p>The CLT states that for large <span class="math inline">\(n\)</span>, the sample mean, suitably standardized, will have a CDF that approaches the CDF of the standard Normal. That is, the standardized sample mean <strong>converges in distribution</strong> to the standard Normal.</p>
+<p>If <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> is an independent and identically distributed sample from a population with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, then:</p>
+<p><span class="math display">\[
+\left(\frac{\overline{X}-\mu}{\frac{\sigma}{\sqrt{n}}}\right) = \sqrt{n}\left(\frac{\overline{X}-\mu}{\sigma}\right) \overset{dsn}{\longrightarrow}\mathcal{N}(0,1)  \text{ as } n\longrightarrow \infty
+\]</span> The CDF converges to <span class="math inline">\(\Phi\)</span>, which means that: <span class="math display">\[
+P\left(\frac{\overline{X}-\mu}{\dfrac{\sigma}{\sqrt{n}}} \le z \right) = F_{\frac{\overline{X}-\mu}{\sigma/\sqrt{n}}}(z)\longrightarrow \Phi(z)
+\]</span></p>
+<p>The CLT is an incredibly important theorem, because it guarantees that for a large enough sample, <em>no matter what the distribution of the random variables <span class="math inline">\(X_i\)</span></em>, the sample mean behaves as though it is from an approximately <span class="math inline">\(\mathcal{N}(\mu, \dfrac{\sigma^2}{n})\)</span> distribution.</p>
+<p>Note that the CLT is a <strong>limit</strong> theorem, so it fully characterizes the <em>asymptotic</em> distribution of the sample mean. It provides a good approximation for large enough samples, so we can compute probabilities such as the <span class="math inline">\(P\)</span>-value, and construct confidence intervals. We usually have a fixed population size <span class="math inline">\(N\)</span>, so it doesn’t make sense for the sample size <span class="math inline">\(n \rightarrow \infty\)</span>, but as long as <span class="math inline">\(n\)</span> is large, but the sampling fraction <span class="math inline">\(\dfrac{n}{N}\)</span> is small, the normal approximation is pretty good, and how we use it is demonstrated in the following example.</p>
+<section id="example-a-page-201" class="level4">
+<h4 class="anchored" data-anchor-id="example-a-page-201">Example A, page 201</h4>
+<p>This is an example from the text that is used to illustrate many of the ideas from this chapter. Herkson (<em>JASA</em> 1976) presented data on the number of patients discharged from each of a population of <span class="math inline">\(N=393\)</span> hospitals during January 1986. The mean number of discharges across the population is about 815, and the population standard deviation is about 590.</p>
+<ol type="a">
+<li><p>If a random sample of <span class="math inline">\(n=100\)</span> is taken from this population <strong>with</strong> replacement, what is the <strong>standard error</strong> of the associated estimator of the population mean <span class="math inline">\(\overline{X}\)</span>?</p></li>
+<li><p>What is the standard error of <span class="math inline">\(\overline{X}\)</span> if instead we take a <em>simple random sample</em> of size <span class="math inline">\(n=100\)</span>?</p></li>
+<li><p>If we are sampling with replacement, what is the (approximate) probability that our sample average exceeds 850?</p></li>
+</ol>
+<details>
+<summary>
+Check your answer
+</summary>
+<ol type="a">
+<li><p>Since we are sampling <em>with</em> replacement, the random variables form an IID sample, and so the standard error of the sample mean is <span class="math inline">\(\dfrac{\sigma}{\sqrt{n}} = \dfrac{590}{\sqrt{100}} = 59\)</span>.</p></li>
+<li><p>In the case of an SRS, the standard error of the sample mean is given by <span class="math inline">\(\dfrac{\sigma}{\sqrt{n}}\left(\dfrac{N-n}{N-1}\right) = \dfrac{590}{\sqrt{100}}\sqrt{\left(\dfrac{393-100}{393-1}\right)} \approx 51\)</span>.</p></li>
+<li><p>We want to approximate <span class="math inline">\(P(\overline{X} &gt; 850)\)</span>. By the CLT, <span class="math display">\[
+P(\overline{X} &gt; 850) = P\left(\dfrac{\overline{X}-815}{59} &gt; \dfrac{850-815}{59}\right) = 1-\Phi\left(\dfrac{850-815}{59}\right) \approx 0.2765.
+\]</span> We used <code>1-pnorm((850-815)/59)</code> to compute the answer.</p></li>
+</ol>
+</details>
+</section>
+</section>
+<section id="confidence-intervals-for-the-population-mean" class="level3">
+<h3 class="anchored" data-anchor-id="confidence-intervals-for-the-population-mean">Confidence intervals for the Population Mean</h3>
+<p>Another way we could use the central limit theorem with estimated standard error is to build a range of plausible values for the population mean from the sample. This range is called the confidence interval. A <strong>confidence interval </strong> for some population parameter <span class="math inline">\(\theta\)</span> is a <strong>random</strong> interval, whose endpoints are constructed using the sample, such that the interval contains <span class="math inline">\(\theta\)</span> with some specified probability.</p>
+<p>It is very important to note the assumption that the population parameter is <strong>fixed</strong>, and it is the <em>interval</em> that is random, and so the probability of coverage is associated with the <strong>random interval</strong>.</p>
+<p>Since we compute the endpoints using the random sample, the endpoints are random variables. This means that each time we take a sample of size <span class="math inline">\(n\)</span>, and then plug in our observed data, we will get a different <em>realization</em> of this random interval. But because we can use the CLT to approximate probabilities, we can construct intervals that have a probability of <span class="math inline">\(1-\alpha\)</span> of containing the true value. For example if <span class="math inline">\(\alpha = 0.05\)</span>, we construct an interval that contains the true mean 95% of the times (on average).</p>
+<p>For <span class="math inline">\(0 \le \alpha \le 1\)</span>, let <span class="math inline">\(z(\alpha)\)</span> denote that value on the <span class="math inline">\(x\)</span>-axis such that the area under the standard normal density curve to the <strong>right</strong> of <span class="math inline">\(z(\alpha)\)</span> is <span class="math inline">\(\alpha\)</span>. When we have a <em>particular</em> confidence interval, it is a <em>realization</em> of a random interval, where the random interval has a certain coverage probability of <span class="math inline">\(1-\alpha\)</span>. We call this <em>coverage probability</em> the confidence level.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lecture-4_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Let’s derive the confidence interval for the population mean <span class="math inline">\(\mu\)</span>. By the central limit theorem, we know that <span class="math inline">\(\overline{X}\)</span> is approximately normal, that is, <span class="math inline">\(\dfrac{\overline{X}-\mu}{\sigma_{\overline{X}}} \approx \mathcal{N}(0,1)\)</span>.</p>
+<p>If <span class="math inline">\(Z\)</span> follows the standard Normal distribution, then by the definition of <span class="math inline">\(z(\alpha)\)</span> above, we see that <span class="math display">\[
+P\big(-z(\alpha/2) \le Z \le z(\alpha/2)\big) = 1-\alpha.
+\]</span> Therefore, if <span class="math inline">\(\dfrac{\overline{X} - \mu}{\sigma/\sqrt{n}}\)</span> is approximately normal, we have that: <span class="math display">\[
+P\left(-z(\alpha/2) \le \dfrac{\overline{X} - \mu}{\sigma/\sqrt{n}} \le z(\alpha/2)\right) \approx 1-\alpha.
+\]</span> Now we multiply by <span class="math inline">\(\sigma/\sqrt{n}\)</span>, subtract <span class="math inline">\(\overline{X}\)</span> and multiply by <span class="math inline">\(-1\)</span>. This gives us the confidence interval that we need: <span class="math display">\[
+P\left(\overline{X} - \frac{\sigma}{\sqrt{n}}z(\alpha/2) \le  \mu \le \overline{X} +  \frac{\sigma}{\sqrt{n}}z(\alpha/2)\right) \approx 1-\alpha.
+\]</span> This statement says that the chance of this random interval, <span class="math inline">\(\left(\overline{X} - \dfrac{\sigma}{\sqrt{n}}z(\alpha/2) ,\; \overline{X} +  \dfrac{\sigma}{\sqrt{n}}z(\alpha/2)\right)\)</span> capturing the mean is approximately <span class="math inline">\(1-\alpha\)</span>, and so the interval is called a <strong><span class="math inline">\(100(1-\alpha)%\)</span> confidence interval</strong>.</p>
+<p>We can then plug in our <em>observed</em> value of <span class="math inline">\(\overline{X}\)</span> and will get a <em>realization</em> of the random interval: <span class="math inline">\(\left(\overline{x} - \dfrac{\sigma}{\sqrt{n}}z(\alpha/2) ,\; \overline{x} +  \dfrac{\sigma}{\sqrt{n}}z(\alpha/2)\right).\)</span> Note that <em>this</em> interval is <strong>not</strong> random. It is just an interval on the real line and as <span class="math inline">\(\mu\)</span> is just some fixed constant, it either lies in this interval or does not. Therefore, once we plug in the observed sample mean, and the observed value of the estimator <span class="math inline">\(s_{\overline{X}}\)</span>, we don’t have any randomness. All the randomness is in the <em>sampling procedure</em>.</p>
+<p>We can use the confidence interval to plan our data collection. Since the width of the confidence interval is given by <span class="math inline">\(2\times \dfrac{\sigma}{\sqrt{n}} \times z(\alpha)\)</span>, it is determined by <span class="math inline">\(\sigma\)</span> and by <span class="math inline">\(\sqrt{n}\)</span>. Now <span class="math inline">\(\sigma\)</span> is a constant of the population, so we can’t do much with it, but we can choose <span class="math inline">\(n\)</span> so that our confidence interval is as narrow as we desire. The <em>margin of error</em> of the confidence interval is given by $ z().$</p>
+<p><strong>Exercise</strong> (Problem 8 from section 7.7) A sample of size 100 is taken from a population that has a proportion <span class="math inline">\(p = 1/5\)</span>.</p>
+<ol type="a">
+<li><p>Find <span class="math inline">\(\delta\)</span> such that <span class="math inline">\(P\big(\lvert \hat{p}-p\rvert \ge \delta\big)=0.025\)</span></p></li>
+<li><p>If, in the sample, <span class="math inline">\(\hat{p} = 0.25\)</span>, will the 95% confidence interval for <span class="math inline">\(p\)</span> contain the true value for <span class="math inline">\(p\)</span>?</p></li>
+</ol>
+<details>
+<summary>
+Check your answer
+</summary>
+<ol type="a">
+<li><span class="math inline">\(\delta = 0.0896\)</span>, <span class="math inline">\(p\)</span> is given to be <span class="math inline">\(\dfrac{1}{5}\)</span>. Therefore, <span class="math inline">\(\sigma_{\hat{p}} = \displaystyle \sqrt{\dfrac{\frac{1}{5}\cdot \frac{4}{5}}{100}} = \frac{2}{50}.\)</span></li>
+</ol>
+<p>By the Central Limit Theorem, <span class="math inline">\(\hat{p}\)</span> is approximately <span class="math inline">\(\mathcal{N}(p, \sigma_{\hat{p}}^2)\)</span>.</p>
+<p><span class="math display">\[
+\begin{align*}
+P\big(\lvert \hat{p}-p\rvert \ge \delta\big) &amp;= 0.025 \\
+\Rightarrow P\big(\lvert \hat{p}-p\rvert &lt; \delta\big) &amp;= 0.975 \\
+\Rightarrow P(-\delta &lt; \hat{p}-p &lt; \delta)  &amp;= 0.975 \\
+\Rightarrow P\left(-\frac{\delta}{\sigma_{\hat{p}}} &lt; \frac{\hat{p}-p}{\sigma_{\hat{p}}} &lt; \frac{\delta}{\sigma_{\hat{p}}}\right)  &amp;= 0.975 \\
+\Rightarrow P\left(-\frac{\delta}{\sigma_{\hat{p}}} &lt; Z &lt; \frac{\delta}{\sigma_{\hat{p}}}\right)  &amp;\approx 0.975 \\
+\Rightarrow \Phi\left(\frac{\delta}{\sigma_{\hat{p}}}\right) - \Phi\left(-\frac{\delta}{\sigma_{\hat{p}}}\right) &amp;\approx 0.975 \\
+\Rightarrow 2\Phi\left(\frac{\delta}{\sigma_{\hat{p}}}\right) -1 &amp;\approx 0.975 \\
+\Rightarrow \Phi\left(\frac{\delta}{\sigma_{\hat{p}}}\right) &amp;\approx 0.9875 \\
+\Rightarrow \frac{\delta}{\sigma_{\hat{p}}} &amp;\approx 2.24\\
+\end{align*}
+\]</span> Where we used <code>qnorm(0.9875)</code> to obtain 2.24. Plugging in the value of <span class="math inline">\(\sigma_{\hat{p}} = \dfrac{2}{50}\)</span>, we get that <span class="math inline">\(\delta\)</span> is about <span class="math inline">\(0.0896\)</span>.</p>
+<ol start="2" type="a">
+<li>Yes.</li>
+</ol>
+<p><span class="math inline">\(z(\alpha/2) = 1.96\)</span>, and the 95% confidence interval is given by <span class="math inline">\(\hat{p} \pm 1.96\times \dfrac{2}{50}\)</span>. Since <span class="math inline">\(\hat{p} = 0.25\)</span>, this gives us <span class="math inline">\(0.25 \pm 1.96\times \dfrac{2}{50} = (0.1716, 0.3284)\)</span> which contains <span class="math inline">\(p = \dfrac{1}{5}.\)</span></p>
+</details>
+<p><strong>Exercise</strong> 20 different polling companies have conducted independent surveys to estimate the proportion of US voters who approve of RFK Jr’s stewardship of Health and Human Services. Each company estimates this proportion using a 95% confidence interval. About how many do you think will be successful in covering the true proportion?</p>
+<details>
+<summary>
+Check your answer
+</summary>
+<p>If we let <span class="math inline">\(Y\)</span> be the number of confidence intervals out of 20 that are successful, then since each interval has a 0.95 chance of success, we see that <span class="math inline">\(Y\sim Bin(20, 0.95)\)</span>. Therefore the expected number of successful intervals is <span class="math inline">\(E(Y) = 20\times 0.95 = 19.\)</span></p>
+</details>
+<div style="display:none">
+<p><span class="citation" data-cites="rice2006 wasserman2004 samslides135 lohr2010">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-wasserman2004" role="doc-biblioref">Wasserman 2004</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>; <a href="#ref-lohr2010" role="doc-biblioref">Lohr 2010</a>)</span></p>
+</div>
+</section>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-lohr2010" class="csl-entry" role="listitem">
+Lohr, Sharon L. 2010. <em>Sampling: Design and Analysis</em>. 2nd ed. Cengage.
+</div>
+<div id="ref-samslides135" class="csl-entry" role="listitem">
+Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).
+</div>
+<div id="ref-rice2006" class="csl-entry" role="listitem">
+Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. Duxbury Press.
+</div>
+<div id="ref-wasserman2004" class="csl-entry" role="listitem">
+Wasserman, Larry. 2004. <em>All of Statistics: A Concise Course in Statistical Inference</em>. New York: Springer.
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Survey Sampling: An Introduction</title>
+<title>Maximum Likelihood Estimation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -88,35 +68,6 @@ div.csl-indent {
 }</script>
 <script async="" src="”https://siteimproveanalytics.com/js/siteanalyze_6294756.js”"></script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -130,7 +81,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-2.html">Lecture 2: Survey Sampling, Introduction</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-8.html">Lecture 8: Maximum Likelihood Estimation: Intro + Examples</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -203,7 +154,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-2.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lectures/lecture-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 2: Survey Sampling, Introduction</span></a>
   </div>
 </li>
@@ -239,7 +190,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-8.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/lecture-8.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lecture 8: Maximum Likelihood Estimation: Intro + Examples</span></a>
   </div>
 </li>
@@ -260,26 +211,15 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
-  <ul class="collapse">
-  <li><a href="#warm-up-problem" id="toc-warm-up-problem" class="nav-link" data-scroll-target="#warm-up-problem">Warm up problem</a></li>
-  </ul></li>
-  <li><a href="#definitions-and-vocabulary" id="toc-definitions-and-vocabulary" class="nav-link" data-scroll-target="#definitions-and-vocabulary">Definitions and vocabulary</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Survey Sampling: An Introduction</h1>
+<h1 class="title">Maximum Likelihood Estimation</h1>
 </div>
 
 
@@ -296,130 +236,9 @@ window.Quarto = {
 </header>
 
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>In this chapter, we look at the topic of <em>survey sampling</em>, which involves a particular type of <em>inference</em>, saying something about a population, given an observed subset of the population. By now, we are all very used to sample surveys, such as presidential approval polls, and polls on various issues such as: <em>What percentage of Republicans support vaccine requirements for children to attend public schools</em>. Pew Research investigated this question a couple of years ago, which they attempted to answer by taking a <strong>sample</strong> of Republican voters, and then drawing a conclusion about the <strong>population</strong> of Republican voters.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="lec-2-images/pew-vaccine.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:45.0%"></p>
-</figure>
-</div>
-<p>News outlets are constantly publishing polls, which are certainly not all the same quality. The famous FiveThirtyEight site, started by Nate Silver, is defunct now, but it was famous for its <em>pollster ratings</em>. You can read about their <a href="https://abcnews.go.com/538/best-pollsters-america/story?id=105563951">methodology</a> and here are their rankings from a couple of years ago.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="lec-2-images/pollster-ratings-538-2024.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption>FiveThirtyEight pollster ratings from January 2024</figcaption>
-</figure>
-</div>
-<p>In our course, we learn a little bit about survey sampling, and if you like it, you might think about taking Stat 152 the next time it is offered in our department. Chapter 7 in our text discusses the probabilistic sampling techniques, in that each population <em>unit</em> has a <em>specified</em> probability of being included in the sample, which consists of randomly selected units from the population. Note that we make no distributional assumptions in this chapter. We will restrict our study to <strong>Simple Random Samples</strong>: every population unit has the same probability of being selected, and each particular sample of size <span class="math inline">\(n\)</span> has the same probability. That is, if the size of our population is <span class="math inline">\(N\)</span>, then each of the <span class="math inline">\(\displaystyle \binom{N}{n}\)</span> possible samples of size <span class="math inline">\(n\)</span> taken without replacement has the <em>same</em> probability.</p>
-<section id="warm-up-problem" class="level3">
-<h3 class="anchored" data-anchor-id="warm-up-problem">Warm up problem</h3>
-<p>Consider the following problem:</p>
-<p>You have a box containing 5 cards. Four of the cards are labeled with the number <span class="math inline">\(0\)</span> and one of them is labeled with the number <span class="math inline">\(1\)</span>.You pick <em>two</em> cards at random <strong>with</strong> replacment. Let <span class="math inline">\(Y\)</span> represent the <em>average</em> of the two cards.</p>
-<ol type="1">
-<li>What is the distribution of the random variable <span class="math inline">\(Y\)</span>? (<em>Hint</em>: Define <span class="math inline">\(X\)</span> to be the <em>sum</em> of the two cards. What is the distribution of <span class="math inline">\(X\)</span>?)</li>
-</ol>
-<details>
-<summary>
-Check your answer
-</summary>
-<p><span class="math inline">\(X \sim Bin(2, \dfrac{1}{5})\)</span>, and <span class="math inline">\(Y = X/2\)</span>.</p>
-<p><span class="math inline">\(P(Y = 0) = P(X = 0) = \dfrac{16}{25}\)</span></p>
-<p><span class="math inline">\(P(Y = \dfrac{1}{2}) = P(X = 1) = \dfrac{8}{25}\)</span></p>
-<p><span class="math inline">\(P(Y = 1) = P(X = 2) = \dfrac{1}{25}\)</span></p>
-</details>
-<ol start="2" type="1">
-<li>Compute <span class="math inline">\(E(Y)\)</span> and <span class="math inline">\(\mathrm{Var}(Y)\)</span>.</li>
-</ol>
-<details>
-<summary>
-Check your answer
-</summary>
-<p><span class="math inline">\(E(Y) = \dfrac{1}{5}\)</span> and <span class="math inline">\(\mathrm{Var}(Y) = \dfrac{2}{25}\)</span>.</p>
-</details>
-<p>Now what if I sample <em>without</em> replacement? Let <span class="math inline">\(Z\)</span> be the average of the two tickets in this case. What is the distribution of <span class="math inline">\(Z\)</span>?</p>
-<details>
-<summary>
-Check your answer
-</summary>
-<p>Now the sum is <em>Hypergeometric</em>. (What are the parameters of the distribution?)</p>
-<p>You can work out that <span class="math inline">\(P(Z = 0) = \dfrac{3}{5}, P(Z = \dfrac{1}{2}) = \dfrac{2}{5}\)</span>.</p>
-<p>Why can’t <span class="math inline">\(Z\)</span> be <span class="math inline">\(1\)</span>?</p>
-</details>
-</section>
-</section>
-<section id="definitions-and-vocabulary" class="level2">
-<h2 class="anchored" data-anchor-id="definitions-and-vocabulary">Definitions and vocabulary</h2>
-<p>The figure below, adapted from Lohr’s book on sampling, shows that we have to be careful regarding the <em>scope</em> of our conclusions. We can only generalize from results from our sample to the <strong>sampled population</strong>, even if the <strong>target population</strong> (the population we are interested in) is something different!</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="lec-2-images/sampling-schematic.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%" alt="A schematic drawing target populations, sampling frame, sampled populations, etc."></p>
-</figure>
-</div>
-<div class="def">
-<p><strong>Population</strong>: the complete set of individuals or entities that we are interested in. We usually only have data on a subset of them (a <strong>sample</strong>). We will assume that our population is of (finite) size <span class="math inline">\(N\)</span>, and that associated with each member or <em>unit</em> of the population is some numerical value. We will denote these numbers by <span class="math inline">\(x_1, x_2, \ldots, x_N\)</span>. If the values of the <span class="math inline">\(x_i\)</span> are <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span> then we are usually investigating the presence or absence of some characteristic, such as a particular party affiliation. In this case, our population is <em>dichotomous</em> or binary.</p>
-</div>
-<div class="def">
-<p><strong>Parameter</strong>: any <em>quantifiable</em> feature of a population. For now, we will assume that the parameter is <strong>fixed but unknown</strong>.</p>
-<p>For example: The mean age of all undergraduate students at UC Berkeley.</p>
-</div>
-<p>The most common population parameters that we are interested in are:</p>
-<div class="def">
-<p><strong>Population mean or average</strong>: this is denoted by <span class="math inline">\(\mu\)</span> and defined to be: <span class="math display">\[
-\mu = \dfrac{1}{N}\sum_{i = 1}^N x_i
-\]</span></p>
-</div>
-<div class="def">
-<p><strong>Population proportion</strong>: This is just the population mean in the binary case, and we represent this special mean by <span class="math inline">\(p\)</span> rather than <span class="math inline">\(\mu\)</span>.</p>
-</div>
-<p>Other parameters that we will consider:</p>
-<div class="def">
-<p><strong>Population total</strong>: this is denoted by <span class="math inline">\(\tau\)</span> and defined to be: <span class="math display">\[
-\tau = \sum_{i = 1}^N x_i = N\mu
-\]</span> Note that for a binary population, <span class="math inline">\(\tau\)</span> represents how many population units possess the characteristic of interest.</p>
-</div>
-<div class="def">
-<p><strong>Population variance</strong>: this is denoted by <span class="math inline">\(\sigma^2\)</span> and defined to be: <span class="math display">\[
-\sigma^2 = \dfrac{1}{N}\sum_{i = 1}^N (x_i-\mu)^2
-\]</span> The <strong>population standard deviation</strong> is the square root of the population variance.</p>
-</div>
-<p><strong>Exercise</strong>: Show that <span class="math inline">\(\sigma^2\)</span> reduces to <span class="math inline">\(\displaystyle \dfrac{1}{N}\sum_{i = 1}^N x_i^2 -\mu^2\)</span>, and if the <span class="math inline">\(x_i\)</span> are <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span> only, then <span class="math inline">\(\sigma^2 = p(1-p)\)</span>.</p>
-<p><strong>Exercise</strong> Going back to the results of the Pew Research survey shown at the beginning of these notes. What is the population and the parameter of interest?</p>
-<details>
-<summary>
-Check your answer
-</summary>
-<p>Population: US adults</p>
-<p>Parameter: Percentage of US adults that think healthy children should be required to be vaccinated in order to attend public schools.</p>
-</details>
-<p><strong>Exercise</strong> Consider a population of size 4: <span class="math inline">\(\{x_1, x_2, x_3, x_4\}\)</span>.</p>
-<ol type="a">
-<li><p>If we use simple random sampling, how many samples of size 2 will we have? What would be the expected value of the sample mean? Is it equal to the population mean?</p></li>
-<li><p>If, rather than a simple random sample, when <em>all</em> samples of size 2 are equally likely, we use a different probabilistic scheme for getting our samples of size 2: the following <strong>four</strong> samples are equally likely, and <em>only</em> these samples are possible: <span class="math inline">\(\{x_1, x_2\}, \{x_2, x_3\}, \{x_3, x_4\}, \{x_1, x_4\}\)</span>. What would be the expected value of the sample mean? Is it equal to the population mean?</p></li>
-</ol>
-<div style="display:none">
-<p><span class="citation" data-cites="rice2006 wasserman2004 samslides135 lohr2010">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-wasserman2004" role="doc-biblioref">Wasserman 2004</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>; <a href="#ref-lohr2010" role="doc-biblioref">Lohr 2010</a>)</span></p>
-</div>
-</section>
-<section id="references" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-lohr2010" class="csl-entry" role="listitem">
-Lohr, Sharon L. 2010. <em>Sampling: Design and Analysis</em>. 2nd ed. Cengage.
-</div>
-<div id="ref-samslides135" class="csl-entry" role="listitem">
-Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).
-</div>
-<div id="ref-rice2006" class="csl-entry" role="listitem">
-Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. Duxbury Press.
-</div>
-<div id="ref-wasserman2004" class="csl-entry" role="listitem">
-Wasserman, Larry. 2004. <em>All of Statistics: A Concise Course in Statistical Inference</em>. New York: Springer.
-</div>
-</div>
+<p>[UNDER CONSTRUCTION]</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
