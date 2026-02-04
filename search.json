@@ -201,7 +201,47 @@
     "href": "lectures/lecture-7.html",
     "title": "Computing Standard Errors",
     "section": "",
-    "text": "[UNDER CONSTRUCTION]",
+    "text": "We have used the method of moments to obtain an estimator \\(\\hat{\\theta}_n\\) for the parameter of interest \\(\\theta\\), based on an IID random sample \\(X_1, \\ldots, X_n\\) from the distribution. Once we have an estimator, we would like to know how stable or reliable it is, that is, if we draw another sample, how much would the value of the estimator change? To understand this, we usually need to derive the sampling distribution of the estimator (not easy, unless we are dealing with the sample mean), or approximate its sampling distribution. The standard deviation of the sampling distribution is called the standard error of the estimator, and we need to derive or approximate this standard error.\nIt might be that the sampling distribution is explicitly of a functional form depending on the parameter values. We can just use our estimates and get an estimate for the standard error. If this functional form is too complicated to write down explicitly, we could simulate it, that is, use the bootstrap method to approximate the sampling distribution of the estimator.\nNote that the WLLN implies that the sample moments converge in probability to the true (population) moments. This means that if the functions relating the estimator \\(\\hat{\\theta}\\) to the sample moments is continuous, the estimator will converge to the parameter as the sample moments converge to the population moments.",
+    "crumbs": [
+      "Lecture 7: Standard Errors of Estimators"
+    ]
+  },
+  {
+    "objectID": "lectures/lecture-7.html#the-standard-error-of-the-method-of-moments-estimator",
+    "href": "lectures/lecture-7.html#the-standard-error-of-the-method-of-moments-estimator",
+    "title": "Computing Standard Errors",
+    "section": "",
+    "text": "We have used the method of moments to obtain an estimator \\(\\hat{\\theta}_n\\) for the parameter of interest \\(\\theta\\), based on an IID random sample \\(X_1, \\ldots, X_n\\) from the distribution. Once we have an estimator, we would like to know how stable or reliable it is, that is, if we draw another sample, how much would the value of the estimator change? To understand this, we usually need to derive the sampling distribution of the estimator (not easy, unless we are dealing with the sample mean), or approximate its sampling distribution. The standard deviation of the sampling distribution is called the standard error of the estimator, and we need to derive or approximate this standard error.\nIt might be that the sampling distribution is explicitly of a functional form depending on the parameter values. We can just use our estimates and get an estimate for the standard error. If this functional form is too complicated to write down explicitly, we could simulate it, that is, use the bootstrap method to approximate the sampling distribution of the estimator.\nNote that the WLLN implies that the sample moments converge in probability to the true (population) moments. This means that if the functions relating the estimator \\(\\hat{\\theta}\\) to the sample moments is continuous, the estimator will converge to the parameter as the sample moments converge to the population moments.",
+    "crumbs": [
+      "Lecture 7: Standard Errors of Estimators"
+    ]
+  },
+  {
+    "objectID": "lectures/lecture-7.html#computing-the-standard-error-of-hattheta",
+    "href": "lectures/lecture-7.html#computing-the-standard-error-of-hattheta",
+    "title": "Computing Standard Errors",
+    "section": "Computing the Standard Error of \\(\\hat{\\theta}\\)",
+    "text": "Computing the Standard Error of \\(\\hat{\\theta}\\)\nWe have three possible cases when we want to compute \\(SE(\\hat{\\theta})\\):\n\n\\(\\hat{\\theta}\\) is a linear function of the first sample moment \\(\\hat{\\mu}_1\\), in which case we can compute it directly.\n\\(\\hat{\\theta}\\) is a nonlinear function of \\(\\hat{\\mu}_1\\). In this case we will use the univariate delta method, that we will describe shortly.\n\\(\\hat{\\theta}\\) is more complex, perhaps uses more moments, and in this case we could use the bootstrap.\n\n\nCase 1: \\(\\hat{\\theta}\\) is a linear function of \\(\\hat{\\mu}_1\\)\nWe will do this with an example. Consider an IID random sample from the Poisson distribution, whose rate \\(\\lambda\\) is unknown: \\[\nX_1, \\ldots, X_n \\overset{IID}{\\sim} Poisson(\\lambda) \\Rightarrow  E(X) = Var(X) =\\lambda\n\\] The method of moments estimator of \\(\\lambda\\) is therefore just \\(\\hat{\\lambda}_n = \\hat{\\mu}_1 = \\overline{X}_n\\).\nThis implies that we can use the Central Limit Theorem to approximate the distribution of \\(\\hat{\\lambda}_n\\).\nNote that \\(SE(\\hat{\\lambda}_n) = SE( \\overline{X}_n) = \\dfrac{\\sigma}{\\sqrt{n}} = \\sqrt{\\dfrac{\\lambda}{n}}.\\)\nThis tells us that the sampling distribution of \\(\\hat{\\lambda}_n\\) becomes more concentrated about the true value \\(\\lambda\\) as \\(n\\) gets large. In order to get an idea of the standard error, we can just substitute \\(\\hat{\\lambda}_n\\) for \\(\\lambda\\), and therefore, our estimated standard error of \\(\\hat{\\lambda}_n\\) is given by \\[\ns_{\\hat{\\lambda}_n} = \\sqrt{\\dfrac{\\hat{\\lambda}_n}{n}}.\n\\]\nNote that actually what is true is that \\[\n\\sigma_{\\hat{\\lambda}_n} = \\sqrt{\\dfrac{\\lambda}{n}}.\n\\]\nBut because our estimator is consistent, we know that \\(\\hat{\\mu}_1 \\rightarrow \\mu = \\lambda\\). Since \\(\\sqrt{\\dfrac{\\hat{\\lambda}_n}{n}}\\) is a continuous function of \\(\\hat{\\lambda}_n\\), we will have\n\\[\n\\sqrt{\\dfrac{\\hat{\\lambda}_n}{n}} \\rightarrow \\sqrt{\\dfrac{\\lambda}{n}}.\n\\]\n\n\nCase 2: \\(\\hat{\\theta}\\) is a nonlinear function of \\(\\hat{\\mu}_1\\)\nFor example, consider the following situation: \\(\\displaystyle X_1, \\ldots, X_n \\overset{i.i.d.}\\sim Exp(\\lambda) \\Rightarrow  E(X) = \\frac{1}{\\lambda} \\Rightarrow \\hat\\lambda = \\frac{1}{\\overline{X}_n},\\) using the method of moments.\nThis type of situation is common in statistics. We have a random variable \\(X\\) that we know the mean and variance of, or in the case above, we could use the CLT on \\(\\overline{X}_n\\). But we are actually interested in different random variable, \\(Y = g(X)\\), and we want the mean and variance of \\(Y\\). Above, the function \\(g\\) is the reciprocal of the sample mean.\nThe problem is that \\(g\\) is not a linear function, so \\(E\\left(g(X)\\right) \\ne g\\left(E(X)\\right)\\).\nWe could use the bootstrap, but we are going to discuss a different method called the delta method or the propagation of error formula.1 We use a Taylor series expansion of \\(g\\) about \\(\\mu_X\\) and linearize \\(Y = g(X)\\), and therefore we can use a linear function of \\(\\overline{X}_n\\) that will be close for large \\(n\\).\nLet’s do the first order expansion: \\[\nY = g(\\mu_X) + (X-\\mu_X)g'(\\mu_X) + R\n\\]\n\\(R\\) is the remainder term that will be negligible for large \\(n\\) because of higher powers of \\((X-\\mu_X)\\).\nThis implies that \\(\\displaystyle Y \\approx g(\\mu_X) + (X-\\mu_X)g'(\\mu_X)\\), and so taking expectations on both sides, we get: \\[\n\\begin{align*}\nY &\\approx g(\\mu_X) + (X-\\mu_X)g'(\\mu_X)\\\\\n\\Rightarrow E(Y) &\\approx E\\left[g(\\mu_X)\\right] + E\\left[(X-\\mu_X)g'(\\mu_X) \\right] \\\\\n\\Rightarrow E(Y) &\\approx E\\left[g(\\mu_X)\\right]\\\\\n\\end{align*}\n\\] This is called the delta method because it comes from writing \\(\\delta = \\hat{\\theta} - \\theta\\) and then expanding \\(g(\\theta + \\delta)\\) as a function of \\(\\delta\\). (Chihara and Hesterberg 2018)\nWe can also do a second order Taylor’s series expansion: \\[\nY = g(X) \\approx g(\\mu_X) + (X-\\mu_X)g'(\\mu_X) + \\dfrac{1}{2}(X-\\mu_X)^2 g''(\\mu_X)\n\\] Taking expectations gives us that \\[\nE(Y) \\approx g(\\mu_X) + \\dfrac{1}{2} \\sigma_X^2 g''(\\mu_X).\n\\]\nHow good the linear approximation is depends on how nonlinear \\(g\\) is in a neighborhood of \\(\\mu_X\\), and on the variance of \\(X\\). We know that for large \\(n\\), \\(X\\) will probably be quite close to \\(\\mu_X\\), so if the linear approximation for \\(g\\) is pretty good in this range, the approximations for the moments of \\(Y\\) should be decent as well.",
+    "crumbs": [
+      "Lecture 7: Standard Errors of Estimators"
+    ]
+  },
+  {
+    "objectID": "lectures/lecture-7.html#references",
+    "href": "lectures/lecture-7.html#references",
+    "title": "Computing Standard Errors",
+    "section": "References",
+    "text": "References\n\n\nChihara, Laura M., and Tim C. Hesterberg. 2018. Mathematical Statistics with Resampling and r. John Wiley & Sons, Hoboken, NJ.\n\n\nPimentel, Sam. 2024. “STAT 135 Lecture Slides.” Lecture slides (shared privately).\n\n\nRice, John A. 2006. Mathematical Statistics and Data Analysis. 3rd ed. Duxbury Press.\n\n\nWasserman, Larry. 2004. All of Statistics: A Concise Course in Statistical Inference. New York: Springer.",
+    "crumbs": [
+      "Lecture 7: Standard Errors of Estimators"
+    ]
+  },
+  {
+    "objectID": "lectures/lecture-7.html#footnotes",
+    "href": "lectures/lecture-7.html#footnotes",
+    "title": "Computing Standard Errors",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nThis is discussed in the textbook (Rice 2006) on page 162, in chapter 4.\n\n[Rice (2006); Wasserman (2004); Pimentel (2024); Chihara and Hesterberg (2018);]\n\n↩︎",
     "crumbs": [
       "Lecture 7: Standard Errors of Estimators"
     ]

@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -68,6 +88,35 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <script async="" src="”https://siteimproveanalytics.com/js/siteanalyze_6294756.js”"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -211,8 +260,20 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-standard-error-of-the-method-of-moments-estimator" id="toc-the-standard-error-of-the-method-of-moments-estimator" class="nav-link active" data-scroll-target="#the-standard-error-of-the-method-of-moments-estimator">The Standard Error of the Method of Moments Estimator</a></li>
+  <li><a href="#computing-the-standard-error-of-hattheta" id="toc-computing-the-standard-error-of-hattheta" class="nav-link" data-scroll-target="#computing-the-standard-error-of-hattheta">Computing the Standard Error of <span class="math inline">\(\hat{\theta}\)</span></a>
+  <ul class="collapse">
+  <li><a href="#case-1-hattheta-is-a-linear-function-of-hatmu_1" id="toc-case-1-hattheta-is-a-linear-function-of-hatmu_1" class="nav-link" data-scroll-target="#case-1-hattheta-is-a-linear-function-of-hatmu_1">Case 1: <span class="math inline">\(\hat{\theta}\)</span> is a linear function of <span class="math inline">\(\hat{\mu}_1\)</span></a></li>
+  <li><a href="#case-2-hattheta-is-a-nonlinear-function-of-hatmu_1" id="toc-case-2-hattheta-is-a-nonlinear-function-of-hatmu_1" class="nav-link" data-scroll-target="#case-2-hattheta-is-a-nonlinear-function-of-hatmu_1">Case 2: <span class="math inline">\(\hat{\theta}\)</span> is a nonlinear function of <span class="math inline">\(\hat{\mu}_1\)</span></a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -236,11 +297,94 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>[UNDER CONSTRUCTION]</p>
+<section id="the-standard-error-of-the-method-of-moments-estimator" class="level2">
+<h2 class="anchored" data-anchor-id="the-standard-error-of-the-method-of-moments-estimator">The Standard Error of the Method of Moments Estimator</h2>
+<p>We have used the method of moments to obtain an estimator <span class="math inline">\(\hat{\theta}_n\)</span> for the parameter of interest <span class="math inline">\(\theta\)</span>, based on an IID random sample <span class="math inline">\(X_1, \ldots, X_n\)</span> from the distribution. Once we have an estimator, we would like to know how stable or reliable it is, that is, if we draw another sample, how much would the value of the estimator change? To understand this, we usually need to derive the sampling distribution of the estimator (not easy, unless we are dealing with the sample mean), or approximate its sampling distribution. The standard deviation of the sampling distribution is called the <em>standard error</em> of the estimator, and we need to derive or approximate this standard error.</p>
+<p>It might be that the sampling distribution is explicitly of a functional form depending on the parameter values. We can just use our estimates and get an estimate for the standard error. If this functional form is too complicated to write down explicitly, we could simulate it, that is, use the bootstrap method to approximate the sampling distribution of the estimator.</p>
+<p>Note that the WLLN implies that the sample moments converge in probability to the true (population) moments. This means that if the functions relating the estimator <span class="math inline">\(\hat{\theta}\)</span> to the sample moments is continuous, the estimator will converge to the parameter as the sample moments converge to the population moments.</p>
+</section>
+<section id="computing-the-standard-error-of-hattheta" class="level2">
+<h2 class="anchored" data-anchor-id="computing-the-standard-error-of-hattheta">Computing the Standard Error of <span class="math inline">\(\hat{\theta}\)</span></h2>
+<p>We have three possible cases when we want to compute <span class="math inline">\(SE(\hat{\theta})\)</span>:</p>
+<ol type="1">
+<li><span class="math inline">\(\hat{\theta}\)</span> is a <em>linear</em> function of the first sample moment <span class="math inline">\(\hat{\mu}_1\)</span>, in which case we can compute it directly.</li>
+<li><span class="math inline">\(\hat{\theta}\)</span> is a <em>nonlinear</em> function of <span class="math inline">\(\hat{\mu}_1\)</span>. In this case we will use the univariate <em>delta method</em>, that we will describe shortly.</li>
+<li><span class="math inline">\(\hat{\theta}\)</span> is more complex, perhaps uses more moments, and in this case we could use the bootstrap.</li>
+</ol>
+<section id="case-1-hattheta-is-a-linear-function-of-hatmu_1" class="level3">
+<h3 class="anchored" data-anchor-id="case-1-hattheta-is-a-linear-function-of-hatmu_1">Case 1: <span class="math inline">\(\hat{\theta}\)</span> is a linear function of <span class="math inline">\(\hat{\mu}_1\)</span></h3>
+<p>We will do this with an example. Consider an IID random sample from the Poisson distribution, whose rate <span class="math inline">\(\lambda\)</span> is unknown: <span class="math display">\[
+X_1, \ldots, X_n \overset{IID}{\sim} Poisson(\lambda) \Rightarrow  E(X) = Var(X) =\lambda
+\]</span> The method of moments estimator of <span class="math inline">\(\lambda\)</span> is therefore just <span class="math inline">\(\hat{\lambda}_n = \hat{\mu}_1 = \overline{X}_n\)</span>.</p>
+<p>This implies that we can use the Central Limit Theorem to approximate the distribution of <span class="math inline">\(\hat{\lambda}_n\)</span>.</p>
+<p>Note that <span class="math inline">\(SE(\hat{\lambda}_n) = SE( \overline{X}_n) = \dfrac{\sigma}{\sqrt{n}} = \sqrt{\dfrac{\lambda}{n}}.\)</span></p>
+<p>This tells us that the sampling distribution of <span class="math inline">\(\hat{\lambda}_n\)</span> becomes more concentrated about the true value <span class="math inline">\(\lambda\)</span> as <span class="math inline">\(n\)</span> gets large. In order to get an idea of the standard error, we can just substitute <span class="math inline">\(\hat{\lambda}_n\)</span> for <span class="math inline">\(\lambda\)</span>, and therefore, our <strong>estimated standard error</strong> of <span class="math inline">\(\hat{\lambda}_n\)</span> is given by <span class="math display">\[
+s_{\hat{\lambda}_n} = \sqrt{\dfrac{\hat{\lambda}_n}{n}}.
+\]</span></p>
+<p>Note that actually what is true is that <span class="math display">\[
+\sigma_{\hat{\lambda}_n} = \sqrt{\dfrac{\lambda}{n}}.
+\]</span></p>
+<p>But because our estimator is <strong>consistent</strong>, we know that <span class="math inline">\(\hat{\mu}_1 \rightarrow \mu = \lambda\)</span>. Since <span class="math inline">\(\sqrt{\dfrac{\hat{\lambda}_n}{n}}\)</span> is a continuous function of <span class="math inline">\(\hat{\lambda}_n\)</span>, we will have</p>
+<p><span class="math display">\[
+\sqrt{\dfrac{\hat{\lambda}_n}{n}} \rightarrow \sqrt{\dfrac{\lambda}{n}}.
+\]</span></p>
+</section>
+<section id="case-2-hattheta-is-a-nonlinear-function-of-hatmu_1" class="level3">
+<h3 class="anchored" data-anchor-id="case-2-hattheta-is-a-nonlinear-function-of-hatmu_1">Case 2: <span class="math inline">\(\hat{\theta}\)</span> is a nonlinear function of <span class="math inline">\(\hat{\mu}_1\)</span></h3>
+<p>For example, consider the following situation: <span class="math inline">\(\displaystyle X_1, \ldots, X_n \overset{i.i.d.}\sim Exp(\lambda) \Rightarrow  E(X) = \frac{1}{\lambda} \Rightarrow \hat\lambda = \frac{1}{\overline{X}_n},\)</span> using the method of moments.</p>
+<p>This type of situation is common in statistics. We have a random variable <span class="math inline">\(X\)</span> that we know the mean and variance of, or in the case above, we could use the CLT on <span class="math inline">\(\overline{X}_n\)</span>. But we are actually interested in <em>different</em> random variable, <span class="math inline">\(Y = g(X)\)</span>, and we want the mean and variance of <span class="math inline">\(Y\)</span>. Above, the function <span class="math inline">\(g\)</span> is the reciprocal of the sample mean.</p>
+<p>The problem is that <span class="math inline">\(g\)</span> is not a linear function, so <span class="math inline">\(E\left(g(X)\right) \ne g\left(E(X)\right)\)</span>.</p>
+<p>We could use the bootstrap, but we are going to discuss a different method called the <strong>delta method</strong> or the <strong>propagation of error</strong> formula.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> We use a Taylor series expansion of <span class="math inline">\(g\)</span> about <span class="math inline">\(\mu_X\)</span> and linearize <span class="math inline">\(Y = g(X)\)</span>, and therefore we can use a linear function of <span class="math inline">\(\overline{X}_n\)</span> that will be close for large <span class="math inline">\(n\)</span>.</p>
+<p>Let’s do the first order expansion: <span class="math display">\[
+Y = g(\mu_X) + (X-\mu_X)g'(\mu_X) + R
+\]</span></p>
+<p><span class="math inline">\(R\)</span> is the remainder term that will be negligible for large <span class="math inline">\(n\)</span> because of higher powers of <span class="math inline">\((X-\mu_X)\)</span>.</p>
+<p>This implies that <span class="math inline">\(\displaystyle Y \approx g(\mu_X) + (X-\mu_X)g'(\mu_X)\)</span>, and so taking expectations on both sides, we get: <span class="math display">\[
+\begin{align*}
+Y &amp;\approx g(\mu_X) + (X-\mu_X)g'(\mu_X)\\
+\Rightarrow E(Y) &amp;\approx E\left[g(\mu_X)\right] + E\left[(X-\mu_X)g'(\mu_X) \right] \\
+\Rightarrow E(Y) &amp;\approx E\left[g(\mu_X)\right]\\
+\end{align*}
+\]</span> This is called the delta method because it comes from writing <span class="math inline">\(\delta = \hat{\theta} - \theta\)</span> and then expanding <span class="math inline">\(g(\theta + \delta)\)</span> as a function of <span class="math inline">\(\delta\)</span>. <span class="citation" data-cites="chi-hest2018">(<a href="#ref-chi-hest2018" role="doc-biblioref">Chihara and Hesterberg 2018</a>)</span></p>
+<p>We can also do a second order Taylor’s series expansion: <span class="math display">\[
+Y = g(X) \approx g(\mu_X) + (X-\mu_X)g'(\mu_X) + \dfrac{1}{2}(X-\mu_X)^2 g''(\mu_X)
+\]</span> Taking expectations gives us that <span class="math display">\[
+E(Y) \approx g(\mu_X) + \dfrac{1}{2} \sigma_X^2 g''(\mu_X).
+\]</span></p>
+<p>How good the linear approximation is depends on how nonlinear <span class="math inline">\(g\)</span> is in a neighborhood of <span class="math inline">\(\mu_X\)</span>, and on the variance of <span class="math inline">\(X\)</span>. We know that for large <span class="math inline">\(n\)</span>, <span class="math inline">\(X\)</span> will probably be quite close to <span class="math inline">\(\mu_X\)</span>, so if the linear approximation for <span class="math inline">\(g\)</span> is pretty good in this range, the approximations for the moments of <span class="math inline">\(Y\)</span> should be decent as well.</p>
+</section>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-chi-hest2018" class="csl-entry" role="listitem">
+Chihara, Laura M., and Tim C. Hesterberg. 2018. <em>Mathematical Statistics with Resampling and r</em>. John Wiley &amp; Sons, Hoboken, NJ.
+</div>
+<div id="ref-samslides135" class="csl-entry" role="listitem">
+Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).
+</div>
+<div id="ref-rice2006" class="csl-entry" role="listitem">
+Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. Duxbury Press.
+</div>
+<div id="ref-wasserman2004" class="csl-entry" role="listitem">
+Wasserman, Larry. 2004. <em>All of Statistics: A Concise Course in Statistical Inference</em>. New York: Springer.
+</div>
+</div>
 
 
+</section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1">This is discussed in the textbook <span class="citation" data-cites="rice2006">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>)</span> on page 162, in chapter 4.
+<div style="display:none">
+<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="wasserman2004">Wasserman (<a href="#ref-wasserman2004" role="doc-biblioref">2004</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>;]</p>
+</div>
+<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
