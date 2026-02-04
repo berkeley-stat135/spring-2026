@@ -269,6 +269,12 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#consistency" id="toc-consistency" class="nav-link" data-scroll-target="#consistency">Consistency</a></li>
   </ul></li>
+  <li><a href="#types-of-convergence" id="toc-types-of-convergence" class="nav-link" data-scroll-target="#types-of-convergence">Types of Convergence</a></li>
+  <li><a href="#tail-inequalities" id="toc-tail-inequalities" class="nav-link" data-scroll-target="#tail-inequalities">Tail Inequalities</a>
+  <ul class="collapse">
+  <li><a href="#consequences-of-the-wlln" id="toc-consequences-of-the-wlln" class="nav-link" data-scroll-target="#consequences-of-the-wlln">Consequences of the WLLN</a></li>
+  <li><a href="#sample-moments-converge-to-the-true-moments-of-the-distribution" id="toc-sample-moments-converge-to-the-true-moments-of-the-distribution" class="nav-link" data-scroll-target="#sample-moments-converge-to-the-true-moments-of-the-distribution">Sample moments converge to the true moments of the distribution</a></li>
+  </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -322,9 +328,90 @@ window.Quarto = {
 </section>
 <section id="consistency" class="level3">
 <h3 class="anchored" data-anchor-id="consistency">Consistency</h3>
-<p>All these criteria are well and fine, but one thing we would definitely like is that as our sample size gets larger and larger (we get more data), our estimator should become more accurate. In fact, as <span class="math inline">\(n \rightarrow infinity\)</span>, we would like <span class="math inline">\(\hat{\theta} \equiv \hat{\theta}_n\)</span> to <em>converge</em> to <span class="math inline">\(\theta\)</span> (the <span class="math inline">\(n\)</span> denotes the size of the sample that we are using).</p>
+<p>All these criteria are well and fine, but one thing we would definitely like is that as our sample size gets larger and larger (we get more data), our estimator should become more accurate. In fact, as <span class="math inline">\(n \rightarrow \infty\)</span>, we would like <span class="math inline">\(\hat{\theta} \equiv \hat{\theta}_n\)</span> to <em>converge</em> to <span class="math inline">\(\theta\)</span> (the <span class="math inline">\(n\)</span> denotes the size of the sample that we are using), whatever “converge” might mean here. In fact, the convergence here is what we call convergence in <em>probability</em>, which basically means that in the long run, the probability of <span class="math inline">\(\hat{\theta}_n\)</span> being very close to <span class="math inline">\(\theta\)</span> goes to 1.</p>
+<div class="def">
+<p><strong>Consistent</strong>: Let <span class="math inline">\(\hat{\theta}_n\)</span> be an estimator of a parameter <span class="math inline">\(\theta\)</span>, based on a sample of size <span class="math inline">\(n\)</span>. We say that <span class="math inline">\(\hat{\theta}_n\)</span> is <em>consistent in probability</em> if <span class="math inline">\(\hat{\theta}_n\)</span> converges in probability to <span class="math inline">\(\theta\)</span> as <span class="math inline">\(n \rightarrow \infty\)</span>; that is, for any <span class="math inline">\(\varepsilon &gt; 0\)</span>, we have that <span class="math inline">\(\displaystyle \lim_{n \rightarrow \infty} P\left(\lvert \hat{\theta}_n -\theta \rvert &gt; \varepsilon \right)=0\)</span>. We write this as <span class="math inline">\(\hat{\theta}_n \overset{P}{\rightarrow} \theta\)</span>.</p>
+</div>
+<p>This is saying that for <em>any</em> acceptable amount of error epsilon, the probability of an <em>actual</em> error that is greater than epsilon goes to 0. This means that the error might be large on events of very low probability, and these probabilities get lower as <span class="math inline">\(n\)</span> gets larger. If the sample is large enough, therefore, the estimator is very likely to be close to its target.</p>
+</section>
+</section>
+<section id="types-of-convergence" class="level2">
+<h2 class="anchored" data-anchor-id="types-of-convergence">Types of Convergence</h2>
+<p>Before we go any further, let’s briefly talk about the three different kinds of ways of interpreting the statement <span class="math inline">\(\hat{\theta}_n \rightarrow \theta\)</span> that you might encounter while studying probability - well, you will mostly encounter the first two, but you might have seen the third in a course on real analysis or measure theory.</p>
+<p>Let <span class="math inline">\(X_1, X_2, \ldots\)</span> be a sequence of random variables, such that <span class="math inline">\(X_n\)</span> has cdf <span class="math inline">\(F_n\)</span>, and let <span class="math inline">\(X\)</span> be another random variable with CDF <span class="math inline">\(F\)</span>.</p>
+<ol type="1">
+<li><p><span class="math inline">\(X_n\)</span> <strong>converges in distribution</strong> to <span class="math inline">\(X\)</span>, written as <span class="math inline">\(X_n \overset{D}{\rightarrow} X\)</span>, if <span class="math inline">\(P(X_n \le x) \rightarrow P(X \le x)\)</span> as <span class="math inline">\(n \rightarrow \infty\)</span> at all points <span class="math inline">\(x\)</span> at which the function <span class="math inline">\(F(x) = P(X \le x)\)</span> is continuous. This means that the CDFs of the <span class="math inline">\(X_n\)</span> converge to the CDF of <span class="math inline">\(X\)</span> (<span class="math inline">\(F_n \rightarrow F\)</span> as <span class="math inline">\(n\rightarrow \infty\)</span>).</p></li>
+<li><p><span class="math inline">\(X_n\)</span> <strong>converges in probability</strong> to <span class="math inline">\(X\)</span>, written as <span class="math inline">\(X_n \overset{P}{\rightarrow} X\)</span>, if, for all <span class="math inline">\(\varepsilon &gt; 0\)</span>, we have that <span class="math inline">\(P(\lvert X_n - X \rvert &gt; \varepsilon) \rightarrow 0\)</span> as <span class="math inline">\(n \rightarrow \infty\)</span>. This isn’t saying that we <em>guarantee</em> that <span class="math inline">\(X_n\)</span> will get very close to <span class="math inline">\(X\)</span> for large <span class="math inline">\(n\)</span>. We are saying that it is very likely.</p></li>
+<li><p><span class="math inline">\(X_n\)</span> <strong>converges almost surely</strong>, written as <span class="math inline">\(X_n \overset{a.s.}{\rightarrow} X\)</span>, if <span class="math inline">\(\displaystyle P\left(\lim_{n\rightarrow \infty} X_n = X\right) =1\)</span>. That is, the event <span class="math inline">\(\{\omega \in \Omega: \displaystyle \lim_{n\rightarrow \infty} X_n(\omega) = X(\omega)\}\)</span> has probability 1. This convergence guarantees that <span class="math inline">\(X_n\)</span> will converge to <span class="math inline">\(X\)</span> except on a set of measure 0 (for example, on finitely many points in a continuous interval).</p></li>
+</ol>
+<p>You can see that the first type is the weakest, and the last is the strongest. <span class="math display">\[
+\left(X_n \overset{a.s.}{\rightarrow} X\right) \Rightarrow \left(X_n \overset{P}{\rightarrow} X\right) \Rightarrow \left(X_n \overset{D}{\rightarrow} X\right)
+\]</span></p>
+<p>That is, if we have that <span class="math inline">\(X_1, \ldots\)</span> converge to <span class="math inline">\(X\)</span> a.s., then the other forms of convergence will also be true.</p>
+<p>Here is an example <span class="citation" data-cites="grimmett-stirzaker2001">(<a href="#ref-grimmett-stirzaker2001" role="doc-biblioref">Grimmett and Stirzaker 2001</a>)</span>: Suppose <span class="math inline">\(X\sim Bernoulli(1/2)\)</span>, and <span class="math inline">\(X_1, \ldots\)</span> are identical random variables, with <span class="math inline">\(X_n = X\)</span> for all <span class="math inline">\(n\)</span>. Now the <span class="math inline">\(X_n\)</span> are not independent, but <span class="math inline">\(X_n \overset{D}{\rightarrow}X\)</span>. If <span class="math inline">\(Y = 1-X\)</span>, then <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have the same distribution, which means that <span class="math inline">\(X_n \overset{D}{\rightarrow} Y\)</span>. But <span class="math inline">\(X_n\)</span> cannot converge to <span class="math inline">\(Y\)</span> in any other sense because <span class="math inline">\(\lvert X_n - Y\rvert = 1\)</span> always.</p>
+<p>We will revisit a famous limit theorems now, that use different kinds of convergence.</p>
+<section id="the-central-limit-theorem" class="level4">
+<h4 class="anchored" data-anchor-id="the-central-limit-theorem">The Central Limit Theorem</h4>
+<p>The CLT states that for large <span class="math inline">\(n\)</span>, the sample mean, suitably standardized, will have a CDF that approaches the CDF of the standard Normal. That is, the standardized sample mean <strong>converges in distribution</strong> to the standard Normal.</p>
+<p>If <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> is an independent and identically distributed sample from a population with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, then:</p>
+<p><span class="math display">\[
+\left(\frac{\overline{X}-\mu}{\frac{\sigma}{\sqrt{n}}}\right) = \sqrt{n}\left(\frac{\overline{X}-\mu}{\sigma}\right) \overset{D}{\longrightarrow}\mathcal{N}(0,1)  \text{ as } n\longrightarrow \infty
+\]</span></p>
+</section>
+<section id="the-weak-law-of-large-numbers" class="level4">
+<h4 class="anchored" data-anchor-id="the-weak-law-of-large-numbers">The Weak Law of Large Numbers</h4>
+<p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> be a sequence of iid random variables with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, then if <span class="math inline">\(\overline{X}_n = \left(= \dfrac{1}{n} \sum_{i=1}^{n}X_i \right)\)</span> is the sample mean,then for every <span class="math inline">\(\varepsilon &gt; 0\)</span>, we have that <span class="math inline">\(\lim_{n \rightarrow \infty} P(\lvert \overline{X}_n - \mu \rvert &gt; \varepsilon )=0\)</span>.</p>
+<p>That is, the sample mean converges in <strong>probability</strong> to the true mean.</p>
+</section>
+</section>
+<section id="tail-inequalities" class="level2">
+<h2 class="anchored" data-anchor-id="tail-inequalities">Tail Inequalities</h2>
+<p>In order to prove the WLLN, we need Chebyshev’s inequality. In order to prove Chebyshev’s inequality, we need Markov’s inequality. These are both called <em>tail inequalities</em> because they bound the <em>tail</em> of the distribution. That is, they put bounds on the probability that the random variable takes very large values.</p>
+<section id="markovs-inequality" class="level4">
+<h4 class="anchored" data-anchor-id="markovs-inequality">Markov’s inequality</h4>
+<p>If <span class="math inline">\(X\)</span> is a nonnegative random variable (<span class="math inline">\(P(X\ge 0 ) = 1\)</span>) such that <span class="math inline">\(E(X) &lt; \infty\)</span> (that is, the expectation exists), then for any <span class="math inline">\(c&gt; 0\)</span>, <span class="math display">\[
+P(X \ge c) \le \dfrac{E(X)}{c}.
+\]</span></p>
+<p>Notice that this is a very simple inequality, and requires nothing but that the random variable be nonnegative. The proof is very simple - we just have to write the expected value as a sum over the region where <span class="math inline">\(X &lt; c\)</span> and where <span class="math inline">\(X \ge c\)</span>. Try it.</p>
+</section>
+<section id="chebyshevs-inequality" class="level4">
+<h4 class="anchored" data-anchor-id="chebyshevs-inequality">Chebyshev’s inequality</h4>
+<p>If <span class="math inline">\(X\)</span> is a random variable wtih mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, then we have that for any <span class="math inline">\(c&gt;0\)</span>,</p>
+<p><span class="math display">\[
+P(\lvert X-\mu\rvert&gt; c)\le \dfrac{\sigma^2}{c^2}.
+\]</span></p>
+<p><strong>Exercise</strong> Apply Markov’s inequality to <span class="math inline">\(\lvert X - \mu\rvert^2\)</span> to prove Chebyshev’s inequality.</p>
+</section>
+<section id="consequences-of-the-wlln" class="level3">
+<h3 class="anchored" data-anchor-id="consequences-of-the-wlln">Consequences of the WLLN</h3>
+<p>Please work through the following consequences of the WLLN:</p>
+<ul>
+<li><p>If <span class="math inline">\(X_n \xrightarrow{P} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{P} Y\)</span>, then<br>
+<span class="math display">\[
+X_n + Y_n \xrightarrow{P} X + Y.
+\]</span></p></li>
+<li><p>If <span class="math inline">\(X_n \xrightarrow{P} X\)</span> and <span class="math inline">\(c\)</span> is a constant, then<br>
+<span class="math display">\[
+c X_n \xrightarrow{P} c X.
+\]</span></p></li>
+<li><p>If <span class="math inline">\(X_n \xrightarrow{P} a\)</span> and the real-valued function <span class="math inline">\(g\)</span> is continuous at <span class="math inline">\(a\)</span>, then<br>
+<span class="math display">\[
+g(X_n) \xrightarrow{P} g(a).
+\]</span></p></li>
+<li><p>If <span class="math inline">\(X_n \xrightarrow{P} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{P} Y\)</span>, then<br>
+<span class="math display">\[
+X_n Y_n \xrightarrow{P} X Y.
+\]</span></p></li>
+</ul>
+</section>
+<section id="sample-moments-converge-to-the-true-moments-of-the-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="sample-moments-converge-to-the-true-moments-of-the-distribution">Sample moments converge to the true moments of the distribution</h3>
+<p>This is another important consequence of the WLLN. That is,The sample moments (<span class="math inline">\(\hat{\mu}_k\)</span>) converge to the population moments (<span class="math inline">\(\mu_k = E(X^k)\)</span>). If the functions relating the estimator <span class="math inline">\(\hat{\theta}\)</span> to the sample moments are continuous, then the estimator will converge to the parameter as the sample moments converge to the population moments.</p>
+<p>Therefore, the WLLN implies that the sample mean (<span class="math inline">\(\overline{X}_n\)</span>) is a consistent estimator of <span class="math inline">\(\mu\)</span>.</p>
+<p>Recall the sample variance <span class="math inline">\(\displaystyle S^2  = \dfrac{1}{n-1}\sum_{i=1}^n \left(X_i - \overline{X}_n\right)^2\)</span>. Is <span class="math inline">\(S^2\)</span> a consistent estimator of <span class="math inline">\(\sigma^2\)</span>?</p>
+<p>What about <span class="math inline">\(\hat{\sigma}^2 = \dfrac{n-1}{n}S^2\)</span>?</p>
 <div style="display:none">
-<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="wasserman2004">Wasserman (<a href="#ref-wasserman2004" role="doc-biblioref">2004</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>;]</p>
+<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="wasserman2004">Wasserman (<a href="#ref-wasserman2004" role="doc-biblioref">2004</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="grimmett-stirzaker2001">Grimmett and Stirzaker (<a href="#ref-grimmett-stirzaker2001" role="doc-biblioref">2001</a>)</span>;]</p>
 </div>
 </section>
 </section>
@@ -333,6 +420,9 @@ window.Quarto = {
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-chi-hest2018" class="csl-entry" role="listitem">
 Chihara, Laura M., and Tim C. Hesterberg. 2018. <em>Mathematical Statistics with Resampling and r</em>. John Wiley &amp; Sons, Hoboken, NJ.
+</div>
+<div id="ref-grimmett-stirzaker2001" class="csl-entry" role="listitem">
+Grimmett, Geoffrey R., and David R. Stirzaker. 2001. <em>Probability and Random Processes</em>. 3rd ed. Oxford: Oxford University Press.
 </div>
 <div id="ref-samslides135" class="csl-entry" role="listitem">
 Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).
