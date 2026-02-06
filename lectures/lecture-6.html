@@ -234,13 +234,13 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lectures/lecture-7.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 7: Standard Errors of Estimators</span></a>
+ <span class="menu-text">Lecture 7: Standard Errors of MoM Estimators</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lectures/lecture-8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 8: Maximum Likelihood Estimation: Intro + Examples</span></a>
+ <span class="menu-text">Lecture 8: Computing Standard Errors, continued</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -349,7 +349,7 @@ window.Quarto = {
 \]</span></p>
 <p>That is, if we have that <span class="math inline">\(X_1, \ldots\)</span> converge to <span class="math inline">\(X\)</span> a.s., then the other forms of convergence will also be true.</p>
 <p>Here is an example <span class="citation" data-cites="grimmett-stirzaker2001">(<a href="#ref-grimmett-stirzaker2001" role="doc-biblioref">Grimmett and Stirzaker 2001</a>)</span>: Suppose <span class="math inline">\(X\sim Bernoulli(1/2)\)</span>, and <span class="math inline">\(X_1, \ldots\)</span> are identical random variables, with <span class="math inline">\(X_n = X\)</span> for all <span class="math inline">\(n\)</span>. Now the <span class="math inline">\(X_n\)</span> are not independent, but <span class="math inline">\(X_n \overset{D}{\rightarrow}X\)</span>. If <span class="math inline">\(Y = 1-X\)</span>, then <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have the same distribution, which means that <span class="math inline">\(X_n \overset{D}{\rightarrow} Y\)</span>. But <span class="math inline">\(X_n\)</span> cannot converge to <span class="math inline">\(Y\)</span> in any other sense because <span class="math inline">\(\lvert X_n - Y\rvert = 1\)</span> always.</p>
-<p>We will revisit a famous limit theorems now, that use different kinds of convergence.</p>
+<p>We will revisit two famous limit theorems now, that use different kinds of convergence.</p>
 <section id="the-central-limit-theorem" class="level4">
 <h4 class="anchored" data-anchor-id="the-central-limit-theorem">The Central Limit Theorem</h4>
 <p>The CLT states that for large <span class="math inline">\(n\)</span>, the sample mean, suitably standardized, will have a CDF that approaches the CDF of the standard Normal. That is, the standardized sample mean <strong>converges in distribution</strong> to the standard Normal.</p>

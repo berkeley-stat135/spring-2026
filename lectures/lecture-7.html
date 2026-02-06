@@ -130,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-7.html">Lecture 7: Standard Errors of Estimators</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-7.html">Lecture 7: Standard Errors of MoM Estimators</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -234,13 +234,13 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lectures/lecture-7.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Lecture 7: Standard Errors of Estimators</span></a>
+ <span class="menu-text">Lecture 7: Standard Errors of MoM Estimators</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lectures/lecture-8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 8: Maximum Likelihood Estimation: Intro + Examples</span></a>
+ <span class="menu-text">Lecture 8: Computing Standard Errors, continued</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -334,24 +334,10 @@ s_{\hat{\lambda}_n} = \sqrt{\dfrac{\hat{\lambda}_n}{n}}.
 <p>For example, consider the following situation: <span class="math inline">\(\displaystyle X_1, \ldots, X_n \overset{i.i.d.}\sim Exp(\lambda) \Rightarrow  E(X) = \frac{1}{\lambda} \Rightarrow \hat\lambda = \frac{1}{\overline{X}_n},\)</span> using the method of moments.</p>
 <p>This type of situation is common in statistics. We have a random variable <span class="math inline">\(X\)</span> that we know the mean and variance of, or in the case above, we could use the CLT on <span class="math inline">\(\overline{X}_n\)</span>. But we are actually interested in <em>different</em> random variable, <span class="math inline">\(Y = g(X)\)</span>, and we want the mean and variance of <span class="math inline">\(Y\)</span>. Above, the function <span class="math inline">\(g\)</span> is the reciprocal of the sample mean.</p>
 <p>The problem is that <span class="math inline">\(g\)</span> is not a linear function, so <span class="math inline">\(E\left(g(X)\right) \ne g\left(E(X)\right)\)</span>.</p>
-<p>We could use the bootstrap, but we are going to discuss a different method called the <strong>delta method</strong> or the <strong>propagation of error</strong> formula.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> We use a Taylor series expansion of <span class="math inline">\(g\)</span> about <span class="math inline">\(\mu_X\)</span> and linearize <span class="math inline">\(Y = g(X)\)</span>, and therefore we can use a linear function of <span class="math inline">\(\overline{X}_n\)</span> that will be close for large <span class="math inline">\(n\)</span>.</p>
-<p>Let’s do the first order expansion: <span class="math display">\[
-Y = g(\mu_X) + (X-\mu_X)g'(\mu_X) + R
-\]</span></p>
-<p><span class="math inline">\(R\)</span> is the remainder term that will be negligible for large <span class="math inline">\(n\)</span> because of higher powers of <span class="math inline">\((X-\mu_X)\)</span>.</p>
-<p>This implies that <span class="math inline">\(\displaystyle Y \approx g(\mu_X) + (X-\mu_X)g'(\mu_X)\)</span>, and so taking expectations on both sides, we get: <span class="math display">\[
-\begin{align*}
-Y &amp;\approx g(\mu_X) + (X-\mu_X)g'(\mu_X)\\
-\Rightarrow E(Y) &amp;\approx E\left[g(\mu_X)\right] + E\left[(X-\mu_X)g'(\mu_X) \right] \\
-\Rightarrow E(Y) &amp;\approx E\left[g(\mu_X)\right]\\
-\end{align*}
-\]</span> This is called the delta method because it comes from writing <span class="math inline">\(\delta = \hat{\theta} - \theta\)</span> and then expanding <span class="math inline">\(g(\theta + \delta)\)</span> as a function of <span class="math inline">\(\delta\)</span>. <span class="citation" data-cites="chi-hest2018">(<a href="#ref-chi-hest2018" role="doc-biblioref">Chihara and Hesterberg 2018</a>)</span></p>
-<p>We can also do a second order Taylor’s series expansion: <span class="math display">\[
-Y = g(X) \approx g(\mu_X) + (X-\mu_X)g'(\mu_X) + \dfrac{1}{2}(X-\mu_X)^2 g''(\mu_X)
-\]</span> Taking expectations gives us that <span class="math display">\[
-E(Y) \approx g(\mu_X) + \dfrac{1}{2} \sigma_X^2 g''(\mu_X).
-\]</span></p>
-<p>How good the linear approximation is depends on how nonlinear <span class="math inline">\(g\)</span> is in a neighborhood of <span class="math inline">\(\mu_X\)</span>, and on the variance of <span class="math inline">\(X\)</span>. We know that for large <span class="math inline">\(n\)</span>, <span class="math inline">\(X\)</span> will probably be quite close to <span class="math inline">\(\mu_X\)</span>, so if the linear approximation for <span class="math inline">\(g\)</span> is pretty good in this range, the approximations for the moments of <span class="math inline">\(Y\)</span> should be decent as well.</p>
+<p>We could use the bootstrap, but we are going to discuss a different method called the <strong>delta method</strong> or the <strong>propagation of error</strong> formula.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> We use a Taylor series expansion of <span class="math inline">\(g\)</span> about <span class="math inline">\(\mu_X\)</span> and linearize <span class="math inline">\(Y = g(X)\)</span>, and similarly we can use a linear function of <span class="math inline">\(\overline{X}_n\)</span> that will be close for large <span class="math inline">\(n\)</span>.</p>
+<div style="display:none">
+<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="wasserman2004">Wasserman (<a href="#ref-wasserman2004" role="doc-biblioref">2004</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>;]</p>
+</div>
 </section>
 </section>
 <section id="references" class="level2 unnumbered">
@@ -378,11 +364,7 @@ Wasserman, Larry. 2004. <em>All of Statistics: A Concise Course in Statistical I
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1">This is discussed in the textbook <span class="citation" data-cites="rice2006">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>)</span> on page 162, in chapter 4.
-<div style="display:none">
-<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="wasserman2004">Wasserman (<a href="#ref-wasserman2004" role="doc-biblioref">2004</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>;]</p>
-</div>
-<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></li>
+<li id="fn1"><p>This is discussed in the textbook <span class="citation" data-cites="rice2006">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>)</span> on page 162, in chapter 4.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
