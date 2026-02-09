@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -271,8 +305,11 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-bootstrap" id="toc-the-bootstrap" class="nav-link active" data-scroll-target="#the-bootstrap">The Bootstrap</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#the-bootstrap" id="toc-the-bootstrap" class="nav-link active" data-scroll-target="#the-bootstrap">The Bootstrap</a>
+  <ul class="collapse">
+  <li><a href="#rainfall-example-using-boot" id="toc-rainfall-example-using-boot" class="nav-link" data-scroll-target="#rainfall-example-using-boot">Rainfall example using <code>boot()</code></a></li>
+  </ul></li>
+  <li><a href="#maximum-likelihood-estimation" id="toc-maximum-likelihood-estimation" class="nav-link" data-scroll-target="#maximum-likelihood-estimation">Maximum Likelihood Estimation</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -301,9 +338,15 @@ window.Quarto = {
 
 <section id="the-bootstrap" class="level2">
 <h2 class="anchored" data-anchor-id="the-bootstrap">The Bootstrap</h2>
-<p>We have now encountered the bootstrap method a few times, and seen examples of the bootstrap distribution. To reiterate what we are talking about: The <strong>bootstrap</strong> is a <em>resampling</em> method. Resampling methods are very effective tools that modern statistics relies on. When we talk about confidence intervals that are based on the normal, or the <span class="math inline">\(t\)</span>-distribution, we are relying on the asymptotic distribution of our estimator being approximately normal. In theory, to construct the sampling distribution of a sample statistic, we would have to draw all samples from the population, compute the statistic for each sample, and the distribution of these statistics is the <em>sampling</em> distribution.<span class="citation" data-cites="hest2015">(<a href="#ref-hest2015" role="doc-biblioref">Hesterberg 2015</a>)</span></p>
+<p>We have now encountered the bootstrap method a few times, and seen examples of the bootstrap distribution. To reiterate what we are talking about: The <strong>bootstrap</strong> is a <em>resampling</em> method. The method was first introduced by Bradley Efron in 1979, in a paper called “Bootstrap methods: another look at the jackknife.” It is a very powerful technique that can be used to quantify the uncertainty associated with a given estimator.</p>
+<p>Resampling methods are very effective tools that modern statistics relies on. When we talk about confidence intervals that are based on the normal, or the <span class="math inline">\(t\)</span>-distribution, we are relying on the asymptotic distribution of our estimator being approximately normal. In theory, to construct the sampling distribution of a sample statistic, we would have to draw all samples from the population, compute the statistic for each sample, and the distribution of these statistics is the <em>sampling</em> distribution.<span class="citation" data-cites="hest2015">(<a href="#ref-hest2015" role="doc-biblioref">Hesterberg 2015</a>)</span></p>
 <p>In practice, though, we have only <em>one</em> sample. This is where the bootstrap comes in. We draw samples from “<em>an estimate of</em> the population, and compute the statistic of interest for each sample”. The distribution of the statistics is called the <em>bootstrap</em> distribution.</p>
-<p>The bootsrap is based on a principle we have encountered many times so far: if something is unknown, you substitute an <em>estimate</em> for it. What do we use as an estimate for the population?</p>
+<p>The bootstrap is based on a principle we have encountered many times so far: if something is unknown, you substitute an <em>estimate</em> for it. What do we use as an estimate for the population? Here is a nice diagram of the bootstrap, created by Deborah Nolan. You can view it in context in the notes for <a href="https://stat20.berkeley.edu/fall-2025/3-generalization/09-bootstrapping/notes.html">Stat 20</a>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/triptych-bootstrap.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%" alt="A schematic drawing of the bootstrap procedure."></p>
+</figure>
+</div>
 <p>The most common method is the <em>nonparametric</em> bootstrap in which we draw samples with replacement from the sample. (What we are actually doing is drawing samples from the <em>empirical</em> distribution <span class="math inline">\(\hat{F}_n\)</span>. This distribution places an equal probability of <span class="math inline">\(1/n\)</span> on each data point.)</p>
 <p>There is also the <em>parametric</em> bootstrap, in which we assume a distribution, estimate its parameters using our sample, and then generate samples from this distribution with the estimated parameters.</p>
 <p>The most important point of difference between the sampling and bootstrap distributions is that the bootstrap distribution will be <em>centered at the observed statistic,</em> <strong>not</strong> <em>the population parameter</em>. This means we cannot use the bootstrap distribution to get a better estimate for the population parameter, rather we use it to give us an idea of the <em>accuracy of the original estimate</em>.</p>
@@ -322,9 +365,344 @@ Warning
 </div>
 </div>
 <p>Some methods of computing confidence intervals are listed in the <a href="lecture-8.html#confidence-intervals-using-the-bootstrap">previous chapter</a>. You will also find a detailed <a href="lecture-8.html#example-of-rainfall-data-from-the-text-rice2006">example</a>.</p>
+<section id="rainfall-example-using-boot" class="level3">
+<h3 class="anchored" data-anchor-id="rainfall-example-using-boot">Rainfall example using <code>boot()</code></h3>
+<p>A very useful package for actually doing the bootstrap in <code>R</code> is called <code>boot</code>. You will have to load it with <code>library(boot)</code>, and then you can use it to generate bootstrap samples, and also compute confidence intervals of whatever type you want. You can read the <a href="https://www.rdocumentation.org/packages/boot/versions/1.3-32/topics/boot">documentation</a>, or use the Help in RStudio (type <code>?boot</code> in the console). We can then take the statistics computed by <code>boot()</code>, make a data frame, and input this into <code>ggplot()</code> to visualize the bootstrap distribution.</p>
+<p>Recall that the data are from a study of the natural variability of rainfall. The rainfall of summer storms was measured by a network of rain gauges in southern Illinois for the years 1960–1964 <span class="citation" data-cites="rice2006">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>)</span>. The average amount of rainfall (in inches) from each storm, by year, is contained in the files, ,<span class="math inline">\(\ldots\)</span>, (you can find these in bCourses.) We have previously seen that a Gamma distribution seems appropriate and computed the method of moments estimates for the <strong>shape</strong> <span class="math inline">\(\alpha\)</span> and <strong>rate</strong> <span class="math inline">\(\lambda\)</span> parameters:</p>
+<p>Using the function we created in the last chapter to compute our estimates.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># function to compute alpha and lambda given a vector</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># note that we need to input a VECTOR not a df.</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>gamma_mom <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  mu1 <span class="ot">&lt;-</span>  <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  mu2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(x<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  sigma_hat_sq <span class="ot">&lt;-</span>  mu2<span class="sc">-</span>mu1<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  lambda <span class="ot">&lt;-</span>  mu1<span class="sc">/</span>sigma_hat_sq</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  alpha <span class="ot">&lt;-</span>  mu1<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>sigma_hat_sq</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">c</span>(<span class="at">alpha =</span> alpha , <span class="at">lambda =</span> lambda))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>theta_hat <span class="ot">&lt;-</span> <span class="fu">gamma_mom</span>(<span class="fu">pull</span>(il_rain, rain_inches))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"theta_hat = alpha_hat lambda_hat</span><span class="sc">\n</span><span class="st">"</span>,  theta_hat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>theta_hat = alpha_hat lambda_hat
+ 0.3779155 1.684175</code></pre>
+</div>
+</div>
+<p>We did all this before. All we will do now is that we will use a different method to compute the bootstrap distributions and parameters.</p>
+<section id="nonparametric-bootstrap" class="level4">
+<h4 class="anchored" data-anchor-id="nonparametric-bootstrap">Nonparametric Bootstrap</h4>
+<p>We will resample the data. Now, the function <code>boot()</code> needs at least three inputs: <code>data</code>, <code>statistic</code>: a function that computes the statistic of interest, and <code>R</code> which the number of bootstrap samples (we previously called this number <span class="math inline">\(B\)</span>). So first let’s write this very specific function. This, when boot applies it to the data, will return a vector containing the statistic whose bootstrap distribution we want, and it has to take as input the original dataset that will be passed to <code>boot()</code> and a vector of row numbers (called <code>indices</code>) that <code>boot()</code> will generate for each sample. The function has to have a very specific form as shown below in a little toy example that creates a bootstrap of the mean.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## creating a demo statistic function to input into boot()</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">## you must write your function with "data" and "indices" as the arguments</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## and then use the indices.</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>demo_stat <span class="ot">&lt;-</span> <span class="cf">function</span>(data, indices) {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> data[indices]  <span class="co"># Resample using the indices</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">mean</span>(d))     <span class="co"># Calculate and return your statistic</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">boot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, demo_stat, <span class="at">R =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What <code>boot()</code> does is that it generates <code>R</code> bootstrap samples by resampling the rows, computes the statistic for each, and returns the original observed value, the bootstrap bias estimate and the bootstrap standard error, among other things. You can explore the returned values, for example, as demonstrated here:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">$</span>t0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">$</span>t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]  3.6
+[2,]  3.0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">$</span>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 4 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">$</span>R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p>Now, let’s use <code>boot()</code> to generate our bootstrap statistics:</p>
+<p>First, set a value for <span class="math inline">\(B\)</span> and define the function <code>statistic</code> (the argument in <code>boot()</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">10000</span> <span class="do">## define how many bootstrap samples we want</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a> <span class="do">## define the function we will use to compute each alpha_hat_* and lambda_hat_*</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>stat_np_gamma_mom <span class="ot">&lt;-</span> <span class="cf">function</span>(data, indices) {</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  x_star <span class="ot">&lt;-</span> data[indices] <span class="co"># resampling the data using the indices</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gamma_mom</span>(x_star) <span class="co"># calculate the statistic </span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, call <code>boot()</code> with the rainfall data and the function defined above:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a> <span class="do">## calling it boot_np_new to distinguish it from our earlier boot_np</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>boot_np_new <span class="ot">&lt;-</span> <span class="fu">boot</span>(<span class="at">data =</span> il_rain<span class="sc">$</span>rain_inches, <span class="at">statistic =</span> stat_np_gamma_mom, <span class="at">R =</span> B)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>boot_np_new<span class="sc">$</span>t0 <span class="do">## observed value</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    alpha    lambda 
+0.3779155 1.6841748 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(boot_np_new<span class="sc">$</span>t) <span class="do">## should return R x 2, because theta_hat is a vector with two parameters.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10000     2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(boot_np_new<span class="sc">$</span>t) <span class="do">## the first six bootstrap values of theta_hat</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]     [,2]
+[1,] 0.3980377 1.755344
+[2,] 0.3364632 1.593415
+[3,] 0.4592527 2.204164
+[4,] 0.4017395 1.986124
+[5,] 0.4607314 2.308080
+[6,] 0.3597674 1.801058</code></pre>
+</div>
+</div>
+<p>Let’s compute the confidence intervals using the very convenient function <code>boot.ci()</code> that takes as input the object returned by <code>boot()</code>. So we will input <code>boot_np_new</code> into <code>boot.ci()</code>. We specify the <strong>type</strong> of intervals we want, and <code>index=1</code> indicates which column of the output matrix <code>boot_np_new</code> we should consider. Let’s first compute the percentile and basic intervals for <span class="math inline">\(\alpha\)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ci_np_alpha <span class="ot">&lt;-</span> <span class="fu">boot.ci</span>(boot_np_new, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"perc"</span>, <span class="st">"basic"</span>), <span class="at">index =</span> <span class="dv">1</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>ci_np_alpha</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+Based on 10000 bootstrap replicates
+
+CALL : 
+boot.ci(boot.out = boot_np_new, type = c("perc", "basic"), index = 1)
+
+Intervals : 
+Level      Basic              Percentile     
+95%   ( 0.2666,  0.4518 )   ( 0.3041,  0.4892 )  
+Calculations and Intervals on Original Scale</code></pre>
+</div>
+</div>
+<p>And then compute them for <span class="math inline">\(\lambda\)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>ci_np_lambda <span class="ot">&lt;-</span> <span class="fu">boot.ci</span>(boot_np_new, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"perc"</span>, <span class="st">"basic"</span>), <span class="at">index =</span> <span class="dv">2</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>ci_np_lambda</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+Based on 10000 bootstrap replicates
+
+CALL : 
+boot.ci(boot.out = boot_np_new, type = c("perc", "basic"), index = 2)
+
+Intervals : 
+Level      Basic              Percentile     
+95%   ( 1.035,  2.029 )   ( 1.340,  2.334 )  
+Calculations and Intervals on Original Scale</code></pre>
+</div>
+</div>
 </section>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section"></h2>
+<section id="parametric-bootstrap" class="level4">
+<h4 class="anchored" data-anchor-id="parametric-bootstrap">Parametric Bootstrap</h4>
+<p>Let’s repeat these computations for the parametric bootstrap. Notice that though we are calling the input “mle”, that is what the function <code>boot()</code> calls the argument, so we will have to define it as such. We are going to input our method of moment estimates. We will first need to define a function to generate the parametric random samples. <code>boot()</code> calls this argument <code>ran.gen</code> so we will call it <code>ran_gen_gamma()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ran_gen_gamma <span class="ot">&lt;-</span> <span class="cf">function</span>(data, mle) {</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(data)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rgamma</span>(n, <span class="at">shape =</span> mle[<span class="st">"alpha"</span>], <span class="at">rate =</span> mle[<span class="st">"lambda"</span>])</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we also have to define the <code>statistic</code> function to input to <code>boot()</code>. This will take as input the simulated samples, and outputs the statistic of interest:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>stat_par_gamma_mom <span class="ot">&lt;-</span> <span class="cf">function</span>(x_star){</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">gamma_mom</span>(x_star) </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finally, we can run the parametric bootstrap. It might seem simpler to use <code>replicate()</code>, but the nice thing about using <code>boot()</code> is that you can then use <code>boot.ci()</code> on the output.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Note that boot will pass data to gamma_mom, which expects a vector, not a data frame</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="do">## so first we will extract the column, and then pass that to boot. </span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>rain <span class="ot">&lt;-</span> <span class="fu">pull</span>(il_rain, rain_inches)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>boot_par <span class="ot">&lt;-</span> <span class="fu">boot</span>(<span class="at">data =</span> rain,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">statistic =</span> stat_par_gamma_mom, </span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">R =</span> B, </span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">sim =</span> <span class="st">"parametric"</span>, </span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">ran.gen =</span> ran_gen_gamma,</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">mle =</span> theta_hat</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>                 )</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="do">## checking dimensions and observed values</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>boot_par<span class="sc">$</span>t0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    alpha    lambda 
+0.3779155 1.6841748 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(boot_par<span class="sc">$</span>t)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10000     2</code></pre>
+</div>
+</div>
+<p>Now for the confidence intervals, applying <code>boot.ci()</code> to the output bootstrap statistics <code>boot_par</code>. First, for <span class="math inline">\(\alpha\)</span>:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ci_par_alpha <span class="ot">&lt;-</span> <span class="fu">boot.ci</span>(boot_par, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"perc"</span>, <span class="st">"basic"</span>), <span class="at">index =</span> <span class="dv">1</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>ci_par_alpha</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+Based on 10000 bootstrap replicates
+
+CALL : 
+boot.ci(boot.out = boot_par, type = c("perc", "basic"), index = 1)
+
+Intervals : 
+Level      Basic              Percentile     
+95%   ( 0.2321,  0.4848 )   ( 0.2710,  0.5238 )  
+Calculations and Intervals on Original Scale</code></pre>
+</div>
+</div>
+<p>And next for <span class="math inline">\(\lambda\)</span>:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ci_par_lambda <span class="ot">&lt;-</span> <span class="fu">boot.ci</span>(boot_par, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"perc"</span>, <span class="st">"basic"</span>), <span class="at">index =</span> <span class="dv">2</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>ci_par_lambda</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+Based on 10000 bootstrap replicates
+
+CALL : 
+boot.ci(boot.out = boot_par, type = c("perc", "basic"), index = 2)
+
+Intervals : 
+Level      Basic              Percentile     
+95%   ( 0.825,  2.210 )   ( 1.158,  2.543 )  
+Calculations and Intervals on Original Scale</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-the-bootstrap-distributions" class="level4">
+<h4 class="anchored" data-anchor-id="visualizing-the-bootstrap-distributions">Visualizing the Bootstrap Distributions</h4>
+<p>Now, let’s plot them. First the nonparametric bootstrap distributions with alpha and lambda, and then the parametric distributions. Note that we need to create a data frame using the bootstrap replicates to input into <code>ggplot()</code>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">## creating a data frame from boot output</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>boot_df_np <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(boot_np_new<span class="sc">$</span>t)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>boot_df_np <span class="ot">&lt;-</span> boot_df_np <span class="sc">|&gt;</span> </span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">alpha =</span> V1,</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">lambda =</span> V2) </span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>obs_alpha <span class="ot">&lt;-</span> theta_hat[<span class="st">"alpha"</span>]</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>obs_lambda <span class="ot">&lt;-</span> theta_hat[<span class="st">"lambda"</span>]</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Note that ci_np_alpha is a list, and we need the 4th and 5th entries of the</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="do">## vector "percent" which is an item in that list. Similarly for the basic CI. You can look at</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="do">## what is in ci_np_alpha by using glimpse(ci_np_alpha).</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(boot_df_np, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> alpha)) <span class="sc">+</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">bins =</span> <span class="dv">50</span>, <span class="at">color =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> obs_alpha, <span class="at">color =</span> <span class="st">"green"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> ci_np_alpha<span class="sc">$</span>percent[<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span> </span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> ci_np_alpha<span class="sc">$</span>basic[<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>],   <span class="at">linetype =</span> <span class="st">"dotted"</span>) <span class="sc">+</span></span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Nonparametric bootstrap distribution of alpha (MoM estimate)"</span>,</span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"alpha*"</span>, <span class="at">y =</span> <span class="st">"Density"</span>)</span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>p1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lecture-9_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Let’s do the nonparametric plot for <span class="math inline">\(\lambda\)</span>:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(boot_df_np, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> lambda)) <span class="sc">+</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">bins =</span> <span class="dv">50</span>, <span class="at">color =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> obs_lambda, <span class="at">color =</span> <span class="st">"green"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> ci_np_lambda<span class="sc">$</span>percent[<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span> </span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> ci_np_lambda<span class="sc">$</span>basic[<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>],   <span class="at">linetype =</span> <span class="st">"dotted"</span>) <span class="sc">+</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Nonparametric bootstrap distribution of lambda (MoM estimate)"</span>,</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"lambda*"</span>, <span class="at">y =</span> <span class="st">"Density"</span>)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lecture-9_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Finally, let’s look at the parametric plots. First for <span class="math inline">\(\alpha\)</span>:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="do">## creating a data frame from boot output</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>boot_df_par <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(boot_par<span class="sc">$</span>t)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>boot_df_par <span class="ot">&lt;-</span> boot_df_par <span class="sc">|&gt;</span> </span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">alpha =</span> V1,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">lambda =</span> V2) </span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="do">## plot</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(boot_df_par, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> alpha)) <span class="sc">+</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">bins =</span> <span class="dv">50</span>, <span class="at">color =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> obs_alpha, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> ci_par_alpha<span class="sc">$</span>percent[<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span> </span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> ci_par_alpha<span class="sc">$</span>basic[<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>],   <span class="at">linetype =</span> <span class="st">"dotted"</span>) <span class="sc">+</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Parametric bootstrap distribution of alpha (MoM estimate)"</span>,</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"alpha*"</span>, <span class="at">y =</span> <span class="st">"Density"</span>)</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>p3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lecture-9_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>And then for <span class="math inline">\(\lambda\)</span>:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(boot_df_par, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> lambda)) <span class="sc">+</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">bins =</span> <span class="dv">50</span>, <span class="at">color =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> obs_lambda, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> ci_par_lambda<span class="sc">$</span>percent[<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span> </span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> ci_par_lambda<span class="sc">$</span>basic[<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>],   <span class="at">linetype =</span> <span class="st">"dotted"</span>) <span class="sc">+</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Parametric bootstrap distribution of alpha (MoM estimate)"</span>,</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"lambda*"</span>, <span class="at">y =</span> <span class="st">"Density"</span>)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>p4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lecture-9_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="maximum-likelihood-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="maximum-likelihood-estimation">Maximum Likelihood Estimation</h2>
+<p><em>Maximum Likelihood Estimation</em> is a rather general and very useful method for estimating parameters. The estimator using this method is called the <strong>MLE</strong>, and we can apply this method to many other situations, such as logistic regression, curve fitting, etc. MLEs have nice theoretical properties, especially with large samples, which we will investigate in the next couple of lectures.</p>
+<p>In maximum likelihood estimation, as the name suggests, we pick parameters that are <em>most likely</em> to have resulted in our observed sample.</p>
+<p>Suppose we have an IID sample <span class="math inline">\(X_1, \ldots, X_n\)</span> from a probability distribution with unknown parameter <span class="math inline">\(\theta\)</span>.</p>
+<p>[UNDER CONSTRUCTION]</p>
 <div style="display:none">
 <p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="wasserman2004">Wasserman (<a href="#ref-wasserman2004" role="doc-biblioref">2004</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="hest2015">Hesterberg (<a href="#ref-hest2015" role="doc-biblioref">2015</a>)</span>;]</p>
 </div>
