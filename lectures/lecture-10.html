@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-01-21">
 
-<title>Syllabus, Course Overview, and Diagnostic Test</title>
+<title>Maximum Likelihood Estimation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -131,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-1.html">Lecture 1: Syllabus &amp; Diagnostic Test</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-10.html">Lecture 10: Maximum Likelihood Estimation</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -198,7 +197,7 @@ window.Quarto = {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-1.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lectures/lecture-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 1: Syllabus &amp; Diagnostic Test</span></a>
   </div>
 </li>
@@ -252,7 +251,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-10.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/lecture-10.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lecture 10: Maximum Likelihood Estimation</span></a>
   </div>
 </li>
@@ -278,13 +277,9 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#course-overview" id="toc-course-overview" class="nav-link active" data-scroll-target="#course-overview">Course Overview</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
   <ul class="collapse">
-  <li><a href="#probability-vs-statistics" id="toc-probability-vs-statistics" class="nav-link" data-scroll-target="#probability-vs-statistics">Probability vs Statistics</a></li>
-  <li><a href="#estimation" id="toc-estimation" class="nav-link" data-scroll-target="#estimation">Estimation</a></li>
-  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing">Hypothesis Testing</a></li>
-  <li><a href="#linear-models" id="toc-linear-models" class="nav-link" data-scroll-target="#linear-models">Linear Models</a></li>
-  <li><a href="#the-bayesian-paradigm" id="toc-the-bayesian-paradigm" class="nav-link" data-scroll-target="#the-bayesian-paradigm">The Bayesian Paradigm</a></li>
+  <li><a href="#estimating-the-parameter-values" id="toc-estimating-the-parameter-values" class="nav-link" data-scroll-target="#estimating-the-parameter-values">Estimating the parameter values</a></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -295,7 +290,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Syllabus, Course Overview, and Diagnostic Test</h1>
+<h1 class="title">Maximum Likelihood Estimation</h1>
 </div>
 
 
@@ -303,12 +298,6 @@ window.Quarto = {
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">January 21, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -318,94 +307,141 @@ window.Quarto = {
 </header>
 
 
-<p>The plan for today is to review the <a href="../syllabus.html">syllabus</a>, read the overview of the course below, and work on the <a href="../lectures/s135-sp26-diagnostic.pdf">diagnostic test</a>. Please give yourself about 30 minutes to complete it. Of course, if you take longer we will not know, but you should think about why it is taking you longer, and review those topics that you think you might have forgotten.</p>
-<p>Once you are done with the test, please upload it to Gradescope. Since this does not count towards your course grade, it is due on <strong>Thursday night</strong> and there is no extension possible. If you turn it in, you get <span class="math inline">\(0.25\%\)</span> extra credit towards your final course average. If you don’t turn it in, it’s okay, these things happen. Don’t stress.</p>
-<section id="course-overview" class="level2">
-<h2 class="anchored" data-anchor-id="course-overview">Course Overview</h2>
-<section id="probability-vs-statistics" class="level3">
-<h3 class="anchored" data-anchor-id="probability-vs-statistics">Probability vs Statistics</h3>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="lec-1-images/prob-vs-stat.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%" alt="A schematic drawing showing the directions of probability and statistics."></p>
-</figure>
-</div>
-<p>When we study probability, we have some data generating process (perhaps we are sampling from a known distribution, or we are sampling at random from a box with <span class="math inline">\(N\)</span> items etc), and we want to know something about the random sample that we generate, and its properties.</p>
-<p>Now, when we study <em>inference</em>, we are given the sample, and we want to know more about the process that generated the data. That is, we want to <em>infer</em> something about the population, given the data that we observe.</p>
-</section>
-<section id="estimation" class="level3">
-<h3 class="anchored" data-anchor-id="estimation">Estimation</h3>
-<section id="simple-random-sampling" class="level4">
-<h4 class="anchored" data-anchor-id="simple-random-sampling">Simple Random Sampling</h4>
-<ul>
-<li><p>We might make <em>no</em> distributional assumptions about the population, and then try to estimate the population mean and variance and other parameters. This is the material we will study in Chapter 7, estimates from survey sampling. In this chapter we treat the estimate as a random variable that has a <em>sampling</em> distribution. This just means that each time we take a sample (of some fixed size) we get a different observed value of our random variable. All such possible values give us a <em>distribution</em> of the random variable (for example, the sample mean) which is called its sampling distribution.</p></li>
-<li><p>While investigating these estimates, we will talk about the concepts of bias, standard error, and mean squared error, confidence intervals, and how we apply the central limit theorem. Here are two visualizations of the CLT, with the top row showing the sampling distribution of the sample mean of random samples of <span class="math inline">\(Unif(0,1)\)</span> random variables for various <span class="math inline">\(n\)</span>. The bottom row does the same for a <span class="math inline">\(Gamma(2,1)\)</span> distribution. You can see how even though we begin with distributions that are very far from a normal distribution, for larger <span class="math inline">\(n\)</span>, the distribution of the sample mean is approximately normal!</p></li>
-</ul>
-<div class="cell">
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>As we discussed at the end of the last lecture, <em>Maximum Likelihood Estimation</em> is a rather general and very useful method for estimating parameters. The estimators found by this method (called MLEs) have useful statistical properties, which is why this method is widely used.</p>
+<p>In maximum likelihood estimation, as the name suggests, we pick parameters that are <em>most likely</em> to have resulted in our observed sample. That is, we have an IID data sample, and a probability model (some particular family of probability distributions) in mind that we believe generated this data sample. We need to decide what probability model we would use based on other considerations, perhaps field knowledge or visualizations of the data, as we saw in the rainfall example earlier.</p>
+<p>Then we have to estimate the parameter values for our probability model that <em>maximize the likelihood</em> that the model produced the observed sample. The following example is reproduced from <span class="citation" data-cites="kerns2017mle">Kerns (<a href="#ref-kerns2017mle" role="doc-biblioref">2017</a>)</span>, using a different random sample.</p>
+<p><strong>Example</strong> In this example, we can see the basic idea behind maximum likelihood estimation. Say we have an observed data sample from some process.</p>
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="lecture-1_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<ul>
-<li>Resampling methods: We will use the bootstrap to estimate confidence bounds for our parameters. When possible, we will compare these confidence intervals to the ones obtained by classical methods.</li>
-</ul>
-</section>
-<section id="estimating-distributional-parameters" class="level4">
-<h4 class="anchored" data-anchor-id="estimating-distributional-parameters">Estimating distributional parameters</h4>
-<ul>
-<li><p>On the other hand, depending on what we know about the population, we might build models with <em>distributional assumptions</em>: for example, the number of goals in the soccer World Cup could be modeled using the Poisson distribution.</p></li>
-<li><p>Or perhaps we might consider <em>classification</em> problems, maybe whether an item is defective or not. In this case we might use the Bernoulli distribution.</p></li>
-<li><p>If we assume some distribution, then we will want to estimate the <em>parameters</em> of that distribution. Chapter 8 is about parameter estimation, in which we have observed data, and try to <em>fit</em> probability laws to this data. We will learn about maximum likelihood estimation, and the method of moments, see which method is preferred and why. We will develop the ideas of Bayesian inference, and define an <em>efficient</em> estimator, and prove the famous Cramér-Rao inequality.</p></li>
-<li><p>We will also derive properties of the distribution of our Maximum Likelihood Estimator <span class="math inline">\(\hat{\theta}_{\mathrm{mle}}\)</span>, <span class="math display">\[
-\hat{\theta}_{\mathrm{mle}} = \operatorname*{arg\,max}_{\theta \in \Theta} \hat{L}_n(\theta;\mathbf{y})
-\]</span><br>
-where <span class="math display">\[
-\sqrt{n}(\hat{\theta}_{\mathrm{mle}}-\theta_0) \rightarrow \mathcal{N}(0, \mathcal{I}^{-1})
-\]</span></p></li>
-</ul>
-<p>and <span class="math inline">\(\mathcal{I}\)</span> is the Fisher information. All this is in Chapter 8 of our text, which is perhaps the most mathematical of the material we will cover.</p>
-</section>
-</section>
-<section id="hypothesis-testing" class="level3">
-<h3 class="anchored" data-anchor-id="hypothesis-testing">Hypothesis Testing</h3>
-<ul>
-<li><p>This is the topic of Chapter 9. Hypothesis tests is a method of statistical inference in which we decide if the observed data supports a particular hypothesis. We will learn about the Neyman-Pearson paradigm. We also look at various tests, including goodness of fit, which we will also look at in Chapter 11. We will define the power of a test, and also look at the duality of hypothesis tests and confidence intervals.</p></li>
-<li><p>We will further develop the ideas of hypothesis testing in Chapter 11, when we look at classical and nonparametric methods for two-sample tests, and in Chapters 12 and 13 we will see how ANOVA is used to compare multiple groups. Chapters 9 and 13 deal with categorical data, so we will look at these together.</p></li>
-<li><p>We will also look at more computationally intensive resampling methods such as permutation tests.</p></li>
-</ul>
-</section>
-<section id="linear-models" class="level3">
-<h3 class="anchored" data-anchor-id="linear-models">Linear Models</h3>
-<ul>
-<li>Chapter 14 is about linear least squares. We will go over the simple regression model in some detail, but only briefly cover the more general treatment.</li>
-</ul>
-</section>
-<section id="the-bayesian-paradigm" class="level3">
-<h3 class="anchored" data-anchor-id="the-bayesian-paradigm">The Bayesian Paradigm</h3>
-<ul>
-<li><p>Most of the time, we will use a classical, frequentist approach to our analysis, in which parameters are <em>fixed</em> quantities, and probability statements are made only about sampled data and estimates.</p></li>
-<li><p>In Bayesian statistics, the parameters are <em>random</em>, and we assume a distribution that reflects our beliefs about them. Then we <strong>update</strong> our beliefs given the observed data.</p></li>
-<li><p>We compute <em>posterior</em> distributions (post-data) using <em>Bayes’ Rule</em>.</p></li>
-</ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="lec-1-images/nieves-bayes-medium.png" class="img-fluid figure-img" style="width:60.0%"></p>
-<figcaption>Image from Nieves “An Actual Introduction to Bayesian Statistics (2021)”, cantorsparadise.com</figcaption>
+<p><img src="lecture-10_files/figure-html/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center figure-img" style="width:60.0%;height:60.0%"></p>
 </figure>
 </div>
-<div style="display:none">
-<p><span class="citation" data-cites="rice2006 wasserman2004 samslides135 blitzstein2019">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-wasserman2004" role="doc-biblioref">Wasserman 2004</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>; <a href="#ref-blitzstein2019" role="doc-biblioref">Blitzstein and Hwang 2019</a>)</span></p>
 </div>
+</div>
+<p>We have strong reason to believe that the generating probability model is a Normal distribution, but we do not know the parameters. Let’s look at a picture with four possible distributions from a Normal family. When we superimpose the points, we see that the most likely distribution it could have come from is the purple one, so now the points are shaded purple instead of gray.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lecture-10_files/figure-html/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center figure-img" style="width:70.0%;height:70.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="estimating-the-parameter-values" class="level3">
+<h3 class="anchored" data-anchor-id="estimating-the-parameter-values">Estimating the parameter values</h3>
+<p>Suppose we have an IID sample <span class="math inline">\(X_1, \ldots, X_n\)</span> that come from some known or assumed probability distribution, but with unknown parameter <span class="math inline">\(\theta\)</span>. Let <span class="math inline">\(X_i \sim f(\cdot \vert \theta)\)</span>, where <span class="math inline">\(f\)</span> is the PMF (for discrete <span class="math inline">\(X\)</span>) or PDF (for continuous <span class="math inline">\(X\)</span>) of the distribution. Suppose we have the <em>observed values</em> of this sample: <span class="math inline">\(X_1 = x_1, \ldots, X_n = x_n\)</span>. We consider the <strong>joint density or probability</strong> of observing these values as a function of <span class="math inline">\(\theta\)</span>, that we call the <em>likelihood</em> of <span class="math inline">\(\theta\)</span>: <span class="math display">\[
+\mathrm{lik}(\theta) = f(x_1, x_2, \ldots, x_n \vert \theta)
+\]</span> Note that given <em>fixed</em> sample values <span class="math inline">\((x_1, \ldots, x_n)\)</span>, <span class="math inline">\(\mathrm{lik}(\theta)\)</span> is a function of <span class="math inline">\(\theta\)</span>. If our <span class="math inline">\(X_i\)</span> are discrete, for example, then <span class="math inline">\(\mathrm{lik}(\theta)\)</span> is the probability of observing these values. The <strong>maximum likelihood estimator</strong> of <span class="math inline">\(\theta\)</span> is the value of <span class="math inline">\(\theta\)</span> that maximizes the the likelihood - for discrete <span class="math inline">\(X_i\)</span>, it maximizes the probability of seeing the observed data.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It is worth emphasizing that even though we write <span class="math inline">\(\mathrm{lik}(\theta) = \mathrm{lik}(\theta\vert x_1, x_2, \ldots, x_n)\)</span> as equal to <span class="math inline">\(f(x_1, x_2, \ldots, x_n \vert \theta)\)</span>, we think about the first, <span class="math inline">\(\mathrm{lik}(\cdot)\)</span>, as a function of the variable <span class="math inline">\(\theta\)</span> for <em>fixed</em> <span class="math inline">\(x_1, x_2, \ldots, x_n\)</span>, and the second <span class="math inline">\(f(\cdot)\)</span>, as a PDF (or PMF), which is a function of the <span class="math inline">\(x_i\)</span> for some fixed parameter <span class="math inline">\(\theta\)</span>. We <em>think</em> about these functions differently.</p>
+</div>
+</div>
+<p>Let’s see how we might solve for the maximizing <span class="math inline">\(\theta\)</span> in a simple case.</p>
+<section id="the-bernoullip-distribution" class="level4">
+<h4 class="anchored" data-anchor-id="the-bernoullip-distribution">The Bernoulli<span class="math inline">\((p)\)</span> distribution</h4>
+<p>Suppose we have an IID sample <span class="math inline">\(X_1, \ldots, X_n\)</span>, where <span class="math inline">\(X_i \sim Bernoulli(p)\)</span>. Recall that the PMF of <span class="math inline">\(X_i\)</span> is given by <span class="math display">\[
+p(x) =
+\begin{cases}
+\theta^x\,(1-\theta)^{1-x}  \quad &amp; x= 0,1\\
+0 \quad &amp; \mathrm{ otherwise}
+\end{cases}
+\]</span></p>
+<p>Note that <span class="math inline">\(x\)</span> just takes two values <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, and <span class="math inline">\(\theta = p\)</span>, so <span class="math inline">\(0\le \theta\le 1\)</span>. The joint probability that <span class="math inline">\(X_1 = x_1, \ldots, X_n = x_n\)</span> is given by <span class="math inline">\(P(X_1 = x_1, \ldots, X_n = x_n)\)</span>. We use the independence of the <span class="math inline">\(X_i\)</span> to write: <span class="math display">\[
+\begin{align}
+P(X_1 = x_1, \ldots, X_n = x_n) &amp;= P(X_1 = x_1)\times P(X_2 = x_2) \times \ldots\times P(X_n = x_n) \\
+                &amp;= \theta^{x_1}\,(1-\theta)^{1-x_1}\times \theta^{x_2}\,(1-\theta)^{1-x_2}\times \ldots \theta^{x_n}\,(1-\theta)^{1-x_n}.
+\end{align}
+\]</span> Collecting all the <span class="math inline">\(\theta\)</span> terms and <span class="math inline">\(1-\theta\)</span> terms we get: <span class="math display">\[
+\begin{align}
+\mathrm{lik}(\theta) &amp;= f(x_1, x_2, \ldots, x_n \vert\theta) \\
+               &amp;= P(X_1 = x_1, \ldots, X_n = x_n\vert\theta) \\
+               &amp;= \theta^{x_1+x_2+\ldots +x_n}(1-\theta)^{1-x_1 +1-x_2 + \ldots + 1-x_n}\\
+               &amp;= \theta^x (1-\theta)^{n-x},\\
+\end{align}
+\]</span> where <span class="math inline">\(\displaystyle x = \sum_{i=1}^n x_i.\)</span></p>
+<p>If we maximize this quantity (with respect to <span class="math inline">\(\theta\)</span>), then we are maximizing the probability of seeing this particular observed data sample. This seems kind of complicated to maximize, so we will take the (natural) log of the likelihood and maximize that instead. Since <span class="math inline">\(\log(x)\)</span> is a monotonic function of <span class="math inline">\(x\)</span>, maximizing the logarithm of the likelihood will be equivalent to maximizing the likelihood itself.</p>
+<p>Define <span class="math inline">\(l(\theta) = \log(\mathrm{lik}(\theta))\)</span>. Now we have: <span class="math display">\[
+l(\theta) = \log(\mathrm{lik}(\theta)) = x \log(\theta) + (n-x)\log(1-\theta).
+\]</span></p>
+<p>Since we want to maximize <span class="math inline">\(l(\theta)\)</span> with respect to <span class="math inline">\(\theta\)</span>, we differentiate it w.r.t <span class="math inline">\(\theta\)</span>: <span class="math display">\[
+\dfrac{dl(\theta)}{d\theta} = \frac{x}{\theta} - \frac{(n-x)}{1-\theta}.
+\]</span> Setting this equal to 0 and solving for <span class="math inline">\(\theta\)</span> gives us that the maximizing <span class="math inline">\(\theta\)</span> is given by <span class="math inline">\(\dfrac{x}{n} = \dfrac{\sum_{i=1}^n x_i}{n} = \bar{x}\)</span> (assuming that <span class="math inline">\(\theta\)</span> is not <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>). You can check that this is indeed a maximum by doing the first or second derivative test.</p>
+<p>The <strong>maximum likelihood <em>estimate</em></strong> for <span class="math inline">\(\theta\)</span> is given by <span class="math inline">\(\dfrac{\sum_{i=1}^n x_i}{n}\)</span>. The corresponding <em>statistic</em> <span class="math inline">\(\hat\theta\)</span> is given by: <span class="math display">\[
+\hat\theta = \frac{1}{n}\sum_{i=1}^n X_i = \overline{X}.
+\]</span> <span class="math inline">\(\hat\theta\)</span> is called the <strong>maximum likelihood <em>estimator</em></strong> of <span class="math inline">\(\theta\)</span>.</p>
+<p><strong>Example</strong> Suppose that we have an IID <span class="math inline">\(Bernoulli(\theta)\)</span> sample, with <span class="math inline">\(n=5\)</span> and our observed values are <span class="math inline">\(0, 0, 1, 0, 1\)</span>. Then <span class="math inline">\(\mathrm{\theta} = \theta^2 (1-\theta)^3\)</span>, and the maximum likelihood estimate for $is given by <span class="math inline">\(\hat\theta = \dfrac{2}{5}\)</span>.</p>
+<p>Note that our goal is to maximize the <em>likelihood</em> function. We don’t <em>have</em> to take the log of <span class="math inline">\(\mathrm{lik}(\theta)\)</span>, but here it was the easiest way to maximize the likelihood function.</p>
+<p><strong>Definition of the MLE</strong>: We say that <span class="math inline">\(\hat{\theta} = \hat\theta(X_1, \ldots, X_n)\)</span> is a <strong>maximum likelihood estimator</strong> if <span class="math inline">\(\mathrm{lik}(\hat\theta) = \mathrm{lik}(\hat\theta \vert X_1, \dots, X_n)\ge \mathrm{lik}(\theta \vert X_1, \dots, X_n)\)</span> for all <span class="math inline">\(\theta\)</span>. That is, <span class="math inline">\(\mathrm{lik}(\hat\theta \vert X_1, \dots, X_n)\)</span> achieves its maximum value at <span class="math inline">\(\hat{\theta}\)</span>.</p>
+<p>Let’s consider some more examples.</p>
+</section>
+<section id="the-poissonlambda-distribution" class="level4">
+<h4 class="anchored" data-anchor-id="the-poissonlambda-distribution">The Poisson(<span class="math inline">\(\lambda\)</span>) distribution</h4>
+<p>Recall that the PMF of a <span class="math inline">\(Poisson(\lambda)\)</span> distribution is <span class="math inline">\(f(x) = P(X=x) = \dfrac{\lambda^x e^{-\lambda}}{x!}\)</span>, where <span class="math inline">\(x = 0, 1, 2, \ldots\)</span>.</p>
+<p>If <span class="math inline">\(X_1 = x_1, \ldots, X_n=x_n\)</span> are IID <span class="math inline">\(Poisson(\lambda)\)</span>, then the joint PMF is the product of the marginals. This gives us (we can leave it as a function of <span class="math inline">\(\lambda\)</span>): <span class="math display">\[
+\mathrm{lik}(\lambda) = \dfrac{\lambda^{x_1} e^{-\lambda}}{x_1!}\cdot \dfrac{\lambda^{x_2} e^{-\lambda}}{x_2!}\dots \dfrac{\lambda^{x_n} e^{-\lambda}}{x_n!} = \dfrac{\lambda^x e^{-n\lambda}}{x_1!x_2!\ldots x_n!}
+\]</span> Taking logs, we get that (again, writing <span class="math inline">\(x = \sum_{i=1}^n x_i)\)</span> <span class="math display">\[
+l(\lambda) = x\log(\lambda) -n\lambda -log(x_1!x_2!\ldots x_n!).
+\]</span> We can leave the last term as is since it does not contain <span class="math inline">\(\lambda\)</span> and when we differentiate with respect to <span class="math inline">\(\lambda\)</span>, its derivative will be <span class="math inline">\(0\)</span>. This implies that: <span class="math display">\[
+\dfrac{dl(\lambda)}{d\lambda} = \dfrac{x}{\lambda} -n \Rightarrow \hat\lambda = \dfrac{x}{n} = \bar{x}.
+\]</span></p>
+<p>Again, the maximum likelihood <em>estimate</em> is <span class="math inline">\(\hat\lambda = \bar{x}\)</span>, and the corresponding statistic is <span class="math inline">\(\hat\lambda = \bar{X}\)</span>.</p>
+<p><strong>Example</strong> Suppose <span class="math inline">\(n=3\)</span> and our observed values are <span class="math inline">\(5, 2, 3\)</span>. Then the MLE is given by the average of these numbers, which is 3.33.</p>
+</section>
+<section id="the-gammaalpha-lambda-distribution" class="level4">
+<h4 class="anchored" data-anchor-id="the-gammaalpha-lambda-distribution">The Gamma(<span class="math inline">\(\alpha, \lambda\)</span>) distribution</h4>
+<p>The PDF of this distribution is <span class="math inline">\(f(x\vert \alpha, \lambda) = \displaystyle \dfrac{\lambda^\alpha}{\Gamma(\alpha)}x^{\alpha - 1}e^{-\lambda x}\)</span>, for <span class="math inline">\(0\le x &lt; \infty\)</span>.</p>
+<p>Let’s write down the log-likelihood function of <span class="math inline">\(\theta = (\alpha, \lambda)\)</span>, using the sample <span class="math inline">\(X_1, \ldots, X_i\)</span>: <span class="math display">\[
+l(\alpha, \lambda) = \sum_{i=1}^n(\alpha - 1) \log X_i -\lambda\sum_{i=1}^nX_i + n\alpha\log \lambda- n\log \Gamma(\alpha)
+\]</span> Now we have two variables, so we will need to take <em>partial</em> derivatives.</p>
+<details>
+<summary>
+Check your partial derivatives!
+</summary>
+First, let’s take the partial derivative with respect to <span class="math inline">\(\alpha\)</span>, so we will treat <span class="math inline">\(\lambda\)</span> (and the <span class="math inline">\(X_i's\)</span>) as constants: <span class="math display">\[
+\frac{\partial l(\alpha, \lambda)}{\partial \alpha} = \sum_{i=1}^n \log X_i + n\log \lambda - n \frac{\Gamma ' (\alpha)}{\Gamma(\alpha)}.
+\]</span> Now, let’s find the partial derivative of <span class="math inline">\(l(\alpha, \lambda)\)</span> with respect to <span class="math inline">\(\lambda\)</span>: <span class="math display">\[
+\frac{\partial l(\alpha, \lambda)}{\partial \lambda} = -\sum_{i=1}^n X_i + \frac{n \alpha}{\lambda}
+\]</span>
+</details>
+<p>We can set the second partial derivative equal to 0, and we get (at the MLE’s <span class="math inline">\(\hat\lambda\)</span> and <span class="math inline">\(\hat\alpha\)</span>) that:</p>
+<p><span class="math display">\[
+\hat\lambda = \frac{\hat\alpha}{\overline{X}}.
+\]</span></p>
+<p>We take this and plug it into the expression we get when we set the partial with respect to <span class="math inline">\(\alpha\)</span> equal to 0. That is when we can see that we have a problem. We get: <span class="math display">\[
+n \log (\hat\alpha) - \sum_{i=1}^n \log X_i + n\log \frac{\hat \alpha}{\overline{X}} - n \frac{\Gamma ' (\hat \alpha)}{\Gamma(\hat \alpha)} = 0
+\]</span> which does not give us a closed form solution. We need to use a numerical, iterative procedure. We can use the method of moments estimates for the starting value for this procedure.</p>
+<p><strong>Exercise</strong> Compute the maximum likelihood estimators for parameters of the Normal(<span class="math inline">\(\mu, \sigma^2\)</span>), Exponential(<span class="math inline">\(\lambda\)</span>) and Uniform(<span class="math inline">\(0, \beta\)</span>) distributions.</p>
+<div style="display:none">
+<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="wasserman2004">Wasserman (<a href="#ref-wasserman2004" role="doc-biblioref">2004</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="hest2015">Hesterberg (<a href="#ref-hest2015" role="doc-biblioref">2015</a>)</span>;]</p>
+</div>
+</section>
 </section>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-blitzstein2019" class="csl-entry" role="listitem">
-Blitzstein, Joseph K., and Jessica Hwang. 2019. <em>Introduction to Probability</em>. CRC Press.
+<div id="ref-chi-hest2018" class="csl-entry" role="listitem">
+Chihara, Laura M., and Tim C. Hesterberg. 2018. <em>Mathematical Statistics with Resampling and r</em>. John Wiley &amp; Sons, Hoboken, NJ.
+</div>
+<div id="ref-hest2015" class="csl-entry" role="listitem">
+Hesterberg, Tim. 2015. <span>“What Teachers Should Know about the Bootstrap: Resampling in the Undergraduate Statistics Curriculum.”</span> <em>The American Statistician</em> 69 (4): 371–86. <a href="https://doi.org/10.1080/00031305.2015.1089789">https://doi.org/10.1080/00031305.2015.1089789</a>.
+</div>
+<div id="ref-kerns2017mle" class="csl-entry" role="listitem">
+Kerns, Jonny. 2017. <span>“Probability Concepts Explained: Maximum Likelihood Estimation.”</span> Medium. 2017. <a href="https://medium.com/data-science/probability-concepts-explained-maximum-likelihood-estimation-c7b4342fdbb1">https://medium.com/data-science/probability-concepts-explained-maximum-likelihood-estimation-c7b4342fdbb1</a>.
 </div>
 <div id="ref-samslides135" class="csl-entry" role="listitem">
 Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).
