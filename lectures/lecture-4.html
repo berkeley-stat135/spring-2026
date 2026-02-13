@@ -58,7 +58,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9ca244728582364b54b6a88cc4015eed.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-ace4a779636f494d84936b38ea69b957.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -257,6 +257,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 11: The Multinomial Distribution, and Large Sample Theory of the MLE, Part 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Datasets</span></a>
   </div>
@@ -367,7 +373,7 @@ P\left(-z(\alpha/2) \le \dfrac{\overline{X} - \mu}{\sigma/\sqrt{n}} \le z(\alpha
 P\left(\overline{X} - \frac{\sigma}{\sqrt{n}}z(\alpha/2) \le  \mu \le \overline{X} +  \frac{\sigma}{\sqrt{n}}z(\alpha/2)\right) \approx 1-\alpha.
 \]</span> This statement says that the chance of this random interval, <span class="math inline">\(\left(\overline{X} - \dfrac{\sigma}{\sqrt{n}}z(\alpha/2) ,\; \overline{X} +  \dfrac{\sigma}{\sqrt{n}}z(\alpha/2)\right)\)</span> capturing the mean is approximately <span class="math inline">\(1-\alpha\)</span>, and so the interval is called a <strong><span class="math inline">\(100(1-\alpha)%\)</span> confidence interval</strong>.</p>
 <p>We can then plug in our <em>observed</em> value of <span class="math inline">\(\overline{X}\)</span> and will get a <em>realization</em> of the random interval: <span class="math inline">\(\left(\overline{x} - \dfrac{\sigma}{\sqrt{n}}z(\alpha/2) ,\; \overline{x} +  \dfrac{\sigma}{\sqrt{n}}z(\alpha/2)\right).\)</span> Note that <em>this</em> interval is <strong>not</strong> random. It is just an interval on the real line and as <span class="math inline">\(\mu\)</span> is just some fixed constant, it either lies in this interval or does not. Therefore, once we plug in the observed sample mean, and the observed value of the estimator <span class="math inline">\(s_{\overline{X}}\)</span>, we don’t have any randomness. All the randomness is in the <em>sampling procedure</em>.</p>
-<p>We can use the confidence interval to plan our data collection. Since the width of the confidence interval is given by <span class="math inline">\(2\times \dfrac{\sigma}{\sqrt{n}} \times z(\alpha)\)</span>, it is determined by <span class="math inline">\(\sigma\)</span> and by <span class="math inline">\(\sqrt{n}\)</span>. Now <span class="math inline">\(\sigma\)</span> is a constant of the population, so we can’t do much with it, but we can choose <span class="math inline">\(n\)</span> so that our confidence interval is as narrow as we desire. The <em>margin of error</em> of the confidence interval is given by $ z().$</p>
+<p>We can use the confidence interval to plan our data collection. Since the width of the confidence interval is given by <span class="math inline">\(2\times \dfrac{\sigma}{\sqrt{n}} \times z(\alpha)\)</span>, it is determined by <span class="math inline">\(\sigma\)</span> and by <span class="math inline">\(\sqrt{n}\)</span>. Now <span class="math inline">\(\sigma\)</span> is a constant of the population, so we can’t do much with it, but we can choose <span class="math inline">\(n\)</span> so that our confidence interval is as narrow as we desire. The <em>margin of error</em> of the confidence interval is given by <span class="math inline">\(\dfrac{\sigma}{\sqrt{n}} \times z(\alpha).\)</span></p>
 <p><strong>Exercise</strong> (Problem 8 from section 7.7) A sample of size 100 is taken from a population that has a proportion <span class="math inline">\(p = 1/5\)</span>.</p>
 <ol type="a">
 <li><p>Find <span class="math inline">\(\delta\)</span> such that <span class="math inline">\(P\big(\lvert \hat{p}-p\rvert \ge \delta\big)=0.025\)</span></p></li>

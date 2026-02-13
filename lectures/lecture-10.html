@@ -58,7 +58,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9ca244728582364b54b6a88cc4015eed.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-ace4a779636f494d84936b38ea69b957.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -257,6 +257,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 11: The Multinomial Distribution, and Large Sample Theory of the MLE, Part 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Datasets</span></a>
   </div>
@@ -332,6 +338,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<p>The idea is that we would do this <em>quantitatively</em> over all possible Normal distributions to find the particular parameters that maximize the probability of seeing these data points.</p>
 <section id="estimating-the-parameter-values" class="level3">
 <h3 class="anchored" data-anchor-id="estimating-the-parameter-values">Estimating the parameter values</h3>
 <p>Suppose we have an IID sample <span class="math inline">\(X_1, \ldots, X_n\)</span> that come from some known or assumed probability distribution, but with unknown parameter <span class="math inline">\(\theta\)</span>. Let <span class="math inline">\(X_i \sim f(\cdot \vert \theta)\)</span>, where <span class="math inline">\(f\)</span> is the PMF (for discrete <span class="math inline">\(X\)</span>) or PDF (for continuous <span class="math inline">\(X\)</span>) of the distribution. Suppose we have the <em>observed values</em> of this sample: <span class="math inline">\(X_1 = x_1, \ldots, X_n = x_n\)</span>. We consider the <strong>joint density or probability</strong> of observing these values as a function of <span class="math inline">\(\theta\)</span>, that we call the <em>likelihood</em> of <span class="math inline">\(\theta\)</span>: <span class="math display">\[
@@ -347,7 +354,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>It is worth emphasizing that even though we write <span class="math inline">\(\mathrm{lik}(\theta) = \mathrm{lik}(\theta\vert x_1, x_2, \ldots, x_n)\)</span> as equal to <span class="math inline">\(f(x_1, x_2, \ldots, x_n \vert \theta)\)</span>, we think about the first, <span class="math inline">\(\mathrm{lik}(\cdot)\)</span>, as a function of the variable <span class="math inline">\(\theta\)</span> for <em>fixed</em> <span class="math inline">\(x_1, x_2, \ldots, x_n\)</span>, and the second <span class="math inline">\(f(\cdot)\)</span>, as a PDF (or PMF), which is a function of the <span class="math inline">\(x_i\)</span> for some fixed parameter <span class="math inline">\(\theta\)</span>. We <em>think</em> about these functions differently.</p>
+<p>It is worth emphasizing that even though we write <span class="math inline">\(\mathrm{lik}(\theta) = \mathrm{lik}(\theta\vert x_1, x_2, \ldots, x_n)\)</span> as equal to <span class="math inline">\(f(x_1, x_2, \ldots, x_n \vert \theta)\)</span>, we think about the first, <span class="math inline">\(\mathrm{lik}(\cdot)\)</span>, as a function of the variable <span class="math inline">\(\theta\)</span> for <em>fixed</em> <span class="math inline">\(x_1, x_2, \ldots, x_n\)</span>, and the second <span class="math inline">\(f(\cdot)\)</span>, as a PDF (or PMF), which is a function of the <span class="math inline">\(x_i\)</span> for some fixed parameter <span class="math inline">\(\theta\)</span>. We <em>think</em> about these functions differently, in the sense of what we think of as the variable, and what we think of as fixed.</p>
 </div>
 </div>
 <p>Let’s see how we might solve for the maximizing <span class="math inline">\(\theta\)</span> in a simple case.</p>
@@ -424,9 +431,29 @@ First, let’s take the partial derivative with respect to <span class="math inl
 <p>We take this and plug it into the expression we get when we set the partial with respect to <span class="math inline">\(\alpha\)</span> equal to 0. That is when we can see that we have a problem. We get: <span class="math display">\[
 n \log (\hat\alpha) - \sum_{i=1}^n \log X_i + n\log \frac{\hat \alpha}{\overline{X}} - n \frac{\Gamma ' (\hat \alpha)}{\Gamma(\hat \alpha)} = 0
 \]</span> which does not give us a closed form solution. We need to use a numerical, iterative procedure. We can use the method of moments estimates for the starting value for this procedure.</p>
-<p><strong>Exercise</strong> Compute the maximum likelihood estimators for parameters of the Normal(<span class="math inline">\(\mu, \sigma^2\)</span>), Exponential(<span class="math inline">\(\lambda\)</span>) and Uniform(<span class="math inline">\(0, \beta\)</span>) distributions.</p>
+<p><strong>Exercise</strong> Compute the maximum likelihood estimators for parameters of the:</p>
+<ol type="1">
+<li>Normal(<span class="math inline">\(\mu, \sigma^2\)</span>),</li>
+<li>Exponential(<span class="math inline">\(\lambda\)</span>), and</li>
+<li>Uniform(<span class="math inline">\(0, b\)</span>) distributions.</li>
+</ol>
+Let’s work out the exponential distribution parameter here: Assume we have a random sample <span class="math inline">\(X_1, \dots, X_n\)</span> where <span class="math inline">\(X_i \sim Exponential(\lambda)\)</span>:
+<details>
+<summary>
+Check your work
+</summary>
+<span class="math display">\[
+\begin{align*}
+l(\lambda) &amp;= \log\mathrm{lik}(\lambda)\\
+      &amp;= \log\left(\lambda^n e^{-\lambda n \overline{X}}\right)\\
+      &amp;= n \log \lambda - \lambda n \overline{X} \\
+      \Rightarrow \dfrac{dl}{d\lambda} &amp;= \dfrac{n}{\lambda} - n \overline{X}\\
+      \Rightarrow \hat\lambda  &amp;= \dfrac{1}{\overline{X}}
+\end{align*}
+\]</span>
+</details>
 <div style="display:none">
-<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="wasserman2004">Wasserman (<a href="#ref-wasserman2004" role="doc-biblioref">2004</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="hest2015">Hesterberg (<a href="#ref-hest2015" role="doc-biblioref">2015</a>)</span>;]</p>
+<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="hmc2005">Hogg, McKean, and Craig (<a href="#ref-hmc2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="kerns2017mle">Kerns (<a href="#ref-kerns2017mle" role="doc-biblioref">2017</a>)</span>;]</p>
 </div>
 </section>
 </section>
@@ -437,8 +464,8 @@ n \log (\hat\alpha) - \sum_{i=1}^n \log X_i + n\log \frac{\hat \alpha}{\overline
 <div id="ref-chi-hest2018" class="csl-entry" role="listitem">
 Chihara, Laura M., and Tim C. Hesterberg. 2018. <em>Mathematical Statistics with Resampling and r</em>. John Wiley &amp; Sons, Hoboken, NJ.
 </div>
-<div id="ref-hest2015" class="csl-entry" role="listitem">
-Hesterberg, Tim. 2015. <span>“What Teachers Should Know about the Bootstrap: Resampling in the Undergraduate Statistics Curriculum.”</span> <em>The American Statistician</em> 69 (4): 371–86. <a href="https://doi.org/10.1080/00031305.2015.1089789">https://doi.org/10.1080/00031305.2015.1089789</a>.
+<div id="ref-hmc2005" class="csl-entry" role="listitem">
+Hogg, Robert V., Joseph W. McKean, and Allen T. Craig. 2005. <em>Introduction to Mathematical Statistics</em>. 6th ed. Upper Saddle River, NJ: Pearson Prentice Hall.
 </div>
 <div id="ref-kerns2017mle" class="csl-entry" role="listitem">
 Kerns, Jonny. 2017. <span>“Probability Concepts Explained: Maximum Likelihood Estimation.”</span> Medium. 2017. <a href="https://medium.com/data-science/probability-concepts-explained-maximum-likelihood-estimation-c7b4342fdbb1">https://medium.com/data-science/probability-concepts-explained-maximum-likelihood-estimation-c7b4342fdbb1</a>.
@@ -448,9 +475,6 @@ Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides 
 </div>
 <div id="ref-rice2006" class="csl-entry" role="listitem">
 Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. Duxbury Press.
-</div>
-<div id="ref-wasserman2004" class="csl-entry" role="listitem">
-Wasserman, Larry. 2004. <em>All of Statistics: A Concise Course in Statistical Inference</em>. New York: Springer.
 </div>
 </div>
 
