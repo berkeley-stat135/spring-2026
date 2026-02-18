@@ -292,7 +292,19 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lectures/lecture-11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 11: The Multinomial Distribution, and Large Sample Theory of the MLE, Part 1</span></a>
+ <span class="menu-text">Lecture 11: MLE and the Multinomial Distribution</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 12: Large Sample Theory for Maximum Likelihood Estimates</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-13.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 13: Confidence Intervals from MLEs and Efficiency</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -404,7 +416,7 @@ E(Y) \approx g(\mu_X) + \dfrac{1}{2} \sigma_X^2 g''(\mu_X).
 \]</span></p>
 <p>How good the linear approximation is depends on how nonlinear <span class="math inline">\(g\)</span> is in a neighborhood of <span class="math inline">\(\mu_X\)</span>, and on the variance of <span class="math inline">\(X\)</span>.</p>
 <p>Going back to the first order approximation, we have that <span class="math inline">\(Y \approx g(\mu_X) + (X-\mu_X)g'(\mu_X)\)</span>. Squaring both sides gives: <span class="math display">\[
-Y^2 \approx \left(g(\mu_X)\right)^2 + \left(g'(\mu_X)\right)^2(X - \mu_X)^2 + 2g'(\mu_X)(X-\mu_X)
+Y^2 \approx \left(g(\mu_X)\right)^2 + \left(g'(\mu_X)\right)^2(X - \mu_X)^2 + 2\cdot g(\mu_X)\cdot g'(\mu_X)(X-\mu_X)
 \]</span> Again, since <span class="math inline">\(E(X-\mu_X) = 0\)</span>, we get that <span class="math display">\[
 \operatorname{Var}(Y) \approx \left[g'(\mu_X)\right]^2 \sigma_X^2.
 \]</span> Note that we can apply the delta method in a multivariate setting, but here we will only consider univariate functions.</p>

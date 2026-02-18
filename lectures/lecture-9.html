@@ -292,7 +292,19 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lectures/lecture-11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 11: The Multinomial Distribution, and Large Sample Theory of the MLE, Part 1</span></a>
+ <span class="menu-text">Lecture 11: MLE and the Multinomial Distribution</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 12: Large Sample Theory for Maximum Likelihood Estimates</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-13.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 13: Confidence Intervals from MLEs and Efficiency</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -430,8 +442,8 @@ Warning
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">$</span>t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1]
-[1,]  3.0
-[2,]  2.8</code></pre>
+[1,]    2
+[2,]    4</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">$</span>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -470,12 +482,12 @@ Warning
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(boot_np_new<span class="sc">$</span>t) <span class="do">## the first six bootstrap values of theta_hat</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          [,1]     [,2]
-[1,] 0.4862626 1.697030
-[2,] 0.4295152 1.575579
-[3,] 0.3710566 1.581247
-[4,] 0.3522745 1.758971
-[5,] 0.4060312 1.874803
-[6,] 0.3926282 2.077688</code></pre>
+[1,] 0.4078775 1.705940
+[2,] 0.4729912 1.695202
+[3,] 0.4755052 2.308623
+[4,] 0.4219367 1.765653
+[5,] 0.3714053 1.766263
+[6,] 0.4189606 2.119122</code></pre>
 </div>
 </div>
 <p>Let’s compute the confidence intervals using the very convenient function <code>boot.ci()</code> that takes as input the object returned by <code>boot()</code>. So we will input <code>boot_np_new</code> into <code>boot.ci()</code>. We specify the <strong>type</strong> of intervals we want, and <code>index=1</code> indicates which column of the output matrix <code>boot_np_new</code> we should consider. Let’s first compute the percentile and basic intervals for <span class="math inline">\(\alpha\)</span>:</p>
@@ -491,7 +503,7 @@ boot.ci(boot.out = boot_np_new, type = c("perc", "basic"), index = 1)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.2646,  0.4515 )   ( 0.3043,  0.4912 )  
+95%   ( 0.2637,  0.4536 )   ( 0.3022,  0.4922 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -508,7 +520,7 @@ boot.ci(boot.out = boot_np_new, type = c("perc", "basic"), index = 2)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 1.010,  2.032 )   ( 1.337,  2.359 )  
+95%   ( 1.033,  2.029 )   ( 1.339,  2.336 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -570,7 +582,7 @@ boot.ci(boot.out = boot_par, type = c("perc", "basic"), index = 1)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.2285,  0.4815 )   ( 0.2743,  0.5273 )  
+95%   ( 0.2331,  0.4838 )   ( 0.2721,  0.5227 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -591,7 +603,7 @@ boot.ci(boot.out = boot_par, type = c("perc", "basic"), index = 2)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.843,  2.215 )   ( 1.153,  2.526 )  
+95%   ( 0.843,  2.206 )   ( 1.163,  2.525 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
