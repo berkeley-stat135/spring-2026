@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -249,7 +269,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-13.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/lecture-13.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 13: Confidence Intervals from MLEs and Efficiency</span></a>
   </div>
 </li>
@@ -280,6 +300,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#computing-the-mle-of-the-multinomial-likelihood-function" id="toc-computing-the-mle-of-the-multinomial-likelihood-function" class="nav-link" data-scroll-target="#computing-the-mle-of-the-multinomial-likelihood-function">Computing the MLE of the multinomial likelihood function</a></li>
   </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -346,9 +367,9 @@ f(x_1, \dots, x_m \vert p_1, \dots, p_m) = \dfrac{n!}{x_1!\dots x_m!} \prod_{i=1
 <section id="computing-the-mle-of-the-multinomial-likelihood-function" class="level3">
 <h3 class="anchored" data-anchor-id="computing-the-mle-of-the-multinomial-likelihood-function">Computing the MLE of the multinomial likelihood function</h3>
 <p>We have a joint PMF as defined above, and we will to estimate the probabilities <span class="math inline">\(p_1, \dots, p_n\)</span> using maximum likelihood. We can do this, even though the <span class="math inline">\(X_i\)</span> are not independent. The lack of independence means that we will not be able to factor the joint PMF into a product. Also note that the <span class="math inline">\(p_i's\)</span> are <em>not</em> free to vary, because they are <strong>subject to the constraint</strong> that their sum is 1. This means that we need to maximize <span class="math inline">\(\mathrm{lik}(p_1, \dots, p_m)\)</span> subject to the constraint that <span class="math inline">\(p_1 + \dots +  p_m = 1\)</span>.</p>
-<p>As we do often, we simplify the problem by taking logs of the likelihood function. Therefore, we need to maximize <span class="math inline">\(l(p_1, \dots, p_m) = \log \mathrm{lik}(p_1, \dots, p_m)\)</span> subject to the constraint <span class="math inline">\(\displaystyle \sum_{i=1}^m p_i = 1\)</span>.</p>
+<p>As we do often, we simplify the problem by taking logs of the likelihood function. Therefore, we need to maximize <span class="math inline">\(\ell(p_1, \dots, p_m) = \log \mathrm{lik}(p_1, \dots, p_m)\)</span> subject to the constraint <span class="math inline">\(\displaystyle \sum_{i=1}^m p_i = 1\)</span>.</p>
 <p>We will use Lagrange multipliers to do this. Define the function <span class="math inline">\(\mathcal{L}\)</span> by: <span class="math display">\[
-\mathcal{L}(p_1, p_2, \dots, p_m, \lambda) = l(p_1, p_2, \dots, p_m) + \lambda(\sum_{i=1}^m p_i -1).
+\mathcal{L}(p_1, p_2, \dots, p_m, \lambda) = \ell(p_1, p_2, \dots, p_m) + \lambda(\sum_{i=1}^m p_i -1).
 \]</span></p>
 <p>Writing out <span class="math inline">\(l\)</span>, we get: <span class="math display">\[
 \begin{align*}
@@ -366,9 +387,29 @@ f(x_1, \dots, x_m \vert p_1, \dots, p_m) = \dfrac{n!}{x_1!\dots x_m!} \prod_{i=1
 <p>Using the numbers in our example above, we have that the maximum likelihood estimates are: <span class="math display">\[
 \hat p_1 = \dfrac{4}{10}, \; \hat p_2 = \hat p_3 = 0, \; \hat p_4 = \dfrac{3}{10}, \; \hat p_5 = 0,\; \hat p_6 = \dfrac{3}{10}.
 \]</span></p>
-
-
+<div style="display:none">
+<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="hmc2005">Hogg, McKean, and Craig (<a href="#ref-hmc2005" role="doc-biblioref">2005</a>)</span>;]</p>
+</div>
 </section>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-chi-hest2018" class="csl-entry" role="listitem">
+Chihara, Laura M., and Tim C. Hesterberg. 2018. <em>Mathematical Statistics with Resampling and r</em>. John Wiley &amp; Sons, Hoboken, NJ.
+</div>
+<div id="ref-hmc2005" class="csl-entry" role="listitem">
+Hogg, Robert V., Joseph W. McKean, and Allen T. Craig. 2005. <em>Introduction to Mathematical Statistics</em>. 6th ed. Upper Saddle River, NJ: Pearson Prentice Hall.
+</div>
+<div id="ref-samslides135" class="csl-entry" role="listitem">
+Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).
+</div>
+<div id="ref-rice2006" class="csl-entry" role="listitem">
+Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. Duxbury Press.
+</div>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->

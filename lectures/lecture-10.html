@@ -269,7 +269,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-13.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/lecture-13.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 13: Confidence Intervals from MLEs and Efficiency</span></a>
   </div>
 </li>
@@ -393,11 +393,11 @@ P(X_1 = x_1, \ldots, X_n = x_n) &amp;= P(X_1 = x_1)\times P(X_2 = x_2) \times \l
 \end{align}
 \]</span> where <span class="math inline">\(\displaystyle x = \sum_{i=1}^n x_i.\)</span></p>
 <p>If we maximize this quantity (with respect to <span class="math inline">\(\theta\)</span>), then we are maximizing the probability of seeing this particular observed data sample. This seems kind of complicated to maximize, so we will take the (natural) log of the likelihood and maximize that instead. Since <span class="math inline">\(\log(x)\)</span> is a monotonic function of <span class="math inline">\(x\)</span>, maximizing the logarithm of the likelihood will be equivalent to maximizing the likelihood itself.</p>
-<p>Define <span class="math inline">\(l(\theta) = \log(\mathrm{lik}(\theta))\)</span>. Now we have: <span class="math display">\[
-l(\theta) = \log(\mathrm{lik}(\theta)) = x \log(\theta) + (n-x)\log(1-\theta).
+<p>Define <span class="math inline">\(\ell(\theta) = \log(\mathrm{lik}(\theta))\)</span>. Now we have: <span class="math display">\[
+\ell(\theta) = \log(\mathrm{lik}(\theta)) = x \log(\theta) + (n-x)\log(1-\theta).
 \]</span></p>
-<p>Since we want to maximize <span class="math inline">\(l(\theta)\)</span> with respect to <span class="math inline">\(\theta\)</span>, we differentiate it w.r.t <span class="math inline">\(\theta\)</span>: <span class="math display">\[
-\dfrac{dl(\theta)}{d\theta} = \frac{x}{\theta} - \frac{(n-x)}{1-\theta}.
+<p>Since we want to maximize <span class="math inline">\(\ell(\theta)\)</span> with respect to <span class="math inline">\(\theta\)</span>, we differentiate it w.r.t <span class="math inline">\(\theta\)</span>: <span class="math display">\[
+\dfrac{d\ell(\theta)}{d\theta} = \frac{x}{\theta} - \frac{(n-x)}{1-\theta}.
 \]</span> Setting this equal to 0 and solving for <span class="math inline">\(\theta\)</span> gives us that the maximizing <span class="math inline">\(\theta\)</span> is given by <span class="math inline">\(\dfrac{x}{n} = \dfrac{\sum_{i=1}^n x_i}{n} = \bar{x}\)</span> (assuming that <span class="math inline">\(\theta\)</span> is not <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>). You can check that this is indeed a maximum by doing the first or second derivative test.</p>
 <p>The <strong>maximum likelihood <em>estimate</em></strong> for <span class="math inline">\(\theta\)</span> is given by <span class="math inline">\(\dfrac{\sum_{i=1}^n x_i}{n}\)</span>. The corresponding <em>statistic</em> <span class="math inline">\(\hat\theta\)</span> is given by: <span class="math display">\[
 \hat\theta = \frac{1}{n}\sum_{i=1}^n X_i = \overline{X}.
@@ -413,9 +413,9 @@ l(\theta) = \log(\mathrm{lik}(\theta)) = x \log(\theta) + (n-x)\log(1-\theta).
 <p>If <span class="math inline">\(X_1 = x_1, \ldots, X_n=x_n\)</span> are IID <span class="math inline">\(Poisson(\lambda)\)</span>, then the joint PMF is the product of the marginals. This gives us (we can leave it as a function of <span class="math inline">\(\lambda\)</span>): <span class="math display">\[
 \mathrm{lik}(\lambda) = \dfrac{\lambda^{x_1} e^{-\lambda}}{x_1!}\cdot \dfrac{\lambda^{x_2} e^{-\lambda}}{x_2!}\dots \dfrac{\lambda^{x_n} e^{-\lambda}}{x_n!} = \dfrac{\lambda^x e^{-n\lambda}}{x_1!x_2!\ldots x_n!}
 \]</span> Taking logs, we get that (again, writing <span class="math inline">\(x = \sum_{i=1}^n x_i)\)</span> <span class="math display">\[
-l(\lambda) = x\log(\lambda) -n\lambda -log(x_1!x_2!\ldots x_n!).
+\ell(\lambda) = x\log(\lambda) -n\lambda -log(x_1!x_2!\ldots x_n!).
 \]</span> We can leave the last term as is since it does not contain <span class="math inline">\(\lambda\)</span> and when we differentiate with respect to <span class="math inline">\(\lambda\)</span>, its derivative will be <span class="math inline">\(0\)</span>. This implies that: <span class="math display">\[
-\dfrac{dl(\lambda)}{d\lambda} = \dfrac{x}{\lambda} -n \Rightarrow \hat\lambda = \dfrac{x}{n} = \bar{x}.
+\dfrac{d\ell(\lambda)}{d\lambda} = \dfrac{x}{\lambda} -n \Rightarrow \hat\lambda = \dfrac{x}{n} = \bar{x}.
 \]</span></p>
 <p>Again, the maximum likelihood <em>estimate</em> is <span class="math inline">\(\hat\lambda = \bar{x}\)</span>, and the corresponding statistic is <span class="math inline">\(\hat\lambda = \bar{X}\)</span>.</p>
 <p><strong>Example</strong> Suppose <span class="math inline">\(n=3\)</span> and our observed values are <span class="math inline">\(5, 2, 3\)</span>. Then the MLE is given by the average of these numbers, which is 3.33.</p>
@@ -424,16 +424,16 @@ l(\lambda) = x\log(\lambda) -n\lambda -log(x_1!x_2!\ldots x_n!).
 <h4 class="anchored" data-anchor-id="the-gammaalpha-lambda-distribution">The Gamma(<span class="math inline">\(\alpha, \lambda\)</span>) distribution</h4>
 <p>The PDF of this distribution is <span class="math inline">\(f(x\vert \alpha, \lambda) = \displaystyle \dfrac{\lambda^\alpha}{\Gamma(\alpha)}x^{\alpha - 1}e^{-\lambda x}\)</span>, for <span class="math inline">\(0\le x &lt; \infty\)</span>.</p>
 <p>Let’s write down the log-likelihood function of <span class="math inline">\(\theta = (\alpha, \lambda)\)</span>, using the sample <span class="math inline">\(X_1, \ldots, X_i\)</span>: <span class="math display">\[
-l(\alpha, \lambda) = \sum_{i=1}^n(\alpha - 1) \log X_i -\lambda\sum_{i=1}^nX_i + n\alpha\log \lambda- n\log \Gamma(\alpha)
+\ell(\alpha, \lambda) = \sum_{i=1}^n(\alpha - 1) \log X_i -\lambda\sum_{i=1}^nX_i + n\alpha\log \lambda- n\log \Gamma(\alpha)
 \]</span> Now we have two variables, so we will need to take <em>partial</em> derivatives.</p>
 <details>
 <summary>
 Check your partial derivatives!
 </summary>
 First, let’s take the partial derivative with respect to <span class="math inline">\(\alpha\)</span>, so we will treat <span class="math inline">\(\lambda\)</span> (and the <span class="math inline">\(X_i's\)</span>) as constants: <span class="math display">\[
-\frac{\partial l(\alpha, \lambda)}{\partial \alpha} = \sum_{i=1}^n \log X_i + n\log \lambda - n \frac{\Gamma ' (\alpha)}{\Gamma(\alpha)}.
-\]</span> Now, let’s find the partial derivative of <span class="math inline">\(l(\alpha, \lambda)\)</span> with respect to <span class="math inline">\(\lambda\)</span>: <span class="math display">\[
-\frac{\partial l(\alpha, \lambda)}{\partial \lambda} = -\sum_{i=1}^n X_i + \frac{n \alpha}{\lambda}
+\frac{\partial \ell(\alpha, \lambda)}{\partial \alpha} = \sum_{i=1}^n \log X_i + n\log \lambda - n \frac{\Gamma ' (\alpha)}{\Gamma(\alpha)}.
+\]</span> Now, let’s find the partial derivative of <span class="math inline">\(\ell(\alpha, \lambda)\)</span> with respect to <span class="math inline">\(\lambda\)</span>: <span class="math display">\[
+\frac{\partial \ell(\alpha, \lambda)}{\partial \lambda} = -\sum_{i=1}^n X_i + \frac{n \alpha}{\lambda}
 \]</span>
 </details>
 <p>We can set the second partial derivative equal to 0, and we get (at the MLE’s <span class="math inline">\(\hat\lambda\)</span> and <span class="math inline">\(\hat\alpha\)</span>) that:</p>
@@ -456,7 +456,7 @@ Check your work
 </summary>
 <span class="math display">\[
 \begin{align*}
-l(\lambda) &amp;= \log\mathrm{lik}(\lambda)\\
+\ell(\lambda) &amp;= \log\mathrm{lik}(\lambda)\\
       &amp;= \log\left(\lambda^n e^{-\lambda n \overline{X}}\right)\\
       &amp;= n \log \lambda - \lambda n \overline{X} \\
       \Rightarrow \dfrac{dl}{d\lambda} &amp;= \dfrac{n}{\lambda} - n \overline{X}\\
