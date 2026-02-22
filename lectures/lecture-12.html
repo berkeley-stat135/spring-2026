@@ -296,7 +296,10 @@ window.Quarto = {
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#consistency-of-the-mle-of-theta." id="toc-consistency-of-the-mle-of-theta." class="nav-link" data-scroll-target="#consistency-of-the-mle-of-theta.">Consistency of the MLE of <span class="math inline">\(\theta\)</span>.</a></li>
+  <li><a href="#consistency-of-the-mle-of-theta." id="toc-consistency-of-the-mle-of-theta." class="nav-link" data-scroll-target="#consistency-of-the-mle-of-theta.">Consistency of the MLE of <span class="math inline">\(\theta\)</span>.</a>
+  <ul class="collapse">
+  <li><a href="#claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent" id="toc-claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent" class="nav-link" data-scroll-target="#claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent">Claim: If MSE of an estimator goes to 0, the estimator must be consistent</a></li>
+  </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -432,6 +435,28 @@ E[\log f(X \mid \theta)] - E[\log f(X \mid \theta_0)] \leq 0 \quad \text{for all
 <p>Therefore <span class="math display">\[
 \left(\hat{\theta}_n\right)_{MLE} \xrightarrow{P} \theta_0
 \]</span></p>
+</section>
+<section id="claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent" class="level3">
+<h3 class="anchored" data-anchor-id="claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent">Claim: If MSE of an estimator goes to 0, the estimator must be consistent</h3>
+<p>Recall the following definitions for an estimator <span class="math inline">\(\hat \theta_n\)</span> of the parameter <span class="math inline">\(\theta\)</span>.</p>
+<p><span class="math display">\[\text{Bias}(\hat{\theta}_n) = E(\hat{\theta}_n) - \theta\]</span></p>
+<p><span class="math display">\[\text{Var}(\hat{\theta}_n) = E\left[(\hat{\theta}_n - E(\hat{\theta}_n))^2\right]\]</span></p>
+<p><span class="math display">\[\text{MSE}(\hat{\theta}_n) = E\left[(\hat{\theta}_n - \theta)^2\right] = \text{Bias}(\hat{\theta}_n)^2 + \text{Var}(\hat{\theta}_n)\]</span></p>
+<p>We want to show that <span class="math inline">\(\text{MSE}(\hat{\theta}_n) \to 0 \Rightarrow \hat{\theta}_n \xrightarrow{P} \theta\)</span>,</p>
+<p>that is, <span class="math inline">\(\forall \varepsilon &gt; 0\)</span>, <span class="math inline">\(\displaystyle \lim_{n \to \infty} P(|\hat{\theta}_n - \theta| &gt; \varepsilon) = 0\)</span>.</p>
+<!--How did we prove Chebyshev? By applying Markov's Inequality to
+$Y = (X - \mu)^2 \geq 0$. By Markov, $P(Y > c) \leq \frac{E[Y]}{c}$:
+
+$$\Rightarrow P\!\left((X-\mu)^2 > c^2\right) \leq \frac{E(X-\mu)^2}{c^2}$$
+
+$$\Rightarrow P(|X - \mu| > c) \leq \frac{\text{Var}(X)}{c^2}$$-->
+<p>Applying Markov’s inequality to <span class="math inline">\(Y = (X - a)^2 \geq 0\)</span> for some <span class="math inline">\(a\)</span>, <span class="math inline">\(c &gt;0\)</span>, we get:</p>
+<p><span class="math display">\[P(Y &gt; c^2) = P\!\left((X-a)^2 &gt; c^2\right) = P(|X-a| &gt; c) \leq \frac{E\!\left[(X-a)^2\right]}{c^2} \]</span></p>
+<p>Now let <span class="math inline">\(X = \hat{\theta}_n\)</span>, <span class="math inline">\(a = \theta\)</span>, <span class="math inline">\(c = \varepsilon &gt; 0\)</span>. We get:</p>
+<p><span class="math display">\[P(|\hat{\theta}_n - \theta| &gt; \varepsilon) \leq \frac{E\left[(\hat{\theta}_n - \theta)^2\right]}{\varepsilon^2} = \frac{\text{MSE}(\hat{\theta}_n)}{\varepsilon^2}\]</span></p>
+<p>Since the MSE of <span class="math inline">\(\hat\theta_n\)</span> goes <span class="math inline">\(0\)</span> as <span class="math inline">\(n \to \infty\)</span>, this implies that <span class="math display">\[
+\lim_{n\to\infty} P(|\hat{\theta}_n - \theta| &gt; \varepsilon) = 0 \Rightarrow \hat{\theta}_n \xrightarrow{P} \theta.
+\]</span> We have shown that if <span class="math inline">\(MSE(\hat\theta_n) \to \infty\)</span>, then <span class="math inline">\(\hat\theta_n\)</span> must be a consistent estimator for <span class="math inline">\(\theta\)</span>.</p>
 <div style="display:none">
 <p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="hmc2005">Hogg, McKean, and Craig (<a href="#ref-hmc2005" role="doc-biblioref">2005</a>)</span>;]</p>
 </div>
