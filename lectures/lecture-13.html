@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Confidence Intervals from MLEs and Efficiency</title>
+<title>Consistency of the Maximum Likelihood Estimator</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -88,6 +88,35 @@ div.csl-indent {
 }</script>
 <script async="" src="”https://siteimproveanalytics.com/js/siteanalyze_6294756.js”"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -101,7 +130,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-13.html">Lecture 13: Confidence Intervals from MLEs and Efficiency</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-13.html">Lecture 13: Consistency of the Maximum Likelihood Estimator</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -235,13 +264,25 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lectures/lecture-12.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 12: Large Sample Theory for Maximum Likelihood Estimates</span></a>
+ <span class="menu-text">Lecture 12: Mean Squared Error and Consistency</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lectures/lecture-13.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Lecture 13: Confidence Intervals from MLEs and Efficiency</span></a>
+ <span class="menu-text">Lecture 13: Consistency of the Maximum Likelihood Estimator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-14.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 14: Asymptotic Distribution of the Maximum Likelihood Estimator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-15.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 15: Confidence Intervals from MLEs and Efficiency</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -266,7 +307,15 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#references" id="toc-references" class="nav-link active" data-scroll-target="#references">References</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#a-closer-look-at-what-consistency-means" id="toc-a-closer-look-at-what-consistency-means" class="nav-link" data-scroll-target="#a-closer-look-at-what-consistency-means">A closer look at what consistency means</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  <li><a href="#sufficient-condition-for-consistency" id="toc-sufficient-condition-for-consistency" class="nav-link" data-scroll-target="#sufficient-condition-for-consistency">Sufficient Condition for Consistency</a></li>
+  <li><a href="#caveat-consistency-notrightarrow-mse-to-0" id="toc-caveat-consistency-notrightarrow-mse-to-0" class="nav-link" data-scroll-target="#caveat-consistency-notrightarrow-mse-to-0">Caveat: Consistency <span class="math inline">\(\not\Rightarrow\)</span> MSE <span class="math inline">\(\to 0\)</span></a></li>
+  </ul></li>
+  <li><a href="#consistency-of-the-mle-of-theta" id="toc-consistency-of-the-mle-of-theta" class="nav-link" data-scroll-target="#consistency-of-the-mle-of-theta">Consistency of the MLE of <span class="math inline">\(\theta\)</span></a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -275,7 +324,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Confidence Intervals from MLEs and Efficiency</h1>
+<h1 class="title">Consistency of the Maximum Likelihood Estimator</h1>
 </div>
 
 
@@ -292,13 +341,212 @@ div.csl-indent {
 </header>
 
 
-<p>UNDER CONSTRUCTION</p>
-<div style="display:none">
-<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="hmc2005">Hogg, McKean, and Craig (<a href="#ref-hmc2005" role="doc-biblioref">2005</a>)</span>;]</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<section id="a-closer-look-at-what-consistency-means" class="level3">
+<h3 class="anchored" data-anchor-id="a-closer-look-at-what-consistency-means">A closer look at what consistency means</h3>
+<p>For this discussion, we follow <span class="citation" data-cites="casella-berger2002">Casella and Berger (<a href="#ref-casella-berger2002" role="doc-biblioref">2002</a>)</span>:</p>
+<p>Recall that a sequence of estimators <span class="math inline">\(\hat{\theta}_1, \hat{\theta}_2, \ldots\)</span> is <strong>consistent</strong> for <span class="math inline">\(\theta_0\)</span> if <span class="math inline">\(\hat{\theta}_n \xrightarrow{P} \theta_0\)</span>, where <span class="math inline">\(\theta_0\)</span> is some fixed, but unknown value of <span class="math inline">\(\theta\)</span>.</p>
+<p>Suppose <span class="math inline">\(X_1, X_2, \ldots \overset{\text{IID}}{\sim} f(x \mid \theta_0)\)</span>. We construct a sequence of estimators <span class="math inline">\(\hat{\theta}_1, \hat{\theta}_2, \ldots\)</span></p>
+<p><strong>Example</strong>, if <span class="math inline">\(\hat{\theta}_n = \overline{X}_n = \dfrac{\sum_{i=1}^n X_i}{n}\)</span>, then:</p>
+<p><span class="math display">\[\hat{\theta}_1 = \overline{X}_1 = X_1\]</span></p>
+<p><span class="math display">\[\hat{\theta}_2 = \overline{X}_2 = \frac{X_1 + X_2}{2}\]</span></p>
+<p><span class="math display">\[\hat{\theta}_3 = \overline{X}_3 = \frac{X_1 + X_2 + X_3}{3}, \quad \text{etc.}\]</span></p>
+<p>So really, what we are saying is that a <strong>sequence</strong> of estimators <span class="math inline">\(\{\hat{\theta}_n\}\)</span> is a consistent sequence for the parameter <span class="math inline">\(\theta\)</span> if for every <span class="math inline">\(\varepsilon &gt; 0\)</span> and every <span class="math inline">\(\theta \in \Theta\)</span> (the <em>parameter space</em>):</p>
+<p><span class="math display">\[\lim_{n \to \infty} P\!\left(|\hat{\theta}_n - \theta| &lt; \varepsilon\right) = 1\]</span></p>
+<p>Note that this means that as the sample size gets larger and sample information gets better, the estimator will be arbitrarily close to the true parameter with high probability.</p>
+<p>Note that the definition of consistency deals with the entire family of distributions indexed by <span class="math inline">\(\theta\)</span>.</p>
+<hr>
+<p>In the following example, we will prove consistency of the estimator directly, using the definition,</p>
+</section>
+<section id="example" class="level3">
+<h3 class="anchored" data-anchor-id="example">Example</h3>
+<p>Let <span class="math inline">\(X_i \sim N(\theta, 1)\)</span>. This implies that <span class="math inline">\(f(x \mid \theta) = \dfrac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}(x-\theta)^2}\)</span>.</p>
+<p>If <span class="math inline">\(X_1, \ldots, X_n \overset{\text{IID}}{\sim} N(\theta, 1)\)</span>, then <span class="math inline">\(\overline{X}_n \sim N\!\left(\theta, \tfrac{1}{n}\right)\)</span>.</p>
+<p>We want to show <span class="math inline">\(P(|\overline{X}_n - \theta| &lt; \varepsilon) \to 1\)</span>. Note that since <span class="math inline">\(\overline{X}_n \sim N\!\left(\theta, \tfrac{1}{n}\right)\)</span>, its density is <span class="math inline">\(f_{\overline{X}_n}(x) = \sqrt{\dfrac{n}{2\pi}}\, e^{-\frac{n(x-\theta)^2}{2}}\)</span>.</p>
+<p><span class="math display">\[P(|\overline{X}_n - \theta| &lt; \varepsilon) = P(\theta - \varepsilon &lt; \overline{X}_n &lt; \theta + \varepsilon)\]</span></p>
+<p><span class="math display">\[= \int_{\theta-\varepsilon}^{\theta+\varepsilon} f_{\overline{X}_n}(x \mid \theta)\, x
+= \int_{\theta-\varepsilon}^{\theta+\varepsilon} \sqrt{\frac{n}{2\pi}}\, e^{-\frac{n(x-\theta)^2}{2}}\, dx\]</span></p>
+<p><strong>Substitution:</strong> let <span class="math inline">\(y = x - \theta\)</span>, so <span class="math inline">\(dy = dx\)</span>; when <span class="math inline">\(x = \theta - \varepsilon\)</span>, <span class="math inline">\(y = -\varepsilon\)</span>:</p>
+<p><span class="math display">\[= \sqrt{\frac{n}{2\pi}} \int_{-\varepsilon}^{\varepsilon} e^{-\frac{ny^2}{2}}\, dy\]</span></p>
+<p><strong>Substitution:</strong> let <span class="math inline">\(t = \sqrt{n}\, y\)</span>, so <span class="math inline">\(dt = \sqrt{n}\, dy\)</span>, <span class="math inline">\(t^2 = ny^2\)</span>; when <span class="math inline">\(y = -\varepsilon\)</span>, <span class="math inline">\(t = -\varepsilon\sqrt{n}\)</span>:</p>
+<p><span class="math display">\[\Rightarrow \frac{1}{\sqrt{2\pi}} \int_{-\varepsilon\sqrt{n}}^{\varepsilon\sqrt{n}} e^{-t^2/2}\, dt = P(-\varepsilon\sqrt{n} &lt; Z &lt; \varepsilon\sqrt{n})\]</span></p>
+<p>As <span class="math inline">\(n \to \infty\)</span>:</p>
+<p><span class="math display">\[\to P(-\infty &lt; Z &lt; \infty) = 1\]</span>, where <span class="math inline">\(Z \sim \mathcal{N}(0,1)\)</span>.</p>
+<p>Therefore, <span class="math inline">\(\overline{X}_n \text{ is a consistent (sequence of) estimator(s) of } \theta. \quad \blacksquare\)</span>.</p>
+<hr>
+</section>
+<section id="sufficient-condition-for-consistency" class="level3">
+<h3 class="anchored" data-anchor-id="sufficient-condition-for-consistency">Sufficient Condition for Consistency</h3>
+<p>Last time we showed that if the MSE of an estimator goes to 0, then the estimator must be consistent. This is often easier to show than computing the probability that we need, and that is why the theorem is so useful.</p>
+<p>If we can show that, as <span class="math inline">\(n \to \infty\)</span>:</p>
+<ol type="1">
+<li><span class="math inline">\(\operatorname{Var}(\hat{\theta}_n) \to 0\)</span></li>
+<li><span class="math inline">\((\operatorname{Bias}(\hat{\theta}_n))^2 \to 0\)</span></li>
+</ol>
+<p>then <span class="math inline">\(\operatorname{MSE}(\hat{\theta}_n) \to 0\)</span>, which implies <span class="math inline">\(\hat{\theta}_n\)</span> is consistent.In the above example, since <span class="math inline">\(\overline{X}_n \sim \mathcal{N}\left(\theta, \dfrac{1}{n}\right)\)</span>, it is immediate that the MSE <span class="math inline">\(\to 0\)</span>, and therefore <span class="math inline">\(\overline{X}_n\)</span> is a consistent estimator of <span class="math inline">\(\theta\)</span>.</p>
+</section>
+<section id="caveat-consistency-notrightarrow-mse-to-0" class="level3">
+<h3 class="anchored" data-anchor-id="caveat-consistency-notrightarrow-mse-to-0">Caveat: Consistency <span class="math inline">\(\not\Rightarrow\)</span> MSE <span class="math inline">\(\to 0\)</span></h3>
+<p>Suppose we are trying to estimate <span class="math inline">\(\mu\)</span>. Let:</p>
+<p><span class="math display">\[\hat{\theta}_n = \begin{cases} \overline{X}_n &amp; \text{w.p. } 1 - \tfrac{1}{n} \\ n &amp; \text{w.p. } \tfrac{1}{n} \end{cases}\]</span></p>
+<p>With probability <span class="math inline">\(1 - \frac{1}{n}\)</span>, <span class="math inline">\(\hat{\theta}_n = \overline{X}_n \xrightarrow{P} \theta = \mu\)</span>, so <span class="math inline">\(\hat{\theta}_n \xrightarrow{P} \theta\)</span>.</p>
+<p>But with probability <span class="math inline">\(\frac{1}{n}\)</span>, <span class="math inline">\(\hat{\theta}_n = n\)</span>, and the MSE satisfies:</p>
+<p><span class="math display">\[\operatorname{MSE} = E\!\left[(\hat{\theta}_n - \theta)^2\right]\]</span></p>
+<p><span class="math display">\[= E\!\left[(\overline{X}_n - \theta)^2 \cdot \mathbf{1}(\hat{\theta}_n = \overline{X}_n)\right] + E\!\left[(n - \theta)^2 \cdot \mathbf{1}(\hat{\theta}_n = n)\right]\]</span></p>
+<p><span class="math display">\[\geq E\!\left[(n - \theta)^2 \cdot \frac{1}{n}\right] = \frac{(n-\theta)^2}{n} \to \infty \text{ as } n \to \infty\]</span></p>
+<p>Therefore, consistency does <strong>not</strong> imply that <span class="math inline">\(\operatorname{MSE} \to 0\)</span>.</p>
+</section>
+</section>
+<section id="consistency-of-the-mle-of-theta" class="level2">
+<h2 class="anchored" data-anchor-id="consistency-of-the-mle-of-theta">Consistency of the MLE of <span class="math inline">\(\theta\)</span></h2>
+<p>As we might guess, the maximum likelihood estimator from an IID sample with PDF <span class="math inline">\(f(x\vert \theta)\)</span>, is <strong>consistent</strong> for <span class="math inline">\(\theta\)</span> (under appropriate <em>smoothness</em> conditions on <span class="math inline">\(f\)</span>, which means that we can take as many continuous derivatives of <span class="math inline">\(f\)</span> as we need -it won’t have any sharp corners etc.).</p>
+<p>In the following, we will assume <span class="math inline">\(f\)</span> is smooth. This will ensure that it is “well-behaved” and we can interchange the orders of integration and differentiation.</p>
+<p>In our discussion below, <span class="math inline">\(\theta_0\)</span> is the <strong>true</strong> unknown value of the parameter <span class="math inline">\(\theta\)</span>, and <span class="math inline">\(f(x \mid \theta_0)\)</span> is the true PDF (<span class="math inline">\(\theta_0\)</span> is some <em>fixed, but unknown</em> value).</p>
+<p>Recall that <span class="math inline">\(X_1, \dots, X_n \overset{\text{IID}}{\sim} f(x \mid \theta)\)</span> is a random sample, and <span class="math display">\[
+\operatorname{lik}(\theta)
+= \operatorname{lik}(\theta \mid X_1, \dots, X_n)
+= \prod_{i=1}^n f(X_i \mid \theta)
+\]</span></p>
+<p>Define <span class="math inline">\(\ell(\theta) = \log \operatorname{lik}(\theta)\)</span>. Then, <span class="math display">\[
+\frac{1}{n} \ell(\theta) =\frac{1}{n} \log \operatorname{lik}(\theta) = \frac{1}{n} \sum_{i=1}^n \log f(X_i\mid \theta).
+\]</span></p>
+<p>For ease of writing, we will write <span class="math inline">\(l'(\theta) = \dfrac{\partial l }{\partial \theta}\)</span> and <span class="math inline">\(l''(\theta) = \dfrac{\partial^2 l }{\partial \theta^2}\)</span> where possible.</p>
+<div id="thm-mle-consistent" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1</strong></span> Let <span class="math inline">\(\widehat{\theta}_n\)</span> be the MLE of <span class="math inline">\(\theta_0\)</span>. Then <span class="math inline">\(\hat \theta_n\)</span> is consistent for <span class="math inline">\(\theta_0\)</span>. That is, <span class="math inline">\(\hat \theta_n \overset{P}{\rightarrow}\theta_0\)</span>. This means that, for any <span class="math inline">\(\epsilon &gt; 0\)</span>, <span class="math display">\[
+\lim_{n \rightarrow \infty} P(\lvert \hat \theta_n - \theta_0\rvert &gt; \epsilon) = 0.
+\]</span></p>
 </div>
+<p><em>Proof</em>:</p>
+<p><span class="math display">\[
+\Rightarrow \quad
+\frac{1}{n} \ell(\theta)
+= \frac{1}{n} \sum_{i=1}^n \log f(X_i \mid \theta).
+\]</span></p>
+<p>The RHS is the sample mean of the IID random variables <span class="math display">\[
+Y_i = \log f(X_i \mid \theta).
+\]</span></p>
+<p>By the WLLN, <span class="math display">\[
+\frac{1}{n} \sum_{i=1}^n Y_i \xrightarrow{P} E[Y].
+\]</span> Now, since <span class="math inline">\(Y \equiv Y(\theta)= \log f(X\mid \theta)\)</span>, we have</p>
+<p><span class="math display">\[
+E[Y]
+= E[\log f(X \mid \theta)]
+= \int \log f(x \mid \theta) \cdot f(x \mid \theta_0)\, dx
+\]</span> where <span class="math inline">\(f(x \mid \theta_0)\)</span> is the true PDF from which the sample <span class="math inline">\(X_1, \dots, X_n\)</span> was generated.</p>
+<p>By the WLLN, for large <span class="math inline">\(n\)</span>, with high probability,<span class="math inline">\(\dfrac{1}{n} \sum_{i=1}^n Y_i\)</span> and <span class="math inline">\(E[Y]\)</span> will be close, which means that <span class="math inline">\(\dfrac{1}{n} \ell(\theta)\)</span> and <span class="math inline">\(E[Y]\)</span> will be close.</p>
+<p>The maximizer of <span class="math inline">\(\ell(\theta)\)</span> is <span class="math inline">\(\hat{\theta}_n\)</span>, and by the above, this should be close to the maximizer of <span class="math inline">\(\displaystyle \int \log f(x \mid \theta) \cdot f(x \mid \theta_0)\, dx\)</span>.</p>
+<p>Let’s maximize <span class="math inline">\(E[Y]\)</span> (note that <span class="math inline">\(E \equiv E_{\theta_0}\)</span>): <span class="math display">\[
+\begin{align*}
+E[Y] &amp;= E[\log f(X \mid \theta)] \\
+   &amp;= \int \log f(x \mid \theta) \cdot f(x \mid \theta_0)\, dx \\
+\end{align*}
+\]</span> Taking the derivative with respect to <span class="math inline">\(\theta\)</span> on both sides (and using the fact that <span class="math inline">\(f\)</span> is smooth to justify changing the order of operations) we get: <span class="math display">\[
+\begin{align*}
+\frac{\partial}{\partial \theta} E[\log f(X \mid \theta)] &amp;= \frac{\partial}{\partial \theta}
+\int \log f(x \mid \theta) \cdot f(x \mid \theta_0)\, dx\\
+&amp;= \int \frac{\partial}{\partial \theta}\log f(x \mid \theta)\cdot f(x \mid \theta_0)\, dx\\
+&amp;= \int
+\frac{\frac{\partial}{\partial \theta}  f(x \mid \theta)}
+{f(x \mid \theta)}
+\cdot f(x \mid \theta_0)\, dx
+\end{align*}
+\]</span></p>
+<p>Now we will show that <span class="math inline">\(\theta_0\)</span> maximizes <span class="math inline">\(E[Y]=E[\log f(X \mid \theta)\)</span>, by plugging <span class="math inline">\(\theta_0\)</span> into the right hand side above to get:</p>
+<p><span class="math display">\[
+\int
+\frac{\frac{\partial}{\partial \theta}f(x \mid \theta_0) }
+{f(x \mid \theta_0)}
+\cdot f(x \mid \theta_0)\, dx
+=
+\int\frac{\partial f(x \mid \theta_0)}{\partial \theta}
+\, dx
+=
+\frac{\partial}{\partial \theta}
+\int f(x \mid \theta_0)\, dx = 0.
+\]</span></p>
+<p>We get <span class="math inline">\(0\)</span> at the end because <span class="math inline">\(\int f(x \mid \theta)\, dx = 1\)</span>, since <span class="math inline">\(f(x \mid \theta)\)</span> is a density function and integrates to 1. Therefore, we see that <span class="math inline">\(\theta_0\)</span> is a <em>stationary</em> point for <span class="math inline">\(E[\log f(X \mid \theta)]\)</span>.</p>
+<p>We can show that <span class="math inline">\(\theta_0\)</span> is a max by showing that <span class="math inline">\(E[\log f(X \mid \theta)] - E[\log f(X \mid \theta_0)] \le 0\)</span> for all <span class="math inline">\(\theta\)</span>.</p>
+<p><span class="math display">\[
+\begin{align*}
+E[\log f(X \mid \theta)] - E[\log f(X \mid \theta_0)] &amp;= \int \log f(x \mid \theta) \cdot f(x \mid \theta_0) \, dx - \int \log f(x \mid \theta_0) \cdot f(x \mid \theta_0) \, dx\\
+  &amp;= \int \left[ \log f(x \mid \theta) - \log f(x \mid \theta_0) \right] \cdot f(x \mid \theta_0) \, dx\\
+  &amp;= \int \log \left[ \frac{f(x \mid \theta)}{f(x \mid \theta_0)} \right] \cdot f(x \mid \theta_0) \, dx \\
+\end{align*}
+\]</span></p>
+<p>Note that <span class="math inline">\(\log t \leq t - 1\)</span>. This implies that (with <span class="math inline">\(t = \displaystyle \frac{f(x \mid \theta)}{f(x \mid \theta_0)}\)</span> )</p>
+<p><span class="math display">\[
+\begin{align*}
+E[\log f(X \mid \theta)] - E[\log f(X \mid \theta_0)] &amp;\leq \int \left[\frac{f(x \mid \theta)}{f(x \mid \theta_0)} - 1 \right] \cdot f(x \mid \theta_0) \, dx\\
+   &amp;= \int f(x \mid \theta) \, dx \;-\; \int f(x \mid \theta_0) \, dx \\
+   &amp;= 1 - 1 = 0
+\end{align*}
+\]</span></p>
+<p>Therefore, <span class="math display">\[
+E[\log f(X \mid \theta)] - E[\log f(X \mid \theta_0)] \leq 0 \quad \text{for all } \theta
+\]</span></p>
+<p>Which means that <span class="math inline">\(\theta_0 \text{ maximizes } E_{\theta_0} \log f(X \mid \cdot)\)</span>.</p>
+<p>So by the Weak Law of large Numbers:</p>
+<p><span class="math display">\[\frac{1}{n} \sum_{i=1}^{n} \log f(X_i \mid \theta) \xrightarrow{\quad} E_{\theta_0} [ \log f(X \mid \theta)]\]</span></p>
+<ul>
+<li>The <strong>left side</strong> is <span class="math inline">\(\dfrac{1}{n}\ell(\theta)\)</span>, maximized by <span class="math inline">\(\hat{\theta}_n\)</span> (the MLE).</li>
+<li>The <strong>right side</strong> is <span class="math inline">\(E[Y(\theta)]\)</span>, maximized by <span class="math inline">\(\theta_0\)</span> (the true parameter).</li>
+</ul>
+<section id="summary-of-the-consistency-argument" class="level4">
+<h4 class="anchored" data-anchor-id="summary-of-the-consistency-argument">Summary of the Consistency Argument</h4>
+<ol type="1">
+<li><span class="math inline">\(\hat{\theta}_n\)</span> maximizes <span class="math inline">\(\displaystyle \sum_{i=1}^n Y_i = \ell(\theta)\)</span>.</li>
+<li><span class="math inline">\(\theta_0\)</span> maximizes <span class="math inline">\(E[Y] \equiv E[Y(\theta)]= E\left[\log f(X\mid \theta)\right]\)</span></li>
+<li>By the WLLN, <span class="math inline">\(\displaystyle \sum_{i=1}^n Y_i \xrightarrow{P} E[Y] \;\; \forall \theta\)</span>, and therefore the maximizers <span class="math inline">\(\hat{\theta}_n\)</span> also converge to the maximizer <span class="math inline">\(\theta_0\)</span> of <span class="math inline">\(E[Y]\)</span>. (This is a result of the continuous mapping theorem <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.)</li>
+</ol>
+<p>Therefore <span class="math display">\[
+\left(\hat{\theta}_n\right)_{MLE} \xrightarrow{P} \theta_0
+\]</span></p>
+<!--### Claim: If MSE of an estimator goes to 0, the estimator must be consistent
+
+Recall the following definitions for an estimator $\hat \theta_n$ of the parameter $\theta$.
+
+$$\text{Bias}(\hat{\theta}_n) = E(\hat{\theta}_n) - \theta$$
+
+$$\text{Var}(\hat{\theta}_n) = E\left[(\hat{\theta}_n - E(\hat{\theta}_n))^2\right]$$
+
+$$\text{MSE}(\hat{\theta}_n) = E\left[(\hat{\theta}_n - \theta)^2\right] = \text{Bias}(\hat{\theta}_n)^2 + \text{Var}(\hat{\theta}_n)$$
+
+We want to show that $\text{MSE}(\hat{\theta}_n) \to 0 \Rightarrow \hat{\theta}_n \xrightarrow{P} \theta$,
+
+that is, $\forall \varepsilon > 0$, $\displaystyle \lim_{n \to \infty} P(|\hat{\theta}_n - \theta| > \varepsilon) = 0$.
+
+<!--How did we prove Chebyshev? By applying Markov's Inequality to
+$Y = (X - \mu)^2 \geq 0$. By Markov, $P(Y > c) \leq \frac{E[Y]}{c}$:
+
+$$\Rightarrow P\!\left((X-\mu)^2 > c^2\right) \leq \frac{E(X-\mu)^2}{c^2}$$
+
+$$\Rightarrow P(|X - \mu| > c) \leq \frac{\text{Var}(X)}{c^2}$$
+
+Applying Markov's inequality to $Y = (X - a)^2 \geq 0$ for some $a$, $c >0$, we get:
+
+$$P(Y > c^2) = P\!\left((X-a)^2 > c^2\right) = P(|X-a| > c) \leq \frac{E\!\left[(X-a)^2\right]}{c^2} $$
+
+Now let $X = \hat{\theta}_n$, $a = \theta$, $c = \varepsilon > 0$. We get:
+
+$$P(|\hat{\theta}_n - \theta| > \varepsilon) \leq \frac{E\left[(\hat{\theta}_n - \theta)^2\right]}{\varepsilon^2} = \frac{\text{MSE}(\hat{\theta}_n)}{\varepsilon^2}$$
+
+Since the MSE of $\hat\theta_n$ goes $0$ as $n \to \infty$, this implies that 
+$$
+\lim_{n\to\infty} P(|\hat{\theta}_n - \theta| > \varepsilon) = 0 \Rightarrow \hat{\theta}_n \xrightarrow{P} \theta.
+$$
+We have shown that if $MSE(\hat\theta_n) \to 0$, then $\hat\theta_n$ must be a consistent estimator for $\theta$.-->
+<div style="display:none">
+<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="hmc2005">Hogg, McKean, and Craig (<a href="#ref-hmc2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="casella-berger2002">Casella and Berger (<a href="#ref-casella-berger2002" role="doc-biblioref">2002</a>)</span>;]</p>
+</div>
+</section>
+</section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-casella-berger2002" class="csl-entry" role="listitem">
+Casella, George, and Roger L. Berger. 2002. <em>Statistical Inference</em>. 2nd ed. Pacific Grove, CA: Duxbury.
+</div>
 <div id="ref-chi-hest2018" class="csl-entry" role="listitem">
 Chihara, Laura M., and Tim C. Hesterberg. 2018. <em>Mathematical Statistics with Resampling and r</em>. John Wiley &amp; Sons, Hoboken, NJ.
 </div>
@@ -316,7 +564,13 @@ Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. 
 
 </section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><strong>Continuous Mapping Theorem</strong>: If we have a sequence of random variables <span class="math inline">\({X_i}\)</span> such that <span class="math inline">\(X_n \xrightarrow{P} X\)</span> and <span class="math inline">\(g\)</span> is a continuous function, then <span class="math inline">\(g(X_n) \xrightarrow{P} g(X)\)</span>. ̂<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

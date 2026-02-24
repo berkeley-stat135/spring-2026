@@ -298,13 +298,25 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lectures/lecture-12.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 12: Large Sample Theory for Maximum Likelihood Estimates</span></a>
+ <span class="menu-text">Lecture 12: Mean Squared Error and Consistency</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lectures/lecture-13.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 13: Confidence Intervals from MLEs and Efficiency</span></a>
+ <span class="menu-text">Lecture 13: Consistency of the Maximum Likelihood Estimator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-14.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 14: Asymptotic Distribution of the Maximum Likelihood Estimator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-15.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 15: Confidence Intervals from MLEs and Efficiency</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -446,7 +458,7 @@ g(U_n) = g(\theta) + (U_n - \theta)g'(\theta) + R,
 <section id="back-to-our-sample-mean-and-mom-estimator" class="level3">
 <h3 class="anchored" data-anchor-id="back-to-our-sample-mean-and-mom-estimator">Back to our sample mean and MoM estimator</h3>
 <p>Instead of <span class="math inline">\(\{U_n\}\)</span>, we have our sequence of sample means <span class="math inline">\(\{\overline{X}_n\}\)</span>, and <span class="math inline">\(g(\{\overline{X}_n\}) = \hat{\theta}\)</span>. By the delta method, we have that <span class="math display">\[
-\sqrt{n}\left(\frac{\overline{X}_n - g(\mu)}{\lvert g'(\mu)\rvert\sigma}\right)\overset{D}{\longrightarrow}\mathcal{N}(0,1).
+\sqrt{n}\left(\frac{g(\overline{X}_n) - g(\mu)}{\lvert g'(\mu)\rvert\sigma}\right)\overset{D}{\longrightarrow}\mathcal{N}(0,1).
 \]</span> This implies that <span class="math display">\[
 g(\overline{X}_n) \approx \mathcal{N}\left(g(\mu), \frac{(g'(\mu))^2\sigma^2}{n}\right)
 \]</span> Note that <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> are unknown constants, and so we can estimate the parameters of this asymptotic normal distribution with our estimate for <span class="math inline">\(\theta\)</span>: <span class="math display">\[
