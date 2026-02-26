@@ -58,7 +58,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9ca244728582364b54b6a88cc4015eed.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-ace4a779636f494d84936b38ea69b957.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -420,7 +420,7 @@ P(X_1 = x_1, \ldots, X_n = x_n) &amp;= P(X_1 = x_1)\times P(X_2 = x_2) \times \l
 <p>The <strong>maximum likelihood <em>estimate</em></strong> for <span class="math inline">\(\theta\)</span> is given by <span class="math inline">\(\dfrac{\sum_{i=1}^n x_i}{n}\)</span>. The corresponding <em>statistic</em> <span class="math inline">\(\hat\theta\)</span> is given by: <span class="math display">\[
 \hat\theta = \frac{1}{n}\sum_{i=1}^n X_i = \overline{X}.
 \]</span> <span class="math inline">\(\hat\theta\)</span> is called the <strong>maximum likelihood <em>estimator</em></strong> of <span class="math inline">\(\theta\)</span>.</p>
-<p><strong>Example</strong> Suppose that we have an IID <span class="math inline">\(Bernoulli(\theta)\)</span> sample, with <span class="math inline">\(n=5\)</span> and our observed values are <span class="math inline">\(0, 0, 1, 0, 1\)</span>. Then <span class="math inline">\(\mathrm{\theta} = \theta^2 (1-\theta)^3\)</span>, and the maximum likelihood estimate for $is given by <span class="math inline">\(\hat\theta = \dfrac{2}{5}\)</span>.</p>
+<p><strong>Example</strong> Suppose that we have an IID <span class="math inline">\(Bernoulli(\theta)\)</span> sample, with <span class="math inline">\(n=5\)</span> and our observed values are <span class="math inline">\(0, 0, 1, 0, 1\)</span>. Then <span class="math inline">\(\mathrm{lik}(\theta) = \theta^2 (1-\theta)^3\)</span>, and the maximum likelihood estimate for $is given by <span class="math inline">\(\hat\theta = \dfrac{2}{5}\)</span>.</p>
 <p>Note that our goal is to maximize the <em>likelihood</em> function. We don’t <em>have</em> to take the log of <span class="math inline">\(\mathrm{lik}(\theta)\)</span>, but here it was the easiest way to maximize the likelihood function.</p>
 <p><strong>Definition of the MLE</strong>: We say that <span class="math inline">\(\hat{\theta} = \hat\theta(X_1, \ldots, X_n)\)</span> is a <strong>maximum likelihood estimator</strong> if <span class="math inline">\(\mathrm{lik}(\hat\theta) = \mathrm{lik}(\hat\theta \vert X_1, \dots, X_n)\ge \mathrm{lik}(\theta \vert X_1, \dots, X_n)\)</span> for all <span class="math inline">\(\theta\)</span>. That is, <span class="math inline">\(\mathrm{lik}(\hat\theta \vert X_1, \dots, X_n)\)</span> achieves its maximum value at <span class="math inline">\(\hat{\theta}\)</span>.</p>
 <p>Let’s consider some more examples.</p>
