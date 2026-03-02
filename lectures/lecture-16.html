@@ -68,6 +68,35 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <script async="" src="”https://siteimproveanalytics.com/js/siteanalyze_6294756.js”"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -259,8 +288,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#relative-efficiency-of-two-estimators" id="toc-relative-efficiency-of-two-estimators" class="nav-link" data-scroll-target="#relative-efficiency-of-two-estimators">Relative Efficiency of Two Estimators</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -284,9 +320,142 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>[UNDER CONSTRUCTION]</p>
+<!--# Lec 16 -- 2/27/2026: Efficiency & Cramér-Rao Theorem-->
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<div id="exm-effMedMean" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1</strong></span> Suppose <span class="math inline">\(X_1, \ldots, X_n\)</span> are i.i.d. from a Normal distribution <span class="math inline">\(N(\theta, \sigma^2)\)</span>, <span class="math inline">\(\sigma^2 = 1\)</span> - that is, the mean is unknown, but the variance is known. Our goal is to estimate <span class="math inline">\(\theta\)</span> using one of the two estimators: either the sample mean or the sample median. Which one should we use? Let’s look at their expected values and variances.</p>
+<p><strong>Sample mean:</strong></p>
+<p><span class="math display">\[
+\hat{\mu} = \bar{X}_n, \quad \mathbb{E}(\hat{\mu}) = \mu, \quad \text{Var}(\hat{\mu}) = \frac{1}{n} \leftarrow \text{given}
+\]</span></p>
+<p><strong>Sample median:</strong> Denote the sample median by <span class="math inline">\(\tilde{\mu}\)</span>.</p>
+<p>Suppose we know that: <span class="math display">\[
+\mathbb{E}(\tilde{\mu}) = \mu, \quad \text{Var}(\tilde{\mu}) \approx \frac{\pi}{2n}\;\text{ for large } n.
+\]</span></p>
+<p>We can compare their mean squared errors, which seems to be a good way to see which estimator we would prefer. Recall that the MSE of an estimator is the sum of its variance and the square of its bias. We can see that since both estimators are <em>unbiased</em>, their mean squared errors:</p>
+<p><span class="math display">\[
+\Rightarrow \text{MSE}(\hat{\mu}) = 0 + \frac{1}{n},
+\]</span> and <span class="math display">\[
+\text{MSE}(\tilde{\mu}) = 0 + \frac{\pi}{2}n.
+\]</span></p>
+<p><span class="math display">\[
+\frac{\pi}{2} &gt; 1 \Rightarrow \text{MSE}(\tilde{\mu}) &gt; \text{MSE}(\hat{\mu})
+\]</span></p>
+<p>We see that though they are both unbiased, the sample median has a larger variance than the sample mean, and the sample mean is therefore the preferred estimator of the true mean.</p>
+</div>
+</section>
+<section id="relative-efficiency-of-two-estimators" class="level2">
+<h2 class="anchored" data-anchor-id="relative-efficiency-of-two-estimators">Relative Efficiency of Two Estimators</h2>
+<p>In general, even if our estimators are <em>not</em> unbiased, it is better to have smaller variance, since this will lead to greater precision (narrower confidence intervals). We will always use consistent estimators, which means that for large samples, they will be very close to the true mean with high probability.</p>
+<p>To quantify this idea of “better” estimators, we will define the <strong>Relative Efficiency</strong> of two estimators: Suppose we want to compare a pair of estimators of a parameter <span class="math inline">\(\theta\)</span>, denoted by <span class="math inline">\(\hat{\theta}\)</span>, <span class="math inline">\(\tilde{\theta}\)</span>.</p>
+<p>We know that (from sample of size <span class="math inline">\(n\)</span>):</p>
+<p><span class="math display">\[
+\text{MSE}(\hat{\theta}_n) = \left(\text{Bias}(\hat{\theta}_n)\right)^2 + \text{Var}(\hat{\theta}_n)
+\]</span></p>
+<p><span class="math display">\[
+\text{MSE}(\tilde{\theta}_n) = \left(\text{Bias}(\tilde{\theta}_n)\right)^2 + \text{Var}(\tilde{\theta}_n)
+\]</span></p>
+<div id="def-releff" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1</strong></span> The <strong>efficiency</strong> of <span class="math inline">\(\tilde{\theta}\)</span> <em>relative</em> to <span class="math inline">\(\hat{\theta}\)</span> is given by:</p>
+<p><span class="math display">\[
+\text{eff}(\tilde{\theta}_n, \hat{\theta}_n) = \frac{\text{MSE}(\hat{\theta}_n)}{\text{MSE}(\tilde{\theta}_n)}
+\]</span></p>
+<p>This quantity is called <em>Relative Efficiency</em>.</p>
+</div>
+<p>What does it mean if <span class="math inline">\(\text{eff}(\tilde{\theta}_n, \hat{\theta}_n) &lt; 1\)</span>? In that case, we have that <span class="math inline">\(MSE(\tilde{\theta}_n) &gt; \text{MSE}(\hat{\theta}_n) \Rightarrow \hat{\theta}_n\)</span> is a preferred estimator.</p>
+<div id="rem-effUnbiased" class="proof remark">
+<p><span class="proof-title"><em>Remark 1</em>. </span>If <span class="math inline">\(\hat{\theta}_n\)</span>, <span class="math inline">\(\tilde{\theta}_n\)</span> are <strong>unbiased</strong>, then: <span class="math display">\[
+\text{eff}(\tilde{\theta}_n, \hat{\theta}_n) = \frac{\text{Var}(\hat{\theta}_n)}{\text{Var}(\tilde{\theta}_n)}
+\]</span></p>
+</div>
+<div id="def-are" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2</strong></span> If we don’t know the variance, we can use the asymptotic variance in the ratio of variances, and we will call the we call it the <em>Asymptotic Relative Efficiency</em> (A.R.E.). Note that since our estimators are <em>consistent</em>, if we are considering large samples, we only need to look at the ratio of the asymptotic variances, not the MSEs.</p>
+<p>Suppose we have that:</p>
+<p><span class="math display">\[
+\sqrt{n}(\hat{\theta}_n - \theta) \xrightarrow{D} N(0, \sigma_1^2),
+\]</span> and also: <span class="math display">\[
+\sqrt{n}(\tilde{\theta}_n - \theta) \to N(0, \sigma_2^2).
+\]</span> Then we define the <strong>Asymptotic Relative Efficiency</strong> as: <span class="math display">\[
+\text{ARE}(\tilde{\theta}, \hat{\theta}) = \frac{\sigma_1^2}{\sigma_2^2}
+\]</span></p>
+<div id="rem-areMedMean" class="proof remark">
+<p><span class="proof-title"><em>Remark 2</em>. </span>In <a href="#exm-effMedMean" class="quarto-xref">Example&nbsp;1</a>, <span class="math display">\[
+\text{Var}(\hat{\theta}) = \frac{1}{n}, \quad \text{Var}(\tilde{\theta}) \approx \frac{\pi}{2n}.
+\]</span></p>
+<p><span class="math display">\[
+\Rightarrow \text{A.R.E. of } \tilde{\theta} \text{ to } \hat{\theta} = \text{A.R.E}(\tilde{\theta}, \hat{\theta}) = \frac{1/n}{\pi/2n} = \frac{2}{\pi} \approx 0.63
+\]</span></p>
+<hr>
+<div id="exm-effExp" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2</strong></span> Suppose <span class="math inline">\(X_1, \ldots, X_n \overset{\text{IID}}{\sim} \text{Exp}\!\left(\tfrac{1}{\theta}\right)\)</span> distribution. Then we know that</p>
+<p><span class="math display">\[
+\mathbb{E}X = \theta, \quad f(x \mid \theta) = \frac{1}{\theta} e^{-x/\theta}, \text{ and } F(x) = 1 - e^{-x/\theta}, \quad \theta &gt; 0,\ x &gt; 0
+\]</span></p>
+<ol type="1">
+<li><p>Show that <span class="math inline">\(\tilde{\theta} = n X_{(1)} = n \cdot \min(X_1, \ldots, X_n)\)</span> is an <em>unbiased</em> estimator of <span class="math inline">\(\theta\)</span>. (<em>Hint</em>: show <span class="math inline">\(X_{(1)} \sim \text{Exp}\!\left(\tfrac{n}{\theta}\right)\)</span>.)</p></li>
+<li><p>An alternate estimator of <span class="math inline">\(\theta\)</span> is <span class="math inline">\(\bar{X}_n\)</span>. Call this <span class="math inline">\(\hat{\theta}\)</span>. Show that <span class="math inline">\(\hat{\theta}\)</span> is unbiased.</p></li>
+<li><p>What is the relative efficiency of <span class="math inline">\(\tilde{\theta}\)</span> to <span class="math inline">\(\hat{\theta}\)</span>?</p></li>
+</ol>
+</div>
+<details>
+<summary>
+Check your solution!
+</summary>
+<p>Let <span class="math inline">\(\hat{\theta}\)</span> be the sample mean, so <span class="math inline">\(\hat{\theta}_n = \bar{X}_n\)</span>. We are given <span class="math inline">\(\tilde{\theta} = n\)</span> times the minimum, so <span class="math inline">\(\tilde{\theta}_n = n \cdot X_{(1)}, \Rightarrow F_{X_{(1)}}(x) = P(X_{(1)} \leq x) = 1 - P(X_{(1)} &gt; x)\)</span>.</p>
+<ol type="1">
+<li>First, notice that <span class="math inline">\(P(X_{(1)} &gt; x) = P(X_1 &gt; x,\ X_2 &gt; x,\ \ldots,\ X_n &gt; x)\)</span>. <span class="math display">\[
+\begin{align*}
+\Rightarrow 1-F_{X_{(1)}}(x) &amp;= \prod_{i=1}^{n} P(X_i &gt; x) \\
+&amp;= \prod_{i=1}^{n} e^{-x/\theta} = e^{-nx/\theta}\\
+\Rightarrow P(X_{(1)} \leq x) &amp;= 1 - e^{-nx/\theta}
+\end{align*}
+\]</span></li>
+</ol>
+<p>This implies that <span class="math inline">\(X_{(1)} \sim \text{Exp}\!\left(\frac{n}{\theta}\right) \Rightarrow \mathbb{E}(X_{(1)}) = \frac{\theta}{n}\)</span>. Therefore, we get that: <span class="math display">\[
+\Rightarrow \mathbb{E}(n X_{(1)}) = n \cdot \frac{\theta}{n} = \theta \Rightarrow \tilde{\theta}_n = n X_{(1)} \text{ is unbiased.}
+\]</span></p>
+<ol start="2" type="1">
+<li><p>Next, let’s consider the sample mean. We will do the same computation we have done many times before to see that it is unbiased: <span class="math display">\[
+\mathbb{E}(\hat{\theta}_n) = \mathbb{E}(\bar{X}_n) = \mathbb{E}\!\left(\frac{1}{n}\sum_{i=1}^n X_i\right) = \frac{1}{n}\sum_{i=1}^n \mathbb{E}X_i = \theta
+\]</span></p></li>
+<li><p>Now, first let’s write down the definition of efficiency of <span class="math inline">\(\tilde{\theta}\)</span> relative to <span class="math inline">\(\hat{\theta}\)</span>: <span class="math display">\[
+\text{eff}(\tilde{\theta}, \hat{\theta}) = \frac{\text{Var}(\hat{\theta})}{\text{Var}(\tilde{\theta})}
+\]</span> We see that <span class="math display">\[
+\text{Var}(\tilde{\theta}) = \text{Var}(n X_{(1)}) = n^2 \text{Var}(X_{(1)}),
+\]</span> and <span class="math display">\[
+\begin{align*}
+X_{(1)} \sim \text{Exp}\!\left(\frac{n}{\theta}\right) &amp;\Rightarrow \text{Var}(X_{(1)}) = \frac{\theta^2}{n^2}\\
+&amp;\Rightarrow \text{Var}(n X_{(1)}) = n^2 \cdot \frac{\theta^2}{n^2} = \theta^2.
+\end{align*}
+\]</span> Now, we know that: <span class="math display">\[
+\text{Var}(\hat{\theta}) = \text{Var}(\bar{X}_n) = \frac{\text{Var}(X)}{n} = \frac{\theta^2}{n}
+\]</span> Thus we get that <span class="math display">\[
+\text{eff}(\tilde{\theta}, \hat{\theta}) = \frac{\theta^2/n}{\theta^2} = \frac{1}{n}.
+\]</span></p></li>
+</ol>
+<p>Thus, <span class="math inline">\(\hat{\theta}\)</span> is more efficient than <span class="math inline">\(\tilde{\theta}\)</span>, and <span class="math inline">\(\tilde{\theta}\)</span> will need <span class="math inline">\(n\)</span> times the sample size to achieve the same level of precision.</p>
+</details>
+<section id="the-cramér-rao-inequality" class="level2">
+<h2 class="anchored" data-anchor-id="the-cramér-rao-inequality">The Cramér-Rao Inequality</h2>
+<p>The question that now naturally arises: is some <em>other</em> estimator more efficient than either of the two we are considering?</p>
+<p>Efficiency tells us what fraction of samples will make two (unbiased) estimators have the same variance, if their variance <span class="math inline">\(\propto \frac{1}{n}\)</span> (which is true in many important cases), but it only tells us about the two estimators we are considering. Can we tell if we have reached the <em>most</em> efficient estimator?</p>
+<p>The answer is <strong>Yes!</strong> There is a famous inequality that gives us a lower bound on the variance of any estimator. If our estimator achieves this lower bound, it cannot be improved.</p>
+<p>Let’s state the inequality for unbiased estimators. This inequality gives us what is called the “Cramér-Rao lower bound for an unbiased estimator”:</p>
+<div id="thm-cramerRaoUnbiased" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1</strong></span> Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> be IID random variables with density function <span class="math inline">\(f(x \mid \theta)\)</span>. Suppose <span class="math inline">\(T = t(X_1, \ldots, X_n)\)</span> is an <em>unbiased</em> estimator of <span class="math inline">\(\theta\)</span>. Then, under smoothness assumptions on <span class="math inline">\(f\)</span>, we have that: <span class="math display">\[
+\text{Var}(T) \geq \frac{1}{I_n(\theta)} = \frac{1}{n I(\theta)}
+\]</span></p>
+<p>Thus if <span class="math inline">\(\hat{\theta}\)</span> is an unbiased estimator of <span class="math inline">\(\theta_0\)</span> (the true parameter value), then: <span class="math display">\[
+\text{Var}(\hat{\theta}) \geq \frac{1}{n I(\theta_0)}.
+\]</span></p>
+</div>
 
 
+</section>
+</div>
+</div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
