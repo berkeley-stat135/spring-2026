@@ -448,18 +448,18 @@ P(X_1 = x_1, \ldots, X_n = x_n) &amp;= P(X_1 = x_1)\times P(X_2 = x_2) \times \l
 <summary>
 Check your partial derivatives!
 </summary>
-First, let’s take the partial derivative with respect to <span class="math inline">\(\alpha\)</span>, so we will treat <span class="math inline">\(\lambda\)</span> (and the <span class="math inline">\(X_i's\)</span>) as constants: <span class="math display">\[
+<p>First, let’s take the partial derivative with respect to <span class="math inline">\(\alpha\)</span>, so we will treat <span class="math inline">\(\lambda\)</span> (and the <span class="math inline">\(X_i's\)</span>) as constants: <span class="math display">\[
 \frac{\partial \ell(\alpha, \lambda)}{\partial \alpha} = \sum_{i=1}^n \log X_i + n\log \lambda - n \frac{\Gamma ' (\alpha)}{\Gamma(\alpha)}.
 \]</span> Now, let’s find the partial derivative of <span class="math inline">\(\ell(\alpha, \lambda)\)</span> with respect to <span class="math inline">\(\lambda\)</span>: <span class="math display">\[
 \frac{\partial \ell(\alpha, \lambda)}{\partial \lambda} = -\sum_{i=1}^n X_i + \frac{n \alpha}{\lambda}
-\]</span>
+\]</span></p>
 </details>
 <p>We can set the second partial derivative equal to 0, and we get (at the MLE’s <span class="math inline">\(\hat\lambda\)</span> and <span class="math inline">\(\hat\alpha\)</span>) that:</p>
 <p><span class="math display">\[
 \hat\lambda = \frac{\hat\alpha}{\overline{X}}.
 \]</span></p>
 <p>We take this and plug it into the expression we get when we set the partial with respect to <span class="math inline">\(\alpha\)</span> equal to 0. That is when we can see that we have a problem. We get: <span class="math display">\[
-n \log (\hat\alpha) - \sum_{i=1}^n \log X_i + n\log \frac{\hat \alpha}{\overline{X}} - n \frac{\Gamma ' (\hat \alpha)}{\Gamma(\hat \alpha)} = 0
+\sum_{i=1}^n \log X_i + n\log \frac{\hat \alpha}{\overline{X}} - n \frac{\Gamma ' (\hat \alpha)}{\Gamma(\hat \alpha)} = 0
 \]</span> which does not give us a closed form solution. We need to use a numerical, iterative procedure. We can use the method of moments estimates for the starting value for this procedure.</p>
 <p><strong>Exercise</strong> Compute the maximum likelihood estimators for parameters of the:</p>
 <ol type="1">
@@ -467,12 +467,12 @@ n \log (\hat\alpha) - \sum_{i=1}^n \log X_i + n\log \frac{\hat \alpha}{\overline
 <li>Exponential(<span class="math inline">\(\lambda\)</span>), and</li>
 <li>Uniform(<span class="math inline">\(0, b\)</span>) distributions.</li>
 </ol>
-Let’s work out the exponential distribution parameter here: Assume we have a random sample <span class="math inline">\(X_1, \dots, X_n\)</span> where <span class="math inline">\(X_i \sim Exponential(\lambda)\)</span>:
+<p>Let’s work out the exponential distribution parameter here: Assume we have a random sample <span class="math inline">\(X_1, \dots, X_n\)</span> where <span class="math inline">\(X_i \sim Exponential(\lambda)\)</span>:</p>
 <details>
 <summary>
 Check your work
 </summary>
-<span class="math display">\[
+<p><span class="math display">\[
 \begin{align*}
 \ell(\lambda) &amp;= \log\mathrm{lik}(\lambda)\\
       &amp;= \log\left(\lambda^n e^{-\lambda n \overline{X}}\right)\\
@@ -480,7 +480,7 @@ Check your work
       \Rightarrow \dfrac{dl}{d\lambda} &amp;= \dfrac{n}{\lambda} - n \overline{X}\\
       \Rightarrow \hat\lambda  &amp;= \dfrac{1}{\overline{X}}
 \end{align*}
-\]</span>
+\]</span></p>
 </details>
 <div style="display:none">
 <p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="hmc2005">Hogg, McKean, and Craig (<a href="#ref-hmc2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="kerns2017mle">Kerns (<a href="#ref-kerns2017mle" role="doc-biblioref">2017</a>)</span>;]</p>
