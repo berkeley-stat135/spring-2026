@@ -293,6 +293,24 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-17.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 17: Proof of the Cramér-Rao Lower Bound</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-18.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 18: Sufficiency, and the Factorization Theorem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-19.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 19: Proof of the Factorization theorem and the Rao-Blackwell Theorem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Datasets</span></a>
   </div>
@@ -316,8 +334,9 @@ window.Quarto = {
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
   <ul class="collapse">
   <li><a href="#a-closer-look-at-what-consistency-means" id="toc-a-closer-look-at-what-consistency-means" class="nav-link" data-scroll-target="#a-closer-look-at-what-consistency-means">A closer look at what consistency means</a></li>
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
-  <li><a href="#sufficient-condition-for-consistency" id="toc-sufficient-condition-for-consistency" class="nav-link" data-scroll-target="#sufficient-condition-for-consistency">Sufficient Condition for Consistency</a></li>
+  </ul></li>
+  <li><a href="#sufficient-condition-for-consistency" id="toc-sufficient-condition-for-consistency" class="nav-link" data-scroll-target="#sufficient-condition-for-consistency">Sufficient Condition for Consistency</a>
+  <ul class="collapse">
   <li><a href="#caveat-consistency-notrightarrow-mse-to-0" id="toc-caveat-consistency-notrightarrow-mse-to-0" class="nav-link" data-scroll-target="#caveat-consistency-notrightarrow-mse-to-0">Caveat: Consistency <span class="math inline">\(\not\Rightarrow\)</span> MSE <span class="math inline">\(\to 0\)</span></a></li>
   </ul></li>
   <li><a href="#consistency-of-the-mle-of-theta" id="toc-consistency-of-the-mle-of-theta" class="nav-link" data-scroll-target="#consistency-of-the-mle-of-theta">Consistency of the MLE of <span class="math inline">\(\theta\)</span></a></li>
@@ -354,7 +373,8 @@ window.Quarto = {
 <p>For this discussion, we follow <span class="citation" data-cites="casella-berger2002">Casella and Berger (<a href="#ref-casella-berger2002" role="doc-biblioref">2002</a>)</span>:</p>
 <p>Recall that a sequence of estimators <span class="math inline">\(\hat{\theta}_1, \hat{\theta}_2, \ldots\)</span> is <strong>consistent</strong> for <span class="math inline">\(\theta_0\)</span> if <span class="math inline">\(\hat{\theta}_n \xrightarrow{P} \theta_0\)</span>, where <span class="math inline">\(\theta_0\)</span> is some fixed, but unknown value of <span class="math inline">\(\theta\)</span>.</p>
 <p>Suppose <span class="math inline">\(X_1, X_2, \ldots \overset{\text{IID}}{\sim} f(x \mid \theta_0)\)</span>. We construct a sequence of estimators <span class="math inline">\(\hat{\theta}_1, \hat{\theta}_2, \ldots\)</span></p>
-<p><strong>Example</strong>, if <span class="math inline">\(\hat{\theta}_n = \overline{X}_n = \dfrac{\sum_{i=1}^n X_i}{n}\)</span>, then:</p>
+<div id="exm-cons-mean" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1</strong></span> If <span class="math inline">\(\hat{\theta}_n = \overline{X}_n = \dfrac{\sum_{i=1}^n X_i}{n}\)</span>, then:</p>
 <p><span class="math display">\[\hat{\theta}_1 = \overline{X}_1 = X_1\]</span></p>
 <p><span class="math display">\[\hat{\theta}_2 = \overline{X}_2 = \frac{X_1 + X_2}{2}\]</span></p>
 <p><span class="math display">\[\hat{\theta}_3 = \overline{X}_3 = \frac{X_1 + X_2 + X_3}{3}, \quad \text{etc.}\]</span></p>
@@ -362,36 +382,34 @@ window.Quarto = {
 <p><span class="math display">\[\lim_{n \to \infty} P\!\left(|\hat{\theta}_n - \theta| &lt; \varepsilon\right) = 1\]</span></p>
 <p>Note that this means that as the sample size gets larger and sample information gets better, the estimator will be arbitrarily close to the true parameter with high probability.</p>
 <p>Note that the definition of consistency deals with the entire family of distributions indexed by <span class="math inline">\(\theta\)</span>.</p>
+</div>
 <hr>
 <p>In the following example, we will prove consistency of the estimator directly, using the definition,</p>
-</section>
-<section id="example" class="level3">
-<h3 class="anchored" data-anchor-id="example">Example</h3>
-<p>Let <span class="math inline">\(X_i \sim N(\theta, 1)\)</span>. This implies that <span class="math inline">\(f(x \mid \theta) = \dfrac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}(x-\theta)^2}\)</span>.</p>
+<div id="exm-cons-direct" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2</strong></span> Let <span class="math inline">\(X_i \sim N(\theta, 1)\)</span>. This implies that <span class="math inline">\(f(x \mid \theta) = \dfrac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}(x-\theta)^2}\)</span>.</p>
 <p>If <span class="math inline">\(X_1, \ldots, X_n \overset{\text{IID}}{\sim} N(\theta, 1)\)</span>, then <span class="math inline">\(\overline{X}_n \sim N\!\left(\theta, \tfrac{1}{n}\right)\)</span>.</p>
 <p>We want to show <span class="math inline">\(P(|\overline{X}_n - \theta| &lt; \varepsilon) \to 1\)</span>. Note that since <span class="math inline">\(\overline{X}_n \sim N\!\left(\theta, \tfrac{1}{n}\right)\)</span>, its density is <span class="math inline">\(f_{\overline{X}_n}(x) = \sqrt{\dfrac{n}{2\pi}}\, e^{-\frac{n(x-\theta)^2}{2}}\)</span>.</p>
 <p><span class="math display">\[P(|\overline{X}_n - \theta| &lt; \varepsilon) = P(\theta - \varepsilon &lt; \overline{X}_n &lt; \theta + \varepsilon)\]</span></p>
 <p><span class="math display">\[= \int_{\theta-\varepsilon}^{\theta+\varepsilon} f_{\overline{X}_n}(x \mid \theta)\, x
 = \int_{\theta-\varepsilon}^{\theta+\varepsilon} \sqrt{\frac{n}{2\pi}}\, e^{-\frac{n(x-\theta)^2}{2}}\, dx\]</span></p>
-<p><strong>Substitution:</strong> let <span class="math inline">\(y = x - \theta\)</span>, so <span class="math inline">\(dy = dx\)</span>; when <span class="math inline">\(x = \theta - \varepsilon\)</span>, <span class="math inline">\(y = -\varepsilon\)</span>:</p>
+<p>We will do two variable changes: First, let <span class="math inline">\(y = x - \theta\)</span>, so <span class="math inline">\(dy = dx\)</span>; when <span class="math inline">\(x = \theta - \varepsilon\)</span>, <span class="math inline">\(y = -\varepsilon\)</span>:</p>
 <p><span class="math display">\[= \sqrt{\frac{n}{2\pi}} \int_{-\varepsilon}^{\varepsilon} e^{-\frac{ny^2}{2}}\, dy\]</span></p>
-<p><strong>Substitution:</strong> let <span class="math inline">\(t = \sqrt{n}\, y\)</span>, so <span class="math inline">\(dt = \sqrt{n}\, dy\)</span>, <span class="math inline">\(t^2 = ny^2\)</span>; when <span class="math inline">\(y = -\varepsilon\)</span>, <span class="math inline">\(t = -\varepsilon\sqrt{n}\)</span>:</p>
+<p>Next, let <span class="math inline">\(t = \sqrt{n}\, y\)</span>, so <span class="math inline">\(dt = \sqrt{n}\, dy\)</span>, <span class="math inline">\(t^2 = ny^2\)</span>; when <span class="math inline">\(y = -\varepsilon\)</span>, <span class="math inline">\(t = -\varepsilon\sqrt{n}\)</span>:</p>
 <p><span class="math display">\[\Rightarrow \frac{1}{\sqrt{2\pi}} \int_{-\varepsilon\sqrt{n}}^{\varepsilon\sqrt{n}} e^{-t^2/2}\, dt = P(-\varepsilon\sqrt{n} &lt; Z &lt; \varepsilon\sqrt{n})\]</span></p>
-<p>As <span class="math inline">\(n \to \infty\)</span>:</p>
-<p><span class="math display">\[\to P(-\infty &lt; Z &lt; \infty) = 1\]</span>, where <span class="math inline">\(Z \sim \mathcal{N}(0,1)\)</span>.</p>
+<p>As <span class="math inline">\(n \to \infty, \varepsilon\sqrt{n} \to \infty\)</span>, and <span class="math inline">\(P(-\infty &lt; Z &lt; \infty) = 1\)</span>, where <span class="math inline">\(Z \sim \mathcal{N}(0,1)\)</span>.</p>
 <p>Therefore, <span class="math inline">\(\overline{X}_n \text{ is a consistent (sequence of) estimator(s) of } \theta. \quad \blacksquare\)</span>.</p>
-<hr>
+</div>
 </section>
-<section id="sufficient-condition-for-consistency" class="level3">
-<h3 class="anchored" data-anchor-id="sufficient-condition-for-consistency">Sufficient Condition for Consistency</h3>
+</section>
+<section id="sufficient-condition-for-consistency" class="level2">
+<h2 class="anchored" data-anchor-id="sufficient-condition-for-consistency">Sufficient Condition for Consistency</h2>
 <p>Last time we showed that if the MSE of an estimator goes to 0, then the estimator must be consistent. This is often easier to show than computing the probability that we need, and that is why the theorem is so useful.</p>
 <p>If we can show that, as <span class="math inline">\(n \to \infty\)</span>:</p>
 <ol type="1">
 <li><span class="math inline">\(\operatorname{Var}(\hat{\theta}_n) \to 0\)</span></li>
 <li><span class="math inline">\((\operatorname{Bias}(\hat{\theta}_n))^2 \to 0\)</span></li>
 </ol>
-<p>then <span class="math inline">\(\operatorname{MSE}(\hat{\theta}_n) \to 0\)</span>, which implies <span class="math inline">\(\hat{\theta}_n\)</span> is consistent.In the above example, since <span class="math inline">\(\overline{X}_n \sim \mathcal{N}\left(\theta, \dfrac{1}{n}\right)\)</span>, it is immediate that the MSE <span class="math inline">\(\to 0\)</span>, and therefore <span class="math inline">\(\overline{X}_n\)</span> is a consistent estimator of <span class="math inline">\(\theta\)</span>.</p>
-</section>
+<p>then <span class="math inline">\(\operatorname{MSE}(\hat{\theta}_n) \to 0\)</span>, which implies <span class="math inline">\(\hat{\theta}_n\)</span> is consistent. In the above example, since <span class="math inline">\(\overline{X}_n \sim \mathcal{N}\left(\theta, \dfrac{1}{n}\right),\)</span> it is immediate that the MSE <span class="math inline">\(\to 0\)</span>, and therefore <span class="math inline">\(\overline{X}_n\)</span> is a consistent estimator of <span class="math inline">\(\theta\)</span>.</p>
 <section id="caveat-consistency-notrightarrow-mse-to-0" class="level3">
 <h3 class="anchored" data-anchor-id="caveat-consistency-notrightarrow-mse-to-0">Caveat: Consistency <span class="math inline">\(\not\Rightarrow\)</span> MSE <span class="math inline">\(\to 0\)</span></h3>
 <p>Suppose we are trying to estimate <span class="math inline">\(\mu\)</span>. Let:</p>
