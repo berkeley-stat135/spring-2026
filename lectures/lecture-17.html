@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -398,7 +418,7 @@ k'(\theta) = \int_{-\infty}^{\infty} \cdots \int_{-\infty}^{\infty} t(x_1, \ldot
 <p><span class="proof-title"><em>Remark 1</em>. </span>If <span class="math inline">\(k(\theta)\)</span> is the identity function, that is <span class="math inline">\(k(\theta) = \mathbb{E}_\theta(T) = \theta\)</span>, we recover the Cramér-Rao Inequality for unbiased estimators.</p>
 </div>
 <div id="def-effEst" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1</strong></span> If <span class="math inline">\(\hat{\theta}\)</span> is an estimator of <span class="math inline">\(\theta_0\)</span> such that <span class="math inline">\(\text{Var}(\hat{\theta}) = \dfrac{1}{nI(\theta_0)}\)</span>, then we say that <span class="math inline">\(\hat{\theta}\)</span> is an <em>efficient</em> estimator.</p>
+<p><span class="theorem-title"><strong>Definition 1</strong></span> If <span class="math inline">\(\hat{\theta}\)</span> is an <em>unbiased</em> estimator of <span class="math inline">\(\theta_0\)</span> such that <span class="math inline">\(\text{Var}(\hat{\theta}) = \dfrac{1}{nI(\theta_0)}\)</span>, then we say that <span class="math inline">\(\hat{\theta}\)</span> is an <em>efficient</em> estimator.</p>
 </div>
 <div id="rem-minVarConc" class="proof remark">
 <p><span class="proof-title"><em>Remark 2</em>. </span>If we have an efficient estimator, then the variance is minimized, which means the sampling distribution of <span class="math inline">\(\hat{\theta}\)</span> is as concentrated about the true value <span class="math inline">\(\theta_0\)</span> as it can be.</p>
@@ -407,14 +427,15 @@ k'(\theta) = \int_{-\infty}^{\infty} \cdots \int_{-\infty}^{\infty} t(x_1, \ldot
 <p><span class="proof-title"><em>Remark 3</em>. </span>Since the asymptotic variance of the MLE is <span class="math inline">\(I_n(\theta)\)</span>, the MLE is <em>asymptotically efficient</em>, but it may not be efficient for finite small <span class="math inline">\(n\)</span>.</p>
 </div>
 <div id="def-mvue" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2</strong></span> If an <i>unbiased</i> estimator <span class="math inline">\(\hat{\theta}\)</span> for a parameter <span class="math inline">\(\theta_0\)</span> <em>achieves</em> the Cramér-Rao lower bound, we call it an <strong>MVUE (Minimum Variance Unbiased Estimator)</strong>.</p>
+<p><span class="theorem-title"><strong>Definition 2 (<span class="citation" data-cites="hmc2005">Hogg, McKean, and Craig (<a href="#ref-hmc2005" role="doc-biblioref">2005</a>)</span>)</strong></span> For a given <span class="math inline">\(n\)</span>, and an IID random sample <span class="math inline">\(X_1, \ldots, X_n \sim f(x \mid \theta_0)\)</span>, we call an <i>unbiased</i> estimator <span class="math inline">\(\hat{\theta}_n\)</span> for <span class="math inline">\(\theta_0\)</span> a <strong>Minimum Variance Unbiased Estimator</strong> (MVUE) of <span class="math inline">\(\theta_0\)</span> if, for <em>any</em> other unbiased estimator of <span class="math inline">\(\theta_0\)</span>, say <span class="math inline">\(\tilde \theta_n\)</span>, <span class="math inline">\(\mathrm{Var}(\hat\theta_n) \le \mathrm{Var}(\tilde\theta)_n\)</span>.</p>
 </div>
 <hr>
+<p>In the following examples, we will use <span class="math inline">\(\ell'(\theta)\)</span> to denote <span class="math inline">\(\dfrac{\partial \ell}{\partial \theta}\)</span> and <span class="math inline">\(\ell''(\theta)\)</span> to denote <span class="math inline">\(\dfrac{\partial^2 \ell}{\partial \theta^2}\)</span>.</p>
 <div id="exm-normalEff" class="theorem example">
-<p><span class="theorem-title"><strong>Example 1</strong></span> Suppose <span class="math inline">\(X_1, \ldots, X_n \overset{IID}{\sim} N(\theta,\, \sigma^2 = 1)\)</span>, so <span class="math inline">\(f(x\mid \theta) = \displaystyle \frac{1}{\sqrt{2\pi}}\, e^{-\frac{1}{2}(x-\theta)^2}\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 1 (Normal<span class="math inline">\((\theta,1)\)</span> distribution with unknown mean, known variance:)</strong></span> Suppose <span class="math inline">\(X_1, \ldots, X_n \overset{IID}{\sim} \mathcal{N}(\theta,\, \sigma^2 = 1)\)</span>, so <span class="math inline">\(f(x\mid \theta) = \displaystyle \frac{1}{\sqrt{2\pi}}\, e^{-\frac{1}{2}(x-\theta)^2}\)</span>.</p>
 <ol type="1">
-<li><p><span class="math inline">\(\mathbb{E}(\bar{X}_n) = \dfrac{1}{n}\sum_{i=1}^n \mathbb{E}(X_i) = \dfrac{1}{n} \cdot n\theta_0 = \theta_0\)</span> ✓</p></li>
-<li><p><span class="math inline">\(\text{Var}(\bar{X}_n) = \dfrac{\sigma^2}{n} = \dfrac{1}{n}\)</span></p></li>
+<li><p><span class="math inline">\(\mathbb{E}(\overline{X}_n) = \dfrac{1}{n}\sum_{i=1}^n \mathbb{E}(X_i) = \dfrac{1}{n} \cdot n\theta_0 = \theta_0\)</span> ✓</p></li>
+<li><p><span class="math inline">\(\text{Var}(\overline{X}_n) = \dfrac{\sigma^2}{n} = \dfrac{1}{n}\)</span></p></li>
 <li><p><span class="math inline">\(I(\theta) = -\mathbb{E}\!\left(\dfrac{\partial^2}{\partial\theta^2} \log f(X \mid \theta)\right) = -\mathbb{E}(\ell''(\theta))\)</span></p></li>
 </ol>
 <p><span class="math display">\[
@@ -428,41 +449,59 @@ k'(\theta) = \int_{-\infty}^{\infty} \cdots \int_{-\infty}^{\infty} t(x_1, \ldot
 \end{align*}
 \]</span> Now, by Cramér-Rao:</p>
 <p><span class="math display">\[
-\text{Var}(\bar{X}_n) \geq \frac{1}{nI(\theta_0)} = \frac{1}{n}
+\text{Var}(\overline{X}_n) \geq \frac{1}{nI(\theta_0)} = \frac{1}{n}
 \]</span></p>
-<p>But <span class="math inline">\(\text{Var}(\bar{X}_n) = \dfrac{1}{n}\)</span></p>
+<p>But <span class="math inline">\(\text{Var}(\overline{X}_n) = \dfrac{1}{n}\)</span></p>
 <p>Therefore, we see that the sample mean is an efficient estimator of the true mean, for a normal distribution.</p>
 </div>
 <hr>
 <div id="exm-poisP" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2</strong></span> <span class="math inline">\(X \sim \text{Poisson}(\theta)\)</span>, where <span class="math inline">\(P(X = x) = \dfrac{\theta^x e^{-\theta}}{x!}\)</span>, <span class="math inline">\(\quad x = 0, 1, 2, \ldots\)</span></p>
-<p>Recall that <span class="math inline">\(\mathbb{E}(X) = \text{Var}(X) = \theta\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 2 (Poisson(<span class="math inline">\(\theta\)</span>) distribution with unknown rate:)</strong></span> <span class="math inline">\(X \sim \text{Poisson}(\theta)\)</span>, where <span class="math inline">\(P(X = x) = \dfrac{\theta^x e^{-\theta}}{x!}\)</span>, <span class="math inline">\(\quad x = 0, 1, 2, \ldots\)</span></p>
+<p>Recall that <span class="math inline">\(\mathbb{E}(X) = \text{Var}(X) = \theta\)</span>. What is the MLE of <span class="math inline">\(\theta\)</span> and is it efficient?</p>
+<details>
+<summary>
+Check your answer!
+</summary>
+<p>First, let’s find the MLE. Let’s write down <span class="math inline">\(\mathrm{lik}(\theta)\)</span> first, for an IID sample from this distribution:<span class="math inline">\(X_1, \ldots, X_n\)</span>.</p>
 <p><span class="math display">\[
-\ell(\theta) = \log f(x \mid \theta) = x\log\theta - \log(x!) - \theta
-\]</span></p>
+\begin{align*}
+\mathrm{lik}(\theta) &amp;= P(X_1=x_1, \ldots, X_n=x_n)\\
+                &amp;=\prod_{i=1}^n P(X_i = x_i)\\
+                &amp;=\prod_{i=1}^n \dfrac{\theta^{x_i} e^{-\theta}}{x_i!}\\
+\Rightarrow \ell_n(\theta) &amp;= \sum_{i=1}^n\log \left(\dfrac{\theta^{x_i} e^{-\theta}}{x_i!}\right)\\
+          &amp;= \sum_{i=1}^n \left[x_i\log\theta - \log(x_i!) - \theta\right]\\
+          &amp;= \sum_{i=1}^n x_i\log\theta -\sum_{i=1}^n\log(x_i!)- n\theta\\
+  \Rightarrow \ell_n'(\theta) &amp;= \sum_{i=1}^n \frac{x_i}{\theta} - n\\     
+\end{align*}
+\]</span> Therefore we see that the MLE of <span class="math inline">\(\theta\)</span> is the sample mean <span class="math inline">\(\overline{X}\)</span>. Now let’s compute the Fisher information with <span class="math inline">\(n=1\)</span>.</p>
 <p><span class="math display">\[
-\Rightarrow \ell(\theta) = \frac{x}{\theta} - 1 = \frac{x - \theta}{\theta}
-\]</span></p>
-<p><span class="math display">\[
-\Rightarrow \ell'(\theta) = -\frac{x}{\theta^2} \quad \Rightarrow \quad \mathbb{E}\!\left[-\frac{\partial^2 \ell}{\partial \theta^2}\right] = \frac{1}{\theta^2}\mathbb{E}(X) = \frac{\theta}{\theta^2} = \frac{1}{\theta}
+\begin{align*}
+\Rightarrow \ell(\theta) &amp;= \log f(x \mid \theta)\\
+       &amp;= x\log\theta - \log(x!) - \theta\\
+\Rightarrow \ell'(\theta) &amp;= \frac{x}{\theta} - 1\\
+\Rightarrow \ell''(\theta) &amp;= -\frac{x}{\theta^2}
+\end{align*}
+\]</span> Therefore, we get that <span class="math display">\[
+\Rightarrow \ell''(\theta) = -\frac{x}{\theta^2} \quad \Rightarrow \quad \mathbb{E}\!\left[-\frac{\partial^2 \ell}{\partial \theta^2}\right] = \frac{1}{\theta^2}\mathbb{E}(X) = \frac{\theta}{\theta^2} = \frac{1}{\theta}
 \]</span></p>
 <p><span class="math display">\[
 \Rightarrow I(\theta) = \frac{1}{\theta} \quad \Rightarrow \quad I_n(\theta) = \frac{n}{\theta}
 \]</span></p>
-<p><span class="math inline">\(\mathbb{E}(\bar{X}_n) = \theta\)</span> and <span class="math inline">\(\text{Var}(\bar{X}) = \dfrac{\theta}{n}\)</span></p>
+<p><span class="math inline">\(\mathbb{E}(\overline{X}_n) = \theta\)</span> and <span class="math inline">\(\text{Var}(\overline{X}) = \dfrac{\theta}{n}\)</span></p>
 <p>By Cramér- Rao:</p>
 <p><span class="math display">\[
-\text{Var}(\bar{X}) \geq \frac{1}{I_n(\theta)} = \frac{1}{n/\theta} = \frac{\theta}{n} = \text{Var}(\bar{X})
+\text{Var}(\overline{X}) \geq \frac{1}{I_n(\theta)} = \frac{1}{n/\theta} = \frac{\theta}{n} = \text{Var}(\overline{X})
 \]</span></p>
-<p><span class="math inline">\(\Rightarrow \bar{X}\)</span> is <strong>efficient.</strong></p>
+<p><span class="math inline">\(\Rightarrow \overline{X}\)</span> is <strong>efficient.</strong></p>
+</details>
 </div>
 <hr>
 <div id="exm-betaEff" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3</strong></span> Let <span class="math inline">\(X_1, \ldots, X_n \sim f(x \mid \theta)\)</span>, <span class="math inline">\(\theta &gt; 0\)</span>, where</p>
+<p><span class="theorem-title"><strong>Example 3 (Beta(<span class="math inline">\(\theta,1\)</span>) distribution, with unknown parameter <span class="math inline">\(\theta\)</span>)</strong></span> <span class="citation" data-cites="hmc2005">Hogg, McKean, and Craig (<a href="#ref-hmc2005" role="doc-biblioref">2005</a>)</span></p>
+<p>Let <span class="math inline">\(X_1, \ldots, X_n \sim f(x \mid \theta)\)</span>, <span class="math inline">\(\theta &gt; 0\)</span>, where</p>
 <p><span class="math display">\[
 f(x \mid \theta) = \begin{cases} \theta\, x^{\theta - 1}, &amp; 0 &lt; x &lt; 1 \\ 0, &amp; \text{otherwise} \end{cases}
 \]</span></p>
-<p>(This is the <span class="math inline">\(\text{Beta}(\theta, 1)\)</span> distribution.)</p>
 <p><span class="math display">\[
 \ell(\theta) = \log f(X \mid \theta) = \log\theta + (\theta - 1)\log X
 \]</span></p>
@@ -470,35 +509,119 @@ f(x \mid \theta) = \begin{cases} \theta\, x^{\theta - 1}, &amp; 0 &lt; x &lt; 1 
 \ell'(\theta) = \frac{1}{\theta} + \log X
 \]</span></p>
 <p><span class="math display">\[
-\ell''(\theta) = -\frac{1}{\theta^2} \quad \Rightarrow \quad I(\theta) = \frac{1}{\theta^2}
+\ell''(\theta) = -\frac{1}{\theta^2} \quad \Rightarrow \quad I(\theta) = -\mathbb{E}_\theta (\ell''(\theta)) = \frac{1}{\theta^2}
 \]</span></p>
 <p><strong>MLE of <span class="math inline">\(\theta\)</span>:</strong></p>
 <p><span class="math display">\[
-\ell_n(\theta) = \sum_{i=1}^n \log f(X_i \mid \theta) = \sum_{i=1}^n \left[\log\theta + (\theta-1)\log X_i\right] = n\log\theta + (\theta - 1)\sum_{i=1}^n \log X_i
+\begin{align*}
+\ell_n(\theta) &amp;= \sum_{i=1}^n \log f(x_i \mid \theta)\\
+     &amp;= \sum_{i=1}^n \left[\log\theta + (\theta-1)\log x_i\right]\\
+     &amp;= n\log\theta + (\theta - 1)\sum_{i=1}^n \log x_i.
+\end{align*}
 \]</span></p>
 <p><span class="math display">\[
-\ell_n'(\theta) = \frac{n}{\theta} + \sum_{i=1}^n \log(X_i)
+\ell_n'(\theta) = \frac{n}{\theta} + \sum_{i=1}^n \log(x_i)
 \]</span></p>
-<p>Setting <span class="math inline">\(\ell_n'(\theta) = 0\)</span> and solving for <span class="math inline">\(\hat{\theta}_{\text{MLE}}\)</span> gives:</p>
+<p>Setting <span class="math inline">\(\ell_n'(\theta) = 0\)</span> and solving for <span class="math inline">\(\hat{\theta}_{\text{MLE}}\equiv \hat\theta_n\)</span>, we get that the maximum likelihood estimator of <span class="math inline">\(\theta\)</span> is:</p>
+<p><span id="eq-beta-mle"><span class="math display">\[
+\hat{\theta}_n = \frac{-n}{\sum_{i=1}^n \log(X_i)}
+\tag{1}\]</span></span></p>
+<p><strong>Finding the density of <span class="math inline">\(\hat{\theta}_n\)</span>:</strong></p>
+<p>Let <span class="math inline">\(Y_i = -\log X_i \Rightarrow Y_i &gt; 0\)</span>. For <span class="math inline">\(y &gt; 0\)</span>, let’s first figure out the CDF of <span class="math inline">\(Y_i\)</span>.</p>
+You can try it yourself first, and then check your answer.
+<details>
+<summary>
+What is the distribution of <span class="math inline">\(Y_i\)</span>?
+</summary>
 <p><span class="math display">\[
-\hat{\theta}_{\text{MLE}} = \frac{-n}{\sum_{i=1}^n \log(X_i)}
-\]</span></p>
-<p><strong>Finding the density of <span class="math inline">\(\hat{\theta}_{\text{MLE}}\)</span>:</strong></p>
-<p>Let <span class="math inline">\(Y_i = -\log X_i \Rightarrow Y_i &gt; 0\)</span>. For <span class="math inline">\(y &gt; 0\)</span>:</p>
+\begin{align*}
+F_{Y_i}(y) &amp;= P(Y_i \leq y)\\
+           &amp;= P(-\log X_i \leq y)\\
+           &amp;= P(\log X_i \geq -y)\\
+           &amp;= P(X_i \geq e^{-y}) \\
+           &amp;= 1 - P(X_i &lt; e^{-y})
+\end{align*}
+\]</span> Since <span class="math inline">\(Y_i\)</span> is a continuous random variable, this means that <span class="math inline">\(F_{Y_i}(y) = 1- F_{X_i}(e^{-y})\)</span>. Thus:</p>
 <p><span class="math display">\[
-F_{Y_i}(y) = P(Y_i \leq y) = P(-\log X_i \leq y) = P(\log X_i \geq -y) = P(X_i \geq e^{-y}) = 1 - P(X_i &lt; e^{-y})
-\]</span></p>
-<p><span class="math display">\[
-\frac{d}{dy} F_{Y_i}(y) = f_{Y_i}(y) = -f_{X_i}(e^{-y})(-e^{-y}) = \left[\theta(e^{-y})^{\theta-1}\right]\left[e^{-y}\right] = \theta e^{-\theta y}, \quad y &gt; 0,\; \theta &gt; 0
-\]</span></p>
-<p><span class="math display">\[
-\Rightarrow Y_i \sim \text{Exp}(\theta) = \text{Gamma}(1, \theta)
-\]</span></p>
-<p><span class="math display">\[
+\begin{align*}
+f_{Y_i}(y)  &amp;= \frac{d}{dy} F_{Y_i}(y) \\
+         &amp;= -f_{X_i}(e^{-y})(-e^{-y}) \\
+         &amp;= \left[\theta(e^{-y})^{\theta-1}\right]\left[e^{-y}\right] \\
+         &amp;= \theta e^{-\theta y}\cdot e^y\cdot e^{-y}\\
+          &amp;= \theta e^{-\theta y}, \quad y &gt; 0,\; \theta &gt; 0
+\end{align*}
+\]</span> Therefore, <span class="math inline">\(Y_i \sim \text{Exp}(\theta)\)</span> which is the same as <span class="math inline">\(\text{Gamma}(1, \theta)\)</span>.</p>
+<span class="math display">\[
 \Rightarrow Y_1 + Y_2 + \cdots + Y_n \sim \text{Gamma}(n, \theta)
+\]</span>
+</details>
+<p>Define <span class="math inline">\(S = \displaystyle \sum_{i=1}^n Y_i\)</span>, so <span class="math inline">\(S\sim \text{Gamma}(n, \theta)\)</span>. Then, by <a href="#eq-beta-mle" class="quarto-xref">Equation&nbsp;1</a>, <span class="math inline">\(\hat\theta_n = \dfrac{n}{S}\)</span>. We need the expectation and variance of the MLE, so we can use the distribution of <span class="math inline">\(S\)</span> for this.</p>
+We know that
+<details>
+<summary>
+<span class="math inline">\(\mathbb{E}\left(\dfrac{1}{S}\right) = \dfrac{\theta}{n-1}.\)</span>
+</summary>
+<p>Let <span class="math inline">\(T\sim\text{Gamma}(\alpha, \lambda)\)</span> distribution, so <span class="math inline">\(f_T(t) = \dfrac{\lambda^\alpha}{\Gamma(\alpha)}\, t^{\alpha-1} e^{-\lambda t}, \quad t &gt; 0.\)</span></p>
+We can compute the moments of the distribution: <span class="math display">\[
+\begin{align*}
+\mathbb{E}(T^k)
+  &amp;= \int_0^\infty t^k \cdot \frac{\lambda^\alpha}{\Gamma(\alpha)}\, t^{\alpha-1} e^{-\lambda t}\, dt \\
+  &amp;= \frac{\lambda^\alpha}{\Gamma(\alpha)} \int_0^\infty t^{\alpha+k-1} e^{-\lambda t}\, dt.
+\end{align*}
+\]</span> Now we can do a neat trick here by observing that the integral <em>almost</em> looks like the Gamma function. Recall that <span class="math inline">\(\Gamma(\alpha+k) = \int_0^\infty u^{\alpha+k-1} e^{-u}\, du\)</span>, so we need a factor of <span class="math inline">\((\lambda t)^{\alpha+k-1}\)</span> in the integrand. Multiplying and dividing by <span class="math inline">\(\lambda^{\alpha+k-1}\)</span>, we get: <span class="math display">\[
+\mathbb{E}(T^k) = \frac{\lambda^\alpha}{\Gamma(\alpha)} \cdot \frac{1}{\lambda^{\alpha+k-1}} \int_0^\infty (\lambda t)^{\alpha+k-1} e^{-\lambda t}\, dt.
+\]</span> Substituting <span class="math inline">\(u = \lambda t\)</span>, so <span class="math inline">\(du = \lambda dt\)</span>, and we get: <span class="math display">\[
+\begin{align*}
+\mathbb{E}(T^k)
+  &amp;= \frac{\lambda^\alpha}{\Gamma(\alpha)} \cdot \frac{1}{\lambda^{\alpha+k}}
+     \int_0^\infty u^{\alpha+k-1} e^{-u}\, du \\[4pt]
+  &amp;= \frac{1}{\lambda^k} \cdot \frac{\Gamma(\alpha+k)}{\Gamma(\alpha)}.
+\end{align*}
+\]</span> Note that this will be true for any <span class="math inline">\(k\)</span> as long as <span class="math inline">\(\alpha + k &gt; 0\)</span>, so let’s set <span class="math inline">\(k = -1, \alpha = n\)</span>, and <span class="math inline">\(\lambda = \theta\)</span>: <span class="math display">\[
+\begin{align*}
+\mathbb{E}\!\left(\frac{1}{S}\right)
+  &amp;= \frac{1}{\theta^{-1}} \cdot \frac{\Gamma(n-1)}{\Gamma(n)}
+   = \theta \cdot \frac{\Gamma(n-1)}{(n-1)\,\Gamma(n-1)}
+   = \frac{\theta}{n-1}.
+\end{align*}
+\]</span>
+</details>
+<p>By <a href="#eq-beta-mle" class="quarto-xref">Equation&nbsp;1</a>, <span class="math inline">\(\hat\theta_n = \dfrac{n}{S} \Rightarrow \mathbb{E}(\hat\theta_n)= \dfrac{n}{n-1}\theta\)</span>. So we see that the MLE is <strong>not</strong> unbiased, but since the bias tends to 1 as <span class="math inline">\(n\to \infty\)</span>, we can say that the MLE is <strong>asymptotically unbiased</strong>.</p>
+<p>To compute the variance of the MLE, we need <span class="math inline">\(\mathbb{E}(\hat\theta_n^2) = n^2\mathbb{E}\left(\dfrac{1}{S^2}\right)\)</span>. We know that if <span class="math inline">\(T\sim \text{Gamma} (\alpha, \lambda)\)</span>, then <span class="math display">\[
+\mathbb{E}(T^k) = \frac{1}{\lambda^k}\frac{\Gamma(\alpha+k)}{\Gamma(\alpha)}.
+\]</span> Therefore, plugging in the values for <span class="math inline">\(S\)</span>, which are <span class="math inline">\(\alpha = n, \lambda = \theta, k = -2\)</span>, we get: <span class="math display">\[
+\begin{align*}
+\mathbb{E}(S^{-2}) &amp;= \theta^2 \dfrac{\Gamma(n-2)}{\Gamma(n)}\\
+                   &amp;= \theta^2 \dfrac{\Gamma(n-2)}{(n-1)(n-2)\Gamma(n-2)}\\
+                   &amp;= \dfrac{\theta^2}{(n-1)(n-2)}
+\end{align*}
 \]</span></p>
+<p>Putting this all together, we can compute the variance of the MLE as: <span class="math display">\[
+\begin{align*}
+\mathrm{Var}(\hat\theta_n) &amp;= \mathbb{E}(\hat\theta_n^2) - \left(\mathbb{E}(\hat\theta_n)\right)^2\\
+                         &amp;= \frac{n^2\theta^2}{(n-1)(n-2)} - \frac{n^2\theta^2}{(n-1)^2}\\
+                         &amp;= \frac{n^2\theta^2}{(n-1)^2(n-2)}.
+\end{align*}
+\]</span> Since <span class="math inline">\(nI(\theta) = \dfrac{n}{\theta^2}\)</span>, we see that <span class="math inline">\(\mathrm{Var}(\hat\theta_n) \ge \dfrac{1}{nI(\theta)}\)</span>, so the MLE does <em>not</em> attain the lower bound. Notice that it will be asymptotically efficient - but we already knew that, since we have shown that MLEs are asymptotically efficient.</p>
+<div style="display:none">
+<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="hmc2005">Hogg, McKean, and Craig (<a href="#ref-hmc2005" role="doc-biblioref">2005</a>)</span>;]</p>
+</div>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-hmc2005" class="csl-entry" role="listitem">
+Hogg, Robert V., Joseph W. McKean, and Allen T. Craig. 2005. <em>Introduction to Mathematical Statistics</em>. 6th ed. Upper Saddle River, NJ: Pearson Prentice Hall.
+</div>
+<div id="ref-samslides135" class="csl-entry" role="listitem">
+Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).
+</div>
+<div id="ref-rice2006" class="csl-entry" role="listitem">
+Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. Duxbury Press.
+</div>
+</div>
 
 
+</section>
 </div>
 </div>
 </section>
