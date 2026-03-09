@@ -68,6 +68,35 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <script async="" src="”https://siteimproveanalytics.com/js/siteanalyze_6294756.js”"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -282,7 +311,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#the-factorization-theorem" id="toc-the-factorization-theorem" class="nav-link active" data-scroll-target="#the-factorization-theorem">The Factorization Theorem:</a>
+  <ul class="collapse">
+  <li><a href="#sketch-of-proof-discrete-case" id="toc-sketch-of-proof-discrete-case" class="nav-link" data-scroll-target="#sketch-of-proof-discrete-case">Sketch of Proof (discrete case):</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -309,10 +341,50 @@ ul.task-list li input[type="checkbox"] {
 
 
 <!--# Lec 16 -- 2/27/2026: Efficiency & Cramér-Rao Theorem-->
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<section id="the-factorization-theorem" class="level2">
+<h2 class="anchored" data-anchor-id="the-factorization-theorem">The Factorization Theorem:</h2>
+<p>In the last lecture note, we stated the factorization theorem which establishes a necessary and sufficient condition for a statistic to be sufficient for a population parameter <span class="math inline">\(\theta\)</span>. Let’s restate it, and then we will sketch the proof in the discrete case.</p>
+<div id="thm-factorization" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1</strong></span> A necessary and sufficient condition for <span class="math inline">\(T\)</span> to be a sufficient statistic for <span class="math inline">\(\theta\)</span> is if there exist functions <span class="math inline">\(g\)</span> &amp; <span class="math inline">\(h\)</span> such that:</p>
+<p><span class="math display">\[
+f(x_1, \ldots, x_n \mid \theta) = g\!\left(T(x_1, \ldots, x_n) \mid \theta\right) \cdot h(x_1, \ldots, x_n)
+\]</span></p>
+</div>
+<section id="sketch-of-proof-discrete-case" class="level3">
+<h3 class="anchored" data-anchor-id="sketch-of-proof-discrete-case">Sketch of Proof (discrete case):</h3>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>First, let’s show that factorization <span class="math inline">\(\implies\)</span> sufficiency - that if we can factor <span class="math inline">\(f\)</span>, then <span class="math inline">\(T\)</span> is sufficient.</p>
+<p>Let <span class="math inline">\(T = T(X_1, \ldots, X_n)\)</span>. Let <span class="math inline">\(\vec{X} = (X_1, \ldots, X_n)\)</span>. We need the PMF of <span class="math inline">\(T\)</span>.</p>
+<p><span class="math display">\[
+\begin{align*}
+P(T = t) &amp;= \sum_{\vec{x}:\, T(\vec{x}) = t} P(\vec{X} = \vec{x}),\quad \text{ (where we sum over all $x$ that are mapped to $t$)}\\[4pt]
+&amp;= \sum_{\vec{x}:\, T(\vec{x}) = t} g(T(\vec{x}) \mid \theta)\, h(\vec{x}), \quad \text{since $f$ can be factored into $g$ and $h$ }\\[4pt]
+&amp;= \sum_{\vec{x}:\, T(\vec{x}) = t} g(t \mid \theta) \cdot h(\vec{x}), \\[4pt]
+&amp;= g(t \mid \theta) \sum_{\vec{x}:\, T(\vec{x}) = t} h(\vec{x}).
+\end{align*}
+\]</span></p>
+<p>Now let’s check if the conditional distribution of <span class="math inline">\(\vec{X}\)</span> given <span class="math inline">\(T\)</span> is independent of <span class="math inline">\(\theta\)</span>: <span class="math display">\[
+\begin{align*}
+P(\vec{X} = \vec{x} \mid T = t) &amp;= \frac{P(\vec{X} = \vec{x},\, T = t)}{P(T = t)} = \frac{P(\vec{X} = \vec{x})}{P(T = t)}\quad \text{ notice that the numerator is the probability for some particular $\vec{x}$} \\[8pt]
+&amp;= \frac{g(t \mid \theta)\cdot h(\vec{x})}{g(t \mid \theta)\sum_{\vec{x}:\, T(\vec{x}) = t} h(\vec{x})} \\[8pt]
+&amp;= \frac{h(\vec{x})}{\sum_{\vec{x}:\, T(\vec{x}) = t} h(\vec{x})} \quad \longrightarrow \text{no dependence on } \theta
+\end{align*}
+\]</span></p>
+<p><span class="math inline">\(\implies T\)</span> is sufficient for <span class="math inline">\(\theta\)</span>.</p>
+<p>Now the other direction: sufficiency <span class="math inline">\(\implies\)</span> factorization. That is, if <span class="math inline">\(T\)</span> is sufficient, we can factor <span class="math inline">\(f\)</span> into <span class="math inline">\(g, h\)</span>.</p>
+<p>Now, if <span class="math inline">\(T\)</span> is sufficient this implies that <span class="math inline">\(P(\vec{X} = \vec{x} \mid T = t)\)</span> does not depend on <span class="math inline">\(\theta\)</span>.</p>
+<p>Define <span class="math inline">\(g(t \mid \theta) = P(T = t \mid \theta)\)</span>, and <span class="math inline">\(h(\vec x) = P(\vec{X} = \vec{x} \mid T = t)\)</span>. Then we have that <span class="math display">\[
+\begin{align*}
+f(\vec x \mid \theta) &amp;= P(\vec{X} = \vec{x} \mid \theta) \\
+   &amp;= P(\vec{X} = \vec{x} \mid T = t, \theta) P(T = t \mid \theta) \\
+   &amp;= \underbrace{P(\vec{X} = \vec{x} \mid T = t)}_{h}\cdot \underbrace{P(T = t \mid \theta)}_{\large{g}},\\
+\end{align*}
+\]</span> where the last equality is because <span class="math inline">\(T\)</span> is a sufficient statistic. <span class="math inline">\(\blacksquare\)</span></p>
+</div>
+<p>We now have a nice corollary to the theorem that says that all we need for the MLE is <span class="math inline">\(T\)</span>, and we don’t need the entire sample.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
