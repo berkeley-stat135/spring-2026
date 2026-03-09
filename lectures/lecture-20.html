@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Proof of the Factorization theorem and the Rao-Blackwell Theorem</title>
+<title>Proof of the Rao-Blackwell Theorem and properties of Estimators</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -101,217 +101,19 @@ window.Quarto = {
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
 
-<body class="nav-sidebar docked">
+<body>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-19.html">Lecture 19: Proof of the Factorization theorem and the Rao-Blackwell Theorem</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
-    </div>
-  </nav>
-</header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="../index.html" class="sidebar-logo-link">
-      <img src="../assets/stat_bear.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
-    <div class="sidebar-title mb-0 py-0">
-      <a href="../">Stat 135</a> 
-        <div class="sidebar-tools-main">
-    <a href="https://github.com/berkeley-stat135/spring-2026" title="" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
-</div>
-    </div>
-      </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Home / Schedule</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../about.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">About Stat 135</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Syllabus</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../staff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Staff</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../calendar.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Calendar</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Lectures</span></span>
-  </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 1: Syllabus &amp; Diagnostic Test</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 2: Survey Sampling, Introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 3: Survey Sampling, Inference</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 4: Wrapping up Sampling</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 5: Method of Moments</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 6: MoM &amp; Mathematical Digressions</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-7.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 7: Standard Errors of MoM Estimators</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 8: Computing Standard Errors, continued</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-9.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 9: The Bootstrap; and Introducing Maximum Likelihood Estimation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-10.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 10: Maximum Likelihood Estimation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 11: MLE and the Multinomial Distribution</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-12.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 12: Mean Squared Error and Consistency</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-13.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 13: Consistency of the Maximum Likelihood Estimator</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-14.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 14: Asymptotic Distribution of the Maximum Likelihood Estimator</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-15.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 15: Proof of Asymptotic Normality, and Confidence Intervals</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-16.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 16: Efficiency</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-17.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 17: Proof of the Cramér-Rao Lower Bound</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-18.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 18: Sufficiency, and the Factorization Theorem</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-19.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Lecture 19: Proof of the Factorization theorem and the Rao-Blackwell Theorem</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Datasets</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">License</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-factorization-theorem" id="toc-the-factorization-theorem" class="nav-link active" data-scroll-target="#the-factorization-theorem">The Factorization Theorem:</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
   <ul class="collapse">
   <li><a href="#sketch-of-proof-discrete-case" id="toc-sketch-of-proof-discrete-case" class="nav-link" data-scroll-target="#sketch-of-proof-discrete-case">Sketch of Proof (discrete case):</a></li>
   </ul></li>
@@ -324,7 +126,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Proof of the Factorization theorem and the Rao-Blackwell Theorem</h1>
+<h1 class="title">Proof of the Rao-Blackwell Theorem and properties of Estimators</h1>
 </div>
 
 
@@ -341,9 +143,8 @@ window.Quarto = {
 </header>
 
 
-<!--# Lec 16 -- 2/27/2026: Efficiency & Cramér-Rao Theorem-->
-<section id="the-factorization-theorem" class="level2">
-<h2 class="anchored" data-anchor-id="the-factorization-theorem">The Factorization Theorem:</h2>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>In the last lecture note, we stated the factorization theorem which establishes a necessary and sufficient condition for a statistic to be sufficient for a population parameter <span class="math inline">\(\theta\)</span>. Let’s restate it, and then we will sketch the proof in the discrete case.</p>
 <div id="thm-factorization" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 1</strong></span> A necessary and sufficient condition for <span class="math inline">\(T\)</span> to be a sufficient statistic for <span class="math inline">\(\theta\)</span> is if there exist functions <span class="math inline">\(g\)</span> &amp; <span class="math inline">\(h\)</span> such that:</p>
