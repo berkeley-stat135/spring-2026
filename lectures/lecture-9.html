@@ -478,8 +478,8 @@ Warning
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">$</span>t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1]
-[1,]  2.6
-[2,]  3.6</code></pre>
+[1,]  3.2
+[2,]  3.2</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">$</span>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -518,12 +518,12 @@ Warning
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(boot_np_new<span class="sc">$</span>t) <span class="do">## the first six bootstrap values of theta_hat</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          [,1]     [,2]
-[1,] 0.3029813 1.482354
-[2,] 0.3603526 1.892425
-[3,] 0.3237559 1.672948
-[4,] 0.3315037 1.318164
-[5,] 0.4439410 1.908212
-[6,] 0.3309519 1.739876</code></pre>
+[1,] 0.4703458 2.142096
+[2,] 0.3700609 1.889637
+[3,] 0.3878547 1.758926
+[4,] 0.3129865 1.248295
+[5,] 0.3613846 1.644468
+[6,] 0.4076714 1.978310</code></pre>
 </div>
 </div>
 <p>Let’s compute the confidence intervals using the very convenient function <code>boot.ci()</code> that takes as input the object returned by <code>boot()</code>. So we will input <code>boot_np_new</code> into <code>boot.ci()</code>. We specify the <strong>type</strong> of intervals we want, and <code>index=1</code> indicates which column of the output matrix <code>boot_np_new</code> we should consider. Let’s first compute the percentile and basic intervals for <span class="math inline">\(\alpha\)</span>:</p>
@@ -539,7 +539,7 @@ boot.ci(boot.out = boot_np_new, type = c("perc", "basic"), index = 1)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.2658,  0.4525 )   ( 0.3033,  0.4901 )  
+95%   ( 0.2669,  0.4532 )   ( 0.3026,  0.4889 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -556,7 +556,7 @@ boot.ci(boot.out = boot_np_new, type = c("perc", "basic"), index = 2)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 1.024,  2.031 )   ( 1.338,  2.344 )  
+95%   ( 1.030,  2.029 )   ( 1.340,  2.338 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -618,7 +618,7 @@ boot.ci(boot.out = boot_par, type = c("perc", "basic"), index = 1)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.2339,  0.4835 )   ( 0.2723,  0.5220 )  
+95%   ( 0.2297,  0.4840 )   ( 0.2718,  0.5261 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -639,7 +639,7 @@ boot.ci(boot.out = boot_par, type = c("perc", "basic"), index = 2)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.842,  2.222 )   ( 1.146,  2.526 )  
+95%   ( 0.841,  2.212 )   ( 1.156,  2.528 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
