@@ -479,7 +479,7 @@ Warning
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1]
 [1,]  2.2
-[2,]  2.0</code></pre>
+[2,]  3.4</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">$</span>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -518,12 +518,12 @@ Warning
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(boot_np_new<span class="sc">$</span>t) <span class="do">## the first six bootstrap values of theta_hat</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          [,1]     [,2]
-[1,] 0.3822821 1.820505
-[2,] 0.4056665 1.664190
-[3,] 0.4161102 1.992638
-[4,] 0.3506064 1.470197
-[5,] 0.4120790 2.028581
-[6,] 0.4029844 1.841111</code></pre>
+[1,] 0.3800022 1.435426
+[2,] 0.3265927 1.784531
+[3,] 0.4008835 1.937996
+[4,] 0.3467718 1.583879
+[5,] 0.3824901 2.159510
+[6,] 0.3331799 1.663664</code></pre>
 </div>
 </div>
 <p>Let’s compute the confidence intervals using the very convenient function <code>boot.ci()</code> that takes as input the object returned by <code>boot()</code>. So we will input <code>boot_np_new</code> into <code>boot.ci()</code>. We specify the <strong>type</strong> of intervals we want, and <code>index=1</code> indicates which column of the output matrix <code>boot_np_new</code> we should consider. Let’s first compute the percentile and basic intervals for <span class="math inline">\(\alpha\)</span>:</p>
@@ -539,7 +539,7 @@ boot.ci(boot.out = boot_np_new, type = c("perc", "basic"), index = 1)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.2655,  0.4528 )   ( 0.3030,  0.4903 )  
+95%   ( 0.2650,  0.4544 )   ( 0.3015,  0.4908 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -556,7 +556,7 @@ boot.ci(boot.out = boot_np_new, type = c("perc", "basic"), index = 2)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 1.010,  2.033 )   ( 1.336,  2.358 )  
+95%   ( 1.032,  2.027 )   ( 1.342,  2.337 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -618,7 +618,7 @@ boot.ci(boot.out = boot_par, type = c("perc", "basic"), index = 1)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.2273,  0.4805 )   ( 0.2753,  0.5285 )  
+95%   ( 0.2280,  0.4824 )   ( 0.2734,  0.5278 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -639,7 +639,7 @@ boot.ci(boot.out = boot_par, type = c("perc", "basic"), index = 2)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.843,  2.200 )   ( 1.168,  2.525 )  
+95%   ( 0.819,  2.218 )   ( 1.151,  2.550 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
