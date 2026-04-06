@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Mean Squared Error and Consistency</title>
+<title>The Neyman-Pearson Lemma</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -88,261 +88,16 @@ div.csl-indent {
 }</script>
 <script async="" src="”https://siteimproveanalytics.com/js/siteanalyze_6294756.js”"></script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
 
-<body class="nav-sidebar docked">
+<body>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-12.html">Lecture 12: Mean Squared Error and Consistency</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
-    </div>
-  </nav>
-</header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="../index.html" class="sidebar-logo-link">
-      <img src="../assets/stat_bear.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
-    <div class="sidebar-title mb-0 py-0">
-      <a href="../">Stat 135</a> 
-        <div class="sidebar-tools-main">
-    <a href="https://github.com/berkeley-stat135/spring-2026" title="" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
-</div>
-    </div>
-      </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Home / Schedule</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../about.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">About Stat 135</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Syllabus</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../staff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Staff</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../calendar.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Calendar</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Lectures</span></span>
-  </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 1: Syllabus &amp; Diagnostic Test</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 2: Survey Sampling, Introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 3: Survey Sampling, Inference</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 4: Wrapping up Sampling</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 5: Method of Moments</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 6: MoM &amp; Mathematical Digressions</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-7.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 7: Standard Errors of MoM Estimators</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 8: Computing Standard Errors, continued</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-9.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 9: The Bootstrap; and Introducing Maximum Likelihood Estimation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-10.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 10: Maximum Likelihood Estimation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 11: MLE and the Multinomial Distribution</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-12.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Lecture 12: Mean Squared Error and Consistency</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-13.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 13: Consistency of the Maximum Likelihood Estimator</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-14.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 14: Asymptotic Distribution of the Maximum Likelihood Estimator</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-15.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 15: Proof of Asymptotic Normality, and Confidence Intervals</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-16.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 16: Efficiency</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-17.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 17: Proof of the Cramér-Rao Lower Bound</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-18.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 18: Sufficiency, and the Factorization Theorem</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-19.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 19: Proof of the Factorization theorem and the Rao-Blackwell Theorem</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-20.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 20: Proof of the Rao-Blackwell Theorem and Properties of Estimators</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-21.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 21: Introducing Hypotheses Tests</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-22.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 22: Testing Hypotheses: Vocabulary and Examples</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Datasets</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">License</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -350,10 +105,6 @@ window.Quarto = {
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#consistency-of-the-mle-of-theta." id="toc-consistency-of-the-mle-of-theta." class="nav-link" data-scroll-target="#consistency-of-the-mle-of-theta.">Consistency of the MLE of <span class="math inline">\(\theta\)</span>.</a>
-  <ul class="collapse">
-  <li><a href="#claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent" id="toc-claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent" class="nav-link" data-scroll-target="#claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent">Claim: If MSE of an estimator goes to 0, the estimator must be consistent</a></li>
-  </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -363,7 +114,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Mean Squared Error and Consistency</h1>
+<h1 class="title">The Neyman-Pearson Lemma</h1>
 </div>
 
 
@@ -380,65 +131,17 @@ window.Quarto = {
 </header>
 
 
+<!-- ## Lec 23, March 18, 2026-->
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Now we will look at the properties of maximum likelihood estimation when we have large samples. We want to consider the properties of the estimator: Is it unbiased? Consistent? What can we say about the distribution of the estimator when the sample size is large?</p>
-<p>The two main results that we will establish in this chapter and the next are about the consistency of the MLE; and that the MLE is asymptotically normal. The variance of the MLE is related to a quantity called the <em>Fisher Information</em>. First, we will establish that the MLE is consistent.</p>
-</section>
-<section id="consistency-of-the-mle-of-theta." class="level2">
-<h2 class="anchored" data-anchor-id="consistency-of-the-mle-of-theta.">Consistency of the MLE of <span class="math inline">\(\theta\)</span>.</h2>
-<p>As we might guess, the maximum likelihood estimator from an IID sample with PDF <span class="math inline">\(f(x\vert \theta)\)</span>, is <strong>consistent</strong> for <span class="math inline">\(\theta\)</span> (under appropriate <em>smoothness</em> conditions on <span class="math inline">\(f\)</span>, which means that we can take as many continuous derivatives of <span class="math inline">\(f\)</span> as we need and it won’t have any sharp corners etc.).</p>
-<p>In the following, we will assume <span class="math inline">\(f\)</span> is smooth. This will ensure that it is “well-behaved” and we can interchange the orders of integration and differentiation.</p>
-<p>In our discussion below, <span class="math inline">\(\theta_0\)</span> is the <strong>true</strong> unknown value of the parameter <span class="math inline">\(\theta\)</span>, and <span class="math inline">\(f(x \mid \theta_0)\)</span> is the true PDF (<span class="math inline">\(\theta_0\)</span> is some <em>fixed, but unknown</em> value).</p>
-<p>Recall that <span class="math inline">\(X_1, \dots, X_n \overset{\text{IID}}{\sim} f(x \mid \theta)\)</span> is a random sample, and <span class="math display">\[
-\operatorname{lik}(\theta)
-= \operatorname{lik}(\theta \mid X_1, \dots, X_n)
-= \prod_{i=1}^n f(X_i \mid \theta)
-\]</span></p>
-<p>Define <span class="math inline">\(\ell(\theta) = \log \operatorname{lik}(\theta)\)</span>. Then, <span class="math display">\[
-\frac{1}{n} \ell(\theta) =\frac{1}{n} \log \operatorname{lik}(\theta) = \frac{1}{n} \sum_{i=1}^n \log f(X_i\mid \theta).
-\]</span></p>
-<section id="claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent" class="level3">
-<h3 class="anchored" data-anchor-id="claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent">Claim: If MSE of an estimator goes to 0, the estimator must be consistent</h3>
-<p>Recall the following definitions for an estimator <span class="math inline">\(\hat \theta_n\)</span> of the parameter <span class="math inline">\(\theta\)</span>.</p>
-<p><span class="math display">\[\text{Bias}(\hat{\theta}_n) = E(\hat{\theta}_n) - \theta\]</span></p>
-<p><span class="math display">\[\text{Var}(\hat{\theta}_n) = E\left[(\hat{\theta}_n - E(\hat{\theta}_n))^2\right]\]</span></p>
-<p><span class="math display">\[\text{MSE}(\hat{\theta}_n) = E\left[(\hat{\theta}_n - \theta)^2\right] = \text{Bias}(\hat{\theta}_n)^2 + \text{Var}(\hat{\theta}_n)\]</span></p>
-<p>We want to show that <span class="math inline">\(\text{MSE}(\hat{\theta}_n) \to 0 \Rightarrow \hat{\theta}_n \xrightarrow{P} \theta\)</span>,</p>
-<p>that is, <span class="math inline">\(\forall \varepsilon &gt; 0\)</span>, <span class="math inline">\(\displaystyle \lim_{n \to \infty} P(|\hat{\theta}_n - \theta| &gt; \varepsilon) = 0\)</span>.</p>
-<!--How did we prove Chebyshev? By applying Markov's Inequality to
-$Y = (X - \mu)^2 \geq 0$. By Markov, $P(Y > c) \leq \frac{E[Y]}{c}$:
-
-$$\Rightarrow P\!\left((X-\mu)^2 > c^2\right) \leq \frac{E(X-\mu)^2}{c^2}$$
-
-$$\Rightarrow P(|X - \mu| > c) \leq \frac{\text{Var}(X)}{c^2}$$-->
-<p>Applying Markov’s inequality to <span class="math inline">\(Y = (X - a)^2 \geq 0\)</span> for some <span class="math inline">\(a\)</span>, <span class="math inline">\(c &gt;0\)</span>, we get:</p>
-<p><span class="math display">\[P(Y &gt; c^2) = P\!\left((X-a)^2 &gt; c^2\right) = P(|X-a| &gt; c) \leq \frac{E\!\left[(X-a)^2\right]}{c^2} \]</span></p>
-<p>Now let <span class="math inline">\(X = \hat{\theta}_n\)</span>, <span class="math inline">\(a = \theta\)</span>, <span class="math inline">\(c = \varepsilon &gt; 0\)</span>. We get:</p>
-<p><span class="math display">\[P(|\hat{\theta}_n - \theta| &gt; \varepsilon) \leq \frac{E\left[(\hat{\theta}_n - \theta)^2\right]}{\varepsilon^2} = \frac{\text{MSE}(\hat{\theta}_n)}{\varepsilon^2}\]</span></p>
-<p>Since the MSE of <span class="math inline">\(\hat\theta_n\)</span> goes <span class="math inline">\(0\)</span> as <span class="math inline">\(n \to \infty\)</span>, this implies that <span class="math display">\[
-\lim_{n\to\infty} P(|\hat{\theta}_n - \theta| &gt; \varepsilon) = 0 \Rightarrow \hat{\theta}_n \xrightarrow{P} \theta.
-\]</span> We have shown that if <span class="math inline">\(MSE(\hat\theta_n) \to 0\)</span>, then <span class="math inline">\(\hat\theta_n\)</span> must be a consistent estimator for <span class="math inline">\(\theta\)</span>.</p>
-<p><strong>Example</strong></p>
-<p>Let <span class="math inline">\(X_1, \dots, X_n \overset{IID}{\sim} \mathcal{N}(\mu, 1)\)</span>. Since <span class="math inline">\(E(X_i) = \mu\)</span> and <span class="math inline">\(\mathrm{Var}(X_i) = 1\)</span>, we have that <span class="math inline">\(E(\overline{X}_n) = \mu\)</span> and <span class="math inline">\(\mathrm{Var}(\overline{X}_n) = \dfrac{1}{n}\)</span>.</p>
-<p>Let <span class="math inline">\(\hat\theta_n = \overline{X}_n + \dfrac{1}{n}\)</span>, which implies that, as <span class="math inline">\(E(\hat\theta_n) = E\left(\overline{X}_n + \dfrac{1}{n}\right) = \mu + \dfrac{1}{n}\)</span>, the bias of <span class="math inline">\(\hat\theta_n\)</span> must be <span class="math inline">\(\dfrac{1}{n}\)</span>: <span class="math display">\[
-\mathrm{Bias}(\hat\theta_n) = E(\hat\theta_n) - \theta =  \mu + \dfrac{1}{n} - \mu = \dfrac{1}{n},
-\]</span> since <span class="math inline">\(\theta = \mu\)</span> in this example. Therefore, <span class="math inline">\(\mathrm{Bias}(\hat\theta_n) \to 0\)</span> as <span class="math inline">\(n\to \infty\)</span>. Note that <span class="math inline">\(\left(\mathrm{Bias}(\hat\theta_n)\right)^2 = \dfrac{1}{n^2} \to 0\)</span> as <span class="math inline">\(n \to \infty\)</span>.</p>
-<p>Further, <span class="math display">\[
-\mathrm{Var}(\hat\theta_n) = \mathrm{Var}\left(\overline{X}_n + \dfrac{1}{n}\right) = \mathrm{Var}\left(\overline{X}_n \right) = \dfrac{1}{n} \to 0 \text{ as } n \to \infty.
-\]</span> As a consequence of the statements above, we have that the MSE of <span class="math inline">\(\theta_n\)</span> goes to 0 as <span class="math inline">\(n \to \infty\)</span>, and therefore, <span class="math inline">\(\hat\theta_n\)</span> is a consistent estimator of <span class="math inline">\(\mu\)</span>.</p>
-<p>̂</p>
+<p>[UNDER CONSTRUCTION]</p>
 <div style="display:none">
-<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="hmc2005">Hogg, McKean, and Craig (<a href="#ref-hmc2005" role="doc-biblioref">2005</a>)</span>;]</p>
+<p><span class="citation" data-cites="rice2006 samslides135 hmc2005">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>; <a href="#ref-hmc2005" role="doc-biblioref">Hogg, McKean, and Craig 2005</a>)</span></p>
 </div>
-</section>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-chi-hest2018" class="csl-entry" role="listitem">
-Chihara, Laura M., and Tim C. Hesterberg. 2018. <em>Mathematical Statistics with Resampling and r</em>. John Wiley &amp; Sons, Hoboken, NJ.
-</div>
 <div id="ref-hmc2005" class="csl-entry" role="listitem">
 Hogg, Robert V., Joseph W. McKean, and Allen T. Craig. 2005. <em>Introduction to Mathematical Statistics</em>. 6th ed. Upper Saddle River, NJ: Pearson Prentice Hall.
 </div>

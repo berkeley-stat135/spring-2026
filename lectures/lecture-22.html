@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Mean Squared Error and Consistency</title>
+<title>An Example of a Hypothesis Test using the Likelihood Ratio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-12.html">Lecture 12: Mean Squared Error and Consistency</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-22.html">Lecture 22: Testing Hypotheses: Vocabulary and Examples</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -263,7 +263,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-12.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lectures/lecture-12.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 12: Mean Squared Error and Consistency</span></a>
   </div>
 </li>
@@ -323,7 +323,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-22.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/lecture-22.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lecture 22: Testing Hypotheses: Vocabulary and Examples</span></a>
   </div>
 </li>
@@ -349,10 +349,9 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#consistency-of-the-mle-of-theta." id="toc-consistency-of-the-mle-of-theta." class="nav-link" data-scroll-target="#consistency-of-the-mle-of-theta.">Consistency of the MLE of <span class="math inline">\(\theta\)</span>.</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
   <ul class="collapse">
-  <li><a href="#claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent" id="toc-claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent" class="nav-link" data-scroll-target="#claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent">Claim: If MSE of an estimator goes to 0, the estimator must be consistent</a></li>
+  <li><a href="#example-coin-toss" id="toc-example-coin-toss" class="nav-link" data-scroll-target="#example-coin-toss">Example: Coin Toss</a></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -363,7 +362,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Mean Squared Error and Consistency</h1>
+<h1 class="title">An Example of a Hypothesis Test using the Likelihood Ratio</h1>
 </div>
 
 
@@ -380,70 +379,198 @@ window.Quarto = {
 </header>
 
 
+<!-- ## Lec 22, March 16, 2026-->
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Now we will look at the properties of maximum likelihood estimation when we have large samples. We want to consider the properties of the estimator: Is it unbiased? Consistent? What can we say about the distribution of the estimator when the sample size is large?</p>
-<p>The two main results that we will establish in this chapter and the next are about the consistency of the MLE; and that the MLE is asymptotically normal. The variance of the MLE is related to a quantity called the <em>Fisher Information</em>. First, we will establish that the MLE is consistent.</p>
+<p>The Neyman-Pearson approach is to cast a hypothesis test as a <em>decision</em> problem, and focus on the errors. The idea is to <em>fix</em> <span class="math inline">\(\alpha\)</span>, the probability of a type I error, and then <em>maximize the power</em> for that fixed <span class="math inline">\(\alpha\)</span>. The possible rejection regions are found for the alpha we set, and then we can pick the one with the largest power.</p>
+<p>In this chapter, we will use the Neyman-Pearson approach to analyze a hypothesis test regarding whether a coin is fair or biased towards heads. Recall the definitions of the rejection and acceptance regions:</p>
+<ul>
+<li><strong>Rejection Region (Critical Region):</strong> The set of values for the test statistic that leads us to reject the null hypothesis (and <em>de facto</em> accept the alternative hypothesis).</li>
+<li><strong>Acceptance Region:</strong> The complement of the rejection region (where we fail to reject <span class="math inline">\(H_0\)</span>, and thus accept it).</li>
+</ul>
+<section id="example-coin-toss" class="level3">
+<h3 class="anchored" data-anchor-id="example-coin-toss">Example: Coin Toss</h3>
+<p>Let <span class="math inline">\(X \sim Bin(5, p)\)</span> with our hypotheses being: <span class="math display">\[
+H_0: p = p_0 = 1/2 \text{  vs  } H_1: p = p_1 = 3/4
+\]</span></p>
+<p>Recall that the binomial probability mass function with <span class="math inline">\(n=5\)</span>, and <span class="math inline">\(p \in \{1/2, 3/4\}\)</span>:</p>
+<p><span class="math display">\[
+P(X=x) = \binom{5}{x}p^k(1-p)^{5-k}
+\]</span> Fill in the values for the two mass functions <span class="math inline">\(f_0(x) = P(X=x\mid H_0)\)</span> and <span class="math inline">\(f_1(x) = P(X=x\mid H_1)\)</span>, and the likelihood ratio <span class="math inline">\(f_0 / f_1\)</span>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\(x\)</span></th>
+<th style="text-align: left;">0</th>
+<th style="text-align: left;">1</th>
+<th style="text-align: left;">2</th>
+<th style="text-align: left;">3</th>
+<th style="text-align: left;">4</th>
+<th style="text-align: left;">5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(f_0\)</span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(f_1\)</span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(f_0 / f_1\)</span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p><br>
+</p>
+<details>
+<summary>
+Check your computations
+</summary>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\(x\)</span></th>
+<th style="text-align: left;">0</th>
+<th style="text-align: left;">1</th>
+<th style="text-align: left;">2</th>
+<th style="text-align: left;">3</th>
+<th style="text-align: left;">4</th>
+<th style="text-align: left;">5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong><span class="math inline">\(f_0\)</span></strong></td>
+<td style="text-align: left;"><span class="math inline">\(1/32\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(5/32\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(10/32\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(10/32\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(5/32\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(1/32\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><span class="math inline">\(f_1\)</span></strong></td>
+<td style="text-align: left;"><span class="math inline">\(1/1024\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(15/1024\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(90/1024\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(270/1024\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(405/1024\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(243/1024\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong><span class="math inline">\(f_0 / f_1\)</span></strong></td>
+<td style="text-align: left;"><span class="math inline">\(32/1\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(32/3\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(32/9\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(32/27\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(32/81\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(32/243\)</span></td>
+</tr>
+</tbody>
+</table>
+</details>
+<p>The likelihood ratio <span class="math inline">\(f_0 / f_1\)</span> is our tool to find the <strong>“best”</strong> critical (that is, rejection) region (the one that maximizes power for a fixed <span class="math inline">\(\alpha\)</span>).</p>
+<section id="significance-level-alpha-dfrac132" class="level4">
+<h4 class="anchored" data-anchor-id="significance-level-alpha-dfrac132">1. Significance level <span class="math inline">\(\alpha = \dfrac{1}{32}\)</span></h4>
+<p>First, let’s specify <strong><span class="math inline">\(\alpha = 1/32\)</span></strong>. In this case, what are the possible critical regions? Which one should we use?</p>
+<p>We look for sets <span class="math inline">\(R\)</span> of possible values of <span class="math inline">\(x\)</span> such that the probability that <span class="math inline">\(P(X \in R \mid H_0) =  \dfrac{1}{32}\)</span>. After you fill the table above, you will see that there are two possible candidates for <span class="math inline">\(R\)</span>, namely <span class="math inline">\(R_1 = \{0\}\)</span> or <span class="math inline">\(R_2 = \{5\}\)</span>. The outcome <span class="math inline">\(x = 5\)</span> has the smaller likelihood ratio (<span class="math inline">\(\dfrac{32}{243}\)</span>), and therefore the higher power <span class="math inline">\(P(X \in R \mid H_1)\)</span>.</p>
+<p>Note that both <span class="math inline">\(\alpha\)</span> and power are probabilities of exactly the <em>same</em> event, just under different distributions.</p>
 </section>
-<section id="consistency-of-the-mle-of-theta." class="level2">
-<h2 class="anchored" data-anchor-id="consistency-of-the-mle-of-theta.">Consistency of the MLE of <span class="math inline">\(\theta\)</span>.</h2>
-<p>As we might guess, the maximum likelihood estimator from an IID sample with PDF <span class="math inline">\(f(x\vert \theta)\)</span>, is <strong>consistent</strong> for <span class="math inline">\(\theta\)</span> (under appropriate <em>smoothness</em> conditions on <span class="math inline">\(f\)</span>, which means that we can take as many continuous derivatives of <span class="math inline">\(f\)</span> as we need and it won’t have any sharp corners etc.).</p>
-<p>In the following, we will assume <span class="math inline">\(f\)</span> is smooth. This will ensure that it is “well-behaved” and we can interchange the orders of integration and differentiation.</p>
-<p>In our discussion below, <span class="math inline">\(\theta_0\)</span> is the <strong>true</strong> unknown value of the parameter <span class="math inline">\(\theta\)</span>, and <span class="math inline">\(f(x \mid \theta_0)\)</span> is the true PDF (<span class="math inline">\(\theta_0\)</span> is some <em>fixed, but unknown</em> value).</p>
-<p>Recall that <span class="math inline">\(X_1, \dots, X_n \overset{\text{IID}}{\sim} f(x \mid \theta)\)</span> is a random sample, and <span class="math display">\[
-\operatorname{lik}(\theta)
-= \operatorname{lik}(\theta \mid X_1, \dots, X_n)
-= \prod_{i=1}^n f(X_i \mid \theta)
-\]</span></p>
-<p>Define <span class="math inline">\(\ell(\theta) = \log \operatorname{lik}(\theta)\)</span>. Then, <span class="math display">\[
-\frac{1}{n} \ell(\theta) =\frac{1}{n} \log \operatorname{lik}(\theta) = \frac{1}{n} \sum_{i=1}^n \log f(X_i\mid \theta).
-\]</span></p>
-<section id="claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent" class="level3">
-<h3 class="anchored" data-anchor-id="claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent">Claim: If MSE of an estimator goes to 0, the estimator must be consistent</h3>
-<p>Recall the following definitions for an estimator <span class="math inline">\(\hat \theta_n\)</span> of the parameter <span class="math inline">\(\theta\)</span>.</p>
-<p><span class="math display">\[\text{Bias}(\hat{\theta}_n) = E(\hat{\theta}_n) - \theta\]</span></p>
-<p><span class="math display">\[\text{Var}(\hat{\theta}_n) = E\left[(\hat{\theta}_n - E(\hat{\theta}_n))^2\right]\]</span></p>
-<p><span class="math display">\[\text{MSE}(\hat{\theta}_n) = E\left[(\hat{\theta}_n - \theta)^2\right] = \text{Bias}(\hat{\theta}_n)^2 + \text{Var}(\hat{\theta}_n)\]</span></p>
-<p>We want to show that <span class="math inline">\(\text{MSE}(\hat{\theta}_n) \to 0 \Rightarrow \hat{\theta}_n \xrightarrow{P} \theta\)</span>,</p>
-<p>that is, <span class="math inline">\(\forall \varepsilon &gt; 0\)</span>, <span class="math inline">\(\displaystyle \lim_{n \to \infty} P(|\hat{\theta}_n - \theta| &gt; \varepsilon) = 0\)</span>.</p>
-<!--How did we prove Chebyshev? By applying Markov's Inequality to
-$Y = (X - \mu)^2 \geq 0$. By Markov, $P(Y > c) \leq \frac{E[Y]}{c}$:
-
-$$\Rightarrow P\!\left((X-\mu)^2 > c^2\right) \leq \frac{E(X-\mu)^2}{c^2}$$
-
-$$\Rightarrow P(|X - \mu| > c) \leq \frac{\text{Var}(X)}{c^2}$$-->
-<p>Applying Markov’s inequality to <span class="math inline">\(Y = (X - a)^2 \geq 0\)</span> for some <span class="math inline">\(a\)</span>, <span class="math inline">\(c &gt;0\)</span>, we get:</p>
-<p><span class="math display">\[P(Y &gt; c^2) = P\!\left((X-a)^2 &gt; c^2\right) = P(|X-a| &gt; c) \leq \frac{E\!\left[(X-a)^2\right]}{c^2} \]</span></p>
-<p>Now let <span class="math inline">\(X = \hat{\theta}_n\)</span>, <span class="math inline">\(a = \theta\)</span>, <span class="math inline">\(c = \varepsilon &gt; 0\)</span>. We get:</p>
-<p><span class="math display">\[P(|\hat{\theta}_n - \theta| &gt; \varepsilon) \leq \frac{E\left[(\hat{\theta}_n - \theta)^2\right]}{\varepsilon^2} = \frac{\text{MSE}(\hat{\theta}_n)}{\varepsilon^2}\]</span></p>
-<p>Since the MSE of <span class="math inline">\(\hat\theta_n\)</span> goes <span class="math inline">\(0\)</span> as <span class="math inline">\(n \to \infty\)</span>, this implies that <span class="math display">\[
-\lim_{n\to\infty} P(|\hat{\theta}_n - \theta| &gt; \varepsilon) = 0 \Rightarrow \hat{\theta}_n \xrightarrow{P} \theta.
-\]</span> We have shown that if <span class="math inline">\(MSE(\hat\theta_n) \to 0\)</span>, then <span class="math inline">\(\hat\theta_n\)</span> must be a consistent estimator for <span class="math inline">\(\theta\)</span>.</p>
-<p><strong>Example</strong></p>
-<p>Let <span class="math inline">\(X_1, \dots, X_n \overset{IID}{\sim} \mathcal{N}(\mu, 1)\)</span>. Since <span class="math inline">\(E(X_i) = \mu\)</span> and <span class="math inline">\(\mathrm{Var}(X_i) = 1\)</span>, we have that <span class="math inline">\(E(\overline{X}_n) = \mu\)</span> and <span class="math inline">\(\mathrm{Var}(\overline{X}_n) = \dfrac{1}{n}\)</span>.</p>
-<p>Let <span class="math inline">\(\hat\theta_n = \overline{X}_n + \dfrac{1}{n}\)</span>, which implies that, as <span class="math inline">\(E(\hat\theta_n) = E\left(\overline{X}_n + \dfrac{1}{n}\right) = \mu + \dfrac{1}{n}\)</span>, the bias of <span class="math inline">\(\hat\theta_n\)</span> must be <span class="math inline">\(\dfrac{1}{n}\)</span>: <span class="math display">\[
-\mathrm{Bias}(\hat\theta_n) = E(\hat\theta_n) - \theta =  \mu + \dfrac{1}{n} - \mu = \dfrac{1}{n},
-\]</span> since <span class="math inline">\(\theta = \mu\)</span> in this example. Therefore, <span class="math inline">\(\mathrm{Bias}(\hat\theta_n) \to 0\)</span> as <span class="math inline">\(n\to \infty\)</span>. Note that <span class="math inline">\(\left(\mathrm{Bias}(\hat\theta_n)\right)^2 = \dfrac{1}{n^2} \to 0\)</span> as <span class="math inline">\(n \to \infty\)</span>.</p>
-<p>Further, <span class="math display">\[
-\mathrm{Var}(\hat\theta_n) = \mathrm{Var}\left(\overline{X}_n + \dfrac{1}{n}\right) = \mathrm{Var}\left(\overline{X}_n \right) = \dfrac{1}{n} \to 0 \text{ as } n \to \infty.
-\]</span> As a consequence of the statements above, we have that the MSE of <span class="math inline">\(\theta_n\)</span> goes to 0 as <span class="math inline">\(n \to \infty\)</span>, and therefore, <span class="math inline">\(\hat\theta_n\)</span> is a consistent estimator of <span class="math inline">\(\mu\)</span>.</p>
-<p>̂</p>
+<section id="significance-level-alpha-dfrac632" class="level4">
+<h4 class="anchored" data-anchor-id="significance-level-alpha-dfrac632">2. Significance level <span class="math inline">\(\alpha = \dfrac{6}{32}\)</span></h4>
+<p>If we set <span class="math inline">\(\alpha = \dfrac{6}{32}\)</span>, we have <strong>four</strong> possible rejection regions. What are they?</p>
+<details>
+<summary>
+Check your answer
+</summary>
+<p>Since <span class="math inline">\(\alpha = \dfrac{6}{32}\)</span>, we can look at all combinations of values of <span class="math inline">\(x\)</span> that will have this probability under <span class="math inline">\(H_0\)</span>. The possible regions are:</p>
+<ul>
+<li><span class="math inline">\(R_1 = \{0,1\}\)</span></li>
+<li><span class="math inline">\(R_2 = \{0,5\}\)</span></li>
+<li><span class="math inline">\(R_3 = \{1,5\}\)</span></li>
+<li><span class="math inline">\(R_4 = \{4,5\}\)</span></li>
+</ul>
+</details>
+<p>Now you can compute the probability of each of these under <span class="math inline">\(H_1\)</span>. Compute this, and then check your answers.</p>
+<details>
+<summary>
+Check your answer
+</summary>
+<ul>
+<li><span class="math inline">\(P(X \in R_1 |H_1) = \dfrac{16}{1024}\)</span></li>
+<li><span class="math inline">\(P(X \in R_2 |H_1) = \dfrac{244}{1024}\)</span></li>
+<li><span class="math inline">\(P(X \in R_3 |H_1) = \dfrac{258}{1024}\)</span></li>
+<li><span class="math inline">\(P(X \in R_4 |H_1) = \dfrac{648}{1024}\)</span></li>
+</ul>
+</details>
+<p>Therefore, we will use <span class="math inline">\(R_4\)</span> as our rejection region. Note that the outcomes in this event correspond to the lowest values of the likelihood ratios. Of course, we could still make an error.</p>
+<p>Here is the ways in which we could be right - or wrong:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 35%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;"><strong><span class="math inline">\(H_0\)</span> is True</strong></th>
+<th style="text-align: center;"><strong><span class="math inline">\(H_1\)</span> is True</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Accept <span class="math inline">\(H_0\)</span></strong></td>
+<td style="text-align: center;">Correct Decision</td>
+<td style="text-align: center;"><strong>Type II Error (<span class="math inline">\(\beta\)</span>)</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Reject <span class="math inline">\(H_0\)</span></strong></td>
+<td style="text-align: center;"><strong>Type I Error (<span class="math inline">\(\alpha\)</span>)</strong></td>
+<td style="text-align: center;">Correct Decision (Power)</td>
+</tr>
+</tbody>
+</table>
+<p>We usually have more severe consequences from falsely rejecting a true null, so we try to keep the type I error small. In the next lecture, we will state and discuss the Neyman-Pearson lemma which gives us the best rejection region, and therefore the best test for a specified significance level.</p>
 <div style="display:none">
-<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="hmc2005">Hogg, McKean, and Craig (<a href="#ref-hmc2005" role="doc-biblioref">2005</a>)</span>;]</p>
+<p><span class="citation" data-cites="rice2006 hmc2005">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-hmc2005" role="doc-biblioref">Hogg, McKean, and Craig 2005</a>)</span></p>
 </div>
+</section>
 </section>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-chi-hest2018" class="csl-entry" role="listitem">
-Chihara, Laura M., and Tim C. Hesterberg. 2018. <em>Mathematical Statistics with Resampling and r</em>. John Wiley &amp; Sons, Hoboken, NJ.
-</div>
 <div id="ref-hmc2005" class="csl-entry" role="listitem">
 Hogg, Robert V., Joseph W. McKean, and Allen T. Craig. 2005. <em>Introduction to Mathematical Statistics</em>. 6th ed. Upper Saddle River, NJ: Pearson Prentice Hall.
-</div>
-<div id="ref-samslides135" class="csl-entry" role="listitem">
-Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).
 </div>
 <div id="ref-rice2006" class="csl-entry" role="listitem">
 Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. Duxbury Press.

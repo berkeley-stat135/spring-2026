@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Mean Squared Error and Consistency</title>
+<title>Introducing Hypotheses Tests</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-12.html">Lecture 12: Mean Squared Error and Consistency</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-21.html">Lecture 21: Introducing Hypotheses Tests</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -263,7 +263,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-12.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lectures/lecture-12.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 12: Mean Squared Error and Consistency</span></a>
   </div>
 </li>
@@ -317,7 +317,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-21.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/lecture-21.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lecture 21: Introducing Hypotheses Tests</span></a>
   </div>
 </li>
@@ -349,11 +349,12 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#consistency-of-the-mle-of-theta." id="toc-consistency-of-the-mle-of-theta." class="nav-link" data-scroll-target="#consistency-of-the-mle-of-theta.">Consistency of the MLE of <span class="math inline">\(\theta\)</span>.</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
   <ul class="collapse">
-  <li><a href="#claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent" id="toc-claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent" class="nav-link" data-scroll-target="#claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent">Claim: If MSE of an estimator goes to 0, the estimator must be consistent</a></li>
+  <li><a href="#questions-that-might-be-addressed" id="toc-questions-that-might-be-addressed" class="nav-link" data-scroll-target="#questions-that-might-be-addressed">Questions that might be addressed</a></li>
+  <li><a href="#example-what-is-the-probability-of-a-selected-coin" id="toc-example-what-is-the-probability-of-a-selected-coin" class="nav-link" data-scroll-target="#example-what-is-the-probability-of-a-selected-coin">Example: What is the probability of a selected coin?</a></li>
   </ul></li>
+  <li><a href="#terminology-of-hypothesis-testing" id="toc-terminology-of-hypothesis-testing" class="nav-link" data-scroll-target="#terminology-of-hypothesis-testing">Terminology of Hypothesis testing</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -363,7 +364,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Mean Squared Error and Consistency</h1>
+<h1 class="title">Introducing Hypotheses Tests</h1>
 </div>
 
 
@@ -380,73 +381,253 @@ window.Quarto = {
 </header>
 
 
+<!-- ## Lec 21, March 13, 2026-->
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Now we will look at the properties of maximum likelihood estimation when we have large samples. We want to consider the properties of the estimator: Is it unbiased? Consistent? What can we say about the distribution of the estimator when the sample size is large?</p>
-<p>The two main results that we will establish in this chapter and the next are about the consistency of the MLE; and that the MLE is asymptotically normal. The variance of the MLE is related to a quantity called the <em>Fisher Information</em>. First, we will establish that the MLE is consistent.</p>
+<p>We turn from parameter estimation to another cornerstone topic in statistical inference: <strong>hypothesis testing</strong>. This is one of the most commonly used statistical techniques. We first consider a model that we think might have generated the sample data, and then use probability calculations based on this assumption (called the <em>null</em> hypothesis) to see if our observed sample data is <em>consistent</em> with this assumption. We compute how likely it is that any observed difference is due to random variation. If it is too unlikely, we conclude that the data is extreme enough to <em>contradict</em> the null hypothesis, and we reject our assumption, that is we reject our <em>null hypothesis</em>. Lehmann <span class="citation" data-cites="lehmann1992">Lehmann (<a href="#ref-lehmann1992" role="doc-biblioref">1992</a>)</span> describes how the theory of hypothesis testing was mostly developed by three people in the first part of the 20th century : Ronald Fisher, Jerzy Neyman, and Egon Pearson. They were not always in agreement, with the Fisherian approach, for example, focusing on only the null hypothesis, and trying to solve the scientific problem. Neyman and Pearson formulated a decision problem, so they had a different philosophy. In his article though, Lehmann argues that “… in their main practical aspects the two theories are complementary rather than contradictory and that a unified approach is possible that combines the best features of both.” Indeed, what we will use is some sort of hybrid approach, in which we specify both null and alternative hypotheses, and thus <em>choose</em> one, following the Neyman-Pearson paradigm, but we also use <span class="math inline">\(p\)</span>-values to quantify the likelihood of our sample under the null assumption.</p>
+<p>We will first study the Neyman-Pearson approach. Unlike Fisher, who focussed only on the null hypothesis and developed <span class="math inline">\(p\)</span>-values, Neyman and Pearson defined an <em>alternative</em> hypothesis, so they said it wasn’t enough to <em>reject</em> the null, but when you did that, you <em>decided</em> on the alternative, accepting it. The Neyman-Pearson approach emphasizes the probabilities of the errors that can are possible, which are of two types: we might reject a true null (type I error), or we might accept a false null (type II error).</p>
+<section id="questions-that-might-be-addressed" class="level3">
+<h3 class="anchored" data-anchor-id="questions-that-might-be-addressed">Questions that might be addressed</h3>
+<p>Often we have data, and have some assumptions about how the data were generated. Here are some questions that might be addressed by hypothesis testing:</p>
+<ul>
+<li>Is a coin/die/roulette wheel) fair?</li>
+<li>Does the Covid vaccine work?</li>
+<li>Does the police force of a city reflect the ethnic make up of the city residents?</li>
+<li>Has the proportion of Americans that believe in the theory of evolution declined over the years?</li>
+<li>Has the American’s population support of Planned Parenthood declined?</li>
+<li>Is the Salk vaccine effective at preventing polio?</li>
+<li>Is this new cancer treatment a significant improvement over an existing one?</li>
+<li>Do voters approve of the US action in the Middle East?</li>
+<li>Is a nurse accused of murdering patients on their shift guilty?</li>
+<li>Does the data come from a Normal population centered at zero or centered somewhere else?</li>
+<li>What is the rate of the exponential distribution that generated our sample?</li>
+</ul>
+<p>For example, we might toss a coin 100 times, and see how many times it lands heads. Would we comfortable assuming that it is fair if it lands heads 55 times? What about 60 heads? Where would we draw the line? We need to quantify how <em>unusual</em> our sample is given our assumption of fairness.</p>
 </section>
-<section id="consistency-of-the-mle-of-theta." class="level2">
-<h2 class="anchored" data-anchor-id="consistency-of-the-mle-of-theta.">Consistency of the MLE of <span class="math inline">\(\theta\)</span>.</h2>
-<p>As we might guess, the maximum likelihood estimator from an IID sample with PDF <span class="math inline">\(f(x\vert \theta)\)</span>, is <strong>consistent</strong> for <span class="math inline">\(\theta\)</span> (under appropriate <em>smoothness</em> conditions on <span class="math inline">\(f\)</span>, which means that we can take as many continuous derivatives of <span class="math inline">\(f\)</span> as we need and it won’t have any sharp corners etc.).</p>
-<p>In the following, we will assume <span class="math inline">\(f\)</span> is smooth. This will ensure that it is “well-behaved” and we can interchange the orders of integration and differentiation.</p>
-<p>In our discussion below, <span class="math inline">\(\theta_0\)</span> is the <strong>true</strong> unknown value of the parameter <span class="math inline">\(\theta\)</span>, and <span class="math inline">\(f(x \mid \theta_0)\)</span> is the true PDF (<span class="math inline">\(\theta_0\)</span> is some <em>fixed, but unknown</em> value).</p>
-<p>Recall that <span class="math inline">\(X_1, \dots, X_n \overset{\text{IID}}{\sim} f(x \mid \theta)\)</span> is a random sample, and <span class="math display">\[
-\operatorname{lik}(\theta)
-= \operatorname{lik}(\theta \mid X_1, \dots, X_n)
-= \prod_{i=1}^n f(X_i \mid \theta)
+<section id="example-what-is-the-probability-of-a-selected-coin" class="level3">
+<h3 class="anchored" data-anchor-id="example-what-is-the-probability-of-a-selected-coin">Example: What is the probability of a selected coin?</h3>
+<p>I have two types of coins, some that have probability of heads <span class="math inline">\(p=0.5\)</span>, and others with <span class="math inline">\(p=0.7\)</span>. If I pick a coin at random, how can I decide if it is biased or not? What do I actually want to test?</p>
+<p>We want to test the <strong>null hypothesis</strong>, denoted by <span class="math inline">\(H_0\)</span>, that the coin is fair: <span class="math display">\[
+H_0: p = 0.5
+\]</span> Against the alternative hypothesis, denoted by <span class="math inline">\(H_1\)</span>, that the coin is biased with a particular probability of landing heads of <span class="math inline">\(0.7\)</span>: <span class="math display">\[
+H_0: p = 0.7
+\]</span> How would you do this? Well, you could toss the coin many times and count the fraction of heads. If it is too far from 50%, that would be evidence that it is not a fair coin. But how far is too far? How can we decide?</p>
+<p>Suppose I toss the coin <strong>ten</strong> times and count the number of heads <span class="math inline">\(X\)</span>. The following table gives the probabilities of each outcome (see page 329 in <span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"># Heads</th>
+<th style="text-align: left;">0</th>
+<th style="text-align: left;">1</th>
+<th style="text-align: left;">2</th>
+<th style="text-align: left;">3</th>
+<th style="text-align: left;">4</th>
+<th style="text-align: left;">5</th>
+<th style="text-align: left;">6</th>
+<th style="text-align: left;">7</th>
+<th style="text-align: left;">8</th>
+<th style="text-align: left;">9</th>
+<th style="text-align: left;">10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong><span class="math inline">\(p=0.5\)</span></strong></td>
+<td style="text-align: left;">0.0010</td>
+<td style="text-align: left;">0.0098</td>
+<td style="text-align: left;">0.0439</td>
+<td style="text-align: left;">0.1172</td>
+<td style="text-align: left;">0.2051</td>
+<td style="text-align: left;">0.2461</td>
+<td style="text-align: left;">0.2051</td>
+<td style="text-align: left;">0.1172</td>
+<td style="text-align: left;">0.0439</td>
+<td style="text-align: left;">0.0098</td>
+<td style="text-align: left;">0.0010</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><span class="math inline">\(p=0.7\)</span></strong></td>
+<td style="text-align: left;">0.0000</td>
+<td style="text-align: left;">0.0001</td>
+<td style="text-align: left;">0.0014</td>
+<td style="text-align: left;">0.0090</td>
+<td style="text-align: left;">0.0368</td>
+<td style="text-align: left;">0.1029</td>
+<td style="text-align: left;">0.2001</td>
+<td style="text-align: left;">0.2668</td>
+<td style="text-align: left;">0.2335</td>
+<td style="text-align: left;">0.1211</td>
+<td style="text-align: left;">0.0282</td>
+</tr>
+</tbody>
+</table>
+<p>What would you do if <span class="math inline">\(X=3\)</span>? <span class="math inline">\(X=6\)</span>? <span class="math inline">\(X=8\)</span>?</p>
+<p>Consider the likelihoods under each hypothesis: <span class="math display">\[
+P(X=3|H_0) \text{ vs. } P(X=3|H_1)
 \]</span></p>
-<p>Define <span class="math inline">\(\ell(\theta) = \log \operatorname{lik}(\theta)\)</span>. Then, <span class="math display">\[
-\frac{1}{n} \ell(\theta) =\frac{1}{n} \log \operatorname{lik}(\theta) = \frac{1}{n} \sum_{i=1}^n \log f(X_i\mid \theta).
+<p>We can compare them using the <strong>Likelihood Ratio</strong>, which is <span class="math display">\[
+\frac{P(X=x|H_0)}{P(X=x|H_1)}
+\]</span> This ratio compares how likely the observed data is under the null hypothesis (<span class="math inline">\(p=0.5\)</span>) versus the alternative hypothesis (<span class="math inline">\(p=0.7\)</span>). Let’s look at this ratio for the three values of <span class="math inline">\(X\)</span> listed above:</p>
+<p><strong>For <span class="math inline">\(X = 3\)</span>:</strong> <span class="math display">\[
+\frac{P(X=3|H_0)}{P(X=3|H_1)} = \frac{0.1172}{0.0090} \approx 13.02
 \]</span></p>
-<section id="claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent" class="level3">
-<h3 class="anchored" data-anchor-id="claim-if-mse-of-an-estimator-goes-to-0-the-estimator-must-be-consistent">Claim: If MSE of an estimator goes to 0, the estimator must be consistent</h3>
-<p>Recall the following definitions for an estimator <span class="math inline">\(\hat \theta_n\)</span> of the parameter <span class="math inline">\(\theta\)</span>.</p>
-<p><span class="math display">\[\text{Bias}(\hat{\theta}_n) = E(\hat{\theta}_n) - \theta\]</span></p>
-<p><span class="math display">\[\text{Var}(\hat{\theta}_n) = E\left[(\hat{\theta}_n - E(\hat{\theta}_n))^2\right]\]</span></p>
-<p><span class="math display">\[\text{MSE}(\hat{\theta}_n) = E\left[(\hat{\theta}_n - \theta)^2\right] = \text{Bias}(\hat{\theta}_n)^2 + \text{Var}(\hat{\theta}_n)\]</span></p>
-<p>We want to show that <span class="math inline">\(\text{MSE}(\hat{\theta}_n) \to 0 \Rightarrow \hat{\theta}_n \xrightarrow{P} \theta\)</span>,</p>
-<p>that is, <span class="math inline">\(\forall \varepsilon &gt; 0\)</span>, <span class="math inline">\(\displaystyle \lim_{n \to \infty} P(|\hat{\theta}_n - \theta| &gt; \varepsilon) = 0\)</span>.</p>
-<!--How did we prove Chebyshev? By applying Markov's Inequality to
-$Y = (X - \mu)^2 \geq 0$. By Markov, $P(Y > c) \leq \frac{E[Y]}{c}$:
-
-$$\Rightarrow P\!\left((X-\mu)^2 > c^2\right) \leq \frac{E(X-\mu)^2}{c^2}$$
-
-$$\Rightarrow P(|X - \mu| > c) \leq \frac{\text{Var}(X)}{c^2}$$-->
-<p>Applying Markov’s inequality to <span class="math inline">\(Y = (X - a)^2 \geq 0\)</span> for some <span class="math inline">\(a\)</span>, <span class="math inline">\(c &gt;0\)</span>, we get:</p>
-<p><span class="math display">\[P(Y &gt; c^2) = P\!\left((X-a)^2 &gt; c^2\right) = P(|X-a| &gt; c) \leq \frac{E\!\left[(X-a)^2\right]}{c^2} \]</span></p>
-<p>Now let <span class="math inline">\(X = \hat{\theta}_n\)</span>, <span class="math inline">\(a = \theta\)</span>, <span class="math inline">\(c = \varepsilon &gt; 0\)</span>. We get:</p>
-<p><span class="math display">\[P(|\hat{\theta}_n - \theta| &gt; \varepsilon) \leq \frac{E\left[(\hat{\theta}_n - \theta)^2\right]}{\varepsilon^2} = \frac{\text{MSE}(\hat{\theta}_n)}{\varepsilon^2}\]</span></p>
-<p>Since the MSE of <span class="math inline">\(\hat\theta_n\)</span> goes <span class="math inline">\(0\)</span> as <span class="math inline">\(n \to \infty\)</span>, this implies that <span class="math display">\[
-\lim_{n\to\infty} P(|\hat{\theta}_n - \theta| &gt; \varepsilon) = 0 \Rightarrow \hat{\theta}_n \xrightarrow{P} \theta.
-\]</span> We have shown that if <span class="math inline">\(MSE(\hat\theta_n) \to 0\)</span>, then <span class="math inline">\(\hat\theta_n\)</span> must be a consistent estimator for <span class="math inline">\(\theta\)</span>.</p>
-<p><strong>Example</strong></p>
-<p>Let <span class="math inline">\(X_1, \dots, X_n \overset{IID}{\sim} \mathcal{N}(\mu, 1)\)</span>. Since <span class="math inline">\(E(X_i) = \mu\)</span> and <span class="math inline">\(\mathrm{Var}(X_i) = 1\)</span>, we have that <span class="math inline">\(E(\overline{X}_n) = \mu\)</span> and <span class="math inline">\(\mathrm{Var}(\overline{X}_n) = \dfrac{1}{n}\)</span>.</p>
-<p>Let <span class="math inline">\(\hat\theta_n = \overline{X}_n + \dfrac{1}{n}\)</span>, which implies that, as <span class="math inline">\(E(\hat\theta_n) = E\left(\overline{X}_n + \dfrac{1}{n}\right) = \mu + \dfrac{1}{n}\)</span>, the bias of <span class="math inline">\(\hat\theta_n\)</span> must be <span class="math inline">\(\dfrac{1}{n}\)</span>: <span class="math display">\[
-\mathrm{Bias}(\hat\theta_n) = E(\hat\theta_n) - \theta =  \mu + \dfrac{1}{n} - \mu = \dfrac{1}{n},
-\]</span> since <span class="math inline">\(\theta = \mu\)</span> in this example. Therefore, <span class="math inline">\(\mathrm{Bias}(\hat\theta_n) \to 0\)</span> as <span class="math inline">\(n\to \infty\)</span>. Note that <span class="math inline">\(\left(\mathrm{Bias}(\hat\theta_n)\right)^2 = \dfrac{1}{n^2} \to 0\)</span> as <span class="math inline">\(n \to \infty\)</span>.</p>
-<p>Further, <span class="math display">\[
-\mathrm{Var}(\hat\theta_n) = \mathrm{Var}\left(\overline{X}_n + \dfrac{1}{n}\right) = \mathrm{Var}\left(\overline{X}_n \right) = \dfrac{1}{n} \to 0 \text{ as } n \to \infty.
-\]</span> As a consequence of the statements above, we have that the MSE of <span class="math inline">\(\theta_n\)</span> goes to 0 as <span class="math inline">\(n \to \infty\)</span>, and therefore, <span class="math inline">\(\hat\theta_n\)</span> is a consistent estimator of <span class="math inline">\(\mu\)</span>.</p>
-<p>̂</p>
+<p>We see that the data seems to be approximately 13 times more likely under the null than the alternative. This provides strong evidence in favor of <span class="math inline">\(H_0\)</span>.</p>
+<p><strong>For <span class="math inline">\(X = 6\)</span>:</strong> <span class="math display">\[
+    \frac{P(X=6|H_0)}{P(X=6|H_1)} = \frac{0.2051}{0.2001} \approx 1.02
+\]</span> In this case, the likelihoods are nearly identical. In this case it is hard to distinguish between a fair coin and this specific biased coin, so we might (rather arbitrarily) decide that the coin is fair.</p>
+<p><strong>For <span class="math inline">\(X = 8\)</span>:</strong> <span class="math display">\[
+\frac{P(X=8|H_0)}{P(X=8|H_1)} = \frac{0.0439}{0.2335} \approx 0.188
+\]</span> In this case, we see that the ratio is quite low, meaning the data is much more likely under the alternative hypothesis.</p>
+<p>Before we go further, we need to define some basic vocabulary, which we take from the text <span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>:</p>
+</section>
+</section>
+<section id="terminology-of-hypothesis-testing" class="level2">
+<h2 class="anchored" data-anchor-id="terminology-of-hypothesis-testing">Terminology of Hypothesis testing</h2>
+<div class="{def-null-alt}">
+<p><strong>Null and alternative hypotheses</strong>: We single out one of the hypotheses and call it the <em>null</em> hypothesis (<span class="math inline">\(H_0\)</span>). The other is called the <em>alternative</em> hypothesis (<span class="math inline">\(H_1\)</span>, sometimes <span class="math inline">\(H_A\)</span>).</p>
+</div>
+<div class="{def-type-1}">
+<p><strong>Type I Error:</strong> Rejecting the null hypothesis (<span class="math inline">\(H_0\)</span>) when it is actually true.</p>
+</div>
+<div class="{def-sig-level}">
+<p><strong>Significance Level (<span class="math inline">\(\alpha\)</span>):</strong> The probability of committing a Type I error (<span class="math inline">\(P(\text{Reject } H_0 \mid H_0)\)</span>).</p>
+</div>
+<div class="{def-type-2}">
+<p><strong>Type II Error:</strong> Accepting the null hypothesis when it is actually false. This probability is denoted by <span class="math inline">\(\beta\)</span>.</p>
+</div>
+<div class="{def-power}">
+<p><strong>Power:</strong> You should think of this as the <em>power of the test to reject a false null</em>. It is the probability that the null hypothesis is rejected when it is false, and is therefore <span class="math inline">\(1 - \beta\)</span>.</p>
+</div>
+<div class="{def-test-stat}">
+<p><strong>Test Statistic:</strong> The specific function of the data that is used to make a decision. In our coin example above, the <em>likelihood ratio</em> served as the test statistic, but we could have equivalently used the number of heads.</p>
+</div>
+<div class="{def-rej-reg}">
+<p><strong>Rejection Region:</strong> The set of values of the test statistic that leads to the <em>rejection</em> of the null hypothesis.</p>
+</div>
+<div class="{def-acc-reg}">
+<p><strong>Acceptance Region:</strong> The set of values of the test statistic that leads to the acceptance of the null hypothesis.</p>
+</div>
+<div class="{def-null-dsn}">
+<p><strong>Null Distribution:</strong> The probability distribution of the test statistic under the assumption that the null hypothesis is true.</p>
+</div>
+<hr>
+<section id="example-of-a-decision-rule" class="level4">
+<h4 class="anchored" data-anchor-id="example-of-a-decision-rule">Example of a decision rule</h4>
+<p>In our coin example above, the likelihood ratios are, with the three values we considered highlighted:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Number of Heads (<span class="math inline">\(x\)</span>)</th>
+<th style="text-align: center;">Likelihood Ratio <span class="math inline">\(\frac{P(x|H_0)}{P(x|H_1)}\)</span></th>
+<th style="text-align: center;">Evidence Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">165.4</td>
+<td style="text-align: center;">Strongly favors <span class="math inline">\(H_0\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">70.88</td>
+<td style="text-align: center;">Strongly favors <span class="math inline">\(H_0\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">30.38</td>
+<td style="text-align: center;">Favors <span class="math inline">\(H_0\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><mark>3</mark></td>
+<td style="text-align: center;"><mark>13.02</mark></td>
+<td style="text-align: center;"><mark>Favors <span class="math inline">\(H_0\)</span></mark></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">5.579</td>
+<td style="text-align: center;">Favors <span class="math inline">\(H_0\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">2.391</td>
+<td style="text-align: center;">Weakly favors <span class="math inline">\(H_0\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><mark><strong>6</strong></mark></td>
+<td style="text-align: center;"><mark><strong>1.025</strong></mark></td>
+<td style="text-align: center;"><mark><strong>Nearly neutral (<span class="math inline">\(H_0 \approx H_1\)</span>)</strong></mark></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">0.4392</td>
+<td style="text-align: center;">Weakly favors <span class="math inline">\(H_1\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><mark>8</mark></td>
+<td style="text-align: center;"><mark>0.1882</mark></td>
+<td style="text-align: center;"><mark>Favors <span class="math inline">\(H_1\)</span></mark></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">0.0807</td>
+<td style="text-align: center;">Strongly favors <span class="math inline">\(H_1\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">0.0346</td>
+<td style="text-align: center;">Strongly favors <span class="math inline">\(H_1\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Notice that the strength of the evidence against the null is monotonically increasing. Therefore, we can conclude that rejecting <span class="math inline">\(H_0\)</span> when the <strong>likelihood ratio</strong> is less than a constant <span class="math inline">\(c\)</span> is equivalent to rejecting when the <strong>number of heads</strong> is greater than some value <span class="math inline">\(x_0\)</span>. This might lead us to the following decision rule in which we reject when the likelihood ratio is smaller than 1. That is, based on the table above, if we set our threshold for the likelihood ratio at <span class="math inline">\(c=1\)</span> (rejecting when it is smaller than <span class="math inline">\(c\)</span>:, we would get:</p>
+<ul>
+<li><strong>Rejection Region:</strong> <span class="math inline">\(X \in \{7, 8, 9, 10\}\)</span></li>
+<li><strong>Acceptance Region:</strong> <span class="math inline">\(X \in \{0, 1, 2, 3, 4, 5, 6\}\)</span></li>
+<li><strong>Significance Level (<span class="math inline">\(\alpha\)</span>):</strong> <span class="math inline">\(P(X &gt; 6 | H_0) = 0.18\)</span></li>
+</ul>
+<p>Note that the significance level is a <em>conditional probability</em>.</p>
 <div style="display:none">
-<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="hmc2005">Hogg, McKean, and Craig (<a href="#ref-hmc2005" role="doc-biblioref">2005</a>)</span>;]</p>
+<p><span class="citation" data-cites="rice2006 samslides135 hmc2005 wasserman2004 lehmann1992">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>; <a href="#ref-hmc2005" role="doc-biblioref">Hogg, McKean, and Craig 2005</a>; <a href="#ref-wasserman2004" role="doc-biblioref">Wasserman 2004</a>; <a href="#ref-lehmann1992" role="doc-biblioref">Lehmann 1992</a>)</span></p>
 </div>
 </section>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-chi-hest2018" class="csl-entry" role="listitem">
-Chihara, Laura M., and Tim C. Hesterberg. 2018. <em>Mathematical Statistics with Resampling and r</em>. John Wiley &amp; Sons, Hoboken, NJ.
-</div>
 <div id="ref-hmc2005" class="csl-entry" role="listitem">
 Hogg, Robert V., Joseph W. McKean, and Allen T. Craig. 2005. <em>Introduction to Mathematical Statistics</em>. 6th ed. Upper Saddle River, NJ: Pearson Prentice Hall.
+</div>
+<div id="ref-lehmann1992" class="csl-entry" role="listitem">
+Lehmann, E. L. 1992. <span>“The Fisher, Neyman-Pearson Theories of Testing Hypotheses: One Theory or Two?”</span> 333. Berkeley, CA: Department of Statistics, University of California.
 </div>
 <div id="ref-samslides135" class="csl-entry" role="listitem">
 Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).
 </div>
 <div id="ref-rice2006" class="csl-entry" role="listitem">
 Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. Duxbury Press.
+</div>
+<div id="ref-wasserman2004" class="csl-entry" role="listitem">
+Wasserman, Larry. 2004. <em>All of Statistics: A Concise Course in Statistical Inference</em>. New York: Springer.
 </div>
 </div>
 

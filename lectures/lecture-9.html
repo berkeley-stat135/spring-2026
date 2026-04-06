@@ -351,13 +351,13 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-21.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/lecture-21.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 21: Introducing Hypotheses Tests</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-22.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/lecture-22.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 22: Testing Hypotheses: Vocabulary and Examples</span></a>
   </div>
 </li>
@@ -496,8 +496,8 @@ Warning
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">$</span>t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1]
-[1,]  2.2
-[2,]  3.0</code></pre>
+[1,]  2.4
+[2,]  3.4</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">$</span>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -536,12 +536,12 @@ Warning
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(boot_np_new<span class="sc">$</span>t) <span class="do">## the first six bootstrap values of theta_hat</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          [,1]     [,2]
-[1,] 0.3762056 1.682269
-[2,] 0.4406954 1.912331
-[3,] 0.2995160 1.695472
-[4,] 0.3135751 1.481621
-[5,] 0.3848749 1.888640
-[6,] 0.3842147 1.689527</code></pre>
+[1,] 0.4181661 2.111386
+[2,] 0.3884823 1.542217
+[3,] 0.3475750 1.596736
+[4,] 0.4383388 1.782088
+[5,] 0.3850574 1.885012
+[6,] 0.4511806 2.063880</code></pre>
 </div>
 </div>
 <p>Let’s compute the confidence intervals using the very convenient function <code>boot.ci()</code> that takes as input the object returned by <code>boot()</code>. So we will input <code>boot_np_new</code> into <code>boot.ci()</code>. We specify the <strong>type</strong> of intervals we want, and <code>index=1</code> indicates which column of the output matrix <code>boot_np_new</code> we should consider. Let’s first compute the percentile and basic intervals for <span class="math inline">\(\alpha\)</span>:</p>
@@ -557,7 +557,7 @@ boot.ci(boot.out = boot_np_new, type = c("perc", "basic"), index = 1)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.2672,  0.4534 )   ( 0.3024,  0.4886 )  
+95%   ( 0.2649,  0.4525 )   ( 0.3034,  0.4910 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -574,7 +574,7 @@ boot.ci(boot.out = boot_np_new, type = c("perc", "basic"), index = 2)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 1.025,  2.028 )   ( 1.340,  2.343 )  
+95%   ( 1.048,  2.028 )   ( 1.341,  2.320 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -636,7 +636,7 @@ boot.ci(boot.out = boot_par, type = c("perc", "basic"), index = 1)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.2302,  0.4821 )   ( 0.2737,  0.5257 )  
+95%   ( 0.2318,  0.4827 )   ( 0.2731,  0.5241 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -657,7 +657,7 @@ boot.ci(boot.out = boot_par, type = c("perc", "basic"), index = 2)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.817,  2.210 )   ( 1.159,  2.551 )  
+95%   ( 0.846,  2.210 )   ( 1.159,  2.523 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
