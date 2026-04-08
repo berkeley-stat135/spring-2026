@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Hypotheses Tests for Categorical Data</title>
+<title>Generalized Likelihood Ratio Test for the Multinomial Model</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -88,6 +122,35 @@ div.csl-indent {
 }</script>
 <script async="" src="”https://siteimproveanalytics.com/js/siteanalyze_6294756.js”"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -104,9 +167,17 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#the-multinomial-model" id="toc-the-multinomial-model" class="nav-link" data-scroll-target="#the-multinomial-model">The Multinomial Model</a>
   <ul class="collapse">
-  <li><a href="#the-case-presented-to-the-grand-jury" id="toc-the-case-presented-to-the-grand-jury" class="nav-link" data-scroll-target="#the-case-presented-to-the-grand-jury">The case presented to the grand jury</a></li>
+  <li><a href="#glr-for-the-multinomial-distribution" id="toc-glr-for-the-multinomial-distribution" class="nav-link" data-scroll-target="#glr-for-the-multinomial-distribution">GLR for the Multinomial Distribution</a></li>
+  <li><a href="#pearsons-chi-square-test" id="toc-pearsons-chi-square-test" class="nav-link" data-scroll-target="#pearsons-chi-square-test">Pearson’s chi-square test</a></li>
+  <li><a href="#proof-of-the-asymptotic-equivalence-of--2log-lambda-and-x2" id="toc-proof-of-the-asymptotic-equivalence-of--2log-lambda-and-x2" class="nav-link" data-scroll-target="#proof-of-the-asymptotic-equivalence-of--2log-lambda-and-x2">Proof of the Asymptotic Equivalence of <span class="math inline">\(-2\log \Lambda\)</span> and <span class="math inline">\(X^2\)</span></a></li>
+  </ul></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a>
+  <ul class="collapse">
+  <li><a href="#die-rolls" id="toc-die-rolls" class="nav-link" data-scroll-target="#die-rolls">Die Rolls</a></li>
+  <li><a href="#do-we-have-the-right-distribution" id="toc-do-we-have-the-right-distribution" class="nav-link" data-scroll-target="#do-we-have-the-right-distribution">Do we have the right distribution?</a></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -117,7 +188,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Hypotheses Tests for Categorical Data</h1>
+<h1 class="title">Generalized Likelihood Ratio Test for the Multinomial Model</h1>
 </div>
 
 
@@ -135,42 +206,348 @@ div.csl-indent {
 
 
 <!-- ## Lec 29, April 6, 2026-->
-<p>[DRAFT, TO BE COMPLETED]</p>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>The following case study is from an article by George Cobb and Stephen Gehlbach in <em>Statistics: A Guide to the Unknown</em> <span class="citation" data-cites="cobb2006">(<a href="#ref-cobb2006" role="doc-biblioref">Cobb and Gehlbach 2006</a>)</span>. The title of the article is <em>Statistics in the Courtroom</em>. <!--Now, many of you have taken lower division statistics courses in which you have encountered hypothesis testing, and might have heard of the analogy with criminal trials with the "null hypothesis" being the innocence of the defendant, and the "alternative hypothesis" being guilt. There are definitely problems with that analogy and it can only be taken so far, which we will discuss later. This article, however, is different. --> It tells the story of a nurse, well respected at first, looked up to, then suspected and accused of murdering several patients on her shift by the other nurses who became suspicious because of the unusually high number of crises on her shifts. In the late 1990s, Kristen Gilbert, a nurse at a Veterans Affairs hospital in Massachusetts, was suspected of murdering patients by inducing cardiac arrest through injections of epinephrine. The legal challenge was to determine if the disproportionate number of deaths occurring during her shifts was a result of criminal activity or merely a statistical coincidence. The prosecution realized that the evidence against Gilbert was largely statistical since the motivation was not strong enough. Assistant US Attorney William Welch convened a grand jury to hear the evidence against Gilbert. As the article states: the key question for the grand jury was to determine if it was true that there were enough deaths during Gilbert’s shifts to be suspicious and warrant bringing Gilbert to trial, where the case would be presented to a jury. This is an application of our topic of study, <strong>hypothesis testing</strong>, which is a method of statistical inference often used to make decisions based on data.</p>
-<section id="the-case-presented-to-the-grand-jury" class="level3">
-<h3 class="anchored" data-anchor-id="the-case-presented-to-the-grand-jury">The case presented to the grand jury</h3>
-<p>Dr.&nbsp;Gehlbach presented the case to the grand jury, as a witness for the prosecution. The prosecutors (led by Assistant U.S. Attorney William Welch) knew they had a <em>silent</em> crime - no one saw the injections, and the patients were already ill.&nbsp;The prosecutors asked Gehlbach to analyze the hospital records to see if the higher number of deaths during Gilbert’s shifts was mathematically plausible. Dr.&nbsp;Gehlbach presented his testimony orally to the grand jury, explaining the logic of hypothesis testing. He had done a statistical analysis of the hospital records, and showed the grand jury the pattern of deaths, by shift and by year. Then he explained the idea of sampling variability, and <em>p</em>-values (the probability of observing values as extreme as those that were actually observed, <em>assuming</em> that the increased deaths were strictly due to chance and not more sinister reasons). Finally, he discussed statistically testing whether the pattern of deaths during Gilbert’s shifts was too extreme to be regarded as arising out of regular variability.</p>
-<p>First, to display the pattern of deaths, Cobb and Gehlbach show the following visualization:</p>
-<div id="fig-cobb" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-cobb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-figure quarto-figure-center">
+<p>So far, all the hypothesis tests we have considered have dealt with continuous or binary data. Now we want to look at categorical data - for example, we might want to roll a die and see if it is a fair die. A test that would check this is called a <strong>goodness of fit</strong> test, since we propose a model (a discrete uniform distribution, in this case), and then see if the data <em>fits</em> the proposed distribution.</p>
+<p>We could also ask other questions about categorical data: for instance, looking at tables of counts in various categories, are patterns of counts similar across the categories (testing for <strong>homogeneity</strong>). Or we might ask if there is a relationship between two sets of categories - for example, gender and starting salaries out of college (testing for <strong>independence</strong>).</p>
+<p>In all these tests, we use <em>counts</em>, so we will use the multinomial distribution, and look at likelihood ratio tests for the multinomial distribution.</p>
+</section>
+<section id="the-multinomial-model" class="level2">
+<h2 class="anchored" data-anchor-id="the-multinomial-model">The Multinomial Model</h2>
+<p>Recall that in a multinomial model with <span class="math inline">\(m\)</span> cells and <span class="math inline">\(n\)</span> independent trials, we let <span class="math inline">\(X_1, X_2, \ldots, X_m\)</span> be the <em>cell</em> (or <em>category</em>) counts, with observed values <span class="math inline">\(x_1, \dots, x_m\)</span>. The probability of observing <span class="math inline">\(x_1, \dots, x_m\)</span> is given by: <span id="eq-multinomial-dsn"><span class="math display">\[
+P(X_{1}=x_{1}, \dots, X_{m}=x_{m}) = \frac{n!}{x_{1}! \dots x_{m}!} \prod_{i=1}^{m} p_{i}^{x_{i}},
+\tag{1}\]</span></span> where <span class="math inline">\(\mathbf{p} = (p_1, p_2, \ldots, p_m)\)</span> is a vector of probabilities that sum to 1, with <span class="math inline">\(p_k\)</span> being the probability that an outcome of a trial is in cell <span class="math inline">\(k\)</span>, for <span class="math inline">\(k \in \{1, 2, \ldots, m\}\)</span>.</p>
+<p>This is therefore the <em>likelihood</em>, and we need to develop a likelihood ratio test for the multinomial distribution, where we are testing the following hypotheses: <span class="math display">\[
+\begin{align*}
+H_0: \mathbf{p} &amp;= \mathbf{p}(\theta), \; \theta \in \omega_0 \\
+H_1: \mathbf{p} &amp;\ne \mathbf{p}(\theta) \; \text{(the cell probabilities are free, except that they must sum to 1)}
+\end{align*}
+\]</span> That is, under the null hypothesis, we have that <span class="math inline">\(\mathbf{p}=\mathbf{p}(\theta) = (p_1(\theta), p_2(\theta),\ldots, p_m(\theta))\)</span>. Therefore, this is a <strong>restricted</strong> MLE, and is achieved at <span class="math inline">\(\hat\theta\)</span>, the MLE of <span class="math inline">\(\theta\)</span>.</p>
+<p>We denote this restricted mle by <span class="math inline">\(\mathbf{p}(\hat{\theta})=(p_1(\hat{\theta}), p_2(\hat{\theta}),  \ldots, p_m(\hat{\theta})\)</span>, and now recall that the unrestricted MLE for the multinomial cell probabilities is given by the <em>observed proportions</em>: <span class="math inline">\(\hat{p_i} = \dfrac{x_i}{n}\)</span>.</p>
+<section id="glr-for-the-multinomial-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="glr-for-the-multinomial-distribution">GLR for the Multinomial Distribution</h3>
+<p>Putting the above statements together, and using <a href="#eq-multinomial-dsn" class="quarto-xref">Equation&nbsp;1</a>, we get the <strong>generalized likelihood ratio</strong> <span class="math inline">\(\Lambda\)</span>: <span class="math display">\[
+\Lambda = \frac{\max_{\theta \in \omega_0}
+  lik(\theta)}{\max_{\theta \in \Omega} lik(\theta)} = \frac{MLE \text{ of } \mathbf{p}\text{ over } \omega_0}{MLE\text{ of } \mathbf{p}\text{ over } \Omega} = \prod_{i=1}^{m} \left( \frac{p_{i}(\hat{\theta})}{\hat{p}_{i}} \right)^{x_{i}}
+\]</span></p>
+<p>Taking logs on both sides: <span class="math display">\[
+\log \Lambda = \displaystyle \sum_{i=1}^m x_i \log \left(\frac{p_i(\hat{\theta})}{\hat{p_i}}\right)
+\]</span> Note that <span class="math inline">\(x_i = n\hat p_i\)</span> is the <em>observed</em> count, and <span class="math inline">\(np_i(\hat \theta)\)</span> is the <em>expected</em> count under <span class="math inline">\(H_0\)</span>. Using this (multiplying and dividing the quotient in the argument of the log by <span class="math inline">\(n\)</span>), we can write the likelihood ratio as (multiplying throughout by -2, which flips the quotient on the right): <span class="math display">\[
+\begin{align*}
+-2 \log \Lambda &amp;= 2 \displaystyle \sum_{i=1}^m (n\hat{p_i}) \,\log \left(\frac {n\hat{p_i}}{np_i(\hat{\theta})}\right) \\
+&amp;= 2n \displaystyle \sum_{i=1}^m \hat{p_i} \,\log \left(\frac {\hat{p_i}}{p_i(\hat{\theta})}\right) \\
+\end{align*}
+\]</span> Denoting the observed count by <span class="math inline">\(O_i\)</span> and the expected count by <span class="math inline">\(E_i\)</span>, we can write: <span class="math display">\[
+-2 \log \Lambda = 2 \displaystyle \sum_{i=1}^m O_i \,\log \left(\frac {O_i}{E_i}\right)
+\]</span></p>
+<section id="degrees-of-freedom-for--2log-lambda" class="level4">
+<h4 class="anchored" data-anchor-id="degrees-of-freedom-for--2log-lambda">Degrees of freedom for <span class="math inline">\(-2\log \Lambda\)</span></h4>
+<p>Note that <span class="math inline">\(O_i = n\hat{p_i}\)</span> and similarly, <span class="math inline">\(E_i =  np_i(\hat{\theta})\)</span>.</p>
+<p>Now, <span class="math inline">\(\displaystyle \Lambda = \prod_{i=1}^{m} \left( \frac{p_{i}(\hat{\theta})}{\hat{p}_{i}} \right)^{x_{i}}\)</span>, which implies that:</p>
+<ul>
+<li><span class="math inline">\(\dim \Omega  = m -1\)</span> since the only restriction on the <span class="math inline">\(m\)</span>-tuple <span class="math inline">\(\mathbf{p} = (p_1, p_2, \ldots, p_m)\)</span> is that the <span class="math inline">\(p_k\)</span> need to sum to 1.</li>
+<li>Further, <span class="math inline">\(\dim\omega_0\)</span> is determined by the estimated <span class="math inline">\(\theta\)</span>. If a <span class="math inline">\(k\)</span>-dimensional <span class="math inline">\(\theta\)</span> is estimated, then <span class="math inline">\(\mathrm{dim}\;\omega_0=k\)</span>. <span class="math inline">\(\implies -2 \log \Lambda\)</span> has degrees of freedom <span class="math inline">\(m-1-k = m-k-1\)</span>.</li>
+</ul>
+</section>
+</section>
+<section id="pearsons-chi-square-test" class="level3">
+<h3 class="anchored" data-anchor-id="pearsons-chi-square-test">Pearson’s chi-square test</h3>
+<p>A <em>goodness-of-fit</em> test using a chi-square distribution was developed by Karl Pearson in 1900, who compared <em>observed</em> values to <em>predicted</em> values (under some null assumption, so using <em>expected</em> values under this null assumption). He used a statistic, which we call <strong><em>Pearson’s chi-square statistic</em></strong> (because it turned out to have a chi-square distribution) which is now commonly used to test for goodness of fit. This statistic is denoted by <span class="math inline">\(X^2\)</span> and is defined to be <span class="math display">\[
+X^2 = \displaystyle \sum_{i=1}^m\frac{(O_i-E_i)^2}{E_i},
+\]</span> where <span class="math inline">\(O_i\)</span> and <span class="math inline">\(E_i\)</span> are the observed and expected counts respectively, in the ith cell. It can be shown (and we will show below) that Pearson’s statistic and the likelihood ratio <span class="math inline">\(-2\log \Lambda\)</span> are asymptotically equivalent under <span class="math inline">\(H_0\)</span>. Pearson’s test (using the statistic <span class="math inline">\(X^2\)</span>) was more commonly used because it was easier to compute without a computer. You could use whichever statistic is convenient.</p>
+</section>
+<section id="proof-of-the-asymptotic-equivalence-of--2log-lambda-and-x2" class="level3">
+<h3 class="anchored" data-anchor-id="proof-of-the-asymptotic-equivalence-of--2log-lambda-and-x2">Proof of the Asymptotic Equivalence of <span class="math inline">\(-2\log \Lambda\)</span> and <span class="math inline">\(X^2\)</span></h3>
+<div id="proof-pearson">
+<p>To show <span class="math inline">\(-2 \log \Lambda \approx X^2\)</span>, define <span class="math inline">\(f(x) = x \log\left(\dfrac{x}{x_0}\right)\)</span>. We use a Taylor expansion of <span class="math inline">\(f(x)\)</span> around <span class="math inline">\(x_0\)</span>:</p>
+<p><span id="eq-taylor-exp"><span class="math display">\[
+f(x) \approx f(x_0) + (x-x_0)f'(x_0) + \frac{(x-x_0)^2}{2}f''(x_0)
+\tag{2}\]</span></span></p>
+<p>Evaluating the terms at <span class="math inline">\(x_0\)</span>:</p>
+<ol type="1">
+<li><span class="math inline">\(f(x_0) = x_0 \log\left(\dfrac{x_0}{x_0}\right) = x_0 \log(1) = 0\)</span></li>
+<li><span class="math inline">\(f'(x) =\log\left(\dfrac{x}{x_0}\right) + x\cdot \dfrac{x_0}{x} \dfrac{1}{x_0} = \log\left(\dfrac{x}{x_0}\right) + 1 \implies f'(x_0) = 1\)</span></li>
+<li><span class="math inline">\(f''(x) = \dfrac{1}{x} \implies f''(x_0) = \dfrac{1}{x_0}\)</span></li>
+</ol>
+<p>Now, recall that: <span class="math display">\[
+-2 \log \Lambda = 2n \sum \hat{p}_i \log \left( \frac{\hat{p}_i}{p_i(\hat{\theta})} \right)
+\]</span> Substituting <span class="math inline">\(x = \hat{p}_i\)</span> and <span class="math inline">\(x_0 = p_i(\hat{\theta})\)</span> into the expression <a href="#eq-taylor-exp" class="quarto-xref">Equation&nbsp;2</a>, with <span class="math inline">\(f(x)\)</span> being <span class="math inline">\(-2\log \Lambda\)</span> , we get: <span class="math display">\[
+-2 \log \Lambda \approx 2n \sum_{i=1}^{m} \left[ \left(\hat{p}_i - p_i(\hat{\theta})\right)\cdot 1 + \frac{(\hat{p}_i - p_i(\hat{\theta}))^2}{2}\cdot \frac{1}{p_i(\hat{\theta})} \right]
+\]</span></p>
+<p>Since <span class="math inline">\(\displaystyle \sum_{i=1}^m \hat{p}_i = 1\)</span> and <span class="math inline">\(\displaystyle \sum_{i=1}^m p_i(\hat{\theta}) = 1\)</span>, the linear term <span class="math inline">\(\sum (\hat{p}_i - p_i(\hat{\theta}))\)</span> vanishes. The 2 outside the sum, and the 2 in the second term cancel. This gives us:</p>
+<p><span class="math display">\[
+-2 \log \Lambda \approx \sum_{i=1}^{m} \frac{n(\hat{p}_i - p_i(\hat{\theta}))^2}{p_i(\hat{\theta})} = \sum_{i=1}^{m} \frac{(n\hat{p}_i - np_i(\hat{\theta}))^2}{np_i(\hat{\theta})} = \sum_{i=1}^{m} \frac{(O_i - E_i)^2}{E_i}
+\]</span></p>
+<p>Thus, <span class="math inline">\(-2 \log \Lambda \approx X^2\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+</div>
+</section>
+</section>
+<section id="examples" class="level2">
+<h2 class="anchored" data-anchor-id="examples">Examples</h2>
+<section id="die-rolls" class="level3">
+<h3 class="anchored" data-anchor-id="die-rolls">Die Rolls</h3>
+<p>Roll a die 60 times. The number of times we see the sides with 1, 2, 3, 4, 5, and 6 spots are 4, 6, 17, 16, 8, and 9 respectively. Test if the die is fair.</p>
+<p>First make a table with the expected counts, and observed counts, and then use Pearson’s chi-square statistic, finally using <code>1-pchisq(q, df)</code> to compute your <span class="math inline">\(p\)</span>-value.</p>
+<details>
+<summary>
+Check your answer
+</summary>
+<p>We are testing if a die is fair based on <span class="math inline">\(n = 60\)</span> rolls. Under the null hypothesis <span class="math inline">\(H_0\)</span>, each side has a probability <span class="math inline">\(p_i = 1/6\)</span>, leading to an expected count of <span class="math inline">\(E_i = 10\)</span> for each category (note that this implies that under the null, the degrees of freedom <span class="math inline">\(=0\)</span> since the distribution is completely specified.)</p>
+<p><strong>Observed and Expected Frequencies</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Category (<span class="math inline">\(i\)</span>)</th>
+<th style="text-align: left;"><span class="math inline">\(O_i\)</span></th>
+<th style="text-align: left;"><span class="math inline">\(E_i\)</span></th>
+<th style="text-align: left;"><span class="math inline">\((O_i - E_i)\)</span></th>
+<th style="text-align: left;"><span class="math inline">\((O_i - E_i)^2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">-6</td>
+<td style="text-align: left;">36</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">-4</td>
+<td style="text-align: left;">16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">17</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">49</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">36</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">-2</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">-1</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Sum</strong></td>
+<td style="text-align: left;"><strong>60</strong></td>
+<td style="text-align: left;"><strong>60</strong></td>
+<td style="text-align: left;"><strong>0</strong></td>
+<td style="text-align: left;"><strong>142</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Now let’s compute Pearson’s Chi-Square Statistic: The test statistic <span class="math inline">\(X^2\)</span> is calculated by summing the squared differences divided by the expected values:</p>
+<p><span class="math display">\[
+\begin{align*}
+X^2 &amp;= \sum_{i=1}^{6} \frac{(O_i - E_i)^2}{E_i}\\
+&amp; = \frac{36}{10} + \frac{16}{10} + \frac{49}{10} + \frac{36}{10} + \frac{4}{10} + \frac{1}{10}\\
+&amp;= 3.6 + 1.6 + 4.9 + 3.6 + 0.4 + 0.1 \\
+&amp;= 14.2
+\end{align*}
+\]</span> With <span class="math inline">\(m = 6\)</span> cells and <span class="math inline">\(k = 0\)</span> estimated parameters for <span class="math inline">\(\omega_0\)</span>, the degrees of freedom are <span class="math inline">\(df = 6 - 1 - 0 = 5\)</span>, therefore we need to look at the <span class="math inline">\(\chi^2_5\)</span> density.</p>
+<p>Let’s see what this density looks like:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>deg_fr <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>x_sq <span class="ot">&lt;-</span> <span class="fl">14.2</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate density data</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>x_vals <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">25</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>y_vals <span class="ot">&lt;-</span> <span class="fu">dchisq</span>(x_vals, <span class="at">df =</span> deg_fr)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>df_plot <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x_vals, <span class="at">y =</span> y_vals)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_plot, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shade area beyond the observed statistic</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">subset</span>(df_plot, x <span class="sc">&gt;=</span> x_sq), </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">"red"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add vertical line for the statistic</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> x_sq, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">+</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> x_sq <span class="sc">+</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="fl">0.02</span>, </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Observed X^2 ="</span>, x_sq), <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">+</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Chi-Square Density (df = 5)"</span>,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Shaded area represents the p-value"</span>,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Value of X^2"</span>,</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
 <figure class="figure">
-<p><img src="images/fig-1-cobb.png" class="img-fluid figure-img" alt="A bar graph showing the frequency of deaths by year and shift."></p>
-<figcaption>The pattern of deaths, by year and shift</figcaption>
+<p><img src="lecture-29_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-cobb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1
-</figcaption>
+</div>
+<p>Note that the <span class="math inline">\(p\)</span>-value is <code>1-pchisq(q, df)</code> = 0.0144 which implies that we should reject the null.</p>
+</details>
+</section>
+<section id="do-we-have-the-right-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="do-we-have-the-right-distribution">Do we have the right distribution?</h3>
+<p>A point is selected from the interval <span class="math inline">\((0, 1]\)</span> by a random process. Suppose the interval is partitioned by the intervals <span class="math inline">\(A_i =\{x : \displaystyle \frac{i-1}{4} &lt; x \le \frac{i}{4} \}\)</span>. The null hypothesis is that <span class="math inline">\(p_i\)</span>, the probability of <span class="math inline">\(A_i\)</span>, is determined by the density function <span class="math inline">\(2x\)</span> for <span class="math inline">\(0&lt; x \le 1\)</span>. Test, at a significance level of <span class="math inline">\(0.025\)</span>, that the <span class="math inline">\(p_i\)</span> have values so determined, if the observed frequencies (of landing in <span class="math inline">\(A_1, A_2, A_3, A_4\)</span>) are 6, 18, 20, and 36 respectively, for 80 draws from the unit interval.</p>
+<details>
+<summary>
+Check your answer
+</summary>
+<p>In this example, a point is selected from the interval <span class="math inline">\((0, 1]\)</span> and partitioned into four sub-intervals <span class="math inline">\(A_i = \{x : \frac{i-1}{4} &lt; x \le \frac{i}{4} \}\)</span>. We test whether the data follows the density <span class="math inline">\(f(x) = 2x\)</span> using a significance level of <span class="math inline">\(\alpha = 0.025\)</span>.</p>
+<p>First, we need to compute the expected counts using the density specified by <span class="math inline">\(H_0\)</span>. (Note that there is nothing to estimate as we are given the density. Consequently, the value of degrees of freedom associated with the numerator (<span class="math inline">\(\omega_0\)</span>) is 0.)</p>
+<p>Under <span class="math inline">\(H_0\)</span>, the probability <span class="math inline">\(p_i\)</span> is the area under the density function <span class="math inline">\(f(x) = 2x\)</span> for each interval: <span class="math display">\[
+p_i = \int_{\frac{i-1}{4}}^{\frac{i}{4}} 2x \, dx = \left[ x^2 \right]_{\frac{i-1}{4}}^{\frac{i}{4}}
+\]</span> This gives us:</p>
+<ul>
+<li><span class="math inline">\(p_1  = P(A_1) = (1/4)^2 - 0^2 = 1/16\)</span></li>
+<li><span class="math inline">\(p_2 = P(A_2) = (2/4)^2 - (1/4)^2 = 3/16\)</span></li>
+<li><span class="math inline">\(p_3  = P(A_3)  = (3/4)^2 - (2/4)^2 = 5/16\)</span></li>
+<li><span class="math inline">\(p_4  = P(A_4) = (4/4)^2 - (3/4)^2 = 7/16\)</span></li>
+</ul>
+<p>With <span class="math inline">\(n = 80\)</span>, the expected counts are <span class="math inline">\(E_i = 80 \cdot p_i\)</span>.</p>
+<p>Just as in the previous problem, make a table of expected and observed counts:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Category (<span class="math inline">\(i\)</span>)</th>
+<th style="text-align: left;"><span class="math inline">\(O_i\)</span></th>
+<th style="text-align: left;"><span class="math inline">\(p_i\)</span></th>
+<th style="text-align: left;"><span class="math inline">\(E_i\)</span></th>
+<th style="text-align: left;"><span class="math inline">\((O_i - E_i)\)</span></th>
+<th style="text-align: left;"><span class="math inline">\((O_i - E_i)^2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(A_1\)</span></td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;"><span class="math inline">\(1/16\)</span></td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(A_2\)</span></td>
+<td style="text-align: left;">18</td>
+<td style="text-align: left;"><span class="math inline">\(3/16\)</span></td>
+<td style="text-align: left;">15</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(A_3\)</span></td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;"><span class="math inline">\(5/16\)</span></td>
+<td style="text-align: left;">25</td>
+<td style="text-align: left;">-5</td>
+<td style="text-align: left;">25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(A_4\)</span></td>
+<td style="text-align: left;">36</td>
+<td style="text-align: left;"><span class="math inline">\(7/16\)</span></td>
+<td style="text-align: left;">35</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Sum</strong></td>
+<td style="text-align: left;"><strong>80</strong></td>
+<td style="text-align: left;"><strong>1</strong></td>
+<td style="text-align: left;"><strong>80</strong></td>
+<td style="text-align: left;"><strong>0</strong></td>
+<td style="text-align: left;"><strong>-</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Now let’s compute the value of Pearson’s statistic.</p>
+<p>The test statistic <span class="math inline">\(X^2\)</span> is calculated as: <span class="math display">\[
+\begin{align*}
+X^2 &amp;= \sum_{i=1}^{4} \frac{(O_i - E_i)^2}{E_i}\\
+   &amp;= \frac{1}{5} + \frac{9}{15} + \frac{25}{25} + \frac{1}{35}\\
+   &amp;= 0.2 + 0.6 + 1.0 + 0.0286 = 1.8286
+\end{align*}
+\]</span></p>
+<p>With <span class="math inline">\(m = 4\)</span> cells and <span class="math inline">\(k = 0\)</span> estimated parameters, <span class="math inline">\(df = 4 - 1 = 3\)</span>.</p>
+<p>At <span class="math inline">\(\alpha = 0.025\)</span>, the critical value <span class="math inline">\(\chi^2_{0.025, 3} =\)</span> <code>qchisq(0.025, 3, lower.tail = FALSE)</code> = 9.3484036. Since <span class="math inline">\(1.8286 &lt; 9.348\)</span>, we <strong>fail to reject <span class="math inline">\(H_0\)</span></strong>.</p>
+<p>Alternatively we could compute the <span class="math inline">\(p\)</span>-value and compare it to the given <span class="math inline">\(\alpha\)</span>: <code>1-pchisq(q, df)</code> = 0.6087.</p>
+<p>The following R code draws the <span class="math inline">\(\chi^2\)</span> density for 3 degrees of freedom and shades the area beyond the observed statistic of 1.8286.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>deg_fr <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>x_sq <span class="ot">&lt;-</span> <span class="fl">1.8286</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>x_lim <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate density data</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>x_vals <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, x_lim, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>y_vals <span class="ot">&lt;-</span> <span class="fu">dchisq</span>(x_vals, <span class="at">df =</span> deg_fr)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>df_plot <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x_vals, <span class="at">y =</span> y_vals)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_plot, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shade area beyond the observed statistic</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">subset</span>(df_plot, x <span class="sc">&gt;=</span> x_sq), </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add vertical line for the statistic</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> x_sq, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">+</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> x_sq <span class="sc">+</span> <span class="fl">1.5</span>, <span class="at">y =</span> <span class="fl">0.1</span>, </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"X^2 ="</span>, <span class="fu">round</span>(x_sq, <span class="dv">4</span>)), <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">+</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Chi-Square Density (df = 3)"</span>,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Shaded area represents the p-value region"</span>,</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Statistic Value"</span>,</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lecture-29_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
-<p>The bar graph above shows 10 years worth of data. Each set of three bars represents the number of deaths in a year, distinguished by shift. It shows that for the first 2 years (1988 and 1989) there are roughly 10 deaths per year per shift, and then there is a “dramatic increase”. For each of the years from 1990 to 1995, one of the shifts has over 25 deaths per year. These increased deaths in fact, coincided with the shifts worked by Kristen Gilbert. She went on leave in February 1996, and this corresponded to a decrease in deaths.</p>
-<p>Of course, this doesn’t really prove anything, as it is just a visualization. Dr.&nbsp;Gehlbach then performed a statistical test on 18 months (corresponding to 547 days and 1,641 shifts) to see if these differences could be due to chance and within ordinary variability. It turned out that of the 1,641 shifts, there was at least 1 death in 74 shift, that is in 4.5% of the shifts. Gilbert worked in 257 of the shifts, and at the rate of 4.5% we expect at least one death in between 11 and 12 shifts (4.5% of 257 is 11.56). The actual observed number of shifts with deaths was 40. If we imagine that each shift is a coin toss, with the probability of heads being the chance of at least one death (4.5%), the probability of 40 or more deaths is very tiny. (They computed it as less than 1 in 100 million.)</p>
+</div>
+</div>
+</details>
 <div style="display:none">
-<p><span class="citation" data-cites="rice2006 samslides135 hmc2005 wasserman2004 cobb2006">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>; <a href="#ref-hmc2005" role="doc-biblioref">Hogg, McKean, and Craig 2005</a>; <a href="#ref-wasserman2004" role="doc-biblioref">Wasserman 2004</a>; <a href="#ref-cobb2006" role="doc-biblioref">Cobb and Gehlbach 2006</a>)</span></p>
+<p><span class="citation" data-cites="rice2006 samslides135 hmc2005">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>; <a href="#ref-hmc2005" role="doc-biblioref">Hogg, McKean, and Craig 2005</a>)</span></p>
 </div>
 </section>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-cobb2006" class="csl-entry" role="listitem">
-Cobb, George W., and Stephen H. Gehlbach. 2006. <span>“Statistics in the Courtroom: <span>U</span>nited <span>S</span>tates v. <span>K</span>risten <span>G</span>ilbert.”</span> In <em>Statistics: A Guide to the Unknown</em>, edited by Roxy Peck, George Casella, George Cobb, Roger Hoerl, Deborah Nolan, Robert Starbuck, and Hal Stern, 4th ed., 3–18. Belmont, CA: Thomson Brooks/Cole.
-</div>
 <div id="ref-hmc2005" class="csl-entry" role="listitem">
 Hogg, Robert V., Joseph W. McKean, and Allen T. Craig. 2005. <em>Introduction to Mathematical Statistics</em>. 6th ed. Upper Saddle River, NJ: Pearson Prentice Hall.
 </div>
@@ -179,9 +556,6 @@ Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides 
 </div>
 <div id="ref-rice2006" class="csl-entry" role="listitem">
 Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. Duxbury Press.
-</div>
-<div id="ref-wasserman2004" class="csl-entry" role="listitem">
-Wasserman, Larry. 2004. <em>All of Statistics: A Concise Course in Statistical Inference</em>. New York: Springer.
 </div>
 </div>
 
