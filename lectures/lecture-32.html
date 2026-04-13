@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>MLEs for the Multinomial, and Large Sample Theory of the MLE</title>
+<title>Hypothesis Tests for Categorical Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -121,257 +121,24 @@ window.Quarto = {
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
 
-<body class="nav-sidebar docked">
+<body>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-11.html">Lecture 11: MLE and the Multinomial Distribution</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
-    </div>
-  </nav>
-</header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="../index.html" class="sidebar-logo-link">
-      <img src="../assets/stat_bear.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
-    <div class="sidebar-title mb-0 py-0">
-      <a href="../">Stat 135</a> 
-        <div class="sidebar-tools-main">
-    <a href="https://github.com/berkeley-stat135/spring-2026" title="" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
-</div>
-    </div>
-      </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Home / Schedule</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../about.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">About Stat 135</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Syllabus</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../staff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Staff</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../calendar.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Calendar</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Lectures</span></span>
-  </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 1: Syllabus &amp; Diagnostic Test</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 2: Survey Sampling, Introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 3: Survey Sampling, Inference</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 4: Wrapping up Sampling</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 5: Method of Moments</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 6: MoM &amp; Mathematical Digressions</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-7.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 7: Standard Errors of MoM Estimators</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 8: Computing Standard Errors, continued</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-9.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 9: The Bootstrap; and Introducing Maximum Likelihood Estimation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-10.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 10: Maximum Likelihood Estimation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-11.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Lecture 11: MLE and the Multinomial Distribution</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-12.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 12: Mean Squared Error and Consistency</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-13.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 13: Consistency of the Maximum Likelihood Estimator</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-14.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 14: Asymptotic Distribution of the Maximum Likelihood Estimator</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-15.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 15: Proof of Asymptotic Normality, and Confidence Intervals</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-16.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 16: Efficiency</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-17.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 17: Proof of the Cramér-Rao Lower Bound</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-18.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 18: Sufficiency, and the Factorization Theorem</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-19.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 19: Proof of the Factorization theorem and the Rao-Blackwell Theorem</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-20.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 20: Proof of the Rao-Blackwell Theorem and Properties of Estimators</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-21.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 21: Introducing Hypotheses Tests</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-22.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 22: Testing Hypotheses: Vocabulary and Examples</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-29.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 29: Generalized Likelihood Ratio Test for the Multinomial Model</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-30.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 30: Hypothesis Tests for Categorical Data</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-31.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 31: Fisher’s Exact Test, and Chi-square Test for Homogeneity</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Datasets</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../license.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">License</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#the-multinomial-distribution" id="toc-the-multinomial-distribution" class="nav-link" data-scroll-target="#the-multinomial-distribution">The Multinomial Distribution</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
   <ul class="collapse">
-  <li><a href="#computing-the-mle-of-the-multinomial-likelihood-function" id="toc-computing-the-mle-of-the-multinomial-likelihood-function" class="nav-link" data-scroll-target="#computing-the-mle-of-the-multinomial-likelihood-function">Computing the MLE of the multinomial likelihood function</a></li>
+  <li><a href="#the-case-presented-to-the-grand-jury" id="toc-the-case-presented-to-the-grand-jury" class="nav-link" data-scroll-target="#the-case-presented-to-the-grand-jury">The case presented to the grand jury</a></li>
+  <li><a href="#dr.-gehlbachs-testimony" id="toc-dr.-gehlbachs-testimony" class="nav-link" data-scroll-target="#dr.-gehlbachs-testimony">Dr.&nbsp;Gehlbach’s testimony</a></li>
   </ul></li>
+  <li><a href="#tests-for-categorical-data" id="toc-tests-for-categorical-data" class="nav-link" data-scroll-target="#tests-for-categorical-data">Tests for Categorical Data</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -381,7 +148,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">MLEs for the Multinomial, and Large Sample Theory of the MLE</h1>
+<h1 class="title">Hypothesis Tests for Categorical Data</h1>
 </div>
 
 
@@ -398,77 +165,70 @@ window.Quarto = {
 </header>
 
 
+<!-- ## Lec 30, April 8, 2026-->
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>We will continue with our exploration of the method of maximum likelihood estimation. We want to consider the properties of the estimator: Is it unbiased? Consistent? What can we say about the distribution of the estimator when the sample size is large?</p>
-<p>But first, we are going to look at maximum likelihood estimation in a special, but important case.</p>
-</section>
-<section id="the-multinomial-distribution" class="level2">
-<h2 class="anchored" data-anchor-id="the-multinomial-distribution">The Multinomial Distribution</h2>
-<p>Recall the Multinomial distribution. It is a generalization of the Binomial distribution. A random variable with the <span class="math inline">\(\mathrm{Bin}(n,p)\)</span> counts in how many trials we see one particular outcome (that we call a “success”), when we have a fixed number (<span class="math inline">\(n\)</span>) of trials, each with <strong>two</strong> possible outcomes, and a probability of <em>success</em> (<span class="math inline">\(p\)</span>) that stays the same for each trial.</p>
-<p>Now we can see that this set up does not cover the case of rolling a fair six-sided die, say, 20 times. If we are only interested in the number of <em>sixes</em> that we see (for example), then we can certainly model this using the Binomial distribution, with <span class="math inline">\(n=20\)</span> and <span class="math inline">\(p = \dfrac{1}{6}\)</span> being the probability of a <em>success</em> which is rolling a 6. Therefore, the probability of a failure is <span class="math inline">\(q = \dfrac{5}{6}\)</span>. We know how to compute these probabilities.</p>
-<p>But what if I want to know the probability of <span class="math inline">\(x_1\)</span> rolls landing 1 <em>and</em> <span class="math inline">\(x_2\)</span> rolls landing 2 <em>and</em> … <em>and</em> <span class="math inline">\(x_6\)</span> rolls landing on 6. In this case, the Binomial distribution does not cover the computation of these probabilities, but we just have to <em>generalize</em> the idea of the Binomial. In the Binomial set up, we have two possible outcomes of each trial, with probabilities <span class="math inline">\(p\)</span> and <span class="math inline">\(q=1-p\)</span>. In the Multinomial set up, if we have <span class="math inline">\(m\)</span> possible outcomes for each trial, we have to have <span class="math inline">\(p_1, p_2, \dots, p_m\)</span> be the probability of each of the <span class="math inline">\(m\)</span> outcomes, respectively, and therefore <span class="math inline">\(p_1+p_2 + \dots+ p_m = 1\)</span>, and <span class="math inline">\(x_1 + x_2 + \dots + x_m = n\)</span>.</p>
-<p>In the Binomial case, we define a random variable <span class="math inline">\(X\sim \mathrm{Bin}(n,p)\)</span> as the number of successes in <span class="math inline">\(n\)</span> trials, where the probability of success is <span class="math inline">\(p\)</span>. In the Multinomial setting, if we have <span class="math inline">\(m\)</span> possible outcomes, we let <span class="math inline">\(X_i\)</span> be the number of times we see outcome <span class="math inline">\(i\)</span>. Therefore, we have that <span class="math inline">\(X_1+X_2+\dots+X_m = n\)</span>. We can compute then the probability that we see the first outcome <span class="math inline">\(x_1\)</span> times, and the second <span class="math inline">\(x_2\)</span> times,etc, which is the <strong>joint probability </strong> <span class="math inline">\(P(X_1 = x_1, X_2 = x_2, \dots, X_n = x_n)\)</span>.</p>
-<!--
-&#x2680;  Die Face 1 
-&#x2681;  Die Face 2 
-&#x2682;  Die Face 3 
-&#x2683;  Die Face 4 
-&#x2684;  Die Face 5 
-&#x2685;  Die Face 6 
--->
-<p><strong>Example</strong> To make it more concrete, consider rolling a six-sided die <strong>ten</strong> times. What is the probability that we see the face ⚀ four times, the face ⚃ three times, and the face ⚅ three times?</p>
-<p>If we let <span class="math inline">\(p_1, p_2 \dots, p_6\)</span> be the probabilities of seeing the faces ⚀ ⚁ <span class="math inline">\(\dots\)</span> ⚅ respectively, then we need: <span class="math display">\[
-P(X_1 = 4, X_2 = 0, X_3 = 0, X_4 = 3, X_5 = 0,  X_6 = 3).
-\]</span></p>
-<p>Note that <span class="math inline">\(X_1, \dots, X_n\)</span> are <strong>not</strong> independent! (Why not?)</p>
-<details>
-<summary>
-Check your answer
-</summary>
-<p>They are not independent because they need to sum to <span class="math inline">\(n\)</span>, which is the total number of rolls.</p>
-
-</details>
-<p>We can compute this probability as follows: <span class="math display">\[
-P(X_1 = 4, X_2 = X_3 = X_5 = 0, X_4 = 3, X_6 = 3) = p_1^4 \,p_2 ^0 \, p_3^0\,  p_4^3\,  p_5^0 \,p_6^3 \times \dfrac{10!}{4!0!0!3!0!3!} = p_1^4 \,p_4^3\, p_6^3 \times \dfrac{10!}{4!3!3!}.
-\]</span> The term <span class="math inline">\(\dfrac{10!}{4!0!0!3!0!3!}\)</span> is the Multinomial coefficient <span class="math inline">\(\displaystyle \binom{n}{x_1, x_2, \dots x_m} = \dfrac{n!}{x_1!x_2!\dots x_n!}\)</span> which counts the number of ways that <span class="math inline">\(n\)</span> objects (the rolls) can be partitioned into <span class="math inline">\(m\)</span> distinct groups (the faces rolled).</p>
-<p>Simplifying the notation a bit, we can write the <em>joint</em> PMF of <span class="math inline">\(X_1, \dots, X_n\)</span> as <span class="math display">\[
-f(x_1, \dots, x_m \vert p_1, \dots, p_m) = \dfrac{n!}{x_1!\dots x_m!} \prod_{i=1}^m p_i^{x_i}
-\]</span></p>
-<p>Note that the marginal distributions of the <span class="math inline">\(X_i\)</span> are <span class="math inline">\(\mathrm{Bin}(n, p_i)\)</span>.</p>
-<section id="computing-the-mle-of-the-multinomial-likelihood-function" class="level3">
-<h3 class="anchored" data-anchor-id="computing-the-mle-of-the-multinomial-likelihood-function">Computing the MLE of the multinomial likelihood function</h3>
-<p>We have a joint PMF as defined above, and we will to estimate the probabilities <span class="math inline">\(p_1, \dots, p_n\)</span> using maximum likelihood. We can do this, even though the <span class="math inline">\(X_i\)</span> are not independent. The lack of independence means that we will not be able to factor the joint PMF into a product. Also note that the <span class="math inline">\(p_i's\)</span> are <em>not</em> free to vary, because they are <strong>subject to the constraint</strong> that their sum is 1. This means that we need to maximize <span class="math inline">\(\mathrm{lik}(p_1, \dots, p_m)\)</span> subject to the constraint that <span class="math inline">\(p_1 + \dots +  p_m = 1\)</span>.</p>
-<p>As we do often, we simplify the problem by taking logs of the likelihood function. Therefore, we need to maximize <span class="math inline">\(\ell(p_1, \dots, p_m) = \log \mathrm{lik}(p_1, \dots, p_m)\)</span> subject to the constraint <span class="math inline">\(\displaystyle \sum_{i=1}^m p_i = 1\)</span>.</p>
-<p>We will use Lagrange multipliers to do this. Define the function <span class="math inline">\(\mathcal{L}\)</span> by: <span class="math display">\[
-\mathcal{L}(p_1, p_2, \dots, p_m, \lambda) = \ell(p_1, p_2, \dots, p_m) + \lambda(\sum_{i=1}^m p_i -1).
-\]</span></p>
-<p>Writing out <span class="math inline">\(l\)</span>, we get: <span class="math display">\[
-\begin{align*}
-\mathcal{L}(p_1, p_2, \dots, p_m, \lambda) &amp;= \log \mathrm{lik}(p_1, p_2, \dots, p_m) + \lambda(\sum_{i=1}^m p_i -1)\\
-  &amp;= \log \left(\dfrac{n!}{x_1!\dots x_m!} \prod_{i=1}^m p_i^{x_i}\right) + \lambda(\sum_{i=1}^m p_i -1)\\
-  &amp;= \log (n!) - \sum_{i=1}^m \log (x_i!) + \sum_{i=1}^m x_i \log p_i + \lambda(\sum_{i=1}^m p_i -1)\\
-\end{align*}
-\]</span></p>
-<p>Take partial derivatives with respect to each <span class="math inline">\(p_i, \; i = 1, \dots, m\)</span>. Remember that <span class="math inline">\(x_i\)</span> and <span class="math inline">\(n\)</span> are constants with respect to <span class="math inline">\(p_i\)</span>, as is <span class="math inline">\(\lambda\)</span>. <span class="math display">\[
-\dfrac{\partial \mathcal{L}}{\partial p_i} = \dfrac{x_i}{p_i} + \lambda
-\]</span> Setting each of these partial derivatives equal to 0 gives us that for each <span class="math inline">\(i\)</span>, we have: <span class="math display">\[
-\dfrac{x_i}{\hat p_i} + \lambda = 0 \Rightarrow \hat p_i = -\dfrac{x_i}{\lambda}.
-\]</span> We know that the sum of all the <span class="math inline">\(\hat p_i\)</span>’s is equal to 1. Using this, we can see that the maximum likelihood estimates of the <span class="math inline">\(p_i\)</span>’s are given by <span class="math inline">\(\hat p_i = \dfrac{x_i}{n}\)</span>.</p>
-<p>The corresponding statistics, that is the maximum likelihood <em>estimators</em> are <span class="math inline">\(\hat p_i = \dfrac{X_i}{n}\)</span>.</p>
-<p>Using the numbers in our example above, we have that the maximum likelihood estimates are: <span class="math display">\[
-\hat p_1 = \dfrac{4}{10}, \; \hat p_2 = \hat p_3 = 0, \; \hat p_4 = \dfrac{3}{10}, \; \hat p_5 = 0,\; \hat p_6 = \dfrac{3}{10}.
-\]</span></p>
-<div style="display:none">
-<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="hmc2005">Hogg, McKean, and Craig (<a href="#ref-hmc2005" role="doc-biblioref">2005</a>)</span>;]</p>
+<p>In October 2000, a journalist named Thomas Farragher <span class="citation" data-cites="farragher2000">Farragher (<a href="#ref-farragher2000" role="doc-biblioref">2000</a>)</span> wrote an article for the Boston Globe that was headlined “Death on Ward C: Caregiver or killer?”. It told the story of a “pretty and popular” young nurse named Kristen Gilbert at the VA hospital in Northampton, Massachusetts, whose “healing skills were admired by colleagues and acknowledged by superiors”. Until they weren’t. After a few years there were rumors and whispers floating around Gilbert - about how there were too many deaths from cardiac arrest on her shifts, about how there were too many empty epinephrine ampoules found in the trash when there was no call to use them, about how there were too many “Code Blues” on her watch. In a few years, Gilbert had gone from being almost universally liked, to being called the “Angel of Death” behind her back.</p>
+<p>Federal prosecuters, especially then Assistant US Attorney William Welch II, who led a team of prosecutors, convened a grand jury in 1998 to hear the evidence against Gilbert. They accused Gilbert of being a serial killer who attacked the patients at the VA hospital, inducing heart attacks that killed them. They believed that the motivation was that Gilbert was showing off to her boyfriend who also worked at the hospital, and the thrill that she got from handling these medical crises - the “Code Blues”.</p>
+<!--The following case study is from an article by George Cobb and Stephen Gehlbach in *Statistics: A Guide to the Unknown* [@cobb2006]. The title of the article is *Statistics in the Courtroom*. 
+Now, many of you have taken lower division statistics courses in which you have encountered hypothesis testing, and might have heard of the analogy with criminal trials with the "null hypothesis" being the innocence of the defendant, and the "alternative hypothesis" being guilt. There are definitely problems with that analogy and it can only be taken so far, which we will discuss later. This article, however, is different. 
+It tells the story of a nurse, well respected at first, looked up to, then suspected and accused of murdering several patients on her shift by the other nurses who became suspicious because of the unusually high number of crises on her shifts. In the late 1990s, Kristen Gilbert, a nurse at a Veterans Affairs hospital in Massachusetts, was suspected of murdering patients by inducing cardiac arrest through injections of epinephrine. -->
+<p>The legal challenge was to determine if the disproportionate number of deaths occurring during her shifts was a result of criminal activity or merely a statistical coincidence. The prosecution realized that the evidence against Gilbert was largely statistical since the motivation was not strong enough. Welch asked a statistician, Stephen Gehlbach, to analyze the hospital records. Dr.&nbsp;Gehlbach did so, and presented compelling evidence that convinced the grand jury of the prosecution’s case. The defense then asked another statistician, George Cobb, to prepare a written report to convince the judge for the criminal trial about why it would not be appropriate for the (new) trial jury to hear Dr.&nbsp;Gehlbach’s argument. Later, both statisticians, who <em>agreed</em> on the main point - that the anomalous number of deaths on Gilbert’s shifts was unlikely to be coincidence, wrote a fascinating article about it in the book <em>Statistics: A Guide to the Unknown</em> <span class="citation" data-cites="cobb2006">(<a href="#ref-cobb2006" role="doc-biblioref">Cobb and Gehlbach 2006</a>)</span>.</p>
+<section id="the-case-presented-to-the-grand-jury" class="level3">
+<h3 class="anchored" data-anchor-id="the-case-presented-to-the-grand-jury">The case presented to the grand jury</h3>
+<p>Gehlbach and Cobb write that “the key question for the grand jury was to determine if it was true that there were enough deaths during Gilbert’s shifts to be suspicious and warrant bringing Gilbert to trial, where the case would be presented to a jury.” As a witness for the prosecution, Gehlbach presented a <strong>hypothesis test</strong> to the grand jury; a method of statistical inference often used to make decisions based on data. The prosecutors (led by Assistant U.S. Attorney William Welch) knew they had a <em>silent</em> crime - no one saw the injections, and the patients were already very ill (the ward was an intensive care unit). The prosecutors asked Gehlbach to analyze the hospital records to see if the higher number of deaths during Gilbert’s shifts was mathematically plausible. Dr.&nbsp;Gehlbach presented his testimony orally to the grand jury, explaining the logic of hypothesis testing using the example of a coin toss. He had done a statistical analysis of the hospital records, and showed the grand jury the pattern of deaths, by shift and by year. Then he explained the idea of sampling variability, and <em>p</em>-values (the probability of observing values as extreme as those that were actually observed, <em>assuming</em> that the increased deaths were strictly due to chance and not more sinister reasons). Finally, he discussed statistically testing whether the pattern of deaths during Gilbert’s shifts was too extreme to be regarded as arising out of regular variability.</p>
+<p>First, to display the pattern of deaths, Cobb and Gehlbach show the following visualization:</p>
+<div id="fig-cobb" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cobb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/fig-1-cobb.png" class="img-fluid figure-img" alt="A bar graph showing the frequency of deaths by year and shift."></p>
+<figcaption>The pattern of deaths, by year and shift</figcaption>
+</figure>
 </div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-cobb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1
+</figcaption>
+</figure>
+</div>
+<p>According to the Boston Globe <span class="citation" data-cites="farragher2000">Farragher (<a href="#ref-farragher2000" role="doc-biblioref">2000</a>)</span>, the prosecuters said that Gilbert was on duty for half of the 350 deaths that occurred on her ward for the seven years that she worked at the hospital. The bar graph above shows 10 years worth of data. Each set of three bars represents the number of deaths in a year, distinguished by shift. It shows that for the first 2 years (1988 and 1989) there are roughly 10 deaths per year per shift, and then there is a “dramatic increase”. For each of the years from 1990 to 1995, one of the shifts has over 25 deaths per year. These increased deaths in fact, coincided with the shifts worked by Kristen Gilbert. She went on leave in February 1996, and this corresponded to a decrease in deaths.</p>
 </section>
+<section id="dr.-gehlbachs-testimony" class="level3">
+<h3 class="anchored" data-anchor-id="dr.-gehlbachs-testimony">Dr.&nbsp;Gehlbach’s testimony</h3>
+<p>Of course, the bar graph doesn’t really <em>prove</em> anything, as it is just a visualization. Dr.&nbsp;Gehlbach then performed a statistical test on the last 18 months of the data (corresponding to 547 days and 1,641 shifts) to see if these differences could be due to chance and within ordinary variability. It turned out that of the 1,641 shifts, there was at least 1 death in 74 shifts, that is in 4.5% of the shifts. Gilbert worked on 257 of the shifts. If we assume that there is <strong>no</strong> association between her being on duty on a shift and whether or not there was a death on the shift, then, at the rate of 4.5%, we expect at least one death in between 11 and 12 shifts (4.5% of 257 is 11.56). The <em>actual</em> observed number of Gilbert’s shifts with a death was 40!! If we imagine that each shift is a coin toss, with the probability of heads being the chance of at least one death (4.5%), the probability of 40 or more deaths is very tiny. (They computed it as less than 1 in 100 million.)</p>
+<p>That is, let <span class="math inline">\(X\)</span> be the number of shifts with at least one death. We assume no association, and that each shift is independent of all the others, with the chance of a death being constant at <span class="math inline">\(p = 0.045.\)</span> If we take <span class="math inline">\(n = 257\)</span>, then according to our assumptions, <span class="math display">\[
+X \sim \mathrm{Bin}(n,p), \text{ and } E(X) = np = 257\times 0.045 = 11.565.
+\]</span> That is, we expect to see between 11 and 12 deaths on Gilbert’s 257 shifts. But perhaps this difference between what we see (40 shifts with deaths) and what we expect (11 or 12 shifts with deaths) is simply coincidence. What would be the probability of at least 40 deaths in 257 shifts? <span class="math display">\[
+P(X \ge 40 \mid X \sim \mathrm{Bin}(257, 0.045) \approx 10^{-11},
+\]</span> where we computed the probability in R using <code>1-pbinom(39, size = 257, prob = 0,.045)</code>.</p>
+<p>The grand jury was convinced, and indicted Gilbert who would stand trial in federal district court (because the crimes occurred in the VA hospital) for four counts of murder and three counts of attempted murder. But before the trial could take place, the judge, Michael Ponsor, had to rule on whether the jury should be allowed to hear the statistical evidence. This is when Gilbert’s defense team of lawyer’s asked George Cobb to prepare a written report for the judge. The story of Cobb’s report though, is for another time. We are going to discuss the various hypothesis tests for categorical data.</p>
+</section>
+</section>
+<section id="tests-for-categorical-data" class="level2">
+<h2 class="anchored" data-anchor-id="tests-for-categorical-data">Tests for Categorical Data</h2>
+<p>Categorical data, where the data consists of <em>counts</em> in the various possible categories, have to be dealt with differently than the quantitative data we have seen so far in the course. Examples of</p>
+<p>We will study four tests:</p>
+<ol type="1">
+<li><p><strong>Chi-square Goodness-of-fit Test</strong>: We saw this in the last lecture. In this test, we looked at the multinomial model, with a probability distribution that is specified in the null hypothesis. We developed the test, beginning with the likelihood ratio, and showing that <span class="math inline">\(-2\log \Lambda\)</span> has a chi-square time for large samples. We also showed the asymptotic equivalence between <span class="math inline">\(-2\log \Lambda\)</span> and Pearson’s chi-square statistic.</p></li>
+<li><p><strong>Fisher’s Exact Test</strong>: This is a test for <em>association</em> of two categorical variables, especially if we have small sample sizes. The data is presented as a <span class="math inline">\(2\times 2\)</span> contingency table, so note that each of the variables is binary in nature. Every unit in the population is <em>cross-classified</em> according to the two variables. This is called an <em>exact</em> test, as opposed to the chi-square tests which are <em>approximate</em>. Under the null hypothesis of no association between the two variables, the observed counts are random variables but the margins are fixed, thus we can use the hypergeometric distribution to compute the probabilities. We will discuss the details in the next chapter.</p></li>
+<li><p><strong>Chi-square test for Homogeneity</strong>: We use this test in a situation when we have independent observations from a number of multinomial distributions, say <span class="math inline">\(J\)</span> distributions, each with <span class="math inline">\(I\)</span> cells (categories). We want to test if the underlying probabilities of the cells are the same across the distributions, that is we test the <strong>homogeneity</strong> of the multinomial distributions.</p></li>
+<li><p><strong>Chi-square test for Independence</strong>: Again, we have two categorical variable (which might not be binary) with data that is cross-classified. This appears very similar to the chi-square test for homogeneity that we will discuss below, but it answers a different question.</p></li>
+</ol>
+<p>In the next chapter, we will look at the latter three distributions in detail.</p>
+<div style="display:none">
+<p><span class="citation" data-cites="rice2006 samslides135 hmc2005 wasserman2004 cobb2006 farragher2000">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>; <a href="#ref-hmc2005" role="doc-biblioref">Hogg, McKean, and Craig 2005</a>; <a href="#ref-wasserman2004" role="doc-biblioref">Wasserman 2004</a>; <a href="#ref-cobb2006" role="doc-biblioref">Cobb and Gehlbach 2006</a>; <a href="#ref-farragher2000" role="doc-biblioref">Farragher 2000</a>)</span></p>
+</div>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-chi-hest2018" class="csl-entry" role="listitem">
-Chihara, Laura M., and Tim C. Hesterberg. 2018. <em>Mathematical Statistics with Resampling and r</em>. John Wiley &amp; Sons, Hoboken, NJ.
+<div id="ref-cobb2006" class="csl-entry" role="listitem">
+Cobb, George W., and Stephen H. Gehlbach. 2006. <span>“Statistics in the Courtroom: <span>U</span>nited <span>S</span>tates v. <span>K</span>risten <span>G</span>ilbert.”</span> In <em>Statistics: A Guide to the Unknown</em>, edited by Roxy Peck, George Casella, George Cobb, Roger Hoerl, Deborah Nolan, Robert Starbuck, and Hal Stern, 4th ed., 3–18. Belmont, CA: Thomson Brooks/Cole.
+</div>
+<div id="ref-farragher2000" class="csl-entry" role="listitem">
+Farragher, Thomas. 2000. <span>“Death on Ward c: Caregiver or Killer?”</span> <em>The Boston Globe</em>, October. <a href="http://cache.boston.com/globe/metro/packages/nurse/part1.htm">http://cache.boston.com/globe/metro/packages/nurse/part1.htm</a>.
 </div>
 <div id="ref-hmc2005" class="csl-entry" role="listitem">
 Hogg, Robert V., Joseph W. McKean, and Allen T. Craig. 2005. <em>Introduction to Mathematical Statistics</em>. 6th ed. Upper Saddle River, NJ: Pearson Prentice Hall.
@@ -478,6 +238,9 @@ Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides 
 </div>
 <div id="ref-rice2006" class="csl-entry" role="listitem">
 Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. Duxbury Press.
+</div>
+<div id="ref-wasserman2004" class="csl-entry" role="listitem">
+Wasserman, Larry. 2004. <em>All of Statistics: A Concise Course in Statistical Inference</em>. New York: Springer.
 </div>
 </div>
 

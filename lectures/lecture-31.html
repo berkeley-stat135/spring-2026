@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Efficiency</title>
+<title>Fisher’s Exact Test</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-16.html">Lecture 16: Efficiency</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-31.html">Lecture 31: Fisher’s Exact Test, and Chi-square Test for Homogeneity</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -287,7 +287,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-16.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lectures/lecture-16.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 16: Efficiency</span></a>
   </div>
 </li>
@@ -341,7 +341,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-31.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/lecture-31.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lecture 31: Fisher’s Exact Test, and Chi-square Test for Homogeneity</span></a>
   </div>
 </li>
@@ -367,8 +367,14 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#relative-efficiency-of-two-estimators" id="toc-relative-efficiency-of-two-estimators" class="nav-link" data-scroll-target="#relative-efficiency-of-two-estimators">Relative Efficiency of Two Estimators</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#contingency-table-presented-to-the-grand-jury" id="toc-contingency-table-presented-to-the-grand-jury" class="nav-link" data-scroll-target="#contingency-table-presented-to-the-grand-jury">Contingency table presented to the grand jury</a></li>
+  </ul></li>
+  <li><a href="#fishers-exact-test" id="toc-fishers-exact-test" class="nav-link" data-scroll-target="#fishers-exact-test">Fisher’s exact test</a></li>
+  <li><a href="#chi-square-test-for-homogeneity" id="toc-chi-square-test-for-homogeneity" class="nav-link" data-scroll-target="#chi-square-test-for-homogeneity"><strong>Chi-square test for Homogeneity</strong></a></li>
+  <li><a href="#back-to-sanditon" id="toc-back-to-sanditon" class="nav-link" data-scroll-target="#back-to-sanditon">Back to Sanditon</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -377,7 +383,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Efficiency</h1>
+<h1 class="title">Fisher’s Exact Test</h1>
 </div>
 
 
@@ -394,148 +400,427 @@ window.Quarto = {
 </header>
 
 
-<!--# Lec 16 -- 2/27/2026: Efficiency & Cramér-Rao Theorem-->
+<!-- ## Lec 31, April 10, 2026-->
+<p>[DRAFT IN PROGRESS]</p>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<div id="exm-effMedMean" class="theorem example">
-<p><span class="theorem-title"><strong>Example 1</strong></span> Suppose <span class="math inline">\(X_1, \ldots, X_n\)</span> are i.i.d. from a Normal distribution <span class="math inline">\(N(\theta, \sigma^2)\)</span>, <span class="math inline">\(\sigma^2 = 1\)</span> - that is, the mean is unknown, but the variance is known. Our goal is to estimate <span class="math inline">\(\theta\)</span> using one of the two estimators: either the sample mean or the sample median. Which one should we use? Let’s look at their expected values and variances.</p>
-<p><strong>Sample mean:</strong></p>
-<p><span class="math display">\[
-\hat{\mu} = \bar{X}_n, \quad \mathbb{E}(\hat{\mu}) = \mu, \quad \text{Var}(\hat{\mu}) = \frac{1}{n} \leftarrow \text{given}
-\]</span></p>
-<p><strong>Sample median:</strong> Denote the sample median by <span class="math inline">\(\tilde{\mu}\)</span>.</p>
-<p>Suppose we know that: <span class="math display">\[
-\mathbb{E}(\tilde{\mu}) = \mu, \quad \text{Var}(\tilde{\mu}) \approx \frac{\pi}{2n}\;\text{ for large } n.
-\]</span></p>
-<p>We can compare their mean squared errors, which seems to be a good way to see which estimator we would prefer. Recall that the MSE of an estimator is the sum of its variance and the square of its bias. We can see that since both estimators are <em>unbiased</em>, their mean squared errors:</p>
-<p><span class="math display">\[
-\Rightarrow \text{MSE}(\hat{\mu}) = 0 + \frac{1}{n},
-\]</span> and <span class="math display">\[
-\text{MSE}(\tilde{\mu}) = 0 + \frac{\pi}{2}n.
-\]</span></p>
-<p><span class="math display">\[
-\frac{\pi}{2} &gt; 1 \Rightarrow \text{MSE}(\tilde{\mu}) &gt; \text{MSE}(\hat{\mu})
-\]</span></p>
-<p>We see that though they are both unbiased, the sample median has a larger variance than the sample mean, and the sample mean is therefore the preferred estimator of the true mean.</p>
-</div>
+<p>In the previous chapter, we discussed the case of the VA nurse, Kristen Gilbert, who was accused of murdering several of her patients. The prosecution team, led by Assistant U.S. Attorney William Welch, realized that they would need statistical evidence to convince the grand jury. To this end, they asked Stephen Gehlbach, a professor in the School of Public Health and Health Sciences at UMass Amherst to analyze the hospital records and testify to the grand jury.</p>
+<p>Dr.&nbsp;Gehlbach had performed a statistical test on the last 18 months of the data (corresponding to 547 days and 1,641 shifts) to see if these differences could be due to chance and within ordinary variability. We have already described his testimony, and here we present a different approach to the hypothesis test.</p>
+<section id="contingency-table-presented-to-the-grand-jury" class="level3">
+<h3 class="anchored" data-anchor-id="contingency-table-presented-to-the-grand-jury">Contingency table presented to the grand jury</h3>
+<p>We reproduce the two way contingency table that Gehlbach presented to the grand jury. We have two binary categorical variables: along the rows we have whether or not Gilbert was present on a shift, and along the columns we have whether or not there was a death on the shift.</p>
+<style>
+.ct{width:100%;border-collapse:collapse;font-size:15px;}
+.ct td,.ct th{padding:6px 16px;border:none;color:var(--color-text-primary);}
+.ct .death-label{text-align:center;color:#2a7ea8;font-weight:700;font-size:15px;letter-spacing:0.03em;border-bottom:1.5px solid #666;padding-bottom:4px;}
+.ct .col-headers{border-bottom:1.5px solid #666;}
+.ct .col-headers td.gilbert{font-weight:700;font-size:15px;color:#2a7ea8;}
+.ct th{font-weight:700;font-size:15px;text-align:center;}
+.ct .row-label{font-weight:700;color:#2a7ea8;text-align:left;}
+.ct td:not(.row-label){text-align:center;}
+.ct .total-row td{font-weight:700;}
+.caption{font-size:14px;margin-top:12px;}
+</style>
+<table class="ct">
+<thead>
+<tr>
+<td>
+</td>
+<th colspan="3" class="death-label">
+DEATH ON SHIFT?
+</th>
+</tr>
+<tr class="col-headers">
+<td class="gilbert">
+GILBERT PRESENT?
+</td>
+<th>
+Yes
+</th>
+<th>
+No
+</th>
+<th>
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="row-label">
+Yes
+</td>
+<td>
+40
+</td>
+<td>
+217
+</td>
+<td>
+257
+</td>
+</tr>
+<tr>
+<td class="row-label">
+No
+</td>
+<td>
+34
+</td>
+<td>
+1350
+</td>
+<td>
+1384
+</td>
+</tr>
+<tr class="total-row">
+<td class="row-label">
+Total
+</td>
+<td>
+74
+</td>
+<td>
+1567
+</td>
+<td>
+1641
+</td>
+</tr>
+</tbody>
+</table>
+<p class="caption">
+<strong>TABLE 1</strong> The basis of the statistical test
+</p>
+<p>Now, though it is clear that there appears to be an imbalance in the numbers in the table above, one might argue that the coin-tossing analogy doesn’t make sense since it isn’t clear that each shift is independent of the others. We need to test the null hypothesis (of the defense) that there is nothing nefarious going on, and any differences observed in the frequencies of deaths is just due to chance variation.</p>
+<p>We will perform Fisher’s exact test on this data.</p>
 </section>
-<section id="relative-efficiency-of-two-estimators" class="level2">
-<h2 class="anchored" data-anchor-id="relative-efficiency-of-two-estimators">Relative Efficiency of Two Estimators</h2>
-<p>In general, even if our estimators are <em>not</em> unbiased, it is better to have smaller variance, since this will lead to greater precision (narrower confidence intervals). We will always use consistent estimators, which means that for large samples, they will be very close to the true mean with high probability.</p>
-<p>To quantify this idea of “better” estimators, we will define the <strong>Relative Efficiency</strong> of two estimators: Suppose we want to compare a pair of estimators of a parameter <span class="math inline">\(\theta\)</span>, denoted by <span class="math inline">\(\hat{\theta}\)</span>, <span class="math inline">\(\tilde{\theta}\)</span>.</p>
-<p>We know that (from sample of size <span class="math inline">\(n\)</span>):</p>
-<p><span class="math display">\[
-\text{MSE}(\hat{\theta}_n) = \left(\text{Bias}(\hat{\theta}_n)\right)^2 + \text{Var}(\hat{\theta}_n)
+</section>
+<section id="fishers-exact-test" class="level2">
+<h2 class="anchored" data-anchor-id="fishers-exact-test">Fisher’s exact test</h2>
+<p>Under the null hypothesis of no association between the row variable and the column variable, the margins of the table are fixed. We denote the counts in the table, and the totals in the margins as shown in the table below:</p>
+<style>
+.rice{border-collapse:collapse;font-size:15px;}
+.rice td{padding:6px 16px;border:none;text-align:center;}
+.rice td:not(:last-child){border-right:1px solid #666;}
+.rice tr:not(:last-child) td{border-bottom:1px solid #666;}
+</style>
+<table class="rice">
+<tbody>
+<tr>
+<td>
+<span class="math inline">\(N_{11}\)</span>
+</td>
+<td>
+<span class="math inline">\(N_{12}\)</span>
+</td>
+<td>
+<span class="math inline">\(n_{1.}\)</span>
+</td>
+</tr>
+<tr>
+<td>
+<span class="math inline">\(N_{21}\)</span>
+</td>
+<td>
+<span class="math inline">\(N_{22}\)</span>
+</td>
+<td>
+<span class="math inline">\(n_{2.}\)</span>
+</td>
+</tr>
+<tr>
+<td>
+<span class="math inline">\(n_{.1}\)</span>
+</td>
+<td>
+<span class="math inline">\(n_{.2}\)</span>
+</td>
+<td>
+<span class="math inline">\(n_{..}\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Note that <span class="math inline">\(N_{ij}\)</span> are random variables, with <span class="math inline">\(n_{i.}\)</span> being the total of the <span class="math inline">\(i\)</span>th row and <span class="math inline">\(n_{.j}\)</span> being the total of the <span class="math inline">\(j\)</span>th column.</p>
+<p>Under the null hypothesis, <span class="math inline">\(N_{11}\)</span> is a <strong>hypergeometric</strong> random variable, in which we are taking a sample of size <span class="math inline">\(n_{.1}\)</span> from a population of size <span class="math inline">\(n_{..}\)</span> and counting the number of <em>white</em> balls in the sample. Recall that the population consists of white balls and black balls, and in this situation, we have <span class="math inline">\(n_{1.}\)</span> white balls and <span class="math inline">\(n_{2.}\)</span> black balls.</p>
+<p>This gives us that <span class="math inline">\(N_{11} \sim \mathrm{HG}(w =n_{1.}, b = n_{2.}, n = n_{.1})\)</span> and <span class="math display">\[
+P(N_{11} = k) = \frac{\binom{n_{1.}}{k}\binom{n_{2.}}{n_{.1}-k}}{\binom{n_{..}}{n_{.1}}}
+\]</span> If we let <span class="math inline">\(k = n_{11}\)</span>, the observed value of <span class="math inline">\(N_{11}\)</span>, we get (note that <span class="math inline">\(n_{11}+n_{21} = n_{.1}\)</span>): <span class="math display">\[
+P(N_{11} = n_{11}) = \frac{\binom{n_{1.}}{n_{11}}\binom{n_{2.}}{n_{21}}}{\binom{n_{..}}{n_{.1}}}
 \]</span></p>
-<p><span class="math display">\[
-\text{MSE}(\tilde{\theta}_n) = \left(\text{Bias}(\tilde{\theta}_n)\right)^2 + \text{Var}(\tilde{\theta}_n)
-\]</span></p>
-<div id="def-releff" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1</strong></span> The <strong>efficiency</strong> of <span class="math inline">\(\tilde{\theta}\)</span> <em>relative</em> to <span class="math inline">\(\hat{\theta}\)</span> is given by:</p>
-<p><span class="math display">\[
-\text{eff}(\tilde{\theta}_n, \hat{\theta}_n) = \frac{\text{MSE}(\hat{\theta}_n)}{\text{MSE}(\tilde{\theta}_n)}
-\]</span></p>
-<p>This quantity is called <em>Relative Efficiency</em>.</p>
+<p>Here is the table with the Gilbert data:</p>
+<style>
+.rice{border-collapse:collapse;font-size:15px;}
+.rice td, .rice th{padding:6px 16px;border:none;text-align:center;}
+.rice td:not(:last-child), .rice th:not(:last-child){border-right:1px solid #666;}
+.rice tr:not(:last-child) td, .rice tr:not(:last-child) th{border-bottom:1px solid #666;}
+.rice thead tr{border-bottom:1.5px solid #666;}
+.rice .row-label{text-align:left;font-weight:700;}
+.rice thead th{font-weight:700;}
+</style>
+<table class="rice">
+<thead>
+<tr>
+<th>
+</th>
+<th>
+Death on shift
+</th>
+<th>
+No death on shift
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="row-label">
+Gilbert present on shift
+</td>
+<td>
+<span class="math inline">\(N_{11} = 40\)</span>
+</td>
+<td>
+<span class="math inline">\(N_{12} = 217\)</span>
+</td>
+<td>
+<span class="math inline">\(n_{1.} = 257\)</span>
+</td>
+</tr>
+<tr>
+<td class="row-label">
+Gilbert not present on shift
+</td>
+<td>
+<span class="math inline">\(N_{21} = 34\)</span>
+</td>
+<td>
+<span class="math inline">\(N_{22} = 1350\)</span>
+</td>
+<td>
+<span class="math inline">\(n_{2.} = 1384\)</span>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>
+<span class="math inline">\(n_{.1} = 74\)</span>
+</td>
+<td>
+<span class="math inline">\(n_{.2} = 1567\)</span>
+</td>
+<td>
+<span class="math inline">\(n_{..} = 1641\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Plugging in the numbers for the Gilbert data, we get that the <span class="math inline">\(p\)</span>-value for this test is: <span class="math display">\[
+P(N_{11} \ge 40) = \frac{\binom{257}{40}\binom{1384}{34}}{\binom{1641}{74}} \approx 4.33\times 10^{-15}
+\]</span> We computed the <span class="math inline">\(p\)</span>-value using <span class="math inline">\(P(N_{11} \ge 40) =\)</span> <code>1-phyper(39, m = 257, n = 1384, k = 74)</code>.</p>
+<p>In this case, we were only interested in the numbers for the value for <span class="math inline">\(N_{11}\)</span> being too <em>high</em>, that is, a <em>one-sided</em> test. We could double the <span class="math inline">\(p\)</span>-value for a two-sided test, but it would still essentially be zero, indicating that the association of deaths with Gilbert being present is too strong to be attributed to coincidence.</p>
+<p>This is called an <strong>exact</strong> test since we use the exact distribution (hypergeometric), as opposed to using an <em>approximate</em> distribution (chi-square) to test the association. Note that we can perform this test for <strong>association</strong> when we have two <em>binary</em> categorical random variables. If we have more than two categories, the hypergeometric distribution will not work, and we will need to use the Chi-square test for Independence, which we will describe in the next chapter.</p>
+<p>Now we will describe a different test: the Chi-square test for Homogeneity:</p>
+</section>
+<section id="chi-square-test-for-homogeneity" class="level2">
+<h2 class="anchored" data-anchor-id="chi-square-test-for-homogeneity"><strong>Chi-square test for Homogeneity</strong></h2>
+<p>We use this test in a situation when we have independent observations from a number of multinomial distributions, say <span class="math inline">\(J\)</span> distributions, each with <span class="math inline">\(I\)</span> cells (categories). That is, we have <span class="math inline">\(J\)</span> independent samples from <span class="math inline">\(J\)</span> <em>different</em> multinomial distributions, each with <span class="math inline">\(I\)</span> cells. We want to test if the underlying probabilities of the cells are the same across the distributions, that is we test the <strong>homogeneity</strong> of the multinomial distributions.</p>
+<div id="exm-sanditon" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1</strong></span> This example is from the text (section 13.3):</p>
+<p>When the novelist Jane Austen died, she left the novel <em>Sanditon</em> unfinished. An impersonator finished the novel, attempting to emulate Austen’s style (an early form of fan fiction?). Our question is whether the word distributions are the <em>same</em> across the following books?</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 24%">
+<col style="width: 7%">
+<col style="width: 24%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Word</th>
+<th style="text-align: center;">Sense &amp; Sensibility</th>
+<th style="text-align: center;">Emma</th>
+<th style="text-align: center;">Sanditon I (Austen)</th>
+<th style="text-align: center;">Sanditon II (Impersonator)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">a</td>
+<td style="text-align: center;">147</td>
+<td style="text-align: center;">186</td>
+<td style="text-align: center;">101</td>
+<td style="text-align: center;">83</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">an</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">26</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">29</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">this</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">39</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">that</td>
+<td style="text-align: center;">94</td>
+<td style="text-align: center;">105</td>
+<td style="text-align: center;">37</td>
+<td style="text-align: center;">22</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">with</td>
+<td style="text-align: center;">59</td>
+<td style="text-align: center;">74</td>
+<td style="text-align: center;">28</td>
+<td style="text-align: center;">43</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">without</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: center;">375</td>
+<td style="text-align: center;">440</td>
+<td style="text-align: center;">202</td>
+<td style="text-align: center;">196</td>
+</tr>
+</tbody>
+</table>
 </div>
-<p>What does it mean if <span class="math inline">\(\text{eff}(\tilde{\theta}_n, \hat{\theta}_n) &lt; 1\)</span>? In that case, we have that <span class="math inline">\(MSE(\tilde{\theta}_n) &gt; \text{MSE}(\hat{\theta}_n) \Rightarrow \hat{\theta}_n\)</span> is a preferred estimator.</p>
-<div id="rem-effUnbiased" class="proof remark">
-<p><span class="proof-title"><em>Remark 1</em>. </span>If <span class="math inline">\(\hat{\theta}_n\)</span>, <span class="math inline">\(\tilde{\theta}_n\)</span> are <strong>unbiased</strong>, then: <span class="math display">\[
-\text{eff}(\tilde{\theta}_n, \hat{\theta}_n) = \frac{\text{Var}(\hat{\theta}_n)}{\text{Var}(\tilde{\theta}_n)}
-\]</span></p>
+<p>Here <span class="math inline">\(J = 4\)</span> and <span class="math inline">\(I = 6\)</span>.</p>
+<p>Let <span class="math inline">\(\pi_{ij}\)</span> denote the probability of the <span class="math inline">\(i\)</span>th cell in the <span class="math inline">\(j\)</span>th distribution (for the Sanditon example, this is the probability of word <span class="math inline">\(i\)</span> in book <span class="math inline">\(j\)</span>). The null hypothesis is</p>
+<p><span class="math display">\[H_0 : \pi_{i1} = \pi_{i2} = \pi_{i3} = \ldots = \pi_{iJ} = \pi_i, \quad i = 1, 2, \ldots, I\]</span></p>
+<p>that is, the cell probabilities are the same across all the distributions, subject to the constraint <span class="math inline">\(\displaystyle \sum_{i=1}^{I} \pi_{ij} = 1\)</span>. The alternative <span class="math inline">\(H_1\)</span> is that <em>at least</em> one proportion is <em>different</em> for at least one row.</p>
+<p>We can think of each sample as arising from a multinomial distribution. For example, from Sense and Sensibility, we have a multinomial distribution with <span class="math inline">\(n = 375\)</span>, <span class="math inline">\(m = 6\)</span>, and probabilities <span class="math inline">\(\pi_{a,1}, \pi_{an,1}, \pi_{this,1}, \ldots\)</span>. The null hypothesis says these probabilities are the same for all four works, and can be denoted by <span class="math inline">\(\pi_{a}\)</span>.</p>
+<div id="thm-mle-chi-sqs-hom" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1</strong></span> Under the null hypothesis the MLEs of the cell parameters <span class="math inline">\(\pi_1, \pi_2, \ldots, \pi_I\)</span> are given by</p>
+<p><span class="math display">\[\hat{\pi}_i = \frac{n_{i.}}{n_{..}} = \frac{\text{row sum}}{\text{total}}\]</span></p>
 </div>
-<div id="def-are" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2</strong></span> If we don’t know the variance, we can use the asymptotic variance in the ratio of variances, and we will call the we call it the <em>Asymptotic Relative Efficiency</em> (A.R.E.). Note that since our estimators are <a href="https://stat135.berkeley.edu/spring-2026/lectures/lecture-14.html#asymptotic-normality-of-mle-fisher-information">asymptotically unbiased</a>, if we are considering large samples, we only need to look at the ratio of the asymptotic variances, not the MSEs.</p>
-<p>Suppose we have that:</p>
-<p><span class="math display">\[
-\sqrt{n}(\hat{\theta}_n - \theta) \xrightarrow{D} N(0, \sigma_1^2),
-\]</span> and also: <span class="math display">\[
-\sqrt{n}(\tilde{\theta}_n - \theta) \to N(0, \sigma_2^2).
-\]</span> Then we define the <strong>Asymptotic Relative Efficiency</strong> as: <span class="math display">\[
-\text{ARE}(\tilde{\theta}, \hat{\theta}) = \frac{\sigma_1^2}{\sigma_2^2}
-\]</span></p>
-<div id="rem-areMedMean" class="proof remark">
-<p><span class="proof-title"><em>Remark 2</em>. </span>In <a href="#exm-effMedMean" class="quarto-xref">Example&nbsp;1</a>, <span class="math display">\[
-\text{Var}(\hat{\theta}) = \frac{1}{n}, \quad \text{Var}(\tilde{\theta}) \approx \frac{\pi}{2n}.
-\]</span></p>
-<p><span class="math display">\[
-\Rightarrow \text{A.R.E. of } \tilde{\theta} \text{ to } \hat{\theta} = \text{A.R.E}(\tilde{\theta}, \hat{\theta}) = \frac{1/n}{\pi/2n} = \frac{2}{\pi} \approx 0.63
-\]</span></p>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>(This is left as an exercise.)</p>
+</div>
+<p>We will test this hypothesis using Pearson’s chi-square statistic <span class="math inline">\(X^2\)</span>, since under the null hypothesis, this is a goodness-of-fit test: Do the data fit the hypothesis that all the distributions have the same cell probabilities?</p>
+<p>The degrees of freedom for our test equal the number of independent counts (<span class="math inline">\(\dim \Omega\)</span>) minus the number of independent parameters estimated from the data (<span class="math inline">\(\dim \omega_0\)</span>). Since there are <span class="math inline">\((I-1)\)</span> independent counts for each of the <span class="math inline">\(J\)</span> distributions and we estimate <span class="math inline">\((I-1)\)</span> parameters,</p>
+<p><span class="math display">\[df = J \times (I - 1) - (I - 1) = (J - 1) \times (I - 1)\]</span> Let’s write out the table:</p>
 <hr>
-<div id="exm-effExp" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2</strong></span> Suppose <span class="math inline">\(X_1, \ldots, X_n \overset{\text{IID}}{\sim} \text{Exp}\!\left(\tfrac{1}{\theta}\right)\)</span> distribution. Then we know that</p>
-<p><span class="math display">\[
-\mathbb{E}X = \theta, \quad f(x \mid \theta) = \frac{1}{\theta} e^{-x/\theta}, \text{ and } F(x) = 1 - e^{-x/\theta}, \quad \theta &gt; 0,\ x &gt; 0
-\]</span></p>
-<ol type="1">
-<li><p>Show that <span class="math inline">\(\tilde{\theta} = n X_{(1)} = n \cdot \min(X_1, \ldots, X_n)\)</span> is an <em>unbiased</em> estimator of <span class="math inline">\(\theta\)</span>. (<em>Hint</em>: show <span class="math inline">\(X_{(1)} \sim \text{Exp}\!\left(\tfrac{n}{\theta}\right)\)</span>.)</p></li>
-<li><p>An alternate estimator of <span class="math inline">\(\theta\)</span> is <span class="math inline">\(\bar{X}_n\)</span>. Call this <span class="math inline">\(\hat{\theta}\)</span>. Show that <span class="math inline">\(\hat{\theta}\)</span> is unbiased.</p></li>
-<li><p>What is the relative efficiency of <span class="math inline">\(\tilde{\theta}\)</span> to <span class="math inline">\(\hat{\theta}\)</span>?</p></li>
-</ol>
-</div>
-<details>
-<summary>
-Check your solution!
-</summary>
-<p>Let <span class="math inline">\(\hat{\theta}\)</span> be the sample mean, so <span class="math inline">\(\hat{\theta}_n = \bar{X}_n\)</span>. We are given <span class="math inline">\(\tilde{\theta} = n\)</span> times the minimum, so <span class="math inline">\(\tilde{\theta}_n = n \cdot X_{(1)}, \Rightarrow F_{X_{(1)}}(x) = P(X_{(1)} \leq x) = 1 - P(X_{(1)} &gt; x)\)</span>.</p>
-<ol type="1">
-<li>First, notice that <span class="math inline">\(P(X_{(1)} &gt; x) = P(X_1 &gt; x,\ X_2 &gt; x,\ \ldots,\ X_n &gt; x)\)</span>. <span class="math display">\[
-\begin{align*}
-\Rightarrow 1-F_{X_{(1)}}(x) &amp;= \prod_{i=1}^{n} P(X_i &gt; x) \\
-&amp;= \prod_{i=1}^{n} e^{-x/\theta} = e^{-nx/\theta}\\
-\Rightarrow P(X_{(1)} \leq x) &amp;= 1 - e^{-nx/\theta}
-\end{align*}
-\]</span></li>
-</ol>
-<p>This implies that <span class="math inline">\(X_{(1)} \sim \text{Exp}\!\left(\frac{n}{\theta}\right) \Rightarrow \mathbb{E}(X_{(1)}) = \frac{\theta}{n}\)</span>. Therefore, we get that: <span class="math display">\[
-\Rightarrow \mathbb{E}(n X_{(1)}) = n \cdot \frac{\theta}{n} = \theta \Rightarrow \tilde{\theta}_n = n X_{(1)} \text{ is unbiased.}
-\]</span></p>
-<ol start="2" type="1">
-<li><p>Next, let’s consider the sample mean. We will do the same computation we have done many times before to see that it is unbiased: <span class="math display">\[
-\mathbb{E}(\hat{\theta}_n) = \mathbb{E}(\bar{X}_n) = \mathbb{E}\!\left(\frac{1}{n}\sum_{i=1}^n X_i\right) = \frac{1}{n}\sum_{i=1}^n \mathbb{E}X_i = \theta
-\]</span></p></li>
-<li><p>Now, first let’s write down the definition of efficiency of <span class="math inline">\(\tilde{\theta}\)</span> relative to <span class="math inline">\(\hat{\theta}\)</span>: <span class="math display">\[
-\text{eff}(\tilde{\theta}, \hat{\theta}) = \frac{\text{Var}(\hat{\theta})}{\text{Var}(\tilde{\theta})}
-\]</span> We see that <span class="math display">\[
-\text{Var}(\tilde{\theta}) = \text{Var}(n X_{(1)}) = n^2 \text{Var}(X_{(1)}),
-\]</span> and <span class="math display">\[
-\begin{align*}
-X_{(1)} \sim \text{Exp}\!\left(\frac{n}{\theta}\right) &amp;\Rightarrow \text{Var}(X_{(1)}) = \frac{\theta^2}{n^2}\\
-&amp;\Rightarrow \text{Var}(n X_{(1)}) = n^2 \cdot \frac{\theta^2}{n^2} = \theta^2.
-\end{align*}
-\]</span> Now, we know that: <span class="math display">\[
-\text{Var}(\hat{\theta}) = \text{Var}(\bar{X}_n) = \frac{\text{Var}(X)}{n} = \frac{\theta^2}{n}
-\]</span> Thus we get that <span class="math display">\[
-\text{eff}(\tilde{\theta}, \hat{\theta}) = \frac{\theta^2/n}{\theta^2} = \frac{1}{n}.
-\]</span></p></li>
-</ol>
-<p>Thus, <span class="math inline">\(\hat{\theta}\)</span> is more efficient than <span class="math inline">\(\tilde{\theta}\)</span>, and <span class="math inline">\(\tilde{\theta}\)</span> will need <span class="math inline">\(n\)</span> times the sample size to achieve the same level of precision.</p>
-</details>
-<section id="the-cramér-rao-inequality" class="level2">
-<h2 class="anchored" data-anchor-id="the-cramér-rao-inequality">The Cramér-Rao Inequality</h2>
-<p>The question that now naturally arises: is some <em>other</em> estimator more efficient than either of the two we are considering?</p>
-<p>Efficiency tells us what fraction of samples will make two (unbiased) estimators have the same variance, if their variance <span class="math inline">\(\propto \frac{1}{n}\)</span> (which is true in many important cases), but it only tells us about the two estimators we are considering. Can we tell if we have reached the <em>most</em> efficient estimator?</p>
-<p>The answer is <strong>Yes!</strong> There is a famous inequality that gives us a lower bound on the variance of any estimator. If our estimator achieves this lower bound, it cannot be improved.</p>
-<p>Let’s state the inequality for unbiased estimators. This inequality gives us what is called the “Cramér-Rao lower bound for an unbiased estimator”:</p>
-<div id="thm-cramerRaoUnbiased" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 1</strong></span> Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> be IID random variables with density function <span class="math inline">\(f(x \mid \theta_0)\)</span> (the true parameter value). Suppose <span class="math inline">\(\hat{\theta_n}\)</span> is an <em>unbiased</em> estimator of <span class="math inline">\(\theta\)</span>. Then, under smoothness assumptions on <span class="math inline">\(f\)</span>, we have that: <span class="math display">\[
-\text{Var}(\hat{\theta}_n) \geq \frac{1}{I_n(\theta_0)} = \frac{1}{n I(\theta_0)}
-\]</span></p>
-</div>
+<p>The expected count for cell <span class="math inline">\((i, j)\)</span> is</p>
+<p><span class="math display">\[E_{ij} = \frac{n_{.j} \, n_{i.}}{n_{..}}\]</span></p>
+<p>which is the total for the <span class="math inline">\(j\)</span>th distribution multiplied by the MLE of <span class="math inline">\(\pi_i\)</span>. Using Pearson’s chi-square statistic,</p>
+<p><span class="math display">\[X^2 = \sum_{i=1}^{I} \sum_{j=1}^{J} \frac{(O_{ij} - E_{ij})^2}{E_{ij}} = \sum_{i=1}^{I} \sum_{j=1}^{J} \frac{(n_{ij} - n_{.j} n_{i.} / n_{..})^2}{n_{.j} n_{i.} / n_{..}}\]</span></p>
+<p>Under the null, <span class="math inline">\(X^2 \sim \chi^2_{df}\)</span> with <span class="math inline">\(df = (J-1) \times (I-1)\)</span>. Only larger values of <span class="math inline">\(X^2\)</span> count against the null because the statistic is a sum of squared deviations, and hence is always non-negative; any deviation from the null, in any direction, inflates it.</p>
+</section>
+<section id="back-to-sanditon" class="level2">
+<h2 class="anchored" data-anchor-id="back-to-sanditon">Back to Sanditon</h2>
+<p>The observed and expected (in parentheses) counts are:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 21%">
+<col style="width: 13%">
+<col style="width: 21%">
+<col style="width: 28%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Word</th>
+<th style="text-align: center;">Sense &amp; Sensibility</th>
+<th style="text-align: center;">Emma</th>
+<th style="text-align: center;">Sanditon I (Austen)</th>
+<th style="text-align: center;">Sanditon II (Impersonator)</th>
+<th style="text-align: center;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">a</td>
+<td style="text-align: center;">147 (160)</td>
+<td style="text-align: center;">186 (187.8)</td>
+<td style="text-align: center;">101 (86.2)</td>
+<td style="text-align: center;">83 (83.5)</td>
+<td style="text-align: center;">517</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">an</td>
+<td style="text-align: center;">25 (22.9)</td>
+<td style="text-align: center;">26 (26.8)</td>
+<td style="text-align: center;">11 (12.3)</td>
+<td style="text-align: center;">29 (14.7)</td>
+<td style="text-align: center;">91</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">this</td>
+<td style="text-align: center;">32 (31.7)</td>
+<td style="text-align: center;">39 (37.2)</td>
+<td style="text-align: center;">15 (17.1)</td>
+<td style="text-align: center;">15 (16.3)</td>
+<td style="text-align: center;">101</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">that</td>
+<td style="text-align: center;">94 (87)</td>
+<td style="text-align: center;">105 (102.1)</td>
+<td style="text-align: center;">37 (46.9)</td>
+<td style="text-align: center;">22 (41.6)</td>
+<td style="text-align: center;">258</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">with</td>
+<td style="text-align: center;">59 (59.4)</td>
+<td style="text-align: center;">74 (69.7)</td>
+<td style="text-align: center;">28 (32)</td>
+<td style="text-align: center;">43 (33)</td>
+<td style="text-align: center;">204</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">without</td>
+<td style="text-align: center;">18 (14)</td>
+<td style="text-align: center;">10 (16.4)</td>
+<td style="text-align: center;">10 (7.5)</td>
+<td style="text-align: center;">4 (6.8)</td>
+<td style="text-align: center;">42</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: center;">375</td>
+<td style="text-align: center;">440</td>
+<td style="text-align: center;">202</td>
+<td style="text-align: center;">196</td>
+<td style="text-align: center;">1,213</td>
+</tr>
+</tbody>
+</table>
+<p>The test statistic is <span class="math inline">\(X^2 = 45.58\)</span> with <span class="math inline">\(df = (4-1) \times (6-1) = 15\)</span>. The p-value is <span class="math inline">\(P(X^2 \geq 45.58 \mid X^2 \sim \chi^2_{15}) = 0.00006\)</span>, so we reject <span class="math inline">\(H_0\)</span> and conclude that the word distributions are not homogeneous across the four works.</p>
 <div style="display:none">
-<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="hmc2005">Hogg, McKean, and Craig (<a href="#ref-hmc2005" role="doc-biblioref">2005</a>)</span>; <span class="citation" data-cites="kerns2017mle">Kerns (<a href="#ref-kerns2017mle" role="doc-biblioref">2017</a>)</span>;]</p>
+<p><span class="citation" data-cites="rice2006 samslides135 hmc2005 wasserman2004 cobb2006 farragher2000">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>; <a href="#ref-hmc2005" role="doc-biblioref">Hogg, McKean, and Craig 2005</a>; <a href="#ref-wasserman2004" role="doc-biblioref">Wasserman 2004</a>; <a href="#ref-cobb2006" role="doc-biblioref">Cobb and Gehlbach 2006</a>; <a href="#ref-farragher2000" role="doc-biblioref">Farragher 2000</a>)</span></p>
 </div>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-chi-hest2018" class="csl-entry" role="listitem">
-Chihara, Laura M., and Tim C. Hesterberg. 2018. <em>Mathematical Statistics with Resampling and r</em>. John Wiley &amp; Sons, Hoboken, NJ.
+<div id="ref-cobb2006" class="csl-entry" role="listitem">
+Cobb, George W., and Stephen H. Gehlbach. 2006. <span>“Statistics in the Courtroom: <span>U</span>nited <span>S</span>tates v. <span>K</span>risten <span>G</span>ilbert.”</span> In <em>Statistics: A Guide to the Unknown</em>, edited by Roxy Peck, George Casella, George Cobb, Roger Hoerl, Deborah Nolan, Robert Starbuck, and Hal Stern, 4th ed., 3–18. Belmont, CA: Thomson Brooks/Cole.
+</div>
+<div id="ref-farragher2000" class="csl-entry" role="listitem">
+Farragher, Thomas. 2000. <span>“Death on Ward c: Caregiver or Killer?”</span> <em>The Boston Globe</em>, October. <a href="http://cache.boston.com/globe/metro/packages/nurse/part1.htm">http://cache.boston.com/globe/metro/packages/nurse/part1.htm</a>.
 </div>
 <div id="ref-hmc2005" class="csl-entry" role="listitem">
 Hogg, Robert V., Joseph W. McKean, and Allen T. Craig. 2005. <em>Introduction to Mathematical Statistics</em>. 6th ed. Upper Saddle River, NJ: Pearson Prentice Hall.
-</div>
-<div id="ref-kerns2017mle" class="csl-entry" role="listitem">
-Kerns, Jonny. 2017. <span>“Probability Concepts Explained: Maximum Likelihood Estimation.”</span> Medium. 2017. <a href="https://medium.com/data-science/probability-concepts-explained-maximum-likelihood-estimation-c7b4342fdbb1">https://medium.com/data-science/probability-concepts-explained-maximum-likelihood-estimation-c7b4342fdbb1</a>.
 </div>
 <div id="ref-samslides135" class="csl-entry" role="listitem">
 Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).
@@ -543,12 +828,12 @@ Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides 
 <div id="ref-rice2006" class="csl-entry" role="listitem">
 Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. Duxbury Press.
 </div>
+<div id="ref-wasserman2004" class="csl-entry" role="listitem">
+Wasserman, Larry. 2004. <em>All of Statistics: A Concise Course in Statistical Inference</em>. New York: Springer.
+</div>
 </div>
 
 
-</section>
-</div>
-</div>
 </section>
 
 </main> <!-- /main -->
