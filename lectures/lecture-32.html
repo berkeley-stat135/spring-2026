@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Hypothesis Tests for Categorical Data</title>
+<title>Chi-square Test of Homogeneity</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -121,12 +121,258 @@ window.Quarto = {
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
 
-<body>
+<body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-32.html">Lecture 32: The Chi-square Test for Homogeneity</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/stat_bear.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Stat 135</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/berkeley-stat135/spring-2026" title="" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home / Schedule</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About Stat 135</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../staff.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Staff</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../calendar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Calendar</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Lectures</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 1: Syllabus &amp; Diagnostic Test</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 2: Survey Sampling, Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 3: Survey Sampling, Inference</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 4: Wrapping up Sampling</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 5: Method of Moments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 6: MoM &amp; Mathematical Digressions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 7: Standard Errors of MoM Estimators</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 8: Computing Standard Errors, continued</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 9: The Bootstrap; and Introducing Maximum Likelihood Estimation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 10: Maximum Likelihood Estimation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 11: MLE and the Multinomial Distribution</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 12: Mean Squared Error and Consistency</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 13: Consistency of the Maximum Likelihood Estimator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-14.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 14: Asymptotic Distribution of the Maximum Likelihood Estimator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-15.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 15: Proof of Asymptotic Normality, and Confidence Intervals</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-16.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 16: Efficiency</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-17.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 17: Proof of the Cramér-Rao Lower Bound</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-18.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 18: Sufficiency, and the Factorization Theorem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-19.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 19: Proof of the Factorization theorem and the Rao-Blackwell Theorem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-20.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 20: Proof of the Rao-Blackwell Theorem and Properties of Estimators</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-21.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 21: Introducing Hypotheses Tests</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-22.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 22: Testing Hypotheses: Vocabulary and Examples</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-29.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 29: Generalized Likelihood Ratio Test for the Multinomial Model</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-30.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 30: Hypothesis Tests for Categorical Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-31.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 31: Fisher’s Exact Test</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-32.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Lecture 32: The Chi-square Test for Homogeneity</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-33.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 33: The Chi-square Test for Independence</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datasets</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">License</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -135,10 +381,9 @@ window.Quarto = {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
   <ul class="collapse">
-  <li><a href="#the-case-presented-to-the-grand-jury" id="toc-the-case-presented-to-the-grand-jury" class="nav-link" data-scroll-target="#the-case-presented-to-the-grand-jury">The case presented to the grand jury</a></li>
-  <li><a href="#dr.-gehlbachs-testimony" id="toc-dr.-gehlbachs-testimony" class="nav-link" data-scroll-target="#dr.-gehlbachs-testimony">Dr.&nbsp;Gehlbach’s testimony</a></li>
+  <li><a href="#sanditon" id="toc-sanditon" class="nav-link" data-scroll-target="#sanditon">Sanditon</a></li>
   </ul></li>
-  <li><a href="#tests-for-categorical-data" id="toc-tests-for-categorical-data" class="nav-link" data-scroll-target="#tests-for-categorical-data">Tests for Categorical Data</a></li>
+  <li><a href="#back-to-sanditon" id="toc-back-to-sanditon" class="nav-link" data-scroll-target="#back-to-sanditon">Back to Sanditon</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -148,7 +393,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Hypothesis Tests for Categorical Data</h1>
+<h1 class="title">Chi-square Test of Homogeneity</h1>
 </div>
 
 
@@ -165,58 +410,273 @@ window.Quarto = {
 </header>
 
 
-<!-- ## Lec 30, April 8, 2026-->
+<!-- ## Lec 32, April 13, 2026-->
+<p>[DRAFT IN PROGRESS]</p>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>In October 2000, a journalist named Thomas Farragher <span class="citation" data-cites="farragher2000">Farragher (<a href="#ref-farragher2000" role="doc-biblioref">2000</a>)</span> wrote an article for the Boston Globe that was headlined “Death on Ward C: Caregiver or killer?”. It told the story of a “pretty and popular” young nurse named Kristen Gilbert at the VA hospital in Northampton, Massachusetts, whose “healing skills were admired by colleagues and acknowledged by superiors”. Until they weren’t. After a few years there were rumors and whispers floating around Gilbert - about how there were too many deaths from cardiac arrest on her shifts, about how there were too many empty epinephrine ampoules found in the trash when there was no call to use them, about how there were too many “Code Blues” on her watch. In a few years, Gilbert had gone from being almost universally liked, to being called the “Angel of Death” behind her back.</p>
-<p>Federal prosecuters, especially then Assistant US Attorney William Welch II, who led a team of prosecutors, convened a grand jury in 1998 to hear the evidence against Gilbert. They accused Gilbert of being a serial killer who attacked the patients at the VA hospital, inducing heart attacks that killed them. They believed that the motivation was that Gilbert was showing off to her boyfriend who also worked at the hospital, and the thrill that she got from handling these medical crises - the “Code Blues”.</p>
-<!--The following case study is from an article by George Cobb and Stephen Gehlbach in *Statistics: A Guide to the Unknown* [@cobb2006]. The title of the article is *Statistics in the Courtroom*. 
-Now, many of you have taken lower division statistics courses in which you have encountered hypothesis testing, and might have heard of the analogy with criminal trials with the "null hypothesis" being the innocence of the defendant, and the "alternative hypothesis" being guilt. There are definitely problems with that analogy and it can only be taken so far, which we will discuss later. This article, however, is different. 
-It tells the story of a nurse, well respected at first, looked up to, then suspected and accused of murdering several patients on her shift by the other nurses who became suspicious because of the unusually high number of crises on her shifts. In the late 1990s, Kristen Gilbert, a nurse at a Veterans Affairs hospital in Massachusetts, was suspected of murdering patients by inducing cardiac arrest through injections of epinephrine. -->
-<p>The legal challenge was to determine if the disproportionate number of deaths occurring during her shifts was a result of criminal activity or merely a statistical coincidence. The prosecution realized that the evidence against Gilbert was largely statistical since the motivation was not strong enough. Welch asked a statistician, Stephen Gehlbach, to analyze the hospital records. Dr.&nbsp;Gehlbach did so, and presented compelling evidence that convinced the grand jury of the prosecution’s case. The defense then asked another statistician, George Cobb, to prepare a written report to convince the judge for the criminal trial about why it would not be appropriate for the (new) trial jury to hear Dr.&nbsp;Gehlbach’s argument. Later, both statisticians, who <em>agreed</em> on the main point - that the anomalous number of deaths on Gilbert’s shifts was unlikely to be coincidence, wrote a fascinating article about it in the book <em>Statistics: A Guide to the Unknown</em> <span class="citation" data-cites="cobb2006">(<a href="#ref-cobb2006" role="doc-biblioref">Cobb and Gehlbach 2006</a>)</span>.</p>
-<section id="the-case-presented-to-the-grand-jury" class="level3">
-<h3 class="anchored" data-anchor-id="the-case-presented-to-the-grand-jury">The case presented to the grand jury</h3>
-<p>Gehlbach and Cobb write that “the key question for the grand jury was to determine if it was true that there were enough deaths during Gilbert’s shifts to be suspicious and warrant bringing Gilbert to trial, where the case would be presented to a jury.” As a witness for the prosecution, Gehlbach presented a <strong>hypothesis test</strong> to the grand jury; a method of statistical inference often used to make decisions based on data. The prosecutors (led by Assistant U.S. Attorney William Welch) knew they had a <em>silent</em> crime - no one saw the injections, and the patients were already very ill (the ward was an intensive care unit). The prosecutors asked Gehlbach to analyze the hospital records to see if the higher number of deaths during Gilbert’s shifts was mathematically plausible. Dr.&nbsp;Gehlbach presented his testimony orally to the grand jury, explaining the logic of hypothesis testing using the example of a coin toss. He had done a statistical analysis of the hospital records, and showed the grand jury the pattern of deaths, by shift and by year. Then he explained the idea of sampling variability, and <em>p</em>-values (the probability of observing values as extreme as those that were actually observed, <em>assuming</em> that the increased deaths were strictly due to chance and not more sinister reasons). Finally, he discussed statistically testing whether the pattern of deaths during Gilbert’s shifts was too extreme to be regarded as arising out of regular variability.</p>
-<p>First, to display the pattern of deaths, Cobb and Gehlbach show the following visualization:</p>
-<div id="fig-cobb" class="quarto-float quarto-figure quarto-figure-center anchored">
+<p>We use the <strong>Chi-square test for Homogeneity</strong> in a situation when we have <strong>independent</strong> observations from a number of multinomial distributions, say <span class="math inline">\(J\)</span> distributions, each with <span class="math inline">\(I\)</span> cells (categories). That is, we have <span class="math inline">\(J\)</span> independent samples from <span class="math inline">\(J\)</span> <em>different</em> multinomial distributions, each with <span class="math inline">\(I\)</span> cells. We want to test if the underlying probabilities of the cells are the same across the distributions, that is we test the <strong>homogeneity</strong> of the multinomial distributions.</p>
+<section id="sanditon" class="level3">
+<h3 class="anchored" data-anchor-id="sanditon">Sanditon</h3>
+<p><em>Sanditon</em> is a “famously unfinished novel” by Jane Austen <span class="citation" data-cites="pbs-sanditon">(<a href="#ref-pbs-sanditon" role="doc-biblioref">PBS Masterpiece 2025</a>)</span>. She began work on the novel in January 1817 and stopped in about mid-March - probably because she was ill, having completed only twelve chapters by then. It was first published in 1925 as <em>Fragment of a Novel Written by Jane Austen, January–March 1817</em> <span class="citation" data-cites="wiki-sanditon">(<a href="#ref-wiki-sanditon" role="doc-biblioref">Wikipedia contributors 2024</a>)</span>. Of course, many authors have tried to finish the book, including Jane Austen’s own niece, Anna Austen Lefroy! The most famous “continuation” (it seems they didn’t call it fan fiction) is <em>Sanditon: Continued and Completed by Another Lady</em> - the other lady was an Australian named Marie Dobbs. And there are many more that you can read about online. The example below deals with the continuation written by “Another Lady” a.k.a. Marie Dobbs.</p>
+<div id="exm-sanditon" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1</strong></span> This example is adapted from the text (section 13.3):</p>
+<p>When the novelist Jane Austen died, she left the novel <em>Sanditon</em> unfinished. “Another Lady” finished the novel, attempting to emulate Austen’s style. Our question is whether the word distributions are the <em>same</em> across the following books:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 24%">
+<col style="width: 7%">
+<col style="width: 24%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Word</th>
+<th style="text-align: center;">Sense &amp; Sensibility</th>
+<th style="text-align: center;">Emma</th>
+<th style="text-align: center;">Sanditon I (Austen)</th>
+<th style="text-align: center;">Sanditon II (Another Lady)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">a</td>
+<td style="text-align: center;">147</td>
+<td style="text-align: center;">186</td>
+<td style="text-align: center;">101</td>
+<td style="text-align: center;">83</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">an</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">26</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">29</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">this</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">39</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">that</td>
+<td style="text-align: center;">94</td>
+<td style="text-align: center;">105</td>
+<td style="text-align: center;">37</td>
+<td style="text-align: center;">22</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">with</td>
+<td style="text-align: center;">59</td>
+<td style="text-align: center;">74</td>
+<td style="text-align: center;">28</td>
+<td style="text-align: center;">43</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">without</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: center;">375</td>
+<td style="text-align: center;">440</td>
+<td style="text-align: center;">202</td>
+<td style="text-align: center;">196</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Here <span class="math inline">\(J = 4\)</span> and <span class="math inline">\(I = 6\)</span>.</p>
+<p>Let <span class="math inline">\(\pi_{ij}\)</span> denote the probability of the <span class="math inline">\(i\)</span>th cell in the <span class="math inline">\(j\)</span>th distribution (for the Sanditon example, this is the probability of word <span class="math inline">\(i\)</span> in book <span class="math inline">\(j\)</span>). The null hypothesis is</p>
+<p><span class="math display">\[H_0 : \pi_{i1} = \pi_{i2} = \pi_{i3} = \ldots = \pi_{iJ} = \pi_i, \quad i = 1, 2, \ldots, I\]</span></p>
+<p>that is, the cell probabilities are the same across all the distributions, subject to the constraint <span class="math inline">\(\displaystyle \sum_{i=1}^{I} \pi_{ij} = 1\)</span>. The alternative <span class="math inline">\(H_1\)</span> is that <em>at least</em> one proportion is <em>different</em> for at least one row.</p>
+<p>We can think of each sample as arising from a multinomial distribution. For example, from Sense and Sensibility, we have a multinomial distribution with <span class="math inline">\(n = 375\)</span>, <span class="math inline">\(m = 6\)</span>, and probabilities <span class="math inline">\(\pi_{a,1}, \pi_{an,1}, \pi_{this,1}, \ldots\)</span>. The null hypothesis says these probabilities are the same for all four works, and can be denoted by <span class="math inline">\(\pi_{a}\)</span>. This determines <span class="math inline">\(\omega_0\)</span>, and the MLE over this parameter space is determined the usual way for multinomial distributions. Note that under the alternative, the distributions are <em>not</em> constrained to be the same.</p>
+<div id="thm-mle-chi-sqs-hom" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1</strong></span> Under the null hypothesis the MLEs of the cell parameters <span class="math inline">\(\pi_1, \pi_2, \ldots, \pi_I\)</span> are given by</p>
+<p><span class="math display">\[\hat{\pi}_i = \frac{n_{i.}}{n_{..}} = \frac{\text{row sum}}{\text{total}}\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>(This is left as an exercise.)</p>
+</div>
+<p>We will test this hypothesis using Pearson’s chi-square statistic <span class="math inline">\(X^2\)</span>, since under the null hypothesis, this is a goodness-of-fit test: Do the data fit the hypothesis that all the distributions have the same cell probabilities?</p>
+<p>The <strong>degrees of freedom</strong> for our test equals the number of independent counts (<span class="math inline">\(\dim \Omega\)</span>) minus the number of independent parameters estimated from the data (<span class="math inline">\(\dim \omega_0\)</span>), where <span class="math inline">\(\Omega\)</span> and <span class="math inline">\(\omega_0\)</span> are as previously defined. Since there are <span class="math inline">\((I-1)\)</span> independent counts for each of the <span class="math inline">\(J\)</span> distributions, this means that there are <span class="math inline">\(J \times (I - 1)\)</span> independent counts, and also, we estimate <span class="math inline">\((I-1)\)</span> parameters under the null. This gives:</p>
+<p><span class="math display">\[
+df = \dim \Omega -\dim \omega_0 =  J \times (I - 1) - (I - 1) = (J - 1) \times (I - 1)
+\]</span> Let’s look at the information in a table:</p>
+<div id="fig-chisq-table" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-cobb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="fig-chisq-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/fig-1-cobb.png" class="img-fluid figure-img" alt="A bar graph showing the frequency of deaths by year and shift."></p>
-<figcaption>The pattern of deaths, by year and shift</figcaption>
+<p><img src="images/table-chisq-hom.png" class="img-fluid figure-img" alt="Table showing the J distributions and I cells for each distribution."></p>
+<figcaption>J distributions and I cells for each distribution</figcaption>
 </figure>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-cobb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-chisq-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1
 </figcaption>
 </figure>
 </div>
-<p>According to the Boston Globe <span class="citation" data-cites="farragher2000">Farragher (<a href="#ref-farragher2000" role="doc-biblioref">2000</a>)</span>, the prosecuters said that Gilbert was on duty for half of the 350 deaths that occurred on her ward for the seven years that she worked at the hospital. The bar graph above shows 10 years worth of data. Each set of three bars represents the number of deaths in a year, distinguished by shift. It shows that for the first 2 years (1988 and 1989) there are roughly 10 deaths per year per shift, and then there is a “dramatic increase”. For each of the years from 1990 to 1995, one of the shifts has over 25 deaths per year. These increased deaths in fact, coincided with the shifts worked by Kristen Gilbert. She went on leave in February 1996, and this corresponded to a decrease in deaths.</p>
-</section>
-<section id="dr.-gehlbachs-testimony" class="level3">
-<h3 class="anchored" data-anchor-id="dr.-gehlbachs-testimony">Dr.&nbsp;Gehlbach’s testimony</h3>
-<p>Of course, the bar graph doesn’t really <em>prove</em> anything, as it is just a visualization. Dr.&nbsp;Gehlbach then performed a statistical test on the last 18 months of the data (corresponding to 547 days and 1,641 shifts) to see if these differences could be due to chance and within ordinary variability. It turned out that of the 1,641 shifts, there was at least 1 death in 74 shifts, that is in 4.5% of the shifts. Gilbert worked on 257 of the shifts. If we assume that there is <strong>no</strong> association between her being on duty on a shift and whether or not there was a death on the shift, then, at the rate of 4.5%, we expect at least one death in between 11 and 12 shifts (4.5% of 257 is 11.56). The <em>actual</em> observed number of Gilbert’s shifts with a death was 40!! If we imagine that each shift is a coin toss, with the probability of heads being the chance of at least one death (4.5%), the probability of 40 or more deaths is very tiny. (They computed it as less than 1 in 100 million.)</p>
-<p>That is, let <span class="math inline">\(X\)</span> be the number of shifts with at least one death. We assume no association, and that each shift is independent of all the others, with the chance of a death being constant at <span class="math inline">\(p = 0.045.\)</span> If we take <span class="math inline">\(n = 257\)</span>, then according to our assumptions, <span class="math display">\[
-X \sim \mathrm{Bin}(n,p), \text{ and } E(X) = np = 257\times 0.045 = 11.565.
-\]</span> That is, we expect to see between 11 and 12 deaths on Gilbert’s 257 shifts. But perhaps this difference between what we see (40 shifts with deaths) and what we expect (11 or 12 shifts with deaths) is simply coincidence. What would be the probability of at least 40 deaths in 257 shifts? <span class="math display">\[
-P(X \ge 40 \mid X \sim \mathrm{Bin}(257, 0.045) \approx 10^{-11},
-\]</span> where we computed the probability in R using <code>1-pbinom(39, size = 257, prob = 0,.045)</code>.</p>
-<p>The grand jury was convinced, and indicted Gilbert who would stand trial in federal district court (because the crimes occurred in the VA hospital) for four counts of murder and three counts of attempted murder. But before the trial could take place, the judge, Michael Ponsor, had to rule on whether the jury should be allowed to hear the statistical evidence. This is when Gilbert’s defense team of lawyer’s asked George Cobb to prepare a written report for the judge. The story of Cobb’s report though, is for another time. We are going to discuss the various hypothesis tests for categorical data.</p>
+<p>The expected count (under <span class="math inline">\(H_0\)</span>) for cell <span class="math inline">\((i, j)\)</span> is</p>
+<p><span class="math display">\[
+E_{ij} =  n_{.j} \times \hat\pi_i = \frac{n_{.j} \, n_{i.}}{n_{..}}
+\]</span></p>
+<p>which is the total for the <span class="math inline">\(j\)</span>th distribution multiplied by the MLE of <span class="math inline">\(\pi_i\)</span>. Using Pearson’s chi-square statistic,</p>
+<p><span class="math display">\[X^2 = \sum_{i=1}^{I} \sum_{j=1}^{J} \frac{(O_{ij} - E_{ij})^2}{E_{ij}} = \sum_{i=1}^{I} \sum_{j=1}^{J} \frac{(n_{ij} - n_{.j} n_{i.} / n_{..})^2}{n_{.j} n_{i.} / n_{..}}\]</span></p>
+<p>Under the null, <span class="math inline">\(X^2 \sim \chi^2_{df}\)</span> with <span class="math inline">\(df = (J-1) \times (I-1)\)</span>. Note that the test is one-sided by nature: only <em>larger</em> values of <span class="math inline">\(X^2\)</span> count <em>against</em> the null because the statistic is a sum of squared deviations of what we <em>observe</em> from what we <em>expect</em>. That is, this test is essentially a goodness-of-fit test. If this value is too large, this means that the test statistic is far out in the <em>right</em> tail of the distribution, and the <span class="math inline">\(p\)</span>-value will be small. We don’t consider small values of the statistic that would be in the <em>left</em> tail since those indicate that the observed and expected values are very close together. Looking at this implies we are worried that the fit is <em>too</em> good, which is not something we usually check.</p>
 </section>
 </section>
-<section id="tests-for-categorical-data" class="level2">
-<h2 class="anchored" data-anchor-id="tests-for-categorical-data">Tests for Categorical Data</h2>
-<p>Categorical data, where the data consists of <em>counts</em> in the various possible categories, have to be dealt with differently than the quantitative data we have seen so far in the course. Examples of</p>
-<p>We will study four tests:</p>
-<ol type="1">
-<li><p><strong>Chi-square Goodness-of-fit Test</strong>: We saw this in the last lecture. In this test, we looked at the multinomial model, with a probability distribution that is specified in the null hypothesis. We developed the test, beginning with the likelihood ratio, and showing that <span class="math inline">\(-2\log \Lambda\)</span> has a chi-square time for large samples. We also showed the asymptotic equivalence between <span class="math inline">\(-2\log \Lambda\)</span> and Pearson’s chi-square statistic.</p></li>
-<li><p><strong>Fisher’s Exact Test</strong>: This is a test for <em>association</em> of two categorical variables, especially if we have small sample sizes. The data is presented as a <span class="math inline">\(2\times 2\)</span> contingency table, so note that each of the variables is binary in nature. Every unit in the population is <em>cross-classified</em> according to the two variables. This is called an <em>exact</em> test, as opposed to the chi-square tests which are <em>approximate</em>. Under the null hypothesis of no association between the two variables, the observed counts are random variables but the margins are fixed, thus we can use the hypergeometric distribution to compute the probabilities. We will discuss the details in the next chapter.</p></li>
-<li><p><strong>Chi-square test for Homogeneity</strong>: We use this test in a situation when we have independent observations from a number of multinomial distributions, say <span class="math inline">\(J\)</span> distributions, each with <span class="math inline">\(I\)</span> cells (categories). We want to test if the underlying probabilities of the cells are the same across the distributions, that is we test the <strong>homogeneity</strong> of the multinomial distributions.</p></li>
-<li><p><strong>Chi-square test for Independence</strong>: Again, we have two categorical variable (which might not be binary) with data that is cross-classified. This appears very similar to the chi-square test for homogeneity that we will discuss below, but it answers a different question.</p></li>
-</ol>
-<p>In the next chapter, we will look at the latter three distributions in detail.</p>
+<section id="back-to-sanditon" class="level2">
+<h2 class="anchored" data-anchor-id="back-to-sanditon">Back to Sanditon</h2>
+<p>Now let’s do a chi-square test of homogeneity on the four books, to see if they appear to be from the same multinomial distribution.</p>
+<p>The observed and expected (in parentheses) counts are:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 21%">
+<col style="width: 13%">
+<col style="width: 21%">
+<col style="width: 28%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Word</th>
+<th style="text-align: center;">Sense &amp; Sensibility</th>
+<th style="text-align: center;">Emma</th>
+<th style="text-align: center;">Sanditon I (Austen)</th>
+<th style="text-align: center;">Sanditon II (Impersonator)</th>
+<th style="text-align: center;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">a</td>
+<td style="text-align: center;">147 (159.8)</td>
+<td style="text-align: center;">186 (187.5)</td>
+<td style="text-align: center;">101 (86.1)</td>
+<td style="text-align: center;">83 (83.5)</td>
+<td style="text-align: center;">517</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">an</td>
+<td style="text-align: center;">25 (28.1)</td>
+<td style="text-align: center;">26 (33)</td>
+<td style="text-align: center;">11 (15.2)</td>
+<td style="text-align: center;">29 (14.7)</td>
+<td style="text-align: center;">91</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">this</td>
+<td style="text-align: center;">32 (31.2)</td>
+<td style="text-align: center;">39 (36.6)</td>
+<td style="text-align: center;">15 (16.8)</td>
+<td style="text-align: center;">15 (16.3)</td>
+<td style="text-align: center;">101</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">that</td>
+<td style="text-align: center;">94 (79.8)</td>
+<td style="text-align: center;">105 (93.6)</td>
+<td style="text-align: center;">37 (43)</td>
+<td style="text-align: center;">22 (41.7)</td>
+<td style="text-align: center;">258</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">with</td>
+<td style="text-align: center;">59 (63.1)</td>
+<td style="text-align: center;">74 (74)</td>
+<td style="text-align: center;">28 (34)</td>
+<td style="text-align: center;">43 (33)</td>
+<td style="text-align: center;">204</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">without</td>
+<td style="text-align: center;">18 (13)</td>
+<td style="text-align: center;">10 (15.2)</td>
+<td style="text-align: center;">10 (7)</td>
+<td style="text-align: center;">4 (6.8)</td>
+<td style="text-align: center;">42</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: center;">375</td>
+<td style="text-align: center;">440</td>
+<td style="text-align: center;">202</td>
+<td style="text-align: center;">196</td>
+<td style="text-align: center;">1,213</td>
+</tr>
+</tbody>
+</table>
+<p>To find the Pearson’s chi-square statistic <span class="math inline">\(X^2\)</span>, we calculate the contribution of each cell using the formula:</p>
+<p><span class="math display">\[
+X^2 = \sum_{i=1}^I\sum_{j=1}^J \frac{(O_{ij} - E_{ij})^2}{E_{ij}}
+\]</span></p>
+<p>The table below shows the calculated <span class="math inline">\(\dfrac{(O_{ij} - E_{ij})^2}{E_{ij}}\)</span> values for each <span class="math inline">\((i,j)\)</span>th cell, and the larger values are shown in <strong>bold</strong>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Word</th>
+<th style="text-align: center;">SS</th>
+<th style="text-align: center;">E</th>
+<th style="text-align: center;">Sand1</th>
+<th style="text-align: center;">Sand2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>a</strong></td>
+<td style="text-align: center;">1.030</td>
+<td style="text-align: center;">0.013</td>
+<td style="text-align: center;">2.580</td>
+<td style="text-align: center;">0.003</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>an</strong></td>
+<td style="text-align: center;">0.349</td>
+<td style="text-align: center;">1.488</td>
+<td style="text-align: center;">1.139</td>
+<td style="text-align: center;"><strong>13.899</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>this</strong></td>
+<td style="text-align: center;">0.019</td>
+<td style="text-align: center;">0.152</td>
+<td style="text-align: center;">0.197</td>
+<td style="text-align: center;">0.107</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>that</strong></td>
+<td style="text-align: center;">2.542</td>
+<td style="text-align: center;">1.392</td>
+<td style="text-align: center;">0.828</td>
+<td style="text-align: center;"><strong>9.298</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>with</strong></td>
+<td style="text-align: center;">0.262</td>
+<td style="text-align: center;">0.000</td>
+<td style="text-align: center;">1.050</td>
+<td style="text-align: center;">3.056</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>without</strong></td>
+<td style="text-align: center;">1.937</td>
+<td style="text-align: center;">1.799</td>
+<td style="text-align: center;">1.292</td>
+<td style="text-align: center;">1.144</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total Chi-Square Statistic:</strong> <span class="math display">\[\chi^2 \approx 45.58\]</span></p>
+<p>The <span class="math inline">\(df = (6-1) \times (4-1) = 15\)</span>. The p-value is <span class="math inline">\(P(X^2 \geq 45.58 \mid X^2 \sim \chi^2_{15}) = 0.00006\)</span>, so we reject <span class="math inline">\(H_0\)</span> and conclude that the word distributions are <strong>not</strong> homogeneous across the four works. You can actually see that for the words <em>an</em> and <em>that</em>, the contribution to the chi-square statistic from the non-Austen book seems particularly large, whereas most of the other differences are small. It seems that Marie Dobbs didn’t have quite the same writing style as Jane Austen, and a <em>stylometric</em> analysis seems to indicate this.</p>
+<p>Note that the null hypothesis helped us set up what was essentially a chi-square <em>goodness-of-fit</em> test: do the observed data <em>fit</em> the distribution specified by the null? We will do something similar for the chi-square test of independence.</p>
 <div style="display:none">
 <p><span class="citation" data-cites="rice2006 samslides135 hmc2005 wasserman2004 cobb2006 farragher2000">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>; <a href="#ref-hmc2005" role="doc-biblioref">Hogg, McKean, and Craig 2005</a>; <a href="#ref-wasserman2004" role="doc-biblioref">Wasserman 2004</a>; <a href="#ref-cobb2006" role="doc-biblioref">Cobb and Gehlbach 2006</a>; <a href="#ref-farragher2000" role="doc-biblioref">Farragher 2000</a>)</span></p>
 </div>
@@ -233,6 +693,9 @@ Farragher, Thomas. 2000. <span>“Death on Ward c: Caregiver or Killer?”</span
 <div id="ref-hmc2005" class="csl-entry" role="listitem">
 Hogg, Robert V., Joseph W. McKean, and Allen T. Craig. 2005. <em>Introduction to Mathematical Statistics</em>. 6th ed. Upper Saddle River, NJ: Pearson Prentice Hall.
 </div>
+<div id="ref-pbs-sanditon" class="csl-entry" role="listitem">
+PBS Masterpiece. 2025. <span>“6 Books That Continue the Story of <span>S</span>anditon.”</span> 2025. <a href="https://www.pbs.org/wgbh/masterpiece/specialfeatures/sanditon-jane-austens-sanditon-continued/">https://www.pbs.org/wgbh/masterpiece/specialfeatures/sanditon-jane-austens-sanditon-continued/</a>.
+</div>
 <div id="ref-samslides135" class="csl-entry" role="listitem">
 Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).
 </div>
@@ -241,6 +704,9 @@ Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. 
 </div>
 <div id="ref-wasserman2004" class="csl-entry" role="listitem">
 Wasserman, Larry. 2004. <em>All of Statistics: A Concise Course in Statistical Inference</em>. New York: Springer.
+</div>
+<div id="ref-wiki-sanditon" class="csl-entry" role="listitem">
+Wikipedia contributors. 2024. <span>“Sanditon.”</span> Wikipedia, The Free Encyclopedia. 2024. <a href="https://en.wikipedia.org/wiki/Sanditon">https://en.wikipedia.org/wiki/Sanditon</a>.
 </div>
 </div>
 
