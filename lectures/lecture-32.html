@@ -411,7 +411,6 @@ window.Quarto = {
 
 
 <!-- ## Lec 32, April 13, 2026-->
-<p>[DRAFT IN PROGRESS]</p>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>We use the <strong>Chi-square test for Homogeneity</strong> in a situation when we have <strong>independent</strong> observations from a number of multinomial distributions, say <span class="math inline">\(J\)</span> distributions, each with <span class="math inline">\(I\)</span> cells (categories). That is, we have <span class="math inline">\(J\)</span> independent samples from <span class="math inline">\(J\)</span> <em>different</em> multinomial distributions, each with <span class="math inline">\(I\)</span> cells. We want to test if the underlying probabilities of the cells are the same across the distributions, that is we test the <strong>homogeneity</strong> of the multinomial distributions.</p>
@@ -529,7 +528,7 @@ E_{ij} =  n_{.j} \times \hat\pi_i = \frac{n_{.j} \, n_{i.}}{n_{..}}
 \]</span></p>
 <p>which is the total for the <span class="math inline">\(j\)</span>th distribution multiplied by the MLE of <span class="math inline">\(\pi_i\)</span>. Using Pearson’s chi-square statistic,</p>
 <p><span class="math display">\[X^2 = \sum_{i=1}^{I} \sum_{j=1}^{J} \frac{(O_{ij} - E_{ij})^2}{E_{ij}} = \sum_{i=1}^{I} \sum_{j=1}^{J} \frac{(n_{ij} - n_{.j} n_{i.} / n_{..})^2}{n_{.j} n_{i.} / n_{..}}\]</span></p>
-<p>Under the null, <span class="math inline">\(X^2 \sim \chi^2_{df}\)</span> with <span class="math inline">\(df = (J-1) \times (I-1)\)</span>. Note that the test is one-sided by nature: only <em>larger</em> values of <span class="math inline">\(X^2\)</span> count <em>against</em> the null because the statistic is a sum of squared deviations of what we <em>observe</em> from what we <em>expect</em>. That is, this test is essentially a goodness-of-fit test. If this value is too large, this means that the test statistic is far out in the <em>right</em> tail of the distribution, and the <span class="math inline">\(p\)</span>-value will be small. We don’t consider small values of the statistic that would be in the <em>left</em> tail since those indicate that the observed and expected values are very close together. Looking at this implies we are worried that the fit is <em>too</em> good, which is not something we usually check.</p>
+<p>Under the null, <span class="math inline">\(X^2 \sim \chi^2_{df}\)</span> with <span class="math inline">\(df = (J-1) \times (I-1)\)</span>. Note that the test is one-sided by nature: only <em>larger</em> values of <span class="math inline">\(X^2\)</span> count <em>against</em> the null because the statistic is a sum of squared deviations of what we <em>observe</em> from what we <em>expect</em>. That is, this test is essentially a goodness-of-fit test. If this value is too large, this means that the test statistic is far out in the <em>right</em> tail of the distribution, and the <span class="math inline">\(p\)</span>-value will be small. We don’t consider small values of the statistic that would be in the <em>left</em> tail since those indicate that the observed and expected values are very close together. Looking at the left tail implies we are worried that the fit is <em>too</em> good, which is not something we usually check.</p>
 </section>
 </section>
 <section id="back-to-sanditon" class="level2">
@@ -678,21 +677,12 @@ X^2 = \sum_{i=1}^I\sum_{j=1}^J \frac{(O_{ij} - E_{ij})^2}{E_{ij}}
 <p>The <span class="math inline">\(df = (6-1) \times (4-1) = 15\)</span>. The p-value is <span class="math inline">\(P(X^2 \geq 45.58 \mid X^2 \sim \chi^2_{15}) = 0.00006\)</span>, so we reject <span class="math inline">\(H_0\)</span> and conclude that the word distributions are <strong>not</strong> homogeneous across the four works. You can actually see that for the words <em>an</em> and <em>that</em>, the contribution to the chi-square statistic from the non-Austen book seems particularly large, whereas most of the other differences are small. It seems that Marie Dobbs didn’t have quite the same writing style as Jane Austen, and a <em>stylometric</em> analysis seems to indicate this.</p>
 <p>Note that the null hypothesis helped us set up what was essentially a chi-square <em>goodness-of-fit</em> test: do the observed data <em>fit</em> the distribution specified by the null? We will do something similar for the chi-square test of independence.</p>
 <div style="display:none">
-<p><span class="citation" data-cites="rice2006 samslides135 hmc2005 wasserman2004 cobb2006 farragher2000">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>; <a href="#ref-hmc2005" role="doc-biblioref">Hogg, McKean, and Craig 2005</a>; <a href="#ref-wasserman2004" role="doc-biblioref">Wasserman 2004</a>; <a href="#ref-cobb2006" role="doc-biblioref">Cobb and Gehlbach 2006</a>; <a href="#ref-farragher2000" role="doc-biblioref">Farragher 2000</a>)</span></p>
+<p><span class="citation" data-cites="rice2006 samslides135 pbs-sanditon wiki-sanditon">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>; <a href="#ref-pbs-sanditon" role="doc-biblioref">PBS Masterpiece 2025</a>; <a href="#ref-wiki-sanditon" role="doc-biblioref">Wikipedia contributors 2024</a>)</span></p>
 </div>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-cobb2006" class="csl-entry" role="listitem">
-Cobb, George W., and Stephen H. Gehlbach. 2006. <span>“Statistics in the Courtroom: <span>U</span>nited <span>S</span>tates v. <span>K</span>risten <span>G</span>ilbert.”</span> In <em>Statistics: A Guide to the Unknown</em>, edited by Roxy Peck, George Casella, George Cobb, Roger Hoerl, Deborah Nolan, Robert Starbuck, and Hal Stern, 4th ed., 3–18. Belmont, CA: Thomson Brooks/Cole.
-</div>
-<div id="ref-farragher2000" class="csl-entry" role="listitem">
-Farragher, Thomas. 2000. <span>“Death on Ward c: Caregiver or Killer?”</span> <em>The Boston Globe</em>, October. <a href="http://cache.boston.com/globe/metro/packages/nurse/part1.htm">http://cache.boston.com/globe/metro/packages/nurse/part1.htm</a>.
-</div>
-<div id="ref-hmc2005" class="csl-entry" role="listitem">
-Hogg, Robert V., Joseph W. McKean, and Allen T. Craig. 2005. <em>Introduction to Mathematical Statistics</em>. 6th ed. Upper Saddle River, NJ: Pearson Prentice Hall.
-</div>
 <div id="ref-pbs-sanditon" class="csl-entry" role="listitem">
 PBS Masterpiece. 2025. <span>“6 Books That Continue the Story of <span>S</span>anditon.”</span> 2025. <a href="https://www.pbs.org/wgbh/masterpiece/specialfeatures/sanditon-jane-austens-sanditon-continued/">https://www.pbs.org/wgbh/masterpiece/specialfeatures/sanditon-jane-austens-sanditon-continued/</a>.
 </div>
@@ -701,9 +691,6 @@ Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides 
 </div>
 <div id="ref-rice2006" class="csl-entry" role="listitem">
 Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. Duxbury Press.
-</div>
-<div id="ref-wasserman2004" class="csl-entry" role="listitem">
-Wasserman, Larry. 2004. <em>All of Statistics: A Concise Course in Statistical Inference</em>. New York: Springer.
 </div>
 <div id="ref-wiki-sanditon" class="csl-entry" role="listitem">
 Wikipedia contributors. 2024. <span>“Sanditon.”</span> Wikipedia, The Free Encyclopedia. 2024. <a href="https://en.wikipedia.org/wiki/Sanditon">https://en.wikipedia.org/wiki/Sanditon</a>.
