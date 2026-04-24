@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Matched-Pair Designs</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c83d4320a26fb67466d8dd72d0ebcf62.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="”https://siteimproveanalytics.com/js/siteanalyze_6294756.js”"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body>
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#example-tonsillectomies-and-hodgkins-lymphoma" id="toc-example-tonsillectomies-and-hodgkins-lymphoma" class="nav-link" data-scroll-target="#example-tonsillectomies-and-hodgkins-lymphoma">Example: Tonsillectomies and Hodgkin’s Lymphoma</a></li>
+  <li><a href="#mcnemars-test" id="toc-mcnemars-test" class="nav-link" data-scroll-target="#mcnemars-test">McNemar’s Test</a>
+  <ul class="collapse">
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#deriving-the-test-statistic" id="toc-deriving-the-test-statistic" class="nav-link" data-scroll-target="#deriving-the-test-statistic">Deriving the Test Statistic</a></li>
+  <li><a href="#application-to-the-tonsillectomy-example" id="toc-application-to-the-tonsillectomy-example" class="nav-link" data-scroll-target="#application-to-the-tonsillectomy-example">Application to the Tonsillectomy Example</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Matched-Pair Designs</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- ## Lec 34, April 17, 2026-->
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In this lecture, we follow the material of section 13.5 of the text by Rice. We will see later, when we return to analyzing quantitative data, what we can do when we have paired data. For now, we are still dealing with categorical data. Typical examples of paired data are when we have:</p>
+<ul>
+<li>Siblings in a <em>case-control</em> study (here we call the sibling who has the treatment (perhaps affected by a condition or disease) the “<em>case</em>” and we call the unaffected sibling the “<em>control</em>”).</li>
+<li>A single subject measured <em>before</em> and <em>after</em> a treatment.</li>
+</ul>
+<p>In such situations, it is clear that the data are not independent, and pairing can increase the power, and control for outside sources of variability. That said, it is not always clear <em>how</em> to analyze the data, as the following example shows.</p>
+<!--Data are arranged in a contingency table where **cell counts are counts of pairs**, not of individuals. The null hypothesis is that the treatment makes no difference — that is, the probabilities should be the same for both components of a pair.-->
+</section>
+<section id="example-tonsillectomies-and-hodgkins-lymphoma" class="level2">
+<h2 class="anchored" data-anchor-id="example-tonsillectomies-and-hodgkins-lymphoma">Example: Tonsillectomies and Hodgkin’s Lymphoma</h2>
+<p>In a brief two-page 1971 paper published in the journal <em>The Lancet</em>, Vianna, Greenwald &amp; Davies proposed that the tonsils — being lymphoid tissue — acted as a biological barrier that helped protect the body against developing Hodgkin’s disease. Their central claim was that people who had undergone a tonsillectomy (surgical removal of the tonsils) were at greater risk of developing Hodgkin’s disease, because the removal of this lymphoid tissue stripped them of that protective barrier. To this end, they collected data that compared the percentage of tonsillectomies among a group of patients sufferent from Hodgkin’s lymphoma (a cancer of the lymphatic system) and among an independent control group. Here is their data, presented in a contingency table of patients vs.&nbsp;controls:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Tonsillectomy</th>
+<th>No Tonsillectomy</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Hodgkins</strong></td>
+<td>67</td>
+<td>34</td>
+<td>101</td>
+</tr>
+<tr class="even">
+<td><strong>Control</strong></td>
+<td>43</td>
+<td>64</td>
+<td>107</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td>110</td>
+<td>98</td>
+<td>208</td>
+</tr>
+</tbody>
+</table>
+The authors performed a <strong>chi-square test for homogeneity</strong>, with the following results: <span class="math display">\[
+\chi^2 = 14.259, \quad df = 1, \quad p\text{-value} = 0.00016
+\]</span>
+<details>
+<summary>
+Table with expected values for chi-square test
+</summary>
+The expected values are in parentheses. | | Tonsillectomy | No Tonsillectomy | Total | |—|—|—|—| | <strong>Hodgkins</strong> | 67 (53.4) | 34 (47.5) | 101 | | <strong>Control</strong> | 43 (56.3) | 64 (50.4) | 107 | | <strong>Total</strong> | 110 | 98 | 208 |
+</details>
+<p>They concluded that the distributions were <em>not</em> homogeneous and suggested that tonsil removal was associated with greater incidence of Hodgkin’s disease, which fit in with their belief. This paper set of a flurry of research, and people found it difficult to replicate their result. A paper by another pair of investigators, Sandra Johnson and Ralph Johnson, published in the New England Journal of Medicine in 1972, looked at 85 patients with Hodgkin’s lymphoma who had a sibling, relatively close in age to them (within 5 years), and was disease free. They compared the patients to their siblings, not an independent control group. They presented the following data:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Tonsillectomy</th>
+<th>No Tonsillectomy</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Hodgkin’s patients</strong></td>
+<td>41</td>
+<td>44</td>
+<td>85</td>
+</tr>
+<tr class="even">
+<td><strong>Control siblings</strong></td>
+<td>33</td>
+<td>52</td>
+<td>85</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td>74</td>
+<td>96</td>
+<td>170</td>
+</tr>
+</tbody>
+</table>
+<p>Now they found a chi-square statistic of 1.53, which was <em>not</em> significant, using 1 degree of freedom. This appeared to rebut the earlier claim by Vianna, Greenwald, and Davies - or did it?</p>
+<p>The problem with their analysis is that siblings do <em>not</em> constitute independent samples. This is an example of <strong>paired</strong> data, and would have to be examined using different methods. We have to redo the table with the entries in each cell being the number of <em>pairs</em> of siblings for that cell count. Here is the reorganized table, and note that the grand total is now 85, not 170, because we are counting sibling pairs and not individuals:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Sibling: No Tonsillectomy</strong></th>
+<th><strong>Sibling: Tonsillectomy</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Patient: No Tonsillectomy</strong></td>
+<td>37</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td><strong>Patient: Tonsillectomy</strong></td>
+<td>15</td>
+<td>26</td>
+</tr>
+</tbody>
+</table>
+<p>Note: <span class="math inline">\(37 + 7 + 15 + 26 = 85\)</span> pairs total. Thus, instead of comparing <em>two</em> multinomial samples (patients vs siblings), with two categories each (tonsillectomy vs no tonsillectomy), we are in fact, looking at <strong>one</strong> multinomial sample of 85 pairs, and 4 categories (as shown above). Now we need to check if the probabilities of tonsillectomies are the same for both patients and their siblings.</p>
+<p>The null hypothesis is: <strong>the probability of tonsillectomy is the same for cases (patients) and controls (siblings)</strong>. That is, whether you had your tonsils removed is <strong>not</strong> associated with Hodgkin’s lymphoma.</p>
+<p>Let’s develop the test we will use in this situation.</p>
+</section>
+<section id="mcnemars-test" class="level2">
+<h2 class="anchored" data-anchor-id="mcnemars-test">McNemar’s Test</h2>
+<section id="setup" class="level3">
+<h3 class="anchored" data-anchor-id="setup">Setup</h3>
+<p>Let <span class="math inline">\(\pi_{ij}\)</span> denote the probability that a pair falls in cell <span class="math inline">\((i,j)\)</span>. The general <span class="math inline">\(2 \times 2\)</span> table of probabilities is:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Control: Level 1</strong></th>
+<th><strong>Control: Level 2</strong></th>
+<th><strong>Row marginal</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Case: Level 1</strong></td>
+<td><span class="math inline">\(\pi_{11}\)</span></td>
+<td><span class="math inline">\(\pi_{12}\)</span></td>
+<td><span class="math inline">\(\pi_{1\cdot}\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Case: Level 2</strong></td>
+<td><span class="math inline">\(\pi_{21}\)</span></td>
+<td><span class="math inline">\(\pi_{22}\)</span></td>
+<td><span class="math inline">\(\pi_{2\cdot}\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Column marginal</strong></td>
+<td><span class="math inline">\(\pi_{\cdot 1}\)</span></td>
+<td><span class="math inline">\(\pi_{\cdot 2}\)</span></td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>The null hypothesis is that the probabilities of tonsillectomy vs no tonsillectomy should be the same for <em>both</em> components of the pair (patient <em>and</em> sibling). Whether they have Hodgkin’s or not should not matter.</p>
+<p><span class="math display">\[
+H_0: \pi_{i\cdot} = \pi_{\cdot i} \quad \text{for } i = 1, 2
+\]</span></p>
+<p>This is equivalent to testing: <span class="math display">\[
+H_0: \pi_{12} = \pi_{21} \qquad \text{vs.} \qquad H_1: \pi_{12} \neq \pi_{21}
+\]</span></p>
+<blockquote class="blockquote">
+<p><strong>Key insight:</strong> The <em>concordant</em> pairs (diagonal cells) tell us nothing about a treatment effect — both members of the pair responded the same way regardless. Only the <strong>discordant pairs</strong> (off-diagonal) are informative.</p>
+</blockquote>
+<section id="mles-under-h_0" class="level4">
+<h4 class="anchored" data-anchor-id="mles-under-h_0">MLEs Under <span class="math inline">\(H_0\)</span></h4>
+<p>Under the constraint <span class="math inline">\(\pi_{12} = \pi_{21}\)</span>, the MLE of the common off-diagonal probability is: <span class="math display">\[
+\hat{\pi}_{12} = \hat{\pi}_{21} = \frac{n_{12} + n_{21}}{2n}
+\]</span> The diagonal MLEs are unchanged: <span class="math inline">\(\hat{\pi}_{11} = n_{11}/n\)</span> and <span class="math inline">\(\hat{\pi}_{22} = n_{22}/n\)</span>.</p>
+<p>The unconstrained MLEs are <span class="math inline">\(\hat{\pi}_{ij} = n_{ij}/n\)</span>, that is the usual MLE for a multinomial.</p>
+</section>
+</section>
+<section id="deriving-the-test-statistic" class="level3">
+<h3 class="anchored" data-anchor-id="deriving-the-test-statistic">Deriving the Test Statistic</h3>
+<p>Using Pearson’s chi-square statistic <span class="math inline">\(X^2 = \sum (O_{ij} - E_{ij})^2 / E_{ij}\)</span>, the observed and expected counts are:</p>
+<ul>
+<li><span class="math inline">\(O_{11} = E_{11} = n_{11}\)</span>, <span class="math inline">\(\quad O_{22} = E_{22} = n_{22}\)</span> (diagonal terms vanish)</li>
+<li><span class="math inline">\(O_{12} = n_{12}\)</span>, <span class="math inline">\(\quad E_{12} = n \cdot \hat{\pi}_{12} = \dfrac{n_{12} + n_{21}}{2}\)</span></li>
+<li><span class="math inline">\(O_{21} = n_{21}\)</span>, <span class="math inline">\(\quad E_{21} = n \cdot \hat{\pi}_{21} = \dfrac{n_{12} + n_{21}}{2}\)</span></li>
+</ul>
+<p>Let <span class="math inline">\(c = (n_{12} + n_{21})/2\)</span>. Then:</p>
+<p><span class="math display">\[X^2 = \frac{(n_{12} - c)^2}{c} + \frac{(n_{21} - c)^2}{c}\]</span></p>
+<p>Expanding the numerator:</p>
+<p><span class="math display">\[= \frac{n_{12}^2 + c^2 - 2c\,n_{12} + n_{21}^2 + c^2 - 2c\,n_{21}}{c}\]</span></p>
+<p><span class="math display">\[= \frac{n_{12}^2 + n_{21}^2 + 2c^2 - 2c(n_{12} + n_{21})}{c}\]</span></p>
+<p>Since <span class="math inline">\(n_{12} + n_{21} = 2c\)</span>, we have <span class="math inline">\(2c(n_{12}+n_{21}) = 4c^2\)</span>, so <span class="math inline">\(2c^2 - 4c^2 = -2c^2\)</span>:</p>
+<p><span class="math display">\[= \frac{n_{12}^2 + n_{21}^2 - 2c^2}{c} = \frac{n_{12}^2 + n_{21}^2 - \frac{(n_{12}+n_{21})^2}{2}}{\frac{n_{12}+n_{21}}{2}}\]</span></p>
+<p>After simplification this reduces to the elegant <strong>McNemar statistic</strong>:</p>
+<p><span class="math display">\[\boxed{X^2 = \frac{(n_{12} - n_{21})^2}{n_{12} + n_{21}}}\]</span></p>
+<section id="degrees-of-freedom" class="level4">
+<h4 class="anchored" data-anchor-id="degrees-of-freedom">Degrees of Freedom</h4>
+<p>The full multinomial has 4 cells constrained to sum to 1, giving dimension <span class="math inline">\(4 - 1 = 3\)</span>. Under <span class="math inline">\(H_0\)</span> we impose one additional constraint (<span class="math inline">\(\pi_{12} = \pi_{21}\)</span>), leaving dimension <span class="math inline">\(3 - 1 = 2\)</span>. Therefore:</p>
+<p><span class="math display">\[df = 3 - 2 = 1\]</span></p>
+</section>
+</section>
+<section id="application-to-the-tonsillectomy-example" class="level3">
+<h3 class="anchored" data-anchor-id="application-to-the-tonsillectomy-example">Application to the Tonsillectomy Example</h3>
+<p>From the paired table: <span class="math inline">\(n_{12} = 7\)</span>, <span class="math inline">\(n_{21} = 15\)</span>.</p>
+<p><span class="math display">\[X^2 = \frac{(7 - 15)^2}{7 + 15} = \frac{64}{22} \approx 2.91\]</span></p>
+<p><span class="math display">\[P( X^2 &gt; 2.91 \mid X^2 \sim \chi^2_1) \approx 0.088\]</span></p>
+<p>At <span class="math inline">\(\alpha = 0.05\)</span>, we <strong>fail to reject</strong> <span class="math inline">\(H_0\)</span>. There is insufficient evidence that the probability of tonsillectomy differs between Hodgkin’s patients and their sibling controls. (The earlier analyses by Johnson and Johnson were flawed because they ignored the pairing structure.)</p>
+<div style="display:none">
+<p><span class="citation" data-cites="rice2006 vianna1971">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-vianna1971" role="doc-biblioref">Vianna, Greenwald, and Davies 1971</a>)</span></p>
+</div>
+</section>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-rice2006" class="csl-entry" role="listitem">
+Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. Duxbury Press.
+</div>
+<div id="ref-vianna1971" class="csl-entry" role="listitem">
+Vianna, N. J., P. Greenwald, and J. N. P. Davies. 1971. <span>“Tonsillectomy and <span>H</span>odgkin’s Disease: The Lymphoid Tissue Barrier.”</span> <em>The Lancet</em> 1 (7696): 431–32. <a href="https://doi.org/10.1016/s0140-6736(71)92416-0">https://doi.org/10.1016/s0140-6736(71)92416-0</a>.
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/stat135\.berkeley\.edu\/spring-2026\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
