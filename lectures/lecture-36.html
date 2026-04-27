@@ -58,7 +58,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c83d4320a26fb67466d8dd72d0ebcf62.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-be64487484547b4e708d1bf38b123aea.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -88,6 +88,35 @@ div.csl-indent {
 }</script>
 <script async="" src="”https://siteimproveanalytics.com/js/siteanalyze_6294756.js”"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -375,6 +404,11 @@ div.csl-indent {
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#what-quantities-impact-power" id="toc-what-quantities-impact-power" class="nav-link" data-scroll-target="#what-quantities-impact-power">What quantities impact power?</a></li>
+  <li><a href="#power-calculations" id="toc-power-calculations" class="nav-link" data-scroll-target="#power-calculations">Power Calculations</a>
+  <ul class="collapse">
+  <li><a href="#examples-of-power-calculations-with-the-two-sample-z-test" id="toc-examples-of-power-calculations-with-the-two-sample-z-test" class="nav-link" data-scroll-target="#examples-of-power-calculations-with-the-two-sample-z-test">Examples of Power Calculations with the Two-Sample <span class="math inline">\(Z\)</span> Test</a></li>
+  </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -405,9 +439,103 @@ div.csl-indent {
 <p>[DRAFT IN PROGRESS]</p>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>The topic of today’s lecture is <strong><em>power</em></strong>. That is, the power of a statistical test to reject a false null. Recall that power is the complement of <span class="math inline">\(\beta\)</span> which is the probability of a type II error (under a <em>particular</em> alternative distribution, <span class="math inline">\(H_1\)</span>).</p>
+<div style="text-align: center;">
+<p><img src="images/allison-horst-type-2-error.png" class="img-fluid" style="width:70.0%" alt="allison-horst-errors"><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+</div>
+<p>Note that our discussion of power below has nothing to do with the <span class="math inline">\(t\)</span>-test. We are going to assume that <span class="math inline">\(\sigma\)</span> is known, and analyze what affects the power of a test, in the case of two independent samples.it is the usual computation with <span class="math inline">\(\sigma^2\)</span>, but using <span class="math inline">\((\bar{X} - \bar{Y})\)</span> instead of <span class="math inline">\(\bar{X}\)</span>.</p>
+</section>
+<section id="what-quantities-impact-power" class="level2">
+<h2 class="anchored" data-anchor-id="what-quantities-impact-power">What quantities impact power?</h2>
+<p>We are testing <span class="math inline">\(H_0 : \mu_X - \mu_Y = 0\)</span> against <span class="math inline">\(H_1 : \mu_X - \mu_Y \neq 0\)</span>.</p>
+<p>What quantities affect power?</p>
+<ol type="1">
+<li>The distance between <span class="math inline">\(\mu_X\)</span> and <span class="math inline">\(\mu_Y\)</span>, that is, <span class="math inline">\(|\mu_X - \mu_Y|\)</span>.</li>
+<li>The significance level <span class="math inline">\(\alpha\)</span>, or probability of Type I error.</li>
+<li>Population variances <span class="math inline">\(\sigma_1^2\)</span>, <span class="math inline">\(\sigma_2^2\)</span>.</li>
+<li>The sample sizes <span class="math inline">\(n\)</span>, <span class="math inline">\(m\)</span>.</li>
+</ol>
+</section>
+<section id="power-calculations" class="level2">
+<h2 class="anchored" data-anchor-id="power-calculations">Power Calculations</h2>
+<p>Power calculations involve <strong>finding the sample size</strong> that <strong>detects</strong> the difference of means (<em>rejects the null</em>) with high probability (i.e., a test that achieves a desirable power).</p>
+<p>The procedure is the same as we have seen before: fix the rejection region, and compute its probability under the alternative. This involves finding the distribution of the test statistic under the alternative.</p>
+<p>We can fix the power we want, and then solve for the sample sizes <span class="math inline">\(n\)</span>, <span class="math inline">\(m\)</span> we need, <strong>or</strong> the minimum detectable effect <span class="math inline">\(\mu_1 - \mu_2\)</span> instead.</p>
+<p>If our sample sizes are large enough, we can do <em>approximate</em> power calculations based on the normal distribution.</p>
+<section id="examples-of-power-calculations-with-the-two-sample-z-test" class="level3">
+<h3 class="anchored" data-anchor-id="examples-of-power-calculations-with-the-two-sample-z-test">Examples of Power Calculations with the Two-Sample <span class="math inline">\(Z\)</span> Test</h3>
+<div id="exm-power-computation-1" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1</strong></span> Assume <span class="math inline">\(X_i \sim N(\mu_1, \sigma^2)\)</span> and <span class="math inline">\(Y_i \sim N(\mu_2, \sigma^2)\)</span> with unknown <span class="math inline">\(\mu_1, \mu_2\)</span> and known <span class="math inline">\(\sigma^2 = 4\)</span>. Suppose that <span class="math inline">\(n = m\)</span>, and we take samples of size <span class="math inline">\(n\)</span> from both populations to test <span class="math inline">\(H_0 : \mu_1 = \mu_2\)</span> against <span class="math inline">\(H_1 : \mu_1 &lt; \mu_2\)</span>.</p>
+<p>What is the minimum sample size needed from each population to have power of <span class="math inline">\(0.9\)</span> to detect differences of at least <span class="math inline">\(1\)</span> in a test with Type I error rate of <span class="math inline">\(0.01\)</span>?</p>
+</div>
+<p><strong>Solution.</strong> We rewrite the hypotheses as: <span class="math display">\[
+H_0 : \mu_1 - \mu_2 = 0, \qquad H_1 : \mu_1 - \mu_2 = -1.
+\]</span></p>
+<p>The test statistic (with <span class="math inline">\(n = m\)</span>) is: <span class="math display">\[
+Z = \frac{(\bar{X} - \bar{Y}) - (\mu_1 - \mu_2)}{\sigma\sqrt{\dfrac{1}{n} + \dfrac{1}{n}}} = \frac{\bar{X} - \bar{Y}}{\sigma\sqrt{2/n}}.
+\]</span></p>
+<p>For a one-sided test at level <span class="math inline">\(\alpha = 0.01\)</span>, the rejection region and its probability under <span class="math inline">\(H_0\)</span> are: <span class="math display">\[
+\text{Rejection Region (R.R)} = \{Z &lt; -2.326\}, \implies \text{the probability of the R.R.} = P(Z &lt; -2.326 \mid H_0).
+\]</span></p>
+<p>Under <span class="math inline">\(H_1\)</span> (where <span class="math inline">\(\mu_1 - \mu_2 = -1\)</span>), we rewrite the test statistic by adding and subtracting: <span class="math display">\[
+Z = \frac{\bar{X} - \bar{Y}}{\sigma\sqrt{2/n}} = \underbrace{\frac{\bar{X} - \bar{Y} + 1}{\sigma\sqrt{2/n}}}_{\sim\, N(0,1) \text{ under } H_1} - \frac{1}{\sigma\sqrt{2/n}}.
+\]</span></p>
+<p>The power is therefore: <span class="math display">\[
+\text{Power} = P\!\left(Z \in \text{R.R.} \mid H_1\right) = P\!\left(\frac{\bar{X} - \bar{Y} + 1}{\sigma\sqrt{2/n}} &lt; -2.326 + \frac{1}{\sigma\sqrt{2/n}}\right).
+\]</span></p>
+<p>With <span class="math inline">\(\sigma = 2\)</span>, setting power equal to the desired <span class="math inline">\(0.9\)</span>: <span class="math display">\[\Phi\!\left(-2.326 + \frac{1}{2\sqrt{2/n}}\right) = 0.9.\]</span></p>
+<p>Solving for <span class="math inline">\(n\)</span>: <span class="math display">\[-2.326 + \frac{1}{2\sqrt{2/n}} = \Phi^{-1}(0.9) = 1.28,\]</span> <span class="math display">\[\frac{1}{2\sqrt{2/n}} = 1.280 + 2.326 = 3.606,\]</span> <span class="math display">\[2\sqrt{\frac{2}{n}} = \frac{1}{3.606} \implies n = 104.25 \implies n \geq 105.\]</span></p>
+<p>Therefore, we need <span class="math inline">\(n \geq 105\)</span> to achieve power of at least 90%.</p>
+<p><strong>Exercise.</strong> What about if <span class="math inline">\(\sigma^2 = 16\)</span>?</p>
+<div id="exm-power-computation-2" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2</strong></span> Suppose we have two samples, <span class="math inline">\(X_1, \ldots, X_n \sim \mathcal{N}(\mu_X, \sigma^2)\)</span> and <span class="math inline">\(Y_1, \ldots, Y_n \sim \mathcal{N}(\mu_Y, \sigma^2)\)</span>. The test is: <span class="math display">\[
+H_0 : \mu_X - \mu_Y = 0, \qquad H_1 : \mu_X - \mu_Y = \Delta &gt; 0.
+\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/one-sided-power.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption>One-sided power diagram: null (blue) and alternative (red) distributions with rejection region shaded</figcaption>
+</figure>
+</div>
+<ol type="1">
+<li>Derive an expression for the power of the test.</li>
+</ol>
+<details>
+<summary>
+Check your answer!
+</summary>
+<p>For a one-sided test (rejecting when <span class="math inline">\(\bar{X} - \bar{Y}\)</span> is large), the power is: <span class="math display">\[
+\text{Power} = P\!\left(\frac{\bar{X}-\bar{Y}}{\sigma\sqrt{2/n}} &gt; z_\alpha \;\Bigg|\; H_1\right)
+\]</span></p>
+<p>Standardizing under <span class="math inline">\(H_1\)</span>, where <span class="math inline">\(\bar{X} - \bar{Y} \sim N\!\left(\Delta,\, \sigma^2 \cdot \tfrac{2}{n}\right)\)</span>: <span class="math display">\[
+= P\!\left(\frac{\bar{X}-\bar{Y}-\Delta}{\sigma\sqrt{2/n}} &gt; z_\alpha - \frac{\Delta}{\sigma\sqrt{2/n}}\right) = 1 - \Phi\!\left(z_\alpha - \frac{\Delta}{\sigma}\sqrt{\frac{n}{2}}\right).
+\]</span></p>
+For a <strong>two-sided</strong> test at level <span class="math inline">\(\alpha\)</span>, the power has two terms <span class="math inline">\(P_1\)</span> and <span class="math inline">\(P_2\)</span> (right and left critical region contributions). The left-tail term <span class="math inline">\(P_2\)</span> is negligible when the alternative is well-separated, so: <span class="math display">\[
+\text{Power} \approx 1 - \Phi\!\left(z_{\alpha/2} - \frac{\Delta}{\sigma}\sqrt{\frac{n}{2}}\right) + \Phi\!\left(-z_{\alpha/2} - \frac{\Delta}{\sigma}\sqrt{\frac{n}{2}}\right)
+\]</span> (Usually one of the terms is negligible, so we may only consider the dominating term.)
+</details>
+<ol start="2" type="1">
+<li>Now suppose we want to detect an effect size of <span class="math inline">\(\Delta = 2\)</span> with probability <span class="math inline">\(0.8\)</span> when the variance for both <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is about <span class="math inline">\(25\)</span>. What is the smallest <span class="math inline">\(n\)</span> we need? You may assume a two-sided test, with <span class="math inline">\(\alpha = 0.05\)</span>, so <span class="math inline">\(\alpha/2 = 0.025\)</span>, and <span class="math inline">\(z_{\alpha/2} = 1.96\)</span>.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/two-sided-power.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption>Two-sided power diagram: null (blue) and alternative (red) distributions with both parts of the rejection regions shaded</figcaption>
+</figure>
+</div>
+<details>
+<summary>
+Check your answer!
+</summary>
+<p>With <span class="math inline">\(\Delta = 2\)</span>, <span class="math inline">\(\sigma = 5\)</span>, desired power <span class="math inline">\(= 0.8\)</span>, and <span class="math inline">\(z_{\alpha/2} = 1.96\)</span>: <span class="math display">\[1 - \Phi\!\left(1.96 - \frac{2}{5}\sqrt{\frac{n}{2}}\right) = 0.8 \implies \Phi\!\left(1.96 - \frac{2}{5}\sqrt{\frac{n}{2}}\right) = 0.2.\]</span></p>
+<p>Since <span class="math inline">\(\Phi^{-1}(0.2) \approx -0.84\)</span>: <span class="math display">\[1.96 - \frac{2}{5}\sqrt{\frac{n}{2}} = -0.84 \implies \frac{2}{5}\sqrt{\frac{n}{2}} = 2.80 \implies \sqrt{\frac{n}{2}} = 7.\]</span></p>
+<p>Therefore: <span class="math display">\[\frac{n}{2} = \left[(1.96 + 0.84)\cdot\frac{5}{2}\right]^2 = 7^2 = 49 \implies \boxed{n \approx 98}.\]</span></p>
+</details>
+</div>
 <div style="display:none">
 <p><span class="citation" data-cites="rice2006">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>)</span></p>
 </div>
+</section>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
@@ -420,7 +548,13 @@ Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. 
 
 </section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Artwork by Allison Horst<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
