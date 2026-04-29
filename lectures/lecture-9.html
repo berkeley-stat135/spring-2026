@@ -417,6 +417,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-38.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 38: Two sample tests: Nonparametric Tests, part 2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Datasets</span></a>
   </div>
@@ -550,8 +556,8 @@ Warning
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">$</span>t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1]
-[1,]  2.8
-[2,]  2.4</code></pre>
+[1,]  2.4
+[2,]  2.2</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">$</span>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -590,12 +596,12 @@ Warning
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(boot_np_new<span class="sc">$</span>t) <span class="do">## the first six bootstrap values of theta_hat</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          [,1]     [,2]
-[1,] 0.4034391 1.518147
-[2,] 0.3709222 1.770679
-[3,] 0.4485508 2.098797
-[4,] 0.2958901 1.572704
-[5,] 0.3205239 1.477609
-[6,] 0.3359577 1.586717</code></pre>
+[1,] 0.3934963 1.965750
+[2,] 0.2885172 1.448745
+[3,] 0.3533547 1.656031
+[4,] 0.3571002 1.711174
+[5,] 0.4066913 1.583135
+[6,] 0.3884173 1.847320</code></pre>
 </div>
 </div>
 <p>Let’s compute the confidence intervals using the very convenient function <code>boot.ci()</code> that takes as input the object returned by <code>boot()</code>. So we will input <code>boot_np_new</code> into <code>boot.ci()</code>. We specify the <strong>type</strong> of intervals we want, and <code>index=1</code> indicates which column of the output matrix <code>boot_np_new</code> we should consider. Let’s first compute the percentile and basic intervals for <span class="math inline">\(\alpha\)</span>:</p>
@@ -611,7 +617,7 @@ boot.ci(boot.out = boot_np_new, type = c("perc", "basic"), index = 1)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.2660,  0.4536 )   ( 0.3022,  0.4898 )  
+95%   ( 0.2650,  0.4536 )   ( 0.3022,  0.4908 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -628,7 +634,7 @@ boot.ci(boot.out = boot_np_new, type = c("perc", "basic"), index = 2)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 1.023,  2.035 )   ( 1.334,  2.346 )  
+95%   ( 1.029,  2.022 )   ( 1.347,  2.339 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -690,7 +696,7 @@ boot.ci(boot.out = boot_par, type = c("perc", "basic"), index = 1)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.2322,  0.4830 )   ( 0.2729,  0.5237 )  
+95%   ( 0.2269,  0.4830 )   ( 0.2728,  0.5289 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -711,7 +717,7 @@ boot.ci(boot.out = boot_par, type = c("perc", "basic"), index = 2)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.824,  2.208 )   ( 1.160,  2.545 )  
+95%   ( 0.806,  2.210 )   ( 1.159,  2.562 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>More about Estimators and Mathematical Digressions</title>
+<title>Two sample tests: Continuing Nonparametric Tests</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-6.html">Lecture 6: MoM &amp; Mathematical Digressions</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-38.html">Lecture 38: Two sample tests: Nonparametric Tests, part 2</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -227,7 +227,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-6.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lectures/lecture-6.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 6: MoM &amp; Mathematical Digressions</span></a>
   </div>
 </li>
@@ -383,7 +383,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/lecture-38.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/lecture-38.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lecture 38: Two sample tests: Nonparametric Tests, part 2</span></a>
   </div>
 </li>
@@ -409,16 +409,19 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#properties-of-estimators" id="toc-properties-of-estimators" class="nav-link active" data-scroll-target="#properties-of-estimators">Properties of Estimators</a>
-  <ul class="collapse">
-  <li><a href="#consistency" id="toc-consistency" class="nav-link" data-scroll-target="#consistency">Consistency</a></li>
-  </ul></li>
-  <li><a href="#types-of-convergence" id="toc-types-of-convergence" class="nav-link" data-scroll-target="#types-of-convergence">Types of Convergence</a></li>
-  <li><a href="#tail-inequalities" id="toc-tail-inequalities" class="nav-link" data-scroll-target="#tail-inequalities">Tail Inequalities</a>
-  <ul class="collapse">
-  <li><a href="#consequences-of-the-wlln" id="toc-consequences-of-the-wlln" class="nav-link" data-scroll-target="#consequences-of-the-wlln">Consequences of the WLLN</a></li>
-  <li><a href="#sample-moments-converge-to-the-true-moments-of-the-distribution" id="toc-sample-moments-converge-to-the-true-moments-of-the-distribution" class="nav-link" data-scroll-target="#sample-moments-converge-to-the-true-moments-of-the-distribution">Sample moments converge to the true moments of the distribution</a></li>
-  </ul></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#practice-steps-to-perform-the-wmw-test" id="toc-practice-steps-to-perform-the-wmw-test" class="nav-link" data-scroll-target="#practice-steps-to-perform-the-wmw-test">Practice: Steps to Perform the WMW Test</a></li>
+  <li><a href="#notes-wmw-practice" id="toc-notes-wmw-practice" class="nav-link" data-scroll-target="#notes-wmw-practice">Notes: WMW Practice</a></li>
+  <li><a href="#example-pizza-places" id="toc-example-pizza-places" class="nav-link" data-scroll-target="#example-pizza-places">Example: Pizza Places</a></li>
+  <li><a href="#example-flint-hardness" id="toc-example-flint-hardness" class="nav-link" data-scroll-target="#example-flint-hardness">Example: Flint Hardness</a></li>
+  <li><a href="#table-8-critical-values-for-the-wmw-test" id="toc-table-8-critical-values-for-the-wmw-test" class="nav-link" data-scroll-target="#table-8-critical-values-for-the-wmw-test">Table 8: Critical Values for the WMW Test</a></li>
+  <li><a href="#back-to-toy-example-m-2-n-3" id="toc-back-to-toy-example-m-2-n-3" class="nav-link" data-scroll-target="#back-to-toy-example-m-2-n-3">Back to Toy Example: <span class="math inline">\(m = 2\)</span>, <span class="math inline">\(n = 3\)</span></a></li>
+  <li><a href="#approximate-distribution-of-rank-sum" id="toc-approximate-distribution-of-rank-sum" class="nav-link" data-scroll-target="#approximate-distribution-of-rank-sum">Approximate Distribution of Rank Sum</a></li>
+  <li><a href="#paired-samples" id="toc-paired-samples" class="nav-link" data-scroll-target="#paired-samples">§11.3: Paired Samples</a></li>
+  <li><a href="#method-based-on-the-normal-distribution" id="toc-method-based-on-the-normal-distribution" class="nav-link" data-scroll-target="#method-based-on-the-normal-distribution">Method Based on the Normal Distribution</a></li>
+  <li><a href="#nonparametric-example-suntan-lotion" id="toc-nonparametric-example-suntan-lotion" class="nav-link" data-scroll-target="#nonparametric-example-suntan-lotion">Nonparametric Example: Suntan Lotion</a></li>
+  <li><a href="#wilcoxon-signed-rank-test" id="toc-wilcoxon-signed-rank-test" class="nav-link" data-scroll-target="#wilcoxon-signed-rank-test">Wilcoxon Signed Rank Test</a></li>
+  <li><a href="#signed-rank-test-null-distribution" id="toc-signed-rank-test-null-distribution" class="nav-link" data-scroll-target="#signed-rank-test-null-distribution">Signed Rank Test: Null Distribution</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -428,7 +431,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">More about Estimators and Mathematical Digressions</h1>
+<h1 class="title">Two sample tests: Continuing Nonparametric Tests</h1>
 </div>
 
 
@@ -445,137 +448,436 @@ window.Quarto = {
 </header>
 
 
-<section id="properties-of-estimators" class="level2">
-<h2 class="anchored" data-anchor-id="properties-of-estimators">Properties of Estimators</h2>
-<p>In this chapter, we discuss what are some desirable properties that an estimator should have. This is just the beginning of the discussion and we will continue it when we study the method of maximum likelihood estimation. So far, we have discussed three criteria of estimators:</p>
+<!-- ## Lec 38, April 27, 2026-->
+<p>[DRAFT, IN PROGRESS]</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<hr>
+</section>
+<section id="practice-steps-to-perform-the-wmw-test" class="level2">
+<h2 class="anchored" data-anchor-id="practice-steps-to-perform-the-wmw-test">Practice: Steps to Perform the WMW Test</h2>
 <ol type="1">
-<li>Unbiasedness</li>
-<li>Low variance</li>
-<li>Low MSE (Mean Square Error)</li>
+<li>Form the combined sample:</li>
 </ol>
-<section id="unbiasedness" class="level4">
-<h4 class="anchored" data-anchor-id="unbiasedness">Unbiasedness</h4>
-<p>Recall that we call an estimator <span class="math inline">\(\hat{\theta}\)</span> <em>unbiased</em> if on average, the estimator is on target. That means that if we are trying to estimate <span class="math inline">\(\theta\)</span>, then <span class="math inline">\(E(\hat{\theta}) = \theta\)</span>. For example, since <span class="math inline">\(E(\overline{X}) = \mu\)</span>, the population mean, the sample mean <span class="math inline">\(\overline{X}\)</span> is an unbiased estimator of the population mean, and <span class="math inline">\(\hat{p}\)</span>, the sample proportion, is an unbiased estimator of the population proportion.</p>
-<p><strong>Exercise</strong> Let <span class="math inline">\(X_1, \ldots, X_n\)</span> be an IID sample from some distribution with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. Show that <span class="math inline">\(S^2\)</span> is an unbiased estimator of <span class="math inline">\(\sigma^2\)</span>, where <span class="math inline">\(\displaystyle S^2 = \dfrac{1}{n-1}\sum_{i=1}^n \left(X_i - \overline{X}\right)^2\)</span> is the <em>sample variance</em> of <span class="math inline">\(X_1, \ldots, X_n\)</span>.</p>
-<p><strong>Exercise</strong> Consider an IID random sample <span class="math inline">\(X_1, \ldots, X_n\)</span> from a <span class="math inline">\(Unif(0,b)\)</span> distribution. Find <span class="math inline">\(\hat{b}\)</span>, the method of moments estimate of <span class="math inline">\(b\)</span>? Is <span class="math inline">\(\hat{b}\)</span> an unbiased estimator? What about <span class="math inline">\(\hat{b}^2\)</span>? Is it an unbiased estimator of <span class="math inline">\(b^2\)</span>?</p>
-<p>As we saw in the previous chapters, if the expectation of the estimator is the true value multiplied by a constant, then we can just divide the estimator by the constant and this will make the estimator unbiased. That is, if <span class="math inline">\(E(\hat{\theta}) = c\theta\)</span>, where <span class="math inline">\(c\)</span> is a constant, then since <span class="math inline">\(E(\dfrac{\hat{\theta}}{c}) = \dfrac{c\theta}{c} = \theta\)</span>.</p>
-</section>
-<section id="low-variance" class="level4">
-<h4 class="anchored" data-anchor-id="low-variance">Low Variance</h4>
-<p>This is important since it increases the accuracy of the estimator. The last paragraph shows that we can get rid of a bias, but if an estimator has high variability, there is not much we can do. A low variance implies that the standard error of the estimator is low, which is a desirable property.</p>
-</section>
-<section id="mean-square-error" class="level4">
-<h4 class="anchored" data-anchor-id="mean-square-error">Mean Square Error</h4>
-<p>Recall that <span class="math inline">\(MSE = \mathrm{bias}^2 + \mathrm{Variance}.\)</span> Since the MSE combines both bias and variance, it is very useful for comparing estimators that may be biased.</p>
-<p><strong>Exercise</strong> <span class="citation" data-cites="chi-hest2018">(<a href="#ref-chi-hest2018" role="doc-biblioref">Chihara and Hesterberg 2018</a>)</span> Let <span class="math inline">\(X \sim Bin(n,p)\)</span>, where <span class="math inline">\(n\)</span> is known and <span class="math inline">\(p\)</span> is unknown. Show that the sample proportion <span class="math inline">\(\hat{p}_1 = X/n\)</span> is an unbiased estimator of <span class="math inline">\(p\)</span>, and that <span class="math inline">\(MSE\left(\hat{p}_1\right) = \dfrac{p(1-p)}{n}\)</span>.</p>
-<p>Suppose we define an alternative estimator of <span class="math inline">\(p\)</span>, denoted by <span class="math inline">\(\hat{p}_2\)</span>, where <span class="math inline">\(\hat{p}_2 = \dfrac{X+1}{n+2}\)</span>, that is, we add one artificial success and one artifical failure to the data. What is <span class="math inline">\(E(\hat{p}_2)\)</span>? Is <span class="math inline">\(\hat{p}_2\)</span> unbiased? Compute <span class="math inline">\(\mathrm{Bias}(\hat{p}_2) = E(\hat{p}_2) -p\)</span>, the variance of <span class="math inline">\(\hat{p}_2\)</span>, and the MSE of <span class="math inline">\(\hat{p}_2\)</span>. Which estimator would you use, <span class="math inline">\(\hat{p}_1\)</span> or <span class="math inline">\(\hat{p}_2\)</span>?</p>
-</section>
-<section id="consistency" class="level3">
-<h3 class="anchored" data-anchor-id="consistency">Consistency</h3>
-<p>All these criteria are well and fine, but one thing we would definitely like is that as our sample size gets larger and larger (we get more data), our estimator should become more accurate. In fact, as <span class="math inline">\(n \rightarrow \infty\)</span>, we would like <span class="math inline">\(\hat{\theta} \equiv \hat{\theta}_n\)</span> to <em>converge</em> to <span class="math inline">\(\theta\)</span> (the <span class="math inline">\(n\)</span> denotes the size of the sample that we are using), whatever “converge” might mean here. In fact, the convergence here is what we call convergence in <em>probability</em>, which basically means that in the long run, the probability of <span class="math inline">\(\hat{\theta}_n\)</span> being very close to <span class="math inline">\(\theta\)</span> goes to 1.</p>
-<div class="def">
-<p><strong>Consistent</strong>: Let <span class="math inline">\(\hat{\theta}_n\)</span> be an estimator of a parameter <span class="math inline">\(\theta\)</span>, based on a sample of size <span class="math inline">\(n\)</span>. We say that <span class="math inline">\(\hat{\theta}_n\)</span> is <em>consistent in probability</em> if <span class="math inline">\(\hat{\theta}_n\)</span> converges in probability to <span class="math inline">\(\theta\)</span> as <span class="math inline">\(n \rightarrow \infty\)</span>; that is, for any <span class="math inline">\(\varepsilon &gt; 0\)</span>, we have that <span class="math inline">\(\displaystyle \lim_{n \rightarrow \infty} P\left(\lvert \hat{\theta}_n -\theta \rvert &gt; \varepsilon \right)=0\)</span>. We write this as <span class="math inline">\(\hat{\theta}_n \overset{P}{\rightarrow} \theta\)</span>.</p>
-</div>
-<p>This is saying that for <em>any</em> acceptable amount of error epsilon, the probability of an <em>actual</em> error that is greater than epsilon goes to 0. This means that the error might be large on events of very low probability, and these probabilities get lower as <span class="math inline">\(n\)</span> gets larger. If the sample is large enough, therefore, the estimator is very likely to be close to its target.</p>
-</section>
-</section>
-<section id="types-of-convergence" class="level2">
-<h2 class="anchored" data-anchor-id="types-of-convergence">Types of Convergence</h2>
-<p>Before we go any further, let’s briefly talk about the three different kinds of ways of interpreting the statement <span class="math inline">\(\hat{\theta}_n \rightarrow \theta\)</span> that you might encounter while studying probability - well, you will mostly encounter the first two, but you might have seen the third in a course on real analysis or measure theory.</p>
-<p>Let <span class="math inline">\(X_1, X_2, \ldots\)</span> be a sequence of random variables, such that <span class="math inline">\(X_n\)</span> has cdf <span class="math inline">\(F_n\)</span>, and let <span class="math inline">\(X\)</span> be another random variable with CDF <span class="math inline">\(F\)</span>.</p>
-<ol type="1">
-<li><p><span class="math inline">\(X_n\)</span> <strong>converges in distribution</strong> to <span class="math inline">\(X\)</span>, written as <span class="math inline">\(X_n \overset{D}{\rightarrow} X\)</span>, if <span class="math inline">\(P(X_n \le x) \rightarrow P(X \le x)\)</span> as <span class="math inline">\(n \rightarrow \infty\)</span> at all points <span class="math inline">\(x\)</span> at which the function <span class="math inline">\(F(x) = P(X \le x)\)</span> is continuous. This means that the CDFs of the <span class="math inline">\(X_n\)</span> converge to the CDF of <span class="math inline">\(X\)</span> (<span class="math inline">\(F_n \rightarrow F\)</span> as <span class="math inline">\(n\rightarrow \infty\)</span>).</p></li>
-<li><p><span class="math inline">\(X_n\)</span> <strong>converges in probability</strong> to <span class="math inline">\(X\)</span>, written as <span class="math inline">\(X_n \overset{P}{\rightarrow} X\)</span>, if, for all <span class="math inline">\(\varepsilon &gt; 0\)</span>, we have that <span class="math inline">\(P(\lvert X_n - X \rvert &gt; \varepsilon) \rightarrow 0\)</span> as <span class="math inline">\(n \rightarrow \infty\)</span>. This isn’t saying that we <em>guarantee</em> that <span class="math inline">\(X_n\)</span> will get very close to <span class="math inline">\(X\)</span> for large <span class="math inline">\(n\)</span>. We are saying that it is very likely.</p></li>
-<li><p><span class="math inline">\(X_n\)</span> <strong>converges almost surely</strong>, written as <span class="math inline">\(X_n \overset{a.s.}{\rightarrow} X\)</span>, if <span class="math inline">\(\displaystyle P\left(\lim_{n\rightarrow \infty} X_n = X\right) =1\)</span>. That is, the event <span class="math inline">\(\{\omega \in \Omega: \displaystyle \lim_{n\rightarrow \infty} X_n(\omega) = X(\omega)\}\)</span> has probability 1. This convergence guarantees that <span class="math inline">\(X_n\)</span> will converge to <span class="math inline">\(X\)</span> except on a set of measure 0 (for example, on finitely many points in a continuous interval).</p></li>
+<p><span class="math display">\[
+Z = (X_1, \ldots, X_n, Y_1, \ldots, Y_m)
+\]</span></p>
+<ol start="2" type="1">
+<li><p>Let <span class="math inline">\(n_1 = \min(n, m)\)</span> — consider the smaller sample first. Suppose <span class="math inline">\(n_1 = n\)</span> and <span class="math inline">\(R = R(X)\)</span>.</p></li>
+<li><p><span class="math inline">\(R\)</span> = sum of ranks of the smaller sample.</p></li>
+<li><p>Compute:</p></li>
 </ol>
-<p>You can see that the first type is the weakest, and the last is the strongest. <span class="math display">\[
-\left(X_n \overset{a.s.}{\rightarrow} X\right) \Rightarrow \left(X_n \overset{P}{\rightarrow} X\right) \Rightarrow \left(X_n \overset{D}{\rightarrow} X\right)
-\]</span></p>
-<p>That is, if we have that <span class="math inline">\(X_1, \ldots\)</span> converge to <span class="math inline">\(X\)</span> a.s., then the other forms of convergence will also be true.</p>
-<p>Here is an example <span class="citation" data-cites="grimmett-stirzaker2001">(<a href="#ref-grimmett-stirzaker2001" role="doc-biblioref">Grimmett and Stirzaker 2001</a>)</span>: Suppose <span class="math inline">\(X\sim Bernoulli(1/2)\)</span>, and <span class="math inline">\(X_1, \ldots\)</span> are identical random variables, with <span class="math inline">\(X_n = X\)</span> for all <span class="math inline">\(n\)</span>. Now the <span class="math inline">\(X_n\)</span> are not independent, but <span class="math inline">\(X_n \overset{D}{\rightarrow}X\)</span>. If <span class="math inline">\(Y = 1-X\)</span>, then <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have the same distribution, which means that <span class="math inline">\(X_n \overset{D}{\rightarrow} Y\)</span>. But <span class="math inline">\(X_n\)</span> cannot converge to <span class="math inline">\(Y\)</span> in any other sense because <span class="math inline">\(\lvert X_n - Y\rvert = 1\)</span> always.</p>
-<p>We will revisit two famous limit theorems now, that use different kinds of convergence.</p>
-<section id="the-central-limit-theorem" class="level4">
-<h4 class="anchored" data-anchor-id="the-central-limit-theorem">The Central Limit Theorem</h4>
-<p>The CLT states that for large <span class="math inline">\(n\)</span>, the sample mean, suitably standardized, will have a CDF that approaches the CDF of the standard Normal. That is, the standardized sample mean <strong>converges in distribution</strong> to the standard Normal.</p>
-<p>If <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> is an independent and identically distributed sample from a population with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, then:</p>
 <p><span class="math display">\[
-\left(\frac{\overline{X}-\mu}{\frac{\sigma}{\sqrt{n}}}\right) = \sqrt{n}\left(\frac{\overline{X}-\mu}{\sigma}\right) \overset{D}{\longrightarrow}\mathcal{N}(0,1)  \text{ as } n\longrightarrow \infty
+R' = n_1(m + n + 1) - R
 \]</span></p>
-</section>
-<section id="the-weak-law-of-large-numbers" class="level4">
-<h4 class="anchored" data-anchor-id="the-weak-law-of-large-numbers">The Weak Law of Large Numbers</h4>
-<p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> be a sequence of iid random variables with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, then if <span class="math inline">\(\overline{X}_n \left(= \dfrac{1}{n} \displaystyle\sum_{i=1}^{n}X_i \right)\)</span> is the sample mean,then for every <span class="math inline">\(\varepsilon &gt; 0\)</span>, we have that <span class="math inline">\(\lim_{n \rightarrow \infty} P(\lvert \overline{X}_n - \mu \rvert &gt; \varepsilon )=0\)</span>.</p>
-<p>That is, the sample mean converges in <strong>probability</strong> to the true mean.</p>
-</section>
-</section>
-<section id="tail-inequalities" class="level2">
-<h2 class="anchored" data-anchor-id="tail-inequalities">Tail Inequalities</h2>
-<p>In order to prove the WLLN, we need Chebyshev’s inequality. In order to prove Chebyshev’s inequality, we need Markov’s inequality. These are both called <em>tail inequalities</em> because they bound the <em>tail</em> of the distribution. That is, they put bounds on the probability that the random variable takes very large values.</p>
-<section id="markovs-inequality" class="level4">
-<h4 class="anchored" data-anchor-id="markovs-inequality">Markov’s inequality</h4>
-<p>If <span class="math inline">\(X\)</span> is a nonnegative random variable (<span class="math inline">\(P(X\ge 0 ) = 1\)</span>) such that <span class="math inline">\(E(X) &lt; \infty\)</span> (that is, the expectation exists), then for any <span class="math inline">\(c&gt; 0\)</span>, <span class="math display">\[
-P(X \ge c) \le \dfrac{E(X)}{c}.
-\]</span></p>
-<p>Notice that this is a very simple inequality, and requires nothing but that the random variable be nonnegative. The proof is very simple - we just have to write the expected value as a sum over the region where <span class="math inline">\(X &lt; c\)</span> and where <span class="math inline">\(X \ge c\)</span>. Try it.</p>
-</section>
-<section id="chebyshevs-inequality" class="level4">
-<h4 class="anchored" data-anchor-id="chebyshevs-inequality">Chebyshev’s inequality</h4>
-<p>If <span class="math inline">\(X\)</span> is a random variable with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, then we have that for any <span class="math inline">\(c&gt;0\)</span>,</p>
+<p>Since <span class="math inline">\(n_1 \leq \frac{m+n}{2}\)</span>, we have <span class="math inline">\(R(X) + R(Y) \geq n_1(m+n+1)\)</span>, so <span class="math inline">\(R'\)</span> is at most the sum of ranks of the other sample.</p>
+<ol start="5" type="1">
+<li>Compute:</li>
+</ol>
 <p><span class="math display">\[
-P(\lvert X-\mu\rvert&gt; c)\le \dfrac{\sigma^2}{c^2}.
+R^* = \min(R, R')
 \]</span></p>
-<p><strong>Exercise</strong> Apply Markov’s inequality to <span class="math inline">\(\lvert X - \mu\rvert^2\)</span> to prove Chebyshev’s inequality.</p>
+<ol start="6" type="1">
+<li>Compare <span class="math inline">\(R^*\)</span> to the table for the appropriate significance level. If it is too small, reject the null.</li>
+</ol>
+<p><strong>Why?</strong> If <span class="math inline">\(n &lt; m\)</span>, then:</p>
+<p><span class="math display">\[
+R(X) + R(Y) \geq n(m+n+1) \implies R(Y) \geq n(m+n+1) - R(X)
+\]</span></p>
+<hr>
 </section>
-<section id="consequences-of-the-wlln" class="level3">
-<h3 class="anchored" data-anchor-id="consequences-of-the-wlln">Consequences of the WLLN</h3>
-<p>Please work through the following consequences of the WLLN:</p>
+<section id="notes-wmw-practice" class="level2">
+<h2 class="anchored" data-anchor-id="notes-wmw-practice">Notes: WMW Practice</h2>
 <ul>
-<li><p>If <span class="math inline">\(X_n \xrightarrow{P} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{P} Y\)</span>, then<br>
-<span class="math display">\[
-X_n + Y_n \xrightarrow{P} X + Y.
-\]</span></p></li>
-<li><p>If <span class="math inline">\(X_n \xrightarrow{P} X\)</span> and <span class="math inline">\(c\)</span> is a constant, then<br>
-<span class="math display">\[
-c X_n \xrightarrow{P} c X.
-\]</span></p></li>
-<li><p>If <span class="math inline">\(X_n \xrightarrow{P} a\)</span> and the real-valued function <span class="math inline">\(g\)</span> is continuous at <span class="math inline">\(a\)</span>, then<br>
-<span class="math display">\[
-g(X_n) \xrightarrow{P} g(a).
-\]</span></p></li>
-<li><p>If <span class="math inline">\(X_n \xrightarrow{P} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{P} Y\)</span>, then<br>
-<span class="math display">\[
-X_n Y_n \xrightarrow{P} X Y.
-\]</span></p></li>
+<li><p><strong>Ties:</strong> Assign the average of the ranks. For example, if the data is <span class="math inline">\(0.1, 0.1, 0.25\)</span>, the ranks would be <span class="math inline">\(1.5, 1.5, 3\)</span>.</p></li>
+<li><p>Since <span class="math inline">\(n_1 = \min(n, m) \implies n_1 \leq (m+n)/2\)</span></p></li>
+<li><p>Thus:</p></li>
 </ul>
+<p><span class="math display">\[
+R(X) + R(Y) \geq n_1(m + n + 1)
+\]</span></p>
+<ul>
+<li>Suppose <span class="math inline">\(|X| \leq |Y|\)</span>, then <span class="math inline">\(n_1 = |X|\)</span> and <span class="math inline">\(R = R(X)\)</span></li>
+</ul>
+<p><span class="math display">\[
+R(Y) \geq n_1(m + n + 1) - R
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(R'\)</span> is at most the sum of ranks of the other sample.</p></li>
+<li><p>We look at the <strong>lower quantiles</strong> and reject the null if <span class="math inline">\(R^*\)</span> is below the critical value associated with <span class="math inline">\(\alpha\)</span>.</p></li>
+</ul>
+<hr>
 </section>
-<section id="sample-moments-converge-to-the-true-moments-of-the-distribution" class="level3">
-<h3 class="anchored" data-anchor-id="sample-moments-converge-to-the-true-moments-of-the-distribution">Sample moments converge to the true moments of the distribution</h3>
-<p>This is another important consequence of the WLLN. That is,The sample moments (<span class="math inline">\(\hat{\mu}_k\)</span>) converge to the population moments (<span class="math inline">\(\mu_k = E(X^k)\)</span>). If the functions relating the estimator <span class="math inline">\(\hat{\theta}\)</span> to the sample moments are continuous, then the estimator will converge to the parameter as the sample moments converge to the population moments.</p>
-<p>Therefore, the WLLN implies that the sample mean (<span class="math inline">\(\overline{X}_n\)</span>) is a consistent estimator of <span class="math inline">\(\mu\)</span>.</p>
-<p>Recall the sample variance <span class="math inline">\(\displaystyle S^2  = \dfrac{1}{n-1}\sum_{i=1}^n \left(X_i - \overline{X}_n\right)^2\)</span>. Is <span class="math inline">\(S^2\)</span> a consistent estimator of <span class="math inline">\(\sigma^2\)</span>?</p>
-<p>What about <span class="math inline">\(\hat{\sigma}^2 = \dfrac{n-1}{n}S^2\)</span>?</p>
+<section id="example-pizza-places" class="level2">
+<h2 class="anchored" data-anchor-id="example-pizza-places">Example: Pizza Places</h2>
+<p><strong>Data</strong> (<span class="math inline">\(n = 7\)</span> for place A, <span class="math inline">\(m = 5\)</span> for place B, so <span class="math inline">\(n_1 = 5\)</span>):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Pizza place</th>
+<th>Value</th>
+<th>Rank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>20.4</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td>A</td>
+<td>24.2</td>
+<td>12</td>
+</tr>
+<tr class="odd">
+<td>A</td>
+<td>15.4</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>A</td>
+<td>21.4</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td>A</td>
+<td>20.2</td>
+<td>6.5</td>
+</tr>
+<tr class="even">
+<td>A</td>
+<td>18.5</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>A</td>
+<td>21.5</td>
+<td>11</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>20.2</td>
+<td>6.5</td>
+</tr>
+<tr class="odd">
+<td>B</td>
+<td>16.9</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>18.4</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>B</td>
+<td>17.3</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>20.5</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+R(X) = 53.5, \quad R(Y) = 24.5
+\]</span></p>
+<p><span class="math display">\[
+R' = m(m+n+1) - R(Y) = 5(5+7+1) - 24.5 = 65 - 24.5 = 40.5
+\]</span></p>
+<p><span class="math display">\[
+R^* = \min(24.5,\ 40.5) = \boxed{24.5}
+\]</span></p>
+<p>Critical value from table <span class="math inline">\(= 20\)</span>. Since <span class="math inline">\(R^* &gt; 20\)</span>, <strong>fail to reject</strong> <span class="math inline">\(H_0\)</span>.</p>
+<p>There is no real difference in the rankings.</p>
+<hr>
+</section>
+<section id="example-flint-hardness" class="level2">
+<h2 class="anchored" data-anchor-id="example-flint-hardness">Example: Flint Hardness</h2>
+<p>An experiment compares the hardness of flint from areas A and B (4 samples from A, 5 from B). Pieces were rubbed against each other and ranked from softest to hardest:</p>
+<p><span class="math display">\[
+\underbrace{A}_{1}\ \underbrace{A}_{2}\ \underbrace{A}_{3}\ \underbrace{B}_{4}\ \underbrace{A}_{5}\ \underbrace{B}_{6}\ \underbrace{B}_{7}\ \underbrace{B}_{8}\ \underbrace{B}_{9}
+\]</span></p>
+<p>Here <span class="math inline">\(X \leftrightarrow A\)</span>, <span class="math inline">\(Y \leftrightarrow B\)</span>, <span class="math inline">\(n = 4\)</span>, <span class="math inline">\(m = 5\)</span>, so <span class="math inline">\(n_1 = 4\)</span>.</p>
+<p><span class="math display">\[
+H_0: \text{Flints from both areas are of equal hardness}
+\]</span></p>
+<p><span class="math display">\[
+H_1: \text{Flints are not of equal hardness}
+\]</span></p>
+<p>The sample from region A is smaller:</p>
+<p><span class="math display">\[
+R(A) = 1 + 2 + 3 + 5 = 11
+\]</span></p>
+<p>(Smallest possible rank sum for A is <span class="math inline">\(10\)</span>; largest possible is <span class="math inline">\(34\)</span>.)</p>
+<p><span class="math display">\[
+R' = m(m+n+1) - R(X) = 4(10) - 11 = 29
+\]</span></p>
+<p><span class="math display">\[
+R^* = \min(11,\ 29) = 11
+\]</span></p>
+<p>With <span class="math inline">\(n_1 = 4\)</span>, <span class="math inline">\(n_2 = 5\)</span>, <span class="math inline">\(\alpha = 0.05\)</span>: <strong>Reject the null.</strong></p>
+<hr>
+</section>
+<section id="table-8-critical-values-for-the-wmw-test" class="level2">
+<h2 class="anchored" data-anchor-id="table-8-critical-values-for-the-wmw-test">Table 8: Critical Values for the WMW Test</h2>
+<p>Table 8 gives critical values of the smaller rank sum <span class="math inline">\(R^*\)</span> for the Wilcoxon Mann-Whitney test, indexed by <span class="math inline">\(n_2\)</span> (larger sample size) and <span class="math inline">\(n_1\)</span> (smaller sample size), for both one-sided and two-sided tests at various <span class="math inline">\(\alpha\)</span> levels.</p>
+<hr>
+</section>
+<section id="back-to-toy-example-m-2-n-3" class="level2">
+<h2 class="anchored" data-anchor-id="back-to-toy-example-m-2-n-3">Back to Toy Example: <span class="math inline">\(m = 2\)</span>, <span class="math inline">\(n = 3\)</span></h2>
+<p>Recall the rank-sum count table from before:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(w\)</span></th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\#(W_T \leq w)\)</span></td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\#(W_C \leq w)\)</span></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>The rows are <strong>shifted copies</strong> of each other. We can make them coincide by subtracting the minimum rank sums. Define:</p>
+<p><span class="math display">\[
+U_T = W_T - 3, \qquad U_C = W_C - 6
+\]</span></p>
+<p>Since they look the same, we don’t need to distinguish between them — call them both <span class="math inline">\(U\)</span>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(U\)</span></th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\#(U = u)\)</span></td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\#(U \leq u)\)</span></td>
+<td>1</td>
+<td>2</td>
+<td>4</td>
+<td>6</td>
+<td>8</td>
+<td>9</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="approximate-distribution-of-rank-sum" class="level2">
+<h2 class="anchored" data-anchor-id="approximate-distribution-of-rank-sum">Approximate Distribution of Rank Sum</h2>
+<p>Let <span class="math inline">\(T_Y\)</span> be the sum of the ranks of <span class="math inline">\(Y_1, Y_2, \ldots, Y_m\)</span> (so <span class="math inline">\(T_Y = W_C\)</span>).</p>
+<p>Under <span class="math inline">\(H_0\)</span> (Theorem A, page 439):</p>
+<p><span class="math display">\[
+E(T_Y) = \frac{m(m + n + 1)}{2}
+\]</span></p>
+<p><span class="math display">\[
+\text{Var}(T_Y) = \frac{mn(m + n + 1)}{12}
+\]</span></p>
+<p><span class="math display">\[
+\frac{T_Y - E(T_Y)}{\sqrt{\text{Var}(T_Y)}} \xrightarrow{d} \mathcal{N}(0, 1)
+\]</span></p>
+<hr>
+</section>
+<section id="paired-samples" class="level2">
+<h2 class="anchored" data-anchor-id="paired-samples">§11.3: Paired Samples</h2>
+<p>So far, both the <span class="math inline">\(t\)</span>-test and the Mann-Whitney test assumed <strong>independent</strong> samples. Now we consider samples <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> and <span class="math inline">\(Y_1, Y_2, \ldots, Y_n\)</span> that are <strong>not necessarily independent</strong>, but may be <strong>paired</strong>:</p>
+<ul>
+<li>Effect of a treatment on <strong>twins</strong></li>
+<li>Effect of blood alcohol on reaction times: measure each volunteer <strong>before and after</strong> consuming alcohol</li>
+<li>Effect of smoking on blood platelet aggregation: draw blood <strong>before and after</strong> smoking a cigarette</li>
+</ul>
+<p>Since the samples are not independent, the methods of §11.2 do not apply. If we are interested in the difference between the two groups, it is natural to focus on:</p>
+<p><span class="math display">\[
+D = X - Y
+\]</span></p>
+<p>We will use two methods to analyze differences of paired samples: 1. <strong>Normal distribution</strong> approach 2. <strong>Rank-based</strong> approach</p>
+<hr>
+</section>
+<section id="method-based-on-the-normal-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="method-based-on-the-normal-distribution">Method Based on the Normal Distribution</h2>
+<p>Given pairs <span class="math inline">\((X_1, Y_1), \ldots, (X_n, Y_n)\)</span>, let:</p>
+<p><span class="math display">\[
+D_i = X_i - Y_i
+\]</span></p>
+<p>Assume <span class="math inline">\(D_i \sim \mathcal{N}(\mu_D, \sigma_D^2)\)</span>, so <span class="math inline">\(\mu_D = \mu_X - \mu_Y\)</span>.</p>
+<p>Since <span class="math inline">\(\sigma_D\)</span> is usually unknown, we use the <span class="math inline">\(t\)</span>-statistic:</p>
+<p><span class="math display">\[
+t = \frac{\bar{D} - \mu_D}{s_{\bar{D}}} \sim t_{n-1}
+\]</span></p>
+<p>where <span class="math inline">\(\bar{D}\)</span> is the sample mean of the differences, and <span class="math inline">\(\bar{D} = \bar{X} - \bar{Y}\)</span>.</p>
+<blockquote class="blockquote">
+<p>Note: this is a <strong>one-sample</strong> <span class="math inline">\(t\)</span>-test applied to the <span class="math inline">\(D_i\)</span>’s!</p>
+</blockquote>
+<p>The <span class="math inline">\((1-\alpha)100\%\)</span> confidence interval is:</p>
+<p><span class="math display">\[
+\bar{D} \pm t_{n-1,\, \alpha/2} \cdot s_{\bar{D}}
+\]</span></p>
+<p>To test whether the treatment has no effect:</p>
+<p><span class="math display">\[
+H_0: \mu_D = 0 \qquad \text{versus} \qquad H_1: \mu_D \neq 0
+\]</span></p>
+<hr>
+</section>
+<section id="nonparametric-example-suntan-lotion" class="level2">
+<h2 class="anchored" data-anchor-id="nonparametric-example-suntan-lotion">Nonparametric Example: Suntan Lotion</h2>
+<p>Seven volunteers test suntan lotions with and without a new ingredient. The old lotion is applied to one side of the spine, the new to the other (side selected randomly). Degree of sunburn recorded:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Volunteer</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(X_i\)</span>: old lotion</td>
+<td>42</td>
+<td>51</td>
+<td>31</td>
+<td>61</td>
+<td>44</td>
+<td>55</td>
+<td>48</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(Y_i\)</span>: new lotion</td>
+<td>38</td>
+<td>53</td>
+<td>36</td>
+<td>52</td>
+<td>33</td>
+<td>49</td>
+<td>36</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(D_i = X_i - Y_i\)</span></td>
+<td>4</td>
+<td><span class="math inline">\(-2\)</span></td>
+<td><span class="math inline">\(-5\)</span></td>
+<td>9</td>
+<td>11</td>
+<td>6</td>
+<td>12</td>
+</tr>
+<tr class="even">
+<td>Rank of <span class="math inline">\(|D_i|\)</span></td>
+<td>2</td>
+<td>1</td>
+<td>3</td>
+<td>5</td>
+<td>6</td>
+<td>4</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
+<p>Under <span class="math inline">\(H_0\)</span> (the new ingredient does not improve the lotion), the <span class="math inline">\(k\)</span>-th largest difference should be <strong>equally likely to be positive or negative</strong>, and all sign assignments to the differences are equally likely.</p>
+<hr>
+</section>
+<section id="wilcoxon-signed-rank-test" class="level2">
+<h2 class="anchored" data-anchor-id="wilcoxon-signed-rank-test">Wilcoxon Signed Rank Test</h2>
+<p><strong>Idea:</strong> If there is no difference between <span class="math inline">\(X_i\)</span> and <span class="math inline">\(Y_i\)</span>, then half the <span class="math inline">\(D_i\)</span>’s should be positive and half negative — i.e., the <span class="math inline">\(D_i\)</span>’s should come from a <strong>symmetric distribution</strong>.</p>
+<p><strong>Mechanics:</strong></p>
+<ol type="1">
+<li>Compute <span class="math inline">\(D_i = X_i - Y_i\)</span></li>
+<li>Find and rank the absolute differences <span class="math inline">\(|D_i|\)</span></li>
+<li>Define <span class="math inline">\(R_i = \text{rank of } |D_i|\)</span></li>
+<li>Compute:</li>
+</ol>
+<p><span class="math display">\[
+W_+ = \sum_{i:\, D_i &gt; 0} R_i
+\]</span></p>
+<ol start="5" type="1">
+<li>Compute <span class="math inline">\(W_-\)</span> analogously (sum of ranks where <span class="math inline">\(D_i &lt; 0\)</span>). Use whichever of <span class="math inline">\(W_+\)</span> or <span class="math inline">\(W_-\)</span> is <strong>smaller</strong>.</li>
+</ol>
+<p>Under the null hypothesis of symmetry, <span class="math inline">\(W_+\)</span> should not be too large or too small, since <span class="math inline">\(D_i\)</span> and <span class="math inline">\(-D_i\)</span> have the same distribution. If the null is false, <span class="math inline">\(W_+\)</span> will be more extreme.</p>
+<hr>
+</section>
+<section id="signed-rank-test-null-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="signed-rank-test-null-distribution">Signed Rank Test: Null Distribution</h2>
+<p>If the null is true, then since <span class="math inline">\(D_i\)</span> and <span class="math inline">\(-D_i\)</span> have the same distributions, the <span class="math inline">\(k\)</span>-th largest difference is equally likely to be positive or negative. This means any assignment of signs to the <span class="math inline">\(n\)</span> ranks is equally likely.</p>
+<ul>
+<li>Total number of sign assignments: <span class="math inline">\(2^n\)</span></li>
+<li>We get <span class="math inline">\(2^n\)</span> equally likely values of <span class="math inline">\(W_+\)</span> (and <span class="math inline">\(W_-\)</span>), not necessarily all distinct.</li>
+</ul>
+<p>The null distribution of <span class="math inline">\(W_+\)</span> or <span class="math inline">\(W_-\)</span> is:</p>
+<p><span class="math display">\[
+P(W_+ \leq w) = \frac{\#(W_+ \leq w)}{2^n}
+\]</span></p>
+<ul>
+<li>For small <span class="math inline">\(n\)</span>: use <strong>Table 9</strong></li>
+<li>For <span class="math inline">\(n \geq 20\)</span>: use a <strong>normal approximation</strong> to the distribution of <span class="math inline">\(W_+\)</span></li>
+</ul>
 <div style="display:none">
-<p>[<span class="citation" data-cites="rice2006">Rice (<a href="#ref-rice2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="wasserman2004">Wasserman (<a href="#ref-wasserman2004" role="doc-biblioref">2004</a>)</span>; <span class="citation" data-cites="samslides135">Pimentel (<a href="#ref-samslides135" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="chi-hest2018">Chihara and Hesterberg (<a href="#ref-chi-hest2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="grimmett-stirzaker2001">Grimmett and Stirzaker (<a href="#ref-grimmett-stirzaker2001" role="doc-biblioref">2001</a>)</span>;]</p>
+<p><span class="citation" data-cites="rice2006">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>)</span></p>
 </div>
-</section>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-chi-hest2018" class="csl-entry" role="listitem">
-Chihara, Laura M., and Tim C. Hesterberg. 2018. <em>Mathematical Statistics with Resampling and r</em>. John Wiley &amp; Sons, Hoboken, NJ.
-</div>
-<div id="ref-grimmett-stirzaker2001" class="csl-entry" role="listitem">
-Grimmett, Geoffrey R., and David R. Stirzaker. 2001. <em>Probability and Random Processes</em>. 3rd ed. Oxford: Oxford University Press.
-</div>
-<div id="ref-samslides135" class="csl-entry" role="listitem">
-Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).
-</div>
 <div id="ref-rice2006" class="csl-entry" role="listitem">
 Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. Duxbury Press.
-</div>
-<div id="ref-wasserman2004" class="csl-entry" role="listitem">
-Wasserman, Larry. 2004. <em>All of Statistics: A Concise Course in Statistical Inference</em>. New York: Springer.
 </div>
 </div>
 
