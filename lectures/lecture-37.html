@@ -88,6 +88,35 @@ div.csl-indent {
 }</script>
 <script async="" src="”https://siteimproveanalytics.com/js/siteanalyze_6294756.js”"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -375,7 +404,11 @@ div.csl-indent {
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#permutation-tests" id="toc-permutation-tests" class="nav-link" data-scroll-target="#permutation-tests">Permutation Tests</a>
+  <ul class="collapse">
+  <li><a href="#two-sample-permutation-test-steps" id="toc-two-sample-permutation-test-steps" class="nav-link" data-scroll-target="#two-sample-permutation-test-steps">Two-Sample Permutation Test: Steps</a></li>
+  </ul></li>
+  <li><a href="#wilcoxon-rank-sum-test-mann-whitney-u-test" id="toc-wilcoxon-rank-sum-test-mann-whitney-u-test" class="nav-link" data-scroll-target="#wilcoxon-rank-sum-test-mann-whitney-u-test">Wilcoxon Rank-Sum Test (Mann-Whitney U Test)</a></li>
   </ul>
 </nav>
     </div>
@@ -402,9 +435,222 @@ div.csl-indent {
 
 
 <!-- ## Lec 37, April 24, 2026-->
-<p>[DRAFT IN PROGRESS]</p>
+<p>[DRAFT, IN PROGRESS]</p>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>So far, we have considered <strong>parametric tests</strong> - that is, tests in which we make assumptions about the underlying population distribution or its parameters (for example, we might assume that the underlying distributions are normal). If our samples are large, these assumptions might be valid, but if we don’t have large samples, and we don’t know if the populations are normal, then these assumptions can lead to errors. We could avoid this by considering <strong>nonparametric tests</strong>, which make <em>no</em> assumptions about the underlying populations. They can be tests based on <em>resampling</em> or perhaps tests based on the ordering of observations, that is, rankings of the sample values.</p>
+<p>The advantage of using nonparametric tests is that they are robust to distributional assumptions, since they don’t make any. They are also usually unaffected by outliers. The con is that since they don’t use any information about the data generating process (the population distribution), they might lose some power.</p>
+</section>
+<section id="permutation-tests" class="level2">
+<h2 class="anchored" data-anchor-id="permutation-tests">Permutation Tests</h2>
+<p>In past lectures, we had discussed permutations tests for testing the independence of categorical variables. Now we will consider permutation tests, which use resampling methods, to test if two samples have the same underlying population distribution. Note that now our hypotheses are about the <strong>full distributions</strong>:</p>
+<p><span class="math display">\[
+H_0: F = G \qquad \text{vs} \qquad H_1: F \neq G
+\]</span></p>
+<p><strong>Setup:</strong> <span class="math inline">\(X_1, \ldots, X_n \overset{\text{IID}}{\sim} F\)</span> and <span class="math inline">\(Y_1, \ldots, Y_m \overset{\text{IID}}{\sim} G\)</span>, where <span class="math inline">\(F\)</span> and <span class="math inline">\(G\)</span> are unknown.</p>
+<ul>
+<li>Under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(F = G\)</span>, so the combined sample <span class="math inline">\(X_1, \ldots, X_n, Y_1, \ldots, Y_m\)</span> is also iid from <span class="math inline">\(F\)</span>.</li>
+<li>Any shuffle of the combined sample (e.g.&nbsp;<span class="math inline">\(X_5, X_3, Y_2, Y_{12}, \ldots\)</span>) is <em>also</em> iid from <span class="math inline">\(F\)</span> under <span class="math inline">\(H_0\)</span>.</li>
+<li>Under <span class="math inline">\(H_0\)</span>: the actual sample is <strong>indistinguishable</strong> from a permuted sample, but under <span class="math inline">\(H_1\)</span>: permuted samples will have a <strong>different distribution</strong>.</li>
+</ul>
+<blockquote class="blockquote">
+<p>The null hypothesis implies that the group labels of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are <strong>arbitrary</strong>.</p>
+</blockquote>
+<section id="two-sample-permutation-test-steps" class="level3">
+<h3 class="anchored" data-anchor-id="two-sample-permutation-test-steps">Two-Sample Permutation Test: Steps</h3>
+<ol type="1">
+<li>Pick a test statistic <span class="math inline">\(T\)</span> (for example, the difference of means; or the t-statistic) and compute its value on the <em>original</em> sample: call this <span class="math inline">\(T_{\text{obs}}\)</span>.</li>
+<li>Combine the samples, so we have a combined sample of size <span class="math inline">\(m+n\)</span></li>
+<li>Draw a sample of size <span class="math inline">\(m\)</span> from this combined sample <em>without replacement</em></li>
+<li>Compute the value of the test statistic that you chose on these new samples that you obtained by <em>resampling</em> the original sample. Call this <span class="math inline">\(T^*_1\)</span>.</li>
+<li>Repeat steps 3, 4 <em>many</em> times, say <span class="math inline">\(B\)</span> times, where <span class="math inline">\(B\)</span> might be 5,000, thus building a <em>null</em> distribution of the test statistic <span class="math inline">\(T^*\)</span>, <strong>under <span class="math inline">\(H_0\)</span></strong>, that is, assuming the null hypothesis that there is no difference between the underlying distributions of the two samples.</li>
+<li>Compute the <span class="math inline">\(p\)</span>-value as the proportion of times <span class="math inline">\(T^*\)</span> is more extreme than <span class="math inline">\(T_{\text{obs}}\)</span>.</li>
+<li>Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(T_{\text{obs}}\)</span> is too extreme relative to this null distribution, that is, if the <span class="math inline">\(p\)</span>-value is very small.</li>
+</ol>
+<p>The great thing about the permutation test is that we can build a null distribution for any statistic of our choice. So we usually will try to use a statistic that has a higher power.</p>
+</section>
+</section>
+<section id="wilcoxon-rank-sum-test-mann-whitney-u-test" class="level2">
+<h2 class="anchored" data-anchor-id="wilcoxon-rank-sum-test-mann-whitney-u-test">Wilcoxon Rank-Sum Test (Mann-Whitney U Test)</h2>
+<p>We now define a different nonparametric test, that is also, in essence a permutaiton test. It uses a specific test statistic, the rank sum, to answer the question: <em>are the distributions the same, or does one population tend to yield larger values?</em></p>
+<p><strong>Procedure:</strong></p>
+<ol type="1">
+<li>Combine both samples and rank them in order of increasing size.</li>
+<li>Compute the sum of ranks belonging to one of the groups.</li>
+<li>If this rank sum is too large or too small, it suggests the populations differ.</li>
+</ol>
+<p>The basic idea is that if If <span class="math inline">\(X_i\)</span> and <span class="math inline">\(Y_j\)</span> have the <em>same</em> distribution, then <span class="math display">\[
+P(X_i &lt; Y_j) = \frac{1}{2}
+\]</span></p>
+<p>for any <span class="math inline">\(X_i\)</span> and <span class="math inline">\(Y_j\)</span>. This means that if the null is true, then the <span class="math inline">\(X_i\)</span>’s should be scattered randomly among the <span class="math inline">\(Y_j\)</span>’s, and the sum of their ranks should not be too small or too large. Let’s go over an example that will illustrate the idea.</p>
+<div id="exm-hodges-lehmann" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1</strong></span> Survival times (years) after a coronary attack</p>
+<p>A physician believes that a certain treatment can prolong the life of people who have suffered a coronary attack. He does an experiment on 10 patients, randomly selecting 5 to the treatment group and 5 to the control (no treatment), and makes sure to control for other factors such as age and general health. 5 years later, 4 out of 5 patients from the treatment group are still alive, and only 2 of the control group. Below are the survival times in years of all the ten patients:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Group</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Treatment</td>
+<td>4.2</td>
+<td>6.5</td>
+<td>7.9</td>
+<td>13.2</td>
+<td>17.8</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>0.4</td>
+<td>1.2</td>
+<td>2.9</td>
+<td>5.6</td>
+<td>6.7</td>
+</tr>
+</tbody>
+</table>
+<p>Combined and ordered:</p>
+<p><span class="math display">\[
+\underbrace{0.4}_{1},\ \underbrace{1.2}_{2},\ \underbrace{2.9}_{3},\ \underbrace{4.2}_{4},\ \underbrace{5.6}_{5},\ \underbrace{6.5}_{6},\ \underbrace{6.7}_{7},\ \underbrace{7.9}_{8},\ \underbrace{13.2}_{9},\ \underbrace{17.8}_{10}
+\]</span></p>
+<p><span class="math display">\[
+\underbrace{C \quad C \quad C \quad T \quad C \quad T \quad C \quad T \quad T \quad T}_{\text{group labels}}
+\]</span></p>
+<p><span class="math display">\[
+W_T = \text{rank sum of treatment} = 4 + 6 + 8 + 9 + 10 = 37
+\]</span></p>
+<p><span class="math display">\[
+W_C = \text{rank sum of control} = 1 + 2 + 3 + 5 + 7 = 18
+\]</span></p>
+<p>Note: <span class="math inline">\(W_T + W_C = \frac{10 \cdot 11}{2} = 55\)</span> ✓</p>
+<p><strong>Null hypothesis:</strong> The treatment has no effect — each person just lives as many years as they would have anyway.</p>
+<hr>
+<section id="computing-the-p-value" class="level4">
+<h4 class="anchored" data-anchor-id="computing-the-p-value">Computing the P-value</h4>
+<p>We compute <span class="math inline">\(P(W_C \leq 18)\)</span>. There are <span class="math inline">\(\binom{10}{5} = 252\)</span> equally likely rank assignments.</p>
+<p>Rank subsets of size 5 with sum <span class="math inline">\(\leq 18\)</span>:</p>
+<p><span class="math display">\[
+1+2+3+4+5 = 15
+\]</span></p>
+<p><span class="math display">\[
+1+2+3+4+6 = 16
+\]</span></p>
+<p><span class="math display">\[
+1+2+3+4+7 = 17
+\]</span></p>
+<p><span class="math display">\[
+1+2+3+5+6 = 17
+\]</span></p>
+<p><span class="math display">\[
+1+2+3+4+8 = 18
+\]</span></p>
+<p><span class="math display">\[
+1+2+3+5+7 = 18
+\]</span></p>
+<p><span class="math display">\[
+1+2+4+5+6 = 18
+\]</span></p>
+<p><span class="math display">\[
+P(W_C \leq 18) = \frac{7}{252} = 0.028
+\]</span></p>
+<p><strong>Conclusion:</strong> Reject <span class="math inline">\(H_0\)</span> at <span class="math inline">\(\alpha = 0.05\)</span>. The treatment appears to have an effect at increasing survival.</p>
+<blockquote class="blockquote">
+<p>Note: Group sizes do not need to be equal. For large samples, use a normal approximation.</p>
+</blockquote>
+<hr>
+</section>
+<section id="building-the-null-distribution-small-example" class="level3">
+<h3 class="anchored" data-anchor-id="building-the-null-distribution-small-example">Building the Null Distribution (Small Example)</h3>
+<p>With <span class="math inline">\(n = 2\)</span> treatment and <span class="math inline">\(m = 3\)</span> control subjects (5 total), there are <span class="math inline">\(\binom{5}{2} = 10\)</span> rank assignments.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Ranks</th>
+<th>(1,2)</th>
+<th>(1,3)</th>
+<th>(1,4)</th>
+<th>(1,5)</th>
+<th>(2,3)</th>
+<th>(2,4)</th>
+<th>(2,5)</th>
+<th>(3,4)</th>
+<th>(3,5)</th>
+<th>(4,5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(W_T\)</span></td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<p>Range: <span class="math inline">\(1+2 = 3 \leq W_T \leq 4+5 = 9\)</span></p>
+<p><span class="math display">\[
+P(W_T \leq w) = \frac{\#(W_T \leq w)}{10}
+\]</span></p>
+<p>The distributions of <span class="math inline">\(W_T\)</span> and <span class="math inline">\(W_C\)</span> are the <strong>same, just shifted</strong>.</p>
+<hr>
+</section>
+<section id="mann-whitney-test-formal-setup" class="level2">
+<h2 class="anchored" data-anchor-id="mann-whitney-test-formal-setup">Mann-Whitney Test: Formal Setup</h2>
+<p>Given independent samples <span class="math inline">\(X_1, \ldots, X_n \sim F\)</span> and <span class="math inline">\(Y_1, \ldots, Y_m \sim G\)</span>, let <span class="math inline">\(Z = (X, Y)\)</span> be the combined sample.</p>
+<p><span class="math display">\[
+R_i(Z) = \text{rank of } X_i \text{ in } Z, \quad 1 \leq i \leq n
+\]</span></p>
+<p><span class="math display">\[
+R_{n+j}(Z) = \text{rank of } Y_j \text{ in } Z, \quad 1 \leq j \leq m
+\]</span></p>
+<p><span class="math display">\[
+R(X) + R(Y) = \frac{(m+n)(m+n+1)}{2}
+\]</span></p>
+<p>Under <span class="math inline">\(H_0\)</span>:</p>
+<p><span class="math display">\[
+P(X &lt; Y) = \frac{1}{2}
+\]</span></p>
+<ul>
+<li>Every assignment of <span class="math inline">\(m + n\)</span> ranks is equally likely (there are <span class="math inline">\((m+n)!\)</span> assignments).</li>
+<li>There are <span class="math inline">\(\binom{m+n}{n}\)</span> distinct rank assignments to <span class="math inline">\(X\)</span>.</li>
+<li>The null distribution of <span class="math inline">\(R\)</span> is found by enumerating all <span class="math inline">\(\binom{m+n}{n}\)</span> rank assignments.</li>
+</ul>
+<hr>
+</section>
+<section id="why-use-wilcoxon-mann-whitney" class="level2">
+<h2 class="anchored" data-anchor-id="why-use-wilcoxon-mann-whitney">Why Use Wilcoxon-Mann-Whitney?</h2>
+<ul>
+<li>If the actual data values have no inherent meaning beyond their relative ordering, <strong>ranks carry as much information</strong> as the raw numbers.</li>
+<li>When distributions are non-normal and samples are small, parametric analysis is difficult.</li>
+<li>The power of the Mann-Whitney test is <strong>comparable</strong> to the two-sample <span class="math inline">\(t\)</span>-test. When normality is unknown and sample sizes are too small to verify it, <strong>Mann-Whitney is safer</strong>.</li>
+</ul>
 <div style="display:none">
 <p><span class="citation" data-cites="rice2006">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>)</span></p>
 </div>
@@ -418,6 +664,8 @@ Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. 
 </div>
 
 
+</section>
+</div>
 </section>
 
 </main> <!-- /main -->
