@@ -167,10 +167,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
-  <ul class="collapse">
-  <li><a href="#galton-and-pearsons-original-example" id="toc-galton-and-pearsons-original-example" class="nav-link" data-scroll-target="#galton-and-pearsons-original-example">Galton and Pearson’s original example</a></li>
-  </ul></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#simple-linear-regression-the-model" id="toc-simple-linear-regression-the-model" class="nav-link" data-scroll-target="#simple-linear-regression-the-model">Simple Linear Regression: The Model</a>
   <ul class="collapse">
   <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions">Assumptions</a></li>
@@ -181,17 +178,15 @@ window.Quarto = {
   <li><a href="#deriving-hatbeta_1" id="toc-deriving-hatbeta_1" class="nav-link" data-scroll-target="#deriving-hatbeta_1">Deriving <span class="math inline">\(\hat{\beta}_1\)</span></a></li>
   <li><a href="#equivalent-formula-via-sample-correlation" id="toc-equivalent-formula-via-sample-correlation" class="nav-link" data-scroll-target="#equivalent-formula-via-sample-correlation">Equivalent formula via sample correlation</a></li>
   </ul></li>
-  <li><a href="#uses-of-linear-modeling" id="toc-uses-of-linear-modeling" class="nav-link" data-scroll-target="#uses-of-linear-modeling">Uses of Linear Modeling</a>
-  <ul class="collapse">
-  <li><a href="#chocolate-consumption-and-the-nobel-prize" id="toc-chocolate-consumption-and-the-nobel-prize" class="nav-link" data-scroll-target="#chocolate-consumption-and-the-nobel-prize">Chocolate Consumption and the Nobel Prize</a></li>
-  </ul></li>
-  <li><a href="#statistical-properties-of-hatbeta_0-and-hatbeta_1" id="toc-statistical-properties-of-hatbeta_0-and-hatbeta_1" class="nav-link" data-scroll-target="#statistical-properties-of-hatbeta_0-and-hatbeta_1">Statistical Properties of <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span></a>
-  <ul class="collapse">
-  <li><a href="#theorem-a-p.-548" id="toc-theorem-a-p.-548" class="nav-link" data-scroll-target="#theorem-a-p.-548">Theorem A (p.&nbsp;548)</a></li>
-  <li><a href="#theorem-b-pp.-548549" id="toc-theorem-b-pp.-548549" class="nav-link" data-scroll-target="#theorem-b-pp.-548549">Theorem B (pp.&nbsp;548–549)</a></li>
-  </ul></li>
+  <li><a href="#uses-of-linear-modeling" id="toc-uses-of-linear-modeling" class="nav-link" data-scroll-target="#uses-of-linear-modeling">Uses of Linear Modeling</a></li>
+  <li><a href="#statistical-properties-of-hatbeta_0-and-hatbeta_1" id="toc-statistical-properties-of-hatbeta_0-and-hatbeta_1" class="nav-link" data-scroll-target="#statistical-properties-of-hatbeta_0-and-hatbeta_1">Statistical Properties of <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span></a></li>
   <li><a href="#more-about-hatbeta_1" id="toc-more-about-hatbeta_1" class="nav-link" data-scroll-target="#more-about-hatbeta_1">More About <span class="math inline">\(\hat{\beta}_1\)</span></a></li>
-  <li><a href="#inference-about-beta_1" id="toc-inference-about-beta_1" class="nav-link" data-scroll-target="#inference-about-beta_1">Inference About <span class="math inline">\(\beta_1\)</span></a></li>
+  <li><a href="#inference-about-beta_1" id="toc-inference-about-beta_1" class="nav-link" data-scroll-target="#inference-about-beta_1">Inference About <span class="math inline">\(\beta_1\)</span></a>
+  <ul class="collapse">
+  <li><a href="#estimating-sigma2" id="toc-estimating-sigma2" class="nav-link" data-scroll-target="#estimating-sigma2">Estimating <span class="math inline">\(\sigma^2\)</span></a></li>
+  <li><a href="#confidence-interval-for-beta_1" id="toc-confidence-interval-for-beta_1" class="nav-link" data-scroll-target="#confidence-interval-for-beta_1">Confidence Interval for <span class="math inline">\(\beta_1\)</span></a></li>
+  <li><a href="#hypothesis-test-for-beta_1" id="toc-hypothesis-test-for-beta_1" class="nav-link" data-scroll-target="#hypothesis-test-for-beta_1">Hypothesis Test for <span class="math inline">\(\beta_1\)</span></a></li>
+  </ul></li>
   <li><a href="#correlation-analysis-and-the-regression-effect" id="toc-correlation-analysis-and-the-regression-effect" class="nav-link" data-scroll-target="#correlation-analysis-and-the-regression-effect">Correlation Analysis and the Regression Effect</a></li>
   <li><a href="#notes-and-cautions" id="toc-notes-and-cautions" class="nav-link" data-scroll-target="#notes-and-cautions">Notes and Cautions</a></li>
   <li><a href="#regression-in-r-problem-14.36" id="toc-regression-in-r-problem-14.36" class="nav-link" data-scroll-target="#regression-in-r-problem-14.36">Regression in R: Problem 14.36</a></li>
@@ -236,9 +231,8 @@ window.Quarto = {
 y = \beta_0 + \beta_1 x
 \]</span></p>
 <p>There are <span class="math inline">\(n\)</span> subjects indexed by <span class="math inline">\(i\)</span>, where <span class="math inline">\(i = 1, \ldots, n\)</span>. We have two data variables <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, where <span class="math inline">\(x\)</span> is called the <strong>predictor</strong> and <span class="math inline">\(y\)</span> is called the <strong>response</strong>.</p>
-<section id="galton-and-pearsons-original-example" class="level3">
-<h3 class="anchored" data-anchor-id="galton-and-pearsons-original-example">Galton and Pearson’s original example</h3>
-<p>The first person to investigate and identify the idea of <em>regression towards the mean</em> was the English scientist (well, <a href="https://en.wikipedia.org/wiki/Francis_Galton">polymath</a> might be more accurate), Francis Galton. He was the founder of eugenics, and was more generally interested in inheritance. He was probably as brilliant as his more well-known cousin, Charles Darwin. He was the first person to “use fingerprints in detective work”, among other things, but he is best known for his research into inheritance, and might also be considered one of the <a href="https://www.bbc.com/news/magazine-13775520">founders of statistics</a>.</p>
+<div id="exm-galton-pearson" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1 (Galton and Pearson’s original example)</strong></span> The first person to identify and investigate the phenomenon of regression was the English scientist (well, <a href="https://en.wikipedia.org/wiki/Francis_Galton">polymath</a> might be more accurate), Francis Galton. Regrettably, he was also the founder of eugenics, and was more generally interested in inheritance. He was probably as brilliant as his more well-known cousin, Charles Darwin, but is not as well-known. He was the first person to “use fingerprints in detective work”, among other things, but he is best known for his research into inheritance, and might also be considered one of the <a href="https://www.bbc.com/news/magazine-13775520">founders of statistics</a>.</p>
 <p>The question that he and his student, Karl Pearson, asked was: “Can we use the height of the father to predict the height of the son?”</p>
 <ul>
 <li>2 data variables <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>
@@ -247,7 +241,7 @@ y = \beta_0 + \beta_1 x
 <li><span class="math inline">\(y_i\)</span> is the height of the son in family <span class="math inline">\(i\)</span></li>
 </ul></li>
 </ul>
-<p>Here is a plot showing the father-son height data collected by Pearson. Each point is a father-son pair. There are three lines, as you can see. The blue <em>SD line</em> is the line for which the slope is the standard deviation of the <span class="math inline">\(y\)</span>-data (son’s heights) divided by the standard deviation of the <span class="math inline">\(x\)</span>-data (father’s heights), whereas the dark red regression line has a flatter slope.</p>
+<p>Here is a plot showing the famous father-son height data set (first collected by Pearson). Each point is a father-son pair. There are three lines, as you can see. The blue <em>SD line</em> is the line for which the slope is the standard deviation of the <span class="math inline">\(y\)</span>-data (son’s heights) divided by the standard deviation of the <span class="math inline">\(x\)</span>-data (father’s heights), whereas the dark red regression line has a flatter slope. This flattening is because the correlation is at most 1, and is called the <em>Regression Effect</em>. What is implies, for instance, is that if a father is <span class="math inline">\(n\)</span> standard deviations above average, the son is predicted to be only <span class="math inline">\(r\times n\)</span> standard deviations above average. That is, our prediction is <em>closer</em> to the mean, and this is why Galton called this phenomenon “regression to mediocrity<em>, that is, to the </em>middle*.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -261,7 +255,7 @@ y = \beta_0 + \beta_1 x
 <p>Note that each point <span class="math inline">\((x_i, y_i)\)</span> represents a father–son pair; <span class="math inline">\(\bar{x} \approx 68''\)</span>, <span class="math inline">\(\bar{y} \approx 69''\)</span>, <span class="math inline">\(\mathrm{SD} \approx 3''\)</span> for both;</p>
 </blockquote>
 <p>The regression line approximates the <strong>average</strong> heights of the sons <strong><em>given</em></strong> the heights of their fathers. Geometrically, the dark red line above passes roughly through the centers of the vertical strips of the scatter plot.</p>
-</section>
+</div>
 </section>
 <section id="simple-linear-regression-the-model" class="level2">
 <h2 class="anchored" data-anchor-id="simple-linear-regression-the-model">Simple Linear Regression: The Model</h2>
@@ -344,24 +338,15 @@ S(\beta_0, \beta_1)
 - \hat{\beta}_0' \underbrace{\sum_{i=1}^{n} x_i'}_{=\,0}
 - \hat{\beta}_1 \sum_{i=1}^{n}(x_i')^2 = 0
 \]</span></p>
-<p>This gives expression <span class="math inline">\(\textcircled{1}\)</span>:</p>
+<p>This gives expression ①</p>
 <p><span class="math display">\[
 \hat{\beta}_1
 = \frac{\displaystyle\sum_{i=1}^{n} x_i' Y_i}{\displaystyle\sum_{i=1}^{n}(x_i')^2}
 = \frac{\displaystyle\sum_{i=1}^{n}(x_i - \bar{x})\,Y_i}{\displaystyle\sum_{i=1}^{n}(x_i - \bar{x})^2}
 \tag{1}
 \]</span></p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Exercise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Show that expression <span class="math inline">\(\textcircled{1}\)</span> equals expression <span class="math inline">\(\textcircled{2}\)</span>:</p>
+<div id="exr-slope-computation" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 1</strong></span> Show that expression (1) above equals expression (2) below:</p>
 <p><span class="math display">\[
 \boxed{
 \hat{\beta}_1
@@ -369,8 +354,7 @@ Exercise
 }
 \tag{2}
 \]</span></p>
-<p><em>(Hint: show <span class="math inline">\(\sum(x_i-\bar x)\bar Y = 0\)</span>.)</em></p>
-</div>
+<p>(<em>Hint: show <span class="math inline">\(\sum(x_i-\bar x)\bar Y = 0\)</span>.</em>)</p>
 </div>
 </section>
 <section id="equivalent-formula-via-sample-correlation" class="level3">
@@ -381,24 +365,32 @@ Exercise
 \qquad
 \hat{\beta}_1 = r \cdot \frac{s_y}{s_x},
 \]</span></p>
-<p>where <span class="math inline">\(r = r(x, y)\)</span> is the <strong>sample correlation coefficient</strong>.</p>
+<p>where <span class="math inline">\(r = r(x, y)\)</span> is the <strong>sample correlation coefficient</strong>, and <span class="math inline">\(s_x\)</span> and <span class="math inline">\(s_y\)</span> are the sample standard deviations. So we can see that for simple linear regression, the line depends on five quantities: the sample means and the sample sd’s of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, and their sample correlation. It is very easy to just write down the slope and the intercept but you should always…</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Look at the data first!
+Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Always inspect the data before performing a regression. “Anscombe’s Quartet” illustrates four datasets with identical <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, and <span class="math inline">\(r^2\)</span> but radically different shapes — only one of which is actually linear.</p>
-<blockquote class="blockquote">
-<p><strong>[FIGURE PLACEHOLDER — Anscombe’s Quartet: four scatter plots <span class="math inline">\((x_1,y_1),\ldots,(x_4,y_4)\)</span> each with the same fitted line but very different structures]</strong></p>
-</blockquote>
+<p>Look at the data first!</p>
 </div>
 </div>
-<hr>
+<div id="exm-anscombe" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2 (Anscombe’s Data Quartet)</strong></span> Always inspect the data before performing a regression. “Anscombe’s Quartet”, shown below, consists of four datasets with identical <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, and <span class="math inline">\(r^2\)</span>, and therefore all have the same fitted line, The data have radically different shapes, though — only one of which, the top left, is actually suited to a linear model.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lecture-40_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="uses-of-linear-modeling" class="level2">
@@ -409,12 +401,14 @@ Look at the data first!
 <li><p><strong>Estimating/predicting the response:</strong> A house is going on the market. Given its attributes, what will it sell for?</p></li>
 <li><p><strong>Causal inference:</strong> By how much will the resale price of my house increase if I build an extension and add one room?</p></li>
 </ol>
-<p>Causal inference is probably the most common goal, and also the most challenging and potentially problematic.</p>
-<section id="chocolate-consumption-and-the-nobel-prize" class="level3 example">
-<h3 class="anchored" data-anchor-id="chocolate-consumption-and-the-nobel-prize">Chocolate Consumption and the Nobel Prize</h3>
-<blockquote class="blockquote">
-<p><strong>[FIGURE PLACEHOLDER — scatter plot of Nobel laureates per 10M population vs.&nbsp;chocolate consumption (kg/yr/capita) by country; <span class="math inline">\(r = 0.791\)</span>, <span class="math inline">\(p &lt; 0.0001\)</span>]</strong></p>
-</blockquote>
+<div id="exm-choc-nobel" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3 (Chocolate Consumption and the Nobel Prize)</strong></span> &nbsp;</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/choc-nobel.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>scatter plot of Nobel laureates per 10M population vs.&nbsp;chocolate consumption (kg/yr/capita) by country</figcaption>
+</figure>
+</div>
 <p>From Messerli (2012), “Chocolate consumption, cognitive function, and Nobel laureates,” <em>New England Journal of Medicine</em>. The author fit a linear model with slope <span class="math inline">\(\approx 2.5\)</span>.</p>
 <p>What is the model good for?</p>
 <ol type="1">
@@ -422,8 +416,7 @@ Look at the data first!
 <li><p><strong>Prediction:</strong> India’s 2017 per-capita chocolate consumption was about 0.1 kg, so the model predicts roughly one Nobel laureate per 40 million Indian residents.</p></li>
 <li><p><strong>Causal inference:</strong> If Americans ate an extra kilogram of chocolate per year, the Nobel prize rate would increase by 2.5 per 10 million. <em>(This interpretation is clearly unreasonable — correlation <span class="math inline">\(\neq\)</span> causation!)</em></p></li>
 </ol>
-</section>
-<hr>
+</div>
 </section>
 <section id="statistical-properties-of-hatbeta_0-and-hatbeta_1" class="level2">
 <h2 class="anchored" data-anchor-id="statistical-properties-of-hatbeta_0-and-hatbeta_1">Statistical Properties of <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span></h2>
@@ -432,18 +425,15 @@ Look at the data first!
 \hat{\beta}_j \sim \mathcal{N}\!\left(E(\hat{\beta}_j),\;
 \mathrm{Var}(\hat{\beta}_j)\right), \quad j = 0, 1.
 \]</span></p>
-<section id="theorem-a-p.-548" class="level3 theorem">
-<h3 class="anchored" data-anchor-id="theorem-a-p.-548">Theorem A (p.&nbsp;548)</h3>
-<p>The OLS estimators are unbiased:</p>
+<div id="thm-ols-unbiased" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (Theorem A (p.&nbsp;548))</strong></span> The OLS estimators are unbiased:</p>
 <p><span class="math display">\[
 E(\hat{\beta}_0) = \beta_0 \qquad \text{and} \qquad E(\hat{\beta}_1) = \beta_1.
 \]</span></p>
 <p><em>(Proof: exercise.)</em></p>
-</section>
-<section id="theorem-b-pp.-548549" class="level3 theorem">
-<h3 class="anchored" data-anchor-id="theorem-b-pp.-548549">Theorem B (pp.&nbsp;548–549)</h3>
-<p>Define <span class="math inline">\(a_i = x_i - \bar{x}\)</span> and <span class="math inline">\(A = \displaystyle\sum_{i=1}^{n} a_i^2 = \sum_{i=1}^{n}(x_i-\bar{x})^2\)</span>. Find the variances using <span class="math inline">\(a_i\)</span> and <span class="math inline">\(A\)</span>.</p>
-<p><span class="math display">\[
+</div>
+<div id="thm-slope-intercept-var" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2 (Theorem B (pp.&nbsp;548–549))</strong></span> <span class="math display">\[
 \mathrm{Var}(\hat{\beta}_0)
 = \frac{\sigma^2 \displaystyle\sum_{i=1}^{n} x_i^2}{n\displaystyle\sum_{i=1}^{n} x_i^2 - \left(\displaystyle\sum_{i=1}^{n} x_i\right)^2}
 \]</span></p>
@@ -455,10 +445,11 @@ E(\hat{\beta}_0) = \beta_0 \qquad \text{and} \qquad E(\hat{\beta}_1) = \beta_1.
 \mathrm{Cov}(\hat{\beta}_0, \hat{\beta}_1)
 = \frac{-\sigma^2 \displaystyle\sum_{i=1}^{n} x_i}{n\displaystyle\sum_{i=1}^{n} x_i^2 - \left(\displaystyle\sum_{i=1}^{n} x_i\right)^2}
 \]</span></p>
-<p><em>Annotation: <span class="math inline">\(\mathrm{Cov}(\bar{Y}, \hat{\beta}_1) = 0\)</span> — keep this in mind, it will be used later.</em></p>
-</section>
+</div>
 <div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>From the formula for <span class="math inline">\(\hat{\beta}_1\)</span>, with <span class="math inline">\(a_i = x_i - \bar{x}\)</span> and <span class="math inline">\(A = \sum a_i^2\)</span>:</p>
+<p><span class="proof-title"><em>Proof</em>. </span>Define <span class="math inline">\(a_i = x_i - \bar{x}\)</span> and <span class="math inline">\(A = \displaystyle\sum_{i=1}^{n} a_i^2 = \sum_{i=1}^{n}(x_i-\bar{x})^2\)</span>.</p>
+<p>We will compute the variances in terms of <span class="math inline">\(a_i\)</span> and <span class="math inline">\(A\)</span>.</p>
+<p>From the formula for <span class="math inline">\(\hat{\beta}_1\)</span>, with <span class="math inline">\(a_i = x_i - \bar{x}\)</span> and <span class="math inline">\(A = \sum a_i^2\)</span>:</p>
 <p><span class="math display">\[
 \hat{\beta}_1 = \frac{\displaystyle\sum_{i=1}^{n} a_i Y_i}{A}
 \]</span></p>
@@ -475,79 +466,95 @@ E(\hat{\beta}_0) = \beta_0 \qquad \text{and} \qquad E(\hat{\beta}_1) = \beta_1.
 = \sum_{i=1}^{n} x_i^2 - n\bar{x}^2,
 \qquad n\bar{x} = \sum_{i=1}^{n} x_i.
 \]</span></p>
-<p>Use the variance of <span class="math inline">\(\hat{\beta}_1\)</span> to derive the variance of <span class="math inline">\(\hat{\beta}_0\)</span> and the covariance <span class="math inline">\(\mathrm{Cov}(\hat\beta_0,
-\hat\beta_1)\)</span> (exercise).</p>
 </div>
-<hr>
+<div id="exr-variance-slope" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2</strong></span> Use the variance of <span class="math inline">\(\hat{\beta}_1\)</span> to derive the variance of <span class="math inline">\(\hat{\beta}_0\)</span> and the covariance <span class="math inline">\(\mathrm{Cov}(\hat\beta_0,
+\hat\beta_1)\)</span>.</p>
+</div>
+<div id="exr-cov-ybar-beta1" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3</strong></span> Show that <span class="math inline">\(\mathrm{Cov}(\bar Y,\hat\beta_1)=0\)</span>.</p>
+</div>
 </section>
 <section id="more-about-hatbeta_1" class="level2">
 <h2 class="anchored" data-anchor-id="more-about-hatbeta_1">More About <span class="math inline">\(\hat{\beta}_1\)</span></h2>
 <p>If <span class="math inline">\(Y_i \sim \mathcal{N}(\beta_0 + \beta_1 x_i,\, \sigma^2)\)</span>, then</p>
 <p><span class="math display">\[
-\hat{\beta}_1 \sim \mathcal{N}\!\left(\beta_1,\; \frac{\sigma^2}{A}\right),
-\qquad A = \sum_{i=1}^{n}(x_i - \bar{x})^2.
+\hat{\beta}_1 \sim \mathcal{N}\!\left(\beta_1,\; \frac{\sigma^2}{\sum_{i=1}^{n}(x_i - \bar{x})^2}\right).
 \]</span></p>
-<blockquote class="blockquote">
-<p><strong>[FIGURE PLACEHOLDER — two diagrams from Wonnacott &amp; Wonnacott <em>Introductory Statistics</em>: (a) <span class="math inline">\(x\)</span>-values spread out → small <span class="math inline">\(\mathrm{Var}(\hat\beta_1)\)</span>, tight spread of estimated lines around true line; (b) <span class="math inline">\(x\)</span>-values clustered → large <span class="math inline">\(\mathrm{Var}(\hat\beta_1)\)</span>, wide spread of estimated lines]</strong></p>
-</blockquote>
-<p>The presence of <span class="math inline">\(A\)</span> in the denominator of <span class="math inline">\(\mathrm{Var}(\hat\beta_1)\)</span> has an important practical implication: if the <span class="math inline">\(x\)</span>-values are <strong>clustered</strong>, then <span class="math inline">\(A\)</span> is small, the variance of the slope estimator is large, and we cannot reliably distinguish the estimated slope from the true value.</p>
-<hr>
+<!--
+**[FIGURE PLACEHOLDER — two diagrams from Wonnacott & Wonnacott
+> *Introductory Statistics*: (a) $x$-values spread out → small
+> $\mathrm{Var}(\hat\beta_1)$, tight spread of estimated lines around
+> true line; (b) $x$-values clustered → large $\mathrm{Var}(\hat\beta_1)$,
+> wide spread of estimated lines]**
+
+The presence of $A$ in the denominator of $\mathrm{Var}(\hat\beta_1)$
+has an important practical implication: if the $x$-values are
+**clustered**, then $A$ is small, the variance of the slope estimator
+is large, and we cannot reliably distinguish the estimated slope from
+the true value.
+-->
 </section>
 <section id="inference-about-beta_1" class="level2">
 <h2 class="anchored" data-anchor-id="inference-about-beta_1">Inference About <span class="math inline">\(\beta_1\)</span></h2>
-<p>Since <span class="math inline">\(\sigma^2\)</span> is unknown, we must estimate it.</p>
-<p><strong>Step 1 — residuals and RSS.</strong> The estimated error (residual) for observation <span class="math inline">\(i\)</span> is</p>
+<section id="estimating-sigma2" class="level3">
+<h3 class="anchored" data-anchor-id="estimating-sigma2">Estimating <span class="math inline">\(\sigma^2\)</span></h3>
+<p>We need to estimate <span class="math inline">\(\sigma^2\)</span>. Define the <strong>Residual Sum of Squares</strong> using our <em>observed error</em> <span class="math inline">\(=y_i-\hat y_i\)</span>, which we call the <em>residual</em></p>
 <p><span class="math display">\[
-\hat{e}_i = Y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i.
+RSS = \sum_{i=1}^{n} \hat{e}_i^2,
+\qquad
+\hat{e}_i = = y_i-\hat y_i = y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i \quad
+(\text{estimated error / residual})
 \]</span></p>
-<p>The <strong>Residual Sum of Squares</strong> is</p>
+<p>Use</p>
 <p><span class="math display">\[
-\mathrm{RSS} = \sum_{i=1}^{n} \hat{e}_i^2.
+s^2 = \frac{RSS}{n - 2}
 \]</span></p>
-<p><strong>Step 2 — estimate <span class="math inline">\(\sigma^2\)</span>.</strong></p>
+<p>as an estimate for <span class="math inline">\(\sigma^2\)</span>. We divide by <span class="math inline">\(n-2\)</span> because we use <strong>2 estimates</strong> (<span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span>) in computing <span class="math inline">\(s\)</span>.</p>
+</section>
+<section id="confidence-interval-for-beta_1" class="level3">
+<h3 class="anchored" data-anchor-id="confidence-interval-for-beta_1">Confidence Interval for <span class="math inline">\(\beta_1\)</span></h3>
+<p>The estimated standard error of <span class="math inline">\(\hat\beta_1\)</span> is</p>
 <p><span class="math display">\[
-s^2 = \frac{\mathrm{RSS}}{n - 2}
+s_{\hat\beta_1}
+  = \frac{s}{\displaystyle\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}}
 \]</span></p>
-<p>We divide by <span class="math inline">\(n-2\)</span> because two parameters (<span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span>) were used in computing the residuals.</p>
-<p><strong>Step 3 — standard error of <span class="math inline">\(\hat\beta_1\)</span>.</strong></p>
+<p>Then</p>
 <p><span class="math display">\[
-s_{\hat{\beta}_1}
-= \frac{s}{\sqrt{A}}
-= \frac{s}{\sqrt{\displaystyle\sum_{i=1}^{n}(x_i - \bar{x})^2}}
+t = \frac{\hat{\beta}_1 - \beta_1}{s_{\hat\beta_1}}
+\sim t_{n-2}
 \]</span></p>
-<p><strong>Step 4 — <span class="math inline">\(t\)</span>-statistic.</strong></p>
+<p>A <span class="math inline">\((1-\alpha)100\%\)</span> confidence interval for <span class="math inline">\(\beta_1\)</span>:</p>
 <p><span class="math display">\[
-t = \frac{\hat{\beta}_1 - \beta_1}{s_{\hat{\beta}_1}} \sim t_{n-2}
+\boxed{\hat{\beta}_1 \pm t_{\alpha/2,\, n-2} \cdot s_{\hat\beta_1}}
 \]</span></p>
-<p><strong>Confidence interval for <span class="math inline">\(\beta_1\)</span>:</strong></p>
+</section>
+<section id="hypothesis-test-for-beta_1" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-test-for-beta_1">Hypothesis Test for <span class="math inline">\(\beta_1\)</span></h3>
+<p>To test <span class="math inline">\(H_0: \beta_1 = 0\)</span> vs <span class="math inline">\(H_1: \beta_1 \neq 0\)</span>, use</p>
 <p><span class="math display">\[
-\hat{\beta}_1 \;\pm\; t_{\alpha/2,\, n-2} \cdot s_{\hat{\beta}_1}
+t = \frac{\hat{\beta}_1 - 0}{s_{\hat\beta_1}}
 \]</span></p>
-<p><strong>Hypothesis test</strong> — to determine whether <span class="math inline">\(x\)</span> has any predictive value:</p>
-<p><span class="math display">\[
-H_0: \beta_1 = 0 \quad \text{vs} \quad H_1: \beta_1 \neq 0,
-\qquad t = \frac{\hat{\beta}_1}{s_{\hat{\beta}_1}}.
-\]</span></p>
-<p>Rejecting <span class="math inline">\(H_0\)</span> implies there is a statistically significant <strong>linear relationship</strong> between <span class="math inline">\(x\)</span> and <span class="math inline">\(Y\)</span>.</p>
-<hr>
+<p>If we <strong>reject</strong> <span class="math inline">\(H_0\)</span>, we conclude that <span class="math inline">\(x\)</span> has <strong>predictive value</strong> — i.e.&nbsp;there exists a linear relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(Y\)</span>.</p>
+</section>
 </section>
 <section id="correlation-analysis-and-the-regression-effect" class="level2">
 <h2 class="anchored" data-anchor-id="correlation-analysis-and-the-regression-effect">Correlation Analysis and the Regression Effect</h2>
 <p>Define the sample variances and covariance:</p>
 <p><span class="math display">\[
-s_{xx} = \frac{1}{n}\sum_{i=1}^{n}(x_i - \bar{x})^2,
+s_{xx} = \frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})^2,
 \qquad
-s_{yy} = \frac{1}{n}\sum_{i=1}^{n}(Y_i - \bar{Y})^2,
+s_{yy} = \frac{1}{n-1}\sum_{i=1}^{n}(y_i - \bar{y})^2,
 \qquad
-s_{xy} = \frac{1}{n}\sum_{i=1}^{n}(x_i - \bar{x})(Y_i - \bar{Y}).
+s_{xy} = \frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y}).
 \]</span></p>
 <p>The <strong>sample correlation coefficient</strong> is</p>
 <p><span class="math display">\[
-r = \frac{s_{xy}}{\sqrt{s_{xx}\, s_{yy}}}
-= \frac{1}{n}\sum_{i=1}^{n}
-\frac{x_i - \bar{x}}{\sqrt{s_{xx}}}
-\cdot
-\frac{Y_i - \bar{Y}}{\sqrt{s_{yy}}}.
+r = \frac{s_{xy}}{\sqrt{s_{x}\, s_{y}}}
+%= \frac{1}{n}\sum_{i=1}^{n}
+%\frac{x_i - \bar{x}}{\sqrt{s_{xx}}}
+%\cdot
+%\frac{Y_i - \bar{Y}}{\sqrt{s_{yy}}}.
 \]</span></p>
 <p>Note that the slope estimator can be written as</p>
 <p><span class="math display">\[
@@ -591,11 +598,17 @@ P(Y \leq y \mid x) \approx \Phi\!\left(\frac{y - \hat{E}(Y|x)}{\hat{\sigma}}\rig
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> bismuth)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Output:</strong></p>
 <div style="display:none">
-<p><span class="citation" data-cites="rice2006">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>)</span></p>
+<p><span class="citation" data-cites="rice2006 ani-notes samslides135">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-ani-notes" role="doc-biblioref">Adhikari 2012</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>)</span></p>
 </div>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-ani-notes" class="csl-entry" role="listitem">
+Adhikari, Ani. 2012. <span>“STAT 135 Notes.”</span> Notes (shared privately).
+</div>
+<div id="ref-samslides135" class="csl-entry" role="listitem">
+Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).
+</div>
 <div id="ref-rice2006" class="csl-entry" role="listitem">
 Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. Duxbury Press.
 </div>
