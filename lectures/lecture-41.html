@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Simple Linear Regression</title>
+<title>The Bayesian Approach to Estimation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -88,23 +88,353 @@ div.csl-indent {
 }</script>
 <script async="" src="”https://siteimproveanalytics.com/js/siteanalyze_6294756.js”"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
 
-<body>
+<body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-41.html">RRR Week Extra Lecture: A Brief Introduction to Bayesian Estimation</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/stat_bear.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Stat 135</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/berkeley-stat135/spring-2026" title="" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home / Schedule</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About Stat 135</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../staff.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Staff</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../calendar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Calendar</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Lectures</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 1: Syllabus &amp; Diagnostic Test</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 2: Survey Sampling, Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 3: Survey Sampling, Inference</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 4: Wrapping up Sampling</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 5: Method of Moments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 6: MoM &amp; Mathematical Digressions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 7: Standard Errors of MoM Estimators</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 8: Computing Standard Errors, continued</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 9: The Bootstrap; and Introducing Maximum Likelihood Estimation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 10: Maximum Likelihood Estimation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 11: MLE and the Multinomial Distribution</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 12: Mean Squared Error and Consistency</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 13: Consistency of the Maximum Likelihood Estimator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-14.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 14: Asymptotic Distribution of the Maximum Likelihood Estimator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-15.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 15: Proof of Asymptotic Normality, and Confidence Intervals</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-16.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 16: Efficiency</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-17.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 17: Proof of the Cramér-Rao Lower Bound</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-18.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 18: Sufficiency, and the Factorization Theorem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-19.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 19: Proof of the Factorization theorem and the Rao-Blackwell Theorem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-20.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 20: Proof of the Rao-Blackwell Theorem and Properties of Estimators</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-21.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 21: Introducing Hypotheses Tests</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-22.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 22: Testing Hypotheses: Vocabulary and Examples</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-29.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 29: Generalized Likelihood Ratio Test for the Multinomial Model</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-30.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 30: Hypothesis Tests for Categorical Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-31.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 31: Fisher’s Exact Test</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-32.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 32: The Chi-square Test for Homogeneity</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-33.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 33: The Chi-square Test for Independence</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-34.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 34: Matched-Pair Designs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-35.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 35: Two sample tests: The t-test</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-36.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 36: Power Computations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-37.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 37: Two sample tests: Nonparametric Tests</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-38.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 38: Two sample tests: Nonparametric Tests, part 2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-39.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 39: Tests for Paired Samples</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-40.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 40: Two sample tests: Simple Linear Regression</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-41.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">RRR Week Extra Lecture: A Brief Introduction to Bayesian Estimation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datasets</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">License</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#references" id="toc-references" class="nav-link active" data-scroll-target="#references">References</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#reviewing-the-frequentist-approach" id="toc-reviewing-the-frequentist-approach" class="nav-link" data-scroll-target="#reviewing-the-frequentist-approach">Reviewing the Frequentist Approach</a></li>
+  </ul></li>
+  <li><a href="#the-bayesian-approach" id="toc-the-bayesian-approach" class="nav-link" data-scroll-target="#the-bayesian-approach">The Bayesian Approach</a></li>
+  <li><a href="#the-bayesian-estimation-framework" id="toc-the-bayesian-estimation-framework" class="nav-link" data-scroll-target="#the-bayesian-estimation-framework">The Bayesian Estimation Framework</a></li>
+  <li><a href="#summary-the-bayesian-approach" id="toc-summary-the-bayesian-approach" class="nav-link" data-scroll-target="#summary-the-bayesian-approach">Summary: The Bayesian Approach</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -113,7 +443,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Simple Linear Regression</h1>
+<h1 class="title">The Bayesian Approach to Estimation</h1>
 </div>
 
 
@@ -131,16 +461,192 @@ div.csl-indent {
 
 
 <!-- ## RRR week lecture, May 4, 2026-->
-<p>[DRAFT, IN PROGRESS]</p>
-<div style="display:none">
-<p><span class="citation" data-cites="rice2006 ani-notes samslides135">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-ani-notes" role="doc-biblioref">Adhikari 2012</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>)</span></p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>This class has been all about the <strong>frequentist</strong> approach to inference — one of two major approaches to statistical inference. <strong>Bayesian inference</strong> is the other most widely used approach.</p>
+<section id="reviewing-the-frequentist-approach" class="level3">
+<h3 class="anchored" data-anchor-id="reviewing-the-frequentist-approach">Reviewing the Frequentist Approach</h3>
+<ul>
+<li>Parameters are <strong>fixed</strong> (but unknown) quantities.</li>
+<li>Any probabilistic statements we make are about the (sampled) <strong>data</strong> — that is, over all possible samples.</li>
+<li>Probability refers to <strong>limits of relative frequencies</strong>, which means our statistical procedures, such as confidence intervals, should have well-defined long-run frequency properties. For example: <em>“A 95% CI is ‘successful’, on average, 95% of the time.”</em></li>
+</ul>
+</section>
+</section>
+<section id="the-bayesian-approach" class="level2">
+<h2 class="anchored" data-anchor-id="the-bayesian-approach">The Bayesian Approach</h2>
+<p>In the Bayesian approach, probability is <strong>not</strong> a limiting frequency. Instead, it describes a <strong>“degree of belief.”</strong></p>
+<p>This really becomes about putting your money where your mouth is — for example, on a prediction market like Polymarket. Markets aggregate beliefs and assign probabilities to uncertain events:</p>
+<ul>
+<li>Arsenal will beat Atlético Madrid in the 2nd leg</li>
+<li>Bayern will beat PSG (57% is the probability; 26% is the chance of a draw; and 19% is the probability of a Bayern win)</li>
+<li>51% chance Democrats take the Senate</li>
+<li>84% chance Democrats take the House</li>
+</ul>
+<p>This framework works for all kinds of situations, but it is <strong>subjective</strong> — my beliefs may differ from yours.</p>
+<p>We use this subjective notion of probability to establish a framework for <strong>estimation</strong>.</p>
+</section>
+<section id="the-bayesian-estimation-framework" class="level2">
+<h2 class="anchored" data-anchor-id="the-bayesian-estimation-framework">The Bayesian Estimation Framework</h2>
+<p>The main steps are:</p>
+<ol type="1">
+<li><strong>Prior distribution</strong> <span class="math inline">\(f_\Theta(\theta)\)</span>: State our prior belief about a parameter <em>before</em> seeing any data.</li>
+<li><strong>Likelihood</strong> <span class="math inline">\(f_{X|\Theta}(x|\theta)\)</span>: Observe data <span class="math inline">\(X\)</span> and compute the likelihood.</li>
+<li><strong>Posterior distribution</strong> <span class="math inline">\(f_{\Theta|X}(\theta|x)\)</span>: <strong>Update</strong> our beliefs based on the data, giving us a new distribution called the posterior.</li>
+</ol>
+<p>This updating is performed via <strong>Bayes’ Theorem</strong>.</p>
+<p><strong>What prior should we use?</strong> We should express our actual beliefs. In practice, when we have no idea, we use the <strong>uniform prior</strong>.</p>
+<div id="exm-coin" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1 (Coin Tossing)</strong></span> We toss a coin <span class="math inline">\(n = 20\)</span> times and count the number of heads <span class="math inline">\(X\)</span>. Let <span class="math inline">\(\theta = P(\text{heads})\)</span>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Frequentist</th>
+<th>Bayesian</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\theta\)</span> is fixed but unknown. Figure out the distribution of <span class="math inline">\(X\)</span> given <span class="math inline">\(\theta\)</span>, and use this for inference and estimation of <span class="math inline">\(\theta\)</span>.</td>
+<td><span class="math inline">\(\theta\)</span> is unknown, so treat it as a <strong>random variable</strong> <span class="math inline">\(\Theta\)</span>. Give it a prior distribution based on current beliefs, then update with the data.</td>
+</tr>
+</tbody>
+</table>
+<section id="setting-up-the-prior" class="level4">
+<h4 class="anchored" data-anchor-id="setting-up-the-prior">Setting Up the Prior</h4>
+<p>Since we have no prior knowledge of the coin’s bias, we use the uniform prior. We treat <span class="math inline">\(\Theta\)</span> as a random variable (therefore, using a capital letter to denote it):</p>
+<p><span class="math display">\[
+\Theta \sim \text{Unif}[0, 1], \qquad \text{so } f_\Theta(\theta) = 1, \quad 0 \le \theta \le 1.
+\]</span></p>
+</section>
+<section id="setting-up-the-likelihood" class="level4">
+<h4 class="anchored" data-anchor-id="setting-up-the-likelihood">Setting Up the Likelihood</h4>
+<p>For a given value <span class="math inline">\(\theta \in [0,1]\)</span>, the conditional distribution of <span class="math inline">\(X\)</span> given <span class="math inline">\(\Theta = \theta\)</span> is Binomial:</p>
+<p><span class="math display">\[
+X \mid \Theta = \theta \;\sim\; \text{Bin}(n,\, \theta).
+\]</span></p>
+<p>Note we have two random variables: <span class="math inline">\(X\)</span> is discrete (Binomial) and <span class="math inline">\(\Theta\)</span> is continuous (Uniform). The conditional PMF of <span class="math inline">\(X\)</span> given <span class="math inline">\(\Theta = \theta\)</span> is</p>
+<p><span class="math display">\[
+f_{X|\Theta}(x|\theta) = P(X = x \mid \Theta = \theta) = \binom{n}{x}\theta^x(1-\theta)^{n-x}.
+\]</span></p>
+</section>
+<section id="joint-density" class="level4">
+<h4 class="anchored" data-anchor-id="joint-density">Joint Density</h4>
+<p>The joint density of <span class="math inline">\((X, \Theta)\)</span> is</p>
+<p><span class="math display">\[
+f_{X,\Theta}(x,\theta) = f_{X|\Theta}(x|\theta)\cdot f_\Theta(\theta) = \binom{n}{x}\theta^x(1-\theta)^{n-x} \cdot 1,
+\]</span></p>
+<p>for <span class="math inline">\(x \in \{0, 1, \ldots, n\}\)</span> and <span class="math inline">\(\theta \in [0,1]\)</span>.</p>
+</section>
+<section id="marginal-distribution-of-x" class="level4">
+<h4 class="anchored" data-anchor-id="marginal-distribution-of-x">Marginal Distribution of <span class="math inline">\(X\)</span></h4>
+<p>To find the marginal PMF of <span class="math inline">\(X\)</span>, we integrate out <span class="math inline">\(\theta\)</span> (keep in mind that what we ultimately want is <span class="math inline">\(f_{\Theta|X}\)</span>):</p>
+<p><span class="math display">\[
+f_X(x) = \int_0^1 f_{X,\Theta}(x,\theta)\,d\theta = \int_0^1 \binom{n}{x}\theta^x(1-\theta)^{n-x}\,d\theta = \binom{n}{x}\int_0^1 \theta^x(1-\theta)^{n-x}\,d\theta. \tag{$\star$}
+\]</span></p>
+<p>We evaluate this using the <strong>Beta distribution</strong>. Recall that the Beta density on <span class="math inline">\([0,1]\)</span>, for <span class="math inline">\(t \in [0,1]\)</span> and <span class="math inline">\(a, b &gt; 0\)</span>, is</p>
+<p><span class="math display">\[
+g(t) = \frac{\Gamma(a+b)}{\Gamma(a)\,\Gamma(b)}\,t^{a-1}(1-t)^{b-1}, \qquad \int_0^1 g(t)\,dt = 1,
+\]</span></p>
+<p>which implies</p>
+<p><span class="math display">\[
+\int_0^1 t^{a-1}(1-t)^{b-1}\,dt = \frac{\Gamma(a)\,\Gamma(b)}{\Gamma(a+b)}.
+\]</span></p>
+<p>Comparing with (<span class="math inline">\(\star\)</span>), we match exponents by setting <span class="math inline">\(a - 1 = x\)</span> and <span class="math inline">\(b - 1 = n - x\)</span>, i.e., <span class="math inline">\(a = x+1\)</span> and <span class="math inline">\(b = n-x+1\)</span>:</p>
+<p><span class="math display">\[
+f_X(x) = \binom{n}{x}\cdot\frac{\Gamma(x+1)\,\Gamma(n-x+1)}{\Gamma(n+2)}.
+\]</span></p>
+<p>Since <span class="math inline">\(\Gamma(k+1) = k!\)</span> for non-negative integers <span class="math inline">\(k\)</span>,</p>
+<p><span class="math display">\[
+f_X(x) = \frac{n!}{x!\,(n-x)!}\cdot\frac{x!\,(n-x)!}{(n+1)!} = \frac{1}{n+1}, \qquad x = 0, 1, \ldots, n.
+\]</span></p>
+<p>Therefore, if <span class="math inline">\(\Theta \sim \text{Unif}[0,1]\)</span>, then <span class="math inline">\(X\)</span> follows a <strong>discrete uniform distribution</strong> on <span class="math inline">\(\{0, 1, \ldots, n\}\)</span>.</p>
+</section>
+<section id="posterior-distribution-via-bayes-theorem" class="level4">
+<h4 class="anchored" data-anchor-id="posterior-distribution-via-bayes-theorem">Posterior Distribution via Bayes’ Theorem</h4>
+<p>We apply Bayes’ Theorem to find <span class="math inline">\(f_{\Theta|X}(\theta|x)\)</span>:</p>
+<p><span class="math display">\[
+f_{\Theta|X}(\theta|x) = \frac{f_{X,\Theta}(x,\theta)}{f_X(x)} = \frac{f_{X|\Theta}(x|\theta)\cdot f_\Theta(\theta)}{f_X(x)}.
+\]</span></p>
+<p>Substituting:</p>
+<p><span class="math display">\[
+f_{\Theta|X}(\theta|x) = \frac{\dbinom{n}{x}\theta^x(1-\theta)^{n-x}\cdot 1}{\dfrac{1}{n+1}} = \frac{(n+1)!}{x!\,(n-x)!}\,\theta^x(1-\theta)^{n-x}.
+\]</span></p>
+<p>We can rewrite this in terms of Gamma functions:</p>
+<p><span class="math display">\[
+f_{\Theta|X}(\theta|x) = \frac{\Gamma(n+2)}{\Gamma(x+1)\,\Gamma(n-x+1)}\,\theta^{(x+1)-1}(1-\theta)^{(n-x+1)-1},
+\]</span></p>
+<p>which is exactly the <span class="math inline">\(\text{Beta}(x+1,\, n-x+1)\)</span> density.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Posterior Distribution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
+<div class="callout-title-container flex-fill">
+Posterior Distribution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+\Theta \mid X = x \;\sim\; \text{Beta}(x+1,\; n-x+1)
+\]</span></p>
+</div>
+</div>
+<p><strong>Numerical example:</strong> Suppose <span class="math inline">\(n = 20\)</span> and we observe <span class="math inline">\(x = 13\)</span> heads. Starting from a Uniform prior:</p>
+<p><span class="math display">\[
+\text{Prior: } \Theta \sim \text{Unif}[0,1]; \qquad \text{Posterior: } \Theta \mid X = 13 \;\sim\; \text{Beta}(14,\, 8).
+\]</span></p>
+<p>(Note: <span class="math inline">\(n - x + 1 = 20 - 13 + 1 = 8\)</span>.)</p>
+</section>
+</div>
+</section>
+<section id="summary-the-bayesian-approach" class="level2">
+<h2 class="anchored" data-anchor-id="summary-the-bayesian-approach">Summary: The Bayesian Approach</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Bayesian Estimation — General Framework">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Bayesian Estimation — General Framework
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Treat the unknown parameter <span class="math inline">\(\theta\)</span> as the value of some random variable <span class="math inline">\(\Theta\)</span>.</li>
+<li>Define a <strong>prior</strong> density <span class="math inline">\(f_\Theta(\theta)\)</span>.</li>
+<li>Adjust <span class="math inline">\(f_\Theta(\theta)\)</span> based on observed data <span class="math inline">\(X\)</span> to get the <strong>posterior</strong> density <span class="math inline">\(f_{\Theta|X}(\theta|x)\)</span>.</li>
+</ul>
+<p>The key relationships are:</p>
+<p><span class="math display">\[
+f_{X,\Theta}(x,\theta) = f_{X|\Theta}(x|\theta)\cdot f_\Theta(\theta)
+\]</span></p>
+<p><span class="math display">\[
+f_X(x) = \int f_{X,\Theta}(x,\theta)\,d\theta = \int f_{X|\Theta}(x|\theta)\,f_\Theta(\theta)\,d\theta \qquad \text{(marginal likelihood)}
+\]</span></p>
+<p><span class="math display">\[
+f_{\Theta|X}(\theta|x) = \frac{f_{X,\Theta}(x,\theta)}{f_X(x)} = \frac{f_{X|\Theta}(x|\theta)\cdot f_\Theta(\theta)}{\displaystyle\int f_{X|\Theta}(x|\theta)\,f_\Theta(\theta)\,d\theta}
+\]</span></p>
+<p>Since <span class="math inline">\(f_X(x)\)</span> is a constant with respect to <span class="math inline">\(\theta\)</span>, we have the fundamental result:</p>
+<p><span class="math display">\[
+\boxed{f_{\Theta|X}(\theta|x) \;\propto\; f_{X|\Theta}(x|\theta)\cdot f_\Theta(\theta)}
+\]</span></p>
+<p><span class="math display">\[
+\text{posterior} \;\propto\; \text{likelihood} \times \text{prior}
+\]</span></p>
+</div>
+</div>
+<div style="display:none">
+<p><span class="citation" data-cites="rice2006 samslides135">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>)</span></p>
+</div>
+</section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-ani-notes" class="csl-entry" role="listitem">
-Adhikari, Ani. 2012. <span>“STAT 135 Notes.”</span> Notes (shared privately).
-</div>
 <div id="ref-samslides135" class="csl-entry" role="listitem">
 Pimentel, Sam. 2024. <span>“STAT 135 Lecture Slides.”</span> Lecture slides (shared privately).
 </div>
