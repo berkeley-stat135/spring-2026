@@ -155,12 +155,306 @@ window.Quarto = {
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
 
-<body>
+<body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/lecture-40.html">Lecture 40: Two sample tests: Simple Linear Regression</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/stat_bear.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Stat 135</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/berkeley-stat135/spring-2026" title="" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home / Schedule</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About Stat 135</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../staff.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Staff</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../calendar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Calendar</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Lectures</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 1: Syllabus &amp; Diagnostic Test</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 2: Survey Sampling, Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 3: Survey Sampling, Inference</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 4: Wrapping up Sampling</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 5: Method of Moments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 6: MoM &amp; Mathematical Digressions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 7: Standard Errors of MoM Estimators</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 8: Computing Standard Errors, continued</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 9: The Bootstrap; and Introducing Maximum Likelihood Estimation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 10: Maximum Likelihood Estimation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 11: MLE and the Multinomial Distribution</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 12: Mean Squared Error and Consistency</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 13: Consistency of the Maximum Likelihood Estimator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-14.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 14: Asymptotic Distribution of the Maximum Likelihood Estimator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-15.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 15: Proof of Asymptotic Normality, and Confidence Intervals</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-16.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 16: Efficiency</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-17.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 17: Proof of the Cramér-Rao Lower Bound</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-18.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 18: Sufficiency, and the Factorization Theorem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-19.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 19: Proof of the Factorization theorem and the Rao-Blackwell Theorem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-20.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 20: Proof of the Rao-Blackwell Theorem and Properties of Estimators</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-21.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 21: Introducing Hypotheses Tests</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-22.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 22: Testing Hypotheses: Vocabulary and Examples</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-29.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 29: Generalized Likelihood Ratio Test for the Multinomial Model</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-30.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 30: Hypothesis Tests for Categorical Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-31.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 31: Fisher’s Exact Test</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-32.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 32: The Chi-square Test for Homogeneity</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-33.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 33: The Chi-square Test for Independence</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-34.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 34: Matched-Pair Designs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-35.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 35: Two sample tests: The t-test</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-36.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 36: Power Computations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-37.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 37: Two sample tests: Nonparametric Tests</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-38.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 38: Two sample tests: Nonparametric Tests, part 2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-39.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 39: Tests for Paired Samples</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-40.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Lecture 40: Two sample tests: Simple Linear Regression</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture-41 s.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RRR Week Extra Lecture: A Brief Introduction to Bayesian Estimation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datasets</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">License</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -187,9 +481,11 @@ window.Quarto = {
   <li><a href="#confidence-interval-for-beta_1" id="toc-confidence-interval-for-beta_1" class="nav-link" data-scroll-target="#confidence-interval-for-beta_1">Confidence Interval for <span class="math inline">\(\beta_1\)</span></a></li>
   <li><a href="#hypothesis-test-for-beta_1" id="toc-hypothesis-test-for-beta_1" class="nav-link" data-scroll-target="#hypothesis-test-for-beta_1">Hypothesis Test for <span class="math inline">\(\beta_1\)</span></a></li>
   </ul></li>
-  <li><a href="#correlation-analysis-and-the-regression-effect" id="toc-correlation-analysis-and-the-regression-effect" class="nav-link" data-scroll-target="#correlation-analysis-and-the-regression-effect">Correlation Analysis and the Regression Effect</a></li>
-  <li><a href="#notes-and-cautions" id="toc-notes-and-cautions" class="nav-link" data-scroll-target="#notes-and-cautions">Notes and Cautions</a></li>
-  <li><a href="#regression-in-r-problem-14.36" id="toc-regression-in-r-problem-14.36" class="nav-link" data-scroll-target="#regression-in-r-problem-14.36">Regression in R: Problem 14.36</a></li>
+  <li><a href="#correlation-analysis-and-regression" id="toc-correlation-analysis-and-regression" class="nav-link" data-scroll-target="#correlation-analysis-and-regression">Correlation Analysis and Regression</a></li>
+  <li><a href="#regression-in-r" id="toc-regression-in-r" class="nav-link" data-scroll-target="#regression-in-r">Regression in R</a></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
+  <li><a href="#cautions" id="toc-cautions" class="nav-link" data-scroll-target="#cautions">Cautions</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -480,8 +776,7 @@ E(\hat{\beta}_0) = \beta_0 \qquad \text{and} \qquad E(\hat{\beta}_1) = \beta_1.
 <p>If <span class="math inline">\(Y_i \sim \mathcal{N}(\beta_0 + \beta_1 x_i,\, \sigma^2)\)</span>, then</p>
 <p><span class="math display">\[
 \hat{\beta}_1 \sim \mathcal{N}\!\left(\beta_1,\; \frac{\sigma^2}{\sum_{i=1}^{n}(x_i - \bar{x})^2}\right).
-\]</span></p>
-<!--
+\]</span> Now, if the <span class="math inline">\(x_i\)</span> values are clustered together, the denominator becomes small, which causes the variance of the slope estimate (<span class="math inline">\(\mathrm{Var}\hat\beta_1\)</span>) to be large. The estimate is not precise, and this will make the confidence intervals for the slope to be wider, and unreliable predicted values <span class="math inline">\(\hat Y\)</span>. The data becomes noisy - small changes in the sample can lead to very different slope estimates. Note that there are other reasons that make the variance large, but we if can control the <span class="math inline">\(x_i\)</span> values, we should spread them out to reduce the variance of our estimate. <!--
 **[FIGURE PLACEHOLDER — two diagrams from Wonnacott & Wonnacott
 > *Introductory Statistics*: (a) $x$-values spread out → small
 > $\mathrm{Var}(\hat\beta_1)$, tight spread of estimated lines around
@@ -493,55 +788,55 @@ has an important practical implication: if the $x$-values are
 **clustered**, then $A$ is small, the variance of the slope estimator
 is large, and we cannot reliably distinguish the estimated slope from
 the true value.
--->
+--></p>
 </section>
 <section id="inference-about-beta_1" class="level2">
 <h2 class="anchored" data-anchor-id="inference-about-beta_1">Inference About <span class="math inline">\(\beta_1\)</span></h2>
 <section id="estimating-sigma2" class="level3">
 <h3 class="anchored" data-anchor-id="estimating-sigma2">Estimating <span class="math inline">\(\sigma^2\)</span></h3>
-<p>We need to estimate <span class="math inline">\(\sigma^2\)</span>. Define the <strong>Residual Sum of Squares</strong> using our <em>observed error</em> <span class="math inline">\(=y_i-\hat y_i\)</span>, which we call the <em>residual</em></p>
+<p>We need to estimate <span class="math inline">\(\sigma^2\)</span>. Define the <strong>Residual Sum of Squares</strong> using our <em>observed error</em> <span class="math inline">\(=y_i-\hat y_i\)</span>, which we call the <em>residual</em>.</p>
 <p><span class="math display">\[
 RSS = \sum_{i=1}^{n} \hat{e}_i^2,
 \qquad
 \hat{e}_i = = y_i-\hat y_i = y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i \quad
 (\text{estimated error / residual})
 \]</span></p>
-<p>Use</p>
-<p><span class="math display">\[
+<p><strong>Fact</strong>: <span class="math inline">\(s^2\)</span> is an unbiased estimator of <span class="math inline">\(\sigma^2\)</span>, where we define <span class="math inline">\(s^2\)</span> as: <span class="math display">\[
 s^2 = \frac{RSS}{n - 2}
 \]</span></p>
-<p>as an estimate for <span class="math inline">\(\sigma^2\)</span>. We divide by <span class="math inline">\(n-2\)</span> because we use <strong>2 estimates</strong> (<span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span>) in computing <span class="math inline">\(s\)</span>.</p>
+<p>We divide by <span class="math inline">\(n-2\)</span> because we use <em>two</em> estimates (<span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span>) in computing <span class="math inline">\(s\)</span>.</p>
 </section>
 <section id="confidence-interval-for-beta_1" class="level3">
 <h3 class="anchored" data-anchor-id="confidence-interval-for-beta_1">Confidence Interval for <span class="math inline">\(\beta_1\)</span></h3>
-<p>The estimated standard error of <span class="math inline">\(\hat\beta_1\)</span> is</p>
+<p>The estimated standard error of <span class="math inline">\(\hat\beta_1\)</span> (using our estimate of <span class="math inline">\(\sigma\)</span>) is</p>
 <p><span class="math display">\[
 s_{\hat\beta_1}
   = \frac{s}{\displaystyle\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}}
 \]</span></p>
-<p>Then</p>
+<p>Then we can define the standardized statistic <span class="math inline">\(T\)</span>, which, since <span class="math inline">\(\hat \beta_1\)</span> is normally distributed, has a <span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(n-2\)</span> degrees of freedom.</p>
 <p><span class="math display">\[
-t = \frac{\hat{\beta}_1 - \beta_1}{s_{\hat\beta_1}}
+T = \frac{\hat{\beta}_1 - \beta_1}{s_{\hat\beta_1}}
 \sim t_{n-2}
 \]</span></p>
-<p>A <span class="math inline">\((1-\alpha)100\%\)</span> confidence interval for <span class="math inline">\(\beta_1\)</span>:</p>
-<p><span class="math display">\[
-\boxed{\hat{\beta}_1 \pm t_{\alpha/2,\, n-2} \cdot s_{\hat\beta_1}}
+<p>Putting all of these pieces together, we can write down a <span class="math inline">\((1-\alpha)100\%\)</span> confidence interval for <span class="math inline">\(\beta_1\)</span>, the <em>true</em> slope: <span class="math display">\[
+\hat{\beta}_1 \pm t_{\alpha/2,\, n-2} \cdot s_{\hat\beta_1}
 \]</span></p>
 </section>
 <section id="hypothesis-test-for-beta_1" class="level3">
 <h3 class="anchored" data-anchor-id="hypothesis-test-for-beta_1">Hypothesis Test for <span class="math inline">\(\beta_1\)</span></h3>
-<p>To test <span class="math inline">\(H_0: \beta_1 = 0\)</span> vs <span class="math inline">\(H_1: \beta_1 \neq 0\)</span>, use</p>
-<p><span class="math display">\[
-t = \frac{\hat{\beta}_1 - 0}{s_{\hat\beta_1}}
+<p>We test if there is really some relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> by testing if the slope of the regression line is different from <span class="math inline">\(0\)</span>. Our hypotheses are: <span class="math display">\[
+H_0: \beta_1 = 0 \:\mathrm{ against }\: H_1: \beta_1 \neq 0,
+\]</span> using the test statistic <span class="math inline">\(T\)</span> given by: <span class="math display">\[
+T = \frac{\hat{\beta}_1 - 0}{s_{\hat\beta_1}}
 \]</span></p>
-<p>If we <strong>reject</strong> <span class="math inline">\(H_0\)</span>, we conclude that <span class="math inline">\(x\)</span> has <strong>predictive value</strong> — i.e.&nbsp;there exists a linear relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(Y\)</span>.</p>
+<p>If we <em>reject</em> <span class="math inline">\(H_0\)</span>, we conclude that <span class="math inline">\(x\)</span> has <strong>predictive value</strong> — i.e.&nbsp;there exists a linear relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(Y\)</span>.</p>
 </section>
 </section>
-<section id="correlation-analysis-and-the-regression-effect" class="level2">
-<h2 class="anchored" data-anchor-id="correlation-analysis-and-the-regression-effect">Correlation Analysis and the Regression Effect</h2>
-<p>Define the sample variances and covariance:</p>
-<p><span class="math display">\[
+<section id="correlation-analysis-and-regression" class="level2">
+<h2 class="anchored" data-anchor-id="correlation-analysis-and-regression">Correlation Analysis and Regression</h2>
+<p>We talked about the <em>regression effect</em> observed by Galton, in which he found that sons of fathers <em>taller</em> than average tended to be smaller than their father, while sons of fathers <em>smaller</em> than average tended to be taller. That is, in a test-retest situation, if the test value is above average, the <em>retest</em> value tended to be <em>closer</em> to average.</p>
+<p>We can see this easily by writing the slope of the regression line in terms of the sample correlation and the standard deviations of the sample data.</p>
+<p>First, let’s recall the sample variances and covariance: <span class="math display">\[
 s_{xx} = \frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})^2,
 \qquad
 s_{yy} = \frac{1}{n-1}\sum_{i=1}^{n}(y_i - \bar{y})^2,
@@ -550,7 +845,7 @@ s_{xy} = \frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y}).
 \]</span></p>
 <p>The <strong>sample correlation coefficient</strong> is</p>
 <p><span class="math display">\[
-r = \frac{s_{xy}}{\sqrt{s_{x}\, s_{y}}}
+r = \frac{s_{xy}}{\sqrt{s_{xx}\, s_{yy}}}
 %= \frac{1}{n}\sum_{i=1}^{n}
 %\frac{x_i - \bar{x}}{\sqrt{s_{xx}}}
 %\cdot
@@ -564,42 +859,108 @@ r = \frac{s_{xy}}{\sqrt{s_{x}\, s_{y}}}
 = \frac{r\sqrt{s_{xx}\,s_{yy}}}{s_{xx}}
 = r\sqrt{\frac{s_{yy}}{s_{xx}}}.
 \]</span></p>
-<p>The fitted line can therefore be rewritten in the symmetric form (§14.2.3):</p>
+<p>The fitted line can therefore be rewritten as:</p>
 <p><span class="math display">\[
 \hat{Y} - \bar{Y} = r \cdot \sqrt{\frac{s_{yy}}{s_{xx}}} \cdot (x - \bar{x})
 \]</span></p>
 <p>This exhibits the <strong>regression effect</strong> (“regression to mediocrity”): since <span class="math inline">\(|r| \leq 1\)</span>, the regression line is always <em>flatter</em> than the SD line. A father who is 1 SD above the mean in height will have a son predicted to be only <span class="math inline">\(r\)</span> SDs above the mean — not a full SD.</p>
-<hr>
 </section>
-<section id="notes-and-cautions" class="level2">
-<h2 class="anchored" data-anchor-id="notes-and-cautions">Notes and Cautions</h2>
-<p>Since one assumption of the SLR model is that <span class="math inline">\(Y \mid x\)</span> is normal, we can make probability statements:</p>
+<section id="regression-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="regression-in-r">Regression in R</h2>
+<div id="exm-bismuth" class="theorem example">
+<p><span class="theorem-title"><strong>Example 4 (Regressing the bismuth II–I transition pressure on temperature)</strong></span> Problem 36 of the text states that the dataset <code>bismuth</code> contains the transition pressure (bar) of the bismuth II–I transition as a function of temperature (°C). Fit a linear relationship between pressure and temperature, examine the residuals, and comment.</p>
+<p>To perform a linear regression in <code>R</code>, we use the function <code>lm()</code>, as shown, and then use the function <code>summary()</code> to see the result:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fit_bismuth <span class="ot">&lt;-</span> <span class="fu">lm</span>(pressure <span class="sc">~</span> temperature, <span class="at">data =</span> bismuth)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>bismuth <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"bismuth.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>fit_bismuth <span class="ot">&lt;-</span> <span class="fu">lm</span>(pressure <span class="sc">~</span> temperature, <span class="at">data =</span> bismuth)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_bismuth)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = pressure ~ temperature, data = bismuth)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-73.902 -12.314   2.174  17.727  37.376 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 26067.9955    16.1690 1612.22   &lt;2e-16 ***
+temperature   -39.8736     0.5042  -79.08   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 25.31 on 21 degrees of freedom
+Multiple R-squared:  0.9967,    Adjusted R-squared:  0.9965 
+F-statistic:  6254 on 1 and 21 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Let’s take a closer look at this output, and indicate the quantities we know. I have “x-ed” out the quantities that do not concern us at this time. <img src="images/lm-bismuth-annotated.png" class="img-fluid quarto-figure quarto-figure-center" style="width:60.0%" alt="Annotated output from lm()"></p>
+<p>The slope is estimated as <span class="math inline">\(\hat\beta_1 \approx -39.87\)</span>, and is highly significant (the <span class="math inline">\(p\)</span>-value is shown to be approximately 0 for testing if the slope is 0). We see that the intercept estimate is just over 26,000, and it also appears to be significant (though the slope is more important). The value of <span class="math inline">\(R^2 = 0.997\)</span> indicates that temperature explains about <span class="math inline">\(99.67\%\)</span> of the variability in transition pressure. Note, however, that the residuals should be plotted to verify model assumptions.</p>
+<section id="residual-plots" class="level4">
+<h4 class="anchored" data-anchor-id="residual-plots">Residual plots</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">fitted</span>(fit_bismuth), <span class="at">e =</span> <span class="fu">resid</span>(fit_bismuth)),</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> e)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted values"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Residual Plot for Bismuth data"</span>) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lecture-40_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>When we look at the residual plot to see if our assumptions are valid, we see that the variability of the residuals does <em>not</em> appear to be constant and appears to be greater for higher fitted values of pressure (and therefore for lower temperatures). It might be that sets of readings were collected at different temperatures, which would imply that the data, and therefore the errors are not independent. Our estimates, therefore, are <em>not</em> reliable.</p>
+</section>
+</div>
+</section>
+<section id="notes" class="level2">
+<h2 class="anchored" data-anchor-id="notes">Notes</h2>
+<ul>
+<li>Since one assumption of the simple linear regression model is that <span class="math inline">\(Y\)</span> is <strong>Normal</strong> for fixed <span class="math inline">\(x\)</span>, and <strong>homoscedastic</strong> (the variance of <span class="math inline">\(Y\)</span> is the <strong>same</strong> for every <span class="math inline">\(x\)</span>), we can make probability statements:</li>
+</ul>
 <p><span class="math display">\[
 P(Y \leq y \mid x) \approx \Phi\!\left(\frac{y - \hat{E}(Y|x)}{\hat{\sigma}}\right).
 \]</span></p>
-<p><span class="math inline">\(r^2\)</span> (or <span class="math inline">\(R^2\)</span>) is the <strong>coefficient of determination</strong> — the proportion of variability in the response explained by the model.</p>
-<p><strong>Common pitfalls:</strong></p>
 <ul>
-<li><strong>Regression fallacy:</strong> Do not impute important causes to the regression effect (e.g., the Sports Illustrated cover jinx, test–retest regression).</li>
-<li><strong>Extrapolation:</strong> Do not predict beyond the range of the observed <span class="math inline">\(x\)</span>-values.</li>
-<li><strong>Outliers:</strong> Re-run the regression with and without outliers to assess their influence.</li>
-<li><strong>Nonlinearity:</strong> Do not fit a straight line to a clearly nonlinear relationship.</li>
-<li><strong>Homoscedasticity:</strong> The SLR model assumes the error variance <span class="math inline">\(\sigma^2\)</span> is <strong>constant</strong> (does not depend on <span class="math inline">\(x\)</span>). If the data are <em>heteroscedastic</em>, estimated standard errors and confidence intervals will be unreliable.</li>
-<li><strong>Two regression lines:</strong> Note that the regression of <span class="math inline">\(Y\)</span> on <span class="math inline">\(x\)</span> and the regression of <span class="math inline">\(x\)</span> on <span class="math inline">\(Y\)</span> give different lines (they coincide only when <span class="math inline">\(|r| = 1\)</span>).</li>
+<li><p><span class="math inline">\(R^2\)</span>, seen in the output of <code>lm()</code> is the <strong>coefficient of determination</strong> — the proportion of variability in the response explained by the model, that is, by its linear relationship with <span class="math inline">\(x\)</span>. Note that for <em>simple</em> linear regression, <span class="math inline">\(R^2\)</span> is the same as <span class="math inline">\(r^2\)</span>, the square of the correlation coefficient.</p></li>
+<li><p>Note that there are <strong>two</strong> regression lines (regressing <span class="math inline">\(Y\)</span> on <span class="math inline">\(x\)</span> vs.&nbsp;regressing <span class="math inline">\(X\)</span> on <span class="math inline">\(y\)</span>). These lines will have <em>different</em> slopes and intercepts and will need to be interpreted differently. Their slopes are not <em>just</em> reciprocals of each other.</p></li>
 </ul>
-<p>Always examine <strong>residual plots</strong> (<span class="math inline">\(\hat{e}_i\)</span> vs <span class="math inline">\(x_i\)</span>) — they reveal nonlinearity, outliers, and heteroscedasticity far more clearly than the original scatter plot. Refer to Philip Stark’s online text <em>SticiGui</em> for more details.</p>
-<hr>
 </section>
-<section id="regression-in-r-problem-14.36" class="level2">
-<h2 class="anchored" data-anchor-id="regression-in-r-problem-14.36">Regression in R: Problem 14.36</h2>
-<div class="example">
-<p>The dataset <code>bismuth</code> contains the transition pressure (bar) of the bismuth II–I transition as a function of temperature (°C). Fit a linear model and examine residuals.</p>
-<p>In R:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> bismuth)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Output:</strong></p>
+<section id="cautions" class="level2">
+<h2 class="anchored" data-anchor-id="cautions">Cautions</h2>
+<ul>
+<li><strong>Regression fallacy:</strong> Do not impute important cause to the regression effect. This is an example of a fallacy, and a well-known example is the <a href="https://en.wikipedia.org/wiki/Sports_Illustrated_cover_jinx">Sports Illustrated cover jinx</a>.</li>
+<li><strong>Extrapolation:</strong> Do not predict beyond the range of the observed <span class="math inline">\(x\)</span>-values. Here is an <a href="https://xkcd.com/605">xkcd</a> cartoon to drive home the point:</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/xkcd-extrapolating.png" class="img-fluid figure-img"></p>
+<figcaption>xkcd comic showing the perils of extrapolating too far</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Outliers:</strong> Re-run the regression with and without outliers to assess their influence.</li>
+<li><strong>Nonlinearity:</strong> Do not fit a straight line to a clearly nonlinear relationship. This means you had better <em>look</em> at the data first! You might need to transform the data to obtain linearity, as we saw in class.</li>
+<li><strong>Homoscedasticity:</strong> The linear regression model assumes the error variance <span class="math inline">\(\sigma^2\)</span> is <em>constant</em> (does not depend on <span class="math inline">\(x\)</span>). If the data are <em>heteroscedastic</em> (the variance is not constant), estimated standard errors and confidence intervals will be unreliable.</li>
+<li>Always examine the <em>residual plots</em> (<span class="math inline">\(\hat{e}\)</span> against <span class="math inline">\(x\)</span>) in <code>R</code>. They reveal nonlinearity, outliers, and heteroscedasticity far more clearly than the original scatter plot. Philip Stark’s online statistics text <a href="https://www.stat.berkeley.edu/~stark/SticiGui/index.htm"><em>SticiGui</em></a> has an excellent chapter on <a href="https://www.stat.berkeley.edu/~stark/SticiGui/Text/regressionDiagnostics.htm">regression diagnostics</a>, which is worth reading.</li>
+</ul>
 <div style="display:none">
 <p><span class="citation" data-cites="rice2006 ani-notes samslides135">(<a href="#ref-rice2006" role="doc-biblioref">Rice 2006</a>; <a href="#ref-ani-notes" role="doc-biblioref">Adhikari 2012</a>; <a href="#ref-samslides135" role="doc-biblioref">Pimentel 2024</a>)</span></p>
 </div>
+</section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
@@ -615,8 +976,6 @@ Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. 3rd ed. 
 </div>
 
 
-</section>
-</div>
 </section>
 
 </main> <!-- /main -->
