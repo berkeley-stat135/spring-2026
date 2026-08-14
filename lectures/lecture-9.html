@@ -92,7 +92,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-d266f0395a896eb134e4062966d4cfbb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a2a90f697de2a99d0b4ff693e86c0ba9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -575,7 +575,7 @@ Warning
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1]
 [1,]  2.6
-[2,]  3.4</code></pre>
+[2,]  3.0</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">$</span>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -614,12 +614,12 @@ Warning
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(boot_np_new<span class="sc">$</span>t) <span class="do">## the first six bootstrap values of theta_hat</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          [,1]     [,2]
-[1,] 0.2779536 1.341800
-[2,] 0.3961409 1.806210
-[3,] 0.4200067 1.906335
-[4,] 0.3071172 1.159106
-[5,] 0.3149318 1.583133
-[6,] 0.4340809 1.855850</code></pre>
+[1,] 0.3813349 1.713712
+[2,] 0.3307554 1.334782
+[3,] 0.3792721 1.551509
+[4,] 0.3668707 1.470644
+[5,] 0.3843194 1.633167
+[6,] 0.4344454 1.656211</code></pre>
 </div>
 </div>
 <p>Let’s compute the confidence intervals using the very convenient function <code>boot.ci()</code> that takes as input the object returned by <code>boot()</code>. So we will input <code>boot_np_new</code> into <code>boot.ci()</code>. We specify the <strong>type</strong> of intervals we want, and <code>index=1</code> indicates which column of the output matrix <code>boot_np_new</code> we should consider. Let’s first compute the percentile and basic intervals for <span class="math inline">\(\alpha\)</span>:</p>
@@ -635,7 +635,7 @@ boot.ci(boot.out = boot_np_new, type = c("perc", "basic"), index = 1)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.2658,  0.4527 )   ( 0.3031,  0.4900 )  
+95%   ( 0.2686,  0.4529 )   ( 0.3029,  0.4873 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -652,7 +652,7 @@ boot.ci(boot.out = boot_np_new, type = c("perc", "basic"), index = 2)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 1.020,  2.024 )   ( 1.344,  2.349 )  
+95%   ( 1.017,  2.039 )   ( 1.330,  2.352 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -714,7 +714,7 @@ boot.ci(boot.out = boot_par, type = c("perc", "basic"), index = 1)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.2300,  0.4851 )   ( 0.2707,  0.5258 )  
+95%   ( 0.2294,  0.4823 )   ( 0.2736,  0.5264 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -735,7 +735,7 @@ boot.ci(boot.out = boot_par, type = c("perc", "basic"), index = 2)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.836,  2.207 )   ( 1.161,  2.532 )  
+95%   ( 0.827,  2.207 )   ( 1.161,  2.541 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
