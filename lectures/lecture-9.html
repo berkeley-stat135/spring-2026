@@ -619,12 +619,12 @@ Warning
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(boot_np_new<span class="sc">$</span>t) <span class="do">## the first six bootstrap values of theta_hat</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          [,1]     [,2]
-[1,] 0.3183983 1.511237
-[2,] 0.3764131 1.648418
-[3,] 0.3712942 1.480143
-[4,] 0.3354643 1.704503
-[5,] 0.3280862 1.377163
-[6,] 0.5167722 2.101001</code></pre>
+[1,] 0.3704897 1.587264
+[2,] 0.4063453 1.691770
+[3,] 0.3508116 1.532105
+[4,] 0.3682338 1.498093
+[5,] 0.4546050 1.885776
+[6,] 0.3455535 1.663888</code></pre>
 </div>
 </div>
 <p>Let’s compute the confidence intervals using the very convenient function <code>boot.ci()</code> that takes as input the object returned by <code>boot()</code>. So we will input <code>boot_np_new</code> into <code>boot.ci()</code>. We specify the <strong>type</strong> of intervals we want, and <code>index=1</code> indicates which column of the output matrix <code>boot_np_new</code> we should consider. Let’s first compute the percentile and basic intervals for <span class="math inline">\(\alpha\)</span>:</p>
@@ -640,7 +640,7 @@ boot.ci(boot.out = boot_np_new, type = c("perc", "basic"), index = 1)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.2656,  0.4535 )   ( 0.3024,  0.4902 )  
+95%   ( 0.2685,  0.4532 )   ( 0.3026,  0.4873 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -657,7 +657,7 @@ boot.ci(boot.out = boot_np_new, type = c("perc", "basic"), index = 2)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 1.003,  2.022 )   ( 1.346,  2.365 )  
+95%   ( 1.016,  2.032 )   ( 1.336,  2.352 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -719,7 +719,7 @@ boot.ci(boot.out = boot_par, type = c("perc", "basic"), index = 1)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.2301,  0.4840 )   ( 0.2719,  0.5257 )  
+95%   ( 0.2276,  0.4831 )   ( 0.2728,  0.5282 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -740,7 +740,7 @@ boot.ci(boot.out = boot_par, type = c("perc", "basic"), index = 2)
 
 Intervals : 
 Level      Basic              Percentile     
-95%   ( 0.826,  2.202 )   ( 1.166,  2.543 )  
+95%   ( 0.828,  2.210 )   ( 1.158,  2.541 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
